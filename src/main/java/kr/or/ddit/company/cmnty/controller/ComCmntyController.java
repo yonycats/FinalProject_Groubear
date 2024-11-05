@@ -415,7 +415,11 @@ public class ComCmntyController {
 			model.addAttribute("employeeAllVO", employeeAllVO);
 		
 			CmntyVO cmntyVO = cmntyService.qstnSelectOne(cmntyNo);
-			cmntyVO.setCmntCn(cmntyVO.getCmntCn().replace("\n","<br>"));
+			
+			if (cmntyVO.getCmntCn().contains("\n")) {
+				cmntyVO.setCmntCn(cmntyVO.getCmntCn().replace("\n","<br>"));
+			}
+			
 			model.addAttribute("cmntyVO", cmntyVO);
 			
 			goPage = "company/cmnty/cmntyQstnDetail";

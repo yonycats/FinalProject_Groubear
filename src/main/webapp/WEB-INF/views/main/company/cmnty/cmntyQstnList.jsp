@@ -47,8 +47,8 @@ a:hover {
 	<div style="height: 100%;">
  
 		<!-- Q&A 메뉴 시작 -->
-        <div class="card card-flush mb-5" style="height: 70px;">
-            <div class="card-body d-flex" style="padding: 1em; align-items: center;">  
+        <div class="card card-flush mb-5" style="height: 90px;">
+            <div class="card-body d-flex fs-3" style="padding: 1em; align-items: center;">   
  
                    <div class="menu-item">
                     <div class="menu-link py-3 divHover clickBackColor position-relative ms-5" onclick="f_cmntyQstnKndBtn('All')">
@@ -89,7 +89,7 @@ a:hover {
                    </div>
                    
                    	<div style="width: 60%">
-						<button type="button" class="btn btn-flex btn-primary ms-1 py-3 px-5 float-end" onclick="location.href='/company/cmntyQstnInsert.do'" style="margin-top: 0.5em;">
+						<button type="button" class="btn btn-flex btn-primary ms-1 py-3 px-5 float-end btn-lg" onclick="location.href='/company/cmntyQstnInsert.do'" style="margin-top: 0.5em;">
 							문의하기 
 						</button>
 					</div>
@@ -99,51 +99,49 @@ a:hover {
 
         <div class="p-0 mb-2" style="height: 85%">  
 	        <div class="card card-flush" style="height: 95%">
-				<!--begin::Card header-->
 				<div class="card-header align-items-center">
-					<!--begin::Card title-->
-					<div class="card-title" style="width: 100%"> 
-						<!--begin::Search-->
-						<div class="d-flex align-items-center position-relative my-1" style="width: 25%">
+					<div class="card-title" style="width: 100%; justify-content: space-between"> 
+						<div class="d-flex">
+							<div class="d-flex align-items-center position-relative my-1">
 						
-		                 	<form id="searchForm" style="display: contents;">
-		                        <input type="hidden" name="page" id="page">
-		                        <input type="hidden" name="cmntyType" id="cmntyType">
-		                        <input type="hidden" name="empId" id="empId">
-							    <input id="myInput" name="searchWord" type="text" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid ps-5" style="margin-top: 0.5em;" placeholder="게시글 검색" value="${searchWord }"/>
-		                   		<button id="searchBtn" type="button" class="btn btn-flex btn-light-success ms-1 py-3 px-3" style="margin-top: 0.5em;">
-		                  			<i class="ki-duotone ki-magnifier fs-2x">
-									 <span class="path1" style="height: 1.1em;"></span> 
-									 <span class="path2"></span>
-									</i>
-								</button>
-		                     </form>
+			                 	<form id="searchForm" style="display: contents;">
+			                        <input type="hidden" name="page" id="page">
+			                        <input type="hidden" name="cmntyType" id="cmntyType">
+			                        <input type="hidden" name="empId" id="empId">
+								    <input id="myInput" name="searchWord" type="text" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid ps-5" style="margin-top: 0.5em;" placeholder="게시글 검색" value="${searchWord }"/>
+			                   		<button id="searchBtn" type="button" class="btn btn-flex btn-light-success ms-1 py-3 px-3" style="margin-top: 0.5em;">
+			                  			<i class="ki-duotone ki-magnifier fs-2x">
+										 <span class="path1" style="height: 1.1em;"></span> 
+										 <span class="path2"></span>
+										</i>
+									</button>
+			                     </form>
 		                          
+							</div>
+							
+							<c:choose>
+								<c:when test="${empty cmntyType }">
+									<div>
+										<div class="form-check form-check-sm form-check-custom form-check-solid ms-10 mt-7" style="display: flex; justify-content: center;">
+											<c:choose>
+												<c:when test="${empty empId }">
+													<input class="form-check-input me-3" type="checkbox" onclick="f_cmntyMyQstnBtn('${employeeVO.empId}', this)" />
+												</c:when>
+												<c:otherwise>
+													<input class="form-check-input me-3" type="checkbox" checked="checked" onclick="f_cmntyMyQstnBtn('${employeeVO.empId}', this)" />
+												</c:otherwise>
+											</c:choose>
+											<div class="text-start text-gray-500 fw-bold fs-5 text-uppercase gs-0 text-center">내 글만 보기</div>  
+										</div>
+									</div> 
+								</c:when> 
+								<c:otherwise>
+									<div style="width: 15%">
+									</div> 
+								</c:otherwise>
+							</c:choose>
 						</div>
-						<!--end::Search-->
-						
-						<c:choose>
-							<c:when test="${empty cmntyType }">
-								<div style="width: 15%">
-									<div class="form-check form-check-sm form-check-custom form-check-solid ms-10" style="display: flex; justify-content: center;">
-										<c:choose>
-											<c:when test="${empty empId }">
-												<input class="form-check-input me-3" type="checkbox" onclick="f_cmntyMyQstnBtn('${employeeVO.empId}', this)" />
-											</c:when>
-											<c:otherwise>
-												<input class="form-check-input me-3" type="checkbox" checked="checked" onclick="f_cmntyMyQstnBtn('${employeeVO.empId}', this)" />
-											</c:otherwise>
-										</c:choose>
-										<div class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0 text-center">내 글만 보기</div>  
-									</div>
-								</div> 
-							</c:when>
-							<c:otherwise>
-								<div style="width: 15%">
-								</div> 
-							</c:otherwise>
-						</c:choose>
-						
+												
 						 
 	 				   <c:set value="" var="qstnCountAll"/>
 	 				   <c:set value="" var="qstnCountService"/>
@@ -169,25 +167,25 @@ a:hover {
 						<div style="width: 60%;">
 							<c:choose>
 								<c:when test="${cmntyType eq 'QSTNKND001' }">
-									<span class="badge badge-light-primary badge-lg float-end me-3">총 ${qstnCountService.cmntyQstnSttsNCount + qstnCountService.cmntyQstnSttsYCount} 개</span>
+									<span class="badge badge-light-primary badge-lg float-end me-3 fs-3">총 ${qstnCountService.cmntyQstnSttsNCount + qstnCountService.cmntyQstnSttsYCount} 개</span>
 								</c:when>
 								<c:when test="${cmntyType eq 'QSTNKND002' }">
-									<span class="badge badge-light-primary badge-lg float-end me-3">총 ${qstnCountPrice.cmntyQstnSttsNCount + qstnCountPrice.cmntyQstnSttsYCount} 개</span>
+									<span class="badge badge-light-primary badge-lg float-end me-3 fs-3">총 ${qstnCountPrice.cmntyQstnSttsNCount + qstnCountPrice.cmntyQstnSttsYCount} 개</span>
 								</c:when>
 								<c:when test="${cmntyType eq 'QSTNKND003' }">
-									<span class="badge badge-light-primary badge-lg float-end me-3">총 ${qstnCountOther.cmntyQstnSttsNCount + qstnCountOther.cmntyQstnSttsYCount} 개</span>
+									<span class="badge badge-light-primary badge-lg float-end me-3 fs-3">총 ${qstnCountOther.cmntyQstnSttsNCount + qstnCountOther.cmntyQstnSttsYCount} 개</span>
 								</c:when>
 								<c:otherwise>
-									<span class="badge badge-light-primary badge-lg float-end me-3">총 ${qstnCountAll.cmntyQstnAllcount} 개</span>
+									<span class="badge badge-light-primary badge-lg float-end me-3 fs-3">총 ${qstnCountAll.cmntyQstnAllcount} 개</span>
 								</c:otherwise>
 							</c:choose>
-						</div>		
-						
+						</div>		 
+						 
 					</div>
 				</div>
 		
 				<div class="card-body pt-0 pb-0">
-					<table class="table align-middle table-row-dashed fs-6" id="kt_ecommerce_products_table">
+					<table class="table align-middle table-row-dashed fs-4" id="kt_ecommerce_products_table">
 						<thead>
 							<tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0 text-center">
 								<th width="5%" class="w-200px h4">번호</th> 
@@ -211,33 +209,33 @@ a:hover {
 								<c:otherwise>
 									<c:forEach items="${cmntyQstnList }" var="cmntyQstnVO">
 										<tr>
-											<td class="py-2">
+											<td class="py-3">
 												<div class="text-center">${cmntyQstnVO.cmntyNo }</div>
 											</td>
-											<td class="py-2"> 
+											<td class="py-3"> 
 												<div class="text-end text-center">
-													<span class="badge badge-light-info fs-8 d-flex flex-center px-0 py-5" style="height: 22px; width: 80px; margin: auto;">
-						                    			${cmntyQstnVO.comDtlCdNm } 
-									                </span> 
+													<span class="badge badge-light-info fs-6 d-flex flex-center px-0 py-5" style="height: 35px; width: 100px; margin: auto;">
+						                    			${cmntyQstnVO.comDtlCdNm }  
+									                </span>  
 												</div>
 											</td>
-											<td class="py-2">
+											<td class="py-3">
 												<div class="text-center">
 							                    	<c:choose>
 							                    		<c:when test="${cmntyQstnVO.cmntyQstnSttsYn eq 'N' }">
-															<span class="badge badge-light-danger fs-8 d-flex flex-center px-0 py-4" style="height: 22px">
+															<span class="badge badge-light-danger fs-6 d-flex flex-center px-0 py-4" style="height: 35px">
 								                    			대기중 
 											                </span> 
 							                    		</c:when>
 							                    		<c:otherwise>
-															<span class="badge badge-light-primary fs-8 d-flex flex-center px-0 py-4" style="height: 22px">
+															<span class="badge badge-light-primary fs-6 d-flex flex-center px-0 py-4" style="height: 35px">
 								                    			답변완료
 											                </span>
 							                    		</c:otherwise>
 							                    	</c:choose> 
 												</div> 
 											</td>  
-											<td class="py-2">
+											<td class="py-3">
 												<div class="text-gray-800 px-5" style="display: flex; justify-content: left;">
 													<div class="text-center">
 							                            <sec:authentication property="principal.member" var="emp"/>
@@ -265,10 +263,10 @@ a:hover {
 														</c:if>
 													</div>
 												</div>  
-											<td class="py-2">
+											<td class="py-3">
 												<div class="text-center">${cmntyQstnVO.qstnEmpId }</div> 
 											</td>   
-											<td class="py-2">
+											<td class="py-3">
 												<div class="text-center">
 												    <c:out value="${fn:substring(cmntyQstnVO.cmntyRegDt, 0, 16)}" />
 												</div>

@@ -619,7 +619,10 @@ public class GroCmntyController {
 					);
 			
 			
-			cmntyVO.setCmntCn(cmntyVO.getCmntCn().replace("\n","<br>"));
+			if (cmntyVO.getCmntCn().contains("\n")) {
+				cmntyVO.setCmntCn(cmntyVO.getCmntCn().replace("\n","<br>"));
+			}
+			
 			model.addAttribute("cmntyVO", cmntyVO);
 
 			// Q&A 카테고리별 전체 게시물과 Q&A 미답변 게시물 카운트하기

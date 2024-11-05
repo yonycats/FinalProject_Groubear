@@ -118,12 +118,11 @@ a:hover {
 
         <div class="p-0 mb-2" style="height: 85%">  
 	        <div class="card card-flush" style="height: 95%">
-	        
 				<div class="card-header align-items-center">
 					<div class="card-title" style="width: 100%; justify-content: space-between"> 
-						
 						<div class="d-flex">
 							<div class="d-flex align-items-center position-relative my-1">
+							
 			                 	<form id="searchForm" style="display: contents;">
 			                        <input type="hidden" name="page" id="page">
 			                        <input type="hidden" name="cmntyType" id="cmntyType">
@@ -136,6 +135,7 @@ a:hover {
 										</i>
 									</button>
 			                     </form>
+			                     
 							</div>
 							
 							<c:choose>
