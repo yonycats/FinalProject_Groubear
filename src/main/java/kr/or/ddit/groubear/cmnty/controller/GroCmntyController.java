@@ -604,8 +604,14 @@ public class GroCmntyController {
 			model.addAttribute("employeeVO", empVO);
 			model.addAttribute("companyVO", companyVO);
 			model.addAttribute("employeeAllVO", employeeAllVO);
-		
-			CmntyVO cmntyVO = groCmntyService.qstnSelectOne(cmntyNo);
+			
+			CmntyVO cmntyVO = cmntyService.qstnSelectOne(cmntyNo);
+			cmntyVO.setCmntyCn(cmntyVO.getCmntyCn().replace("\n","<br>"));
+			
+			if (cmntyVO.getCmntCn() != null && cmntyVO.getCmntCn().contains("\n")) {
+				cmntyVO.setCmntCn(cmntyVO.getCmntCn().replace("\n","<br>"));
+			}
+			
 			
 			// 발표를 위한 데이터 세팅
 			cmntyVO.setCmntCn(
@@ -618,10 +624,6 @@ public class GroCmntyController {
 			"감사합니다."
 					);
 			
-			
-			if (cmntyVO.getCmntCn().contains("\n")) {
-				cmntyVO.setCmntCn(cmntyVO.getCmntCn().replace("\n","<br>"));
-			}
 			
 			model.addAttribute("cmntyVO", cmntyVO);
 

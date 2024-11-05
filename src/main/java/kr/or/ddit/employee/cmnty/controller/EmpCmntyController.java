@@ -412,10 +412,11 @@ public class EmpCmntyController {
 			model.addAttribute("employeeVO", empVO);
 			model.addAttribute("companyVO", companyVO);
 			model.addAttribute("employeeAllVO", employeeAllVO);
-		
-			CmntyVO cmntyVO = cmntyService.qstnSelectOne(cmntyNo);
 			
-			if (cmntyVO.getCmntCn().contains("\n")) {
+			CmntyVO cmntyVO = cmntyService.qstnSelectOne(cmntyNo);
+			cmntyVO.setCmntyCn(cmntyVO.getCmntyCn().replace("\n","<br>"));
+			
+			if (cmntyVO.getCmntCn() != null && cmntyVO.getCmntCn().contains("\n")) {
 				cmntyVO.setCmntCn(cmntyVO.getCmntCn().replace("\n","<br>"));
 			}
 			
