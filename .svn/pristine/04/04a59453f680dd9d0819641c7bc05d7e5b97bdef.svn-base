@@ -1,0 +1,36 @@
+package kr.or.ddit.employee.elapr.vo;
+
+import java.util.List;
+
+import lombok.Data;
+
+@Data
+public class EmpElaprVO {
+	private int elaprNo;			// 전자결재번호
+	private int docFormNo;			// 전자결재양식
+	private String empId;			// 기안자아이디
+	private String coCd;			// 기업코드
+	private String atchFileCode;	// 첨부파일코드
+	private String elaprNm;			// 전자결재제목
+	private String elaprCn;			// 전자결재내용
+	private String elaprBgngDt;		// 전자결재등록일시
+	private String elaprMdfcnDt;	// 전자결재수정일시
+	private String elaprEndDt;		// 전자결재마감일시
+	private String elaprSttsCd;		// 전자결재진행상태
+	private String elaprDelYn;		// 전자결재삭제여부
+	private String elaprEmrgYn;		// 전자결재긴급여부
+	private String elaprOpnnCn;		// 기안자의견
+	
+	private String docFormNm;		// 전자결재양식제목
+	private String empNm;			// 기안자이름
+	private String jbgdNm;			// 직급명
+	private String imgFileUrl;		// 프로필이미지
+	private String deptNm;			// 부서명 
+	
+	
+	
+	private List<EmpAplnVO> aplnList;		// 결재선
+	private List<EmpRerncVO> rerncList;		// 참조
+	private List<EmpElaprPrslVO> prslList;	// 열람
+	
+}

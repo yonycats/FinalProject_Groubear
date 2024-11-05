@@ -1,0 +1,114 @@
+package kr.or.ddit.employee.vehicleReservation.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import kr.or.ddit.comm.security.vo.CustomUser;
+import kr.or.ddit.comm.security.vo.EmployeeVO;
+import kr.or.ddit.comm.serviceresult.ServiceResult;
+import kr.or.ddit.company.vehicleManagement.vo.VHCLRSVTVO;
+import kr.or.ddit.employee.vehicleReservation.service.IVehicleService;
+import lombok.extern.slf4j.Slf4j;
+
+
+@Slf4j
+@Controller
+@RequestMapping("/empvehicle")
+@PreAuthorize("hasAnyRole('ROLE_EMPLOYEE')")
+public class EmpVehicleReservation {
+
+	@Resource(name = "localPath")
+	private String localPath;
+	
+	@Inject
+	private IVehicleService vehicleService;
+	
+	
+	/**
+	 * 기능 : 차량 목록, 예약 폼, 모달을 통해 차량 등록 가능
+	 * 메뉴명 : 기업관리자 / 차량 관리       사원 / 차량 예약
+	 * @return
+	 */
+	@GetMapping("/vehicledashboard.do")
+	public String vehicleDashBoard() {
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO employeeVO = user.getMember();
+		
+		return "employee/vehicleForm/vehicleDashBoard";
+	}
+	
+	/**
+	 * 기능 : 차량 예약현황 페이지
+	 * 메뉴명 : 기업관리자 , 사원 / 차량 예약 내역
+	 * @return
+	 */
+	@GetMapping("/reservationhistory.do")
+	public String reservationHistory(
+			@RequestParam(name="page", required = false, defaultValue = "1") int currentPage,
+			@RequestParam(required = false, defaultValue = "title") String searchType,
+			@RequestParam(required = false) String searchWord, 
+			Model model,
+			HttpServletRequest request) {
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO employeeVO = user.getMember();
+		
+		List<VHCLRSVTVO> vhcl_RSVTVO = vehicleService.selectRSVTHistory(employeeVO.getEmpId());
+		model.addAttribute("vhcl_RSVTVO", vhcl_RSVTVO);
+		
+		return "employee/vehicleForm/reservationHistory";
+	}
+	
+	@PostMapping("/vehiclereservationinsert.do")
+	public String vehicleReservationInsert(HttpServletRequest req, RedirectAttributes ra, @ModelAttribute VHCLRSVTVO vhclrsvtVO,
+			Model model) throws Exception {
+		String goPage = "";
+		// 넘겨받은 데이터 검증 후, 에러가 발생한 데이터에 대한 에러정보 담을 공간
+		Map<String, String> errors = new HashMap<String, String>();
+		if (StringUtils.isBlank(vhclrsvtVO.getEmpId())) {
+			errors.put("값 미입력", "값을 입력해주세요!");
+		}
+
+		if (errors.size() > 0) {
+			model.addAttribute("errors", errors);
+			model.addAttribute("vhcl_rsvtVO", vhclrsvtVO);
+			goPage = "redirect:/empvehicle/vehicledashboard.do";
+		} else {
+			CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			EmployeeVO userVO = user.getMember();
+			if (userVO != null) {
+				ServiceResult result = vehicleService.insertReservation(req, vhclrsvtVO);
+				if (result.equals(ServiceResult.OK)) {
+					ra.addFlashAttribute("message", "사원 등록 완료!");
+					goPage = "redirect:/empvehicle/vehicledashboard.do";
+				} else {
+					model.addAttribute("empvehicle", "서버에러, 다시 시도해주세요!");
+					goPage = "redirect:/empvehicle/vehicledashboard.do";
+				}
+			} else {
+				ra.addFlashAttribute("message", "로그인 후 사용 가능합니다!");
+				goPage = "redirect:/login.do";
+
+			}
+		}
+		return goPage;
+	}
+	
+	
+}

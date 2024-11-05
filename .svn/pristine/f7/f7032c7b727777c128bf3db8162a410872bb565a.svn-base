@@ -1,0 +1,278 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<div style="margin-bottom: 50px;">
+	<div style="margin-top: -32px;">
+		<div class="separator my-10"></div>
+	</div>
+	<div style="margin-left: 30px; margin-top: -100px;">
+		<h3>인사·정보 관리</h3>
+		<h6>사원 상세</h6>
+	</div>
+</div>
+<div id="kt_app_content_container" class="app-container container-fluid">
+	<div class="card mb-5 mb-xxl-8">
+		<div class="card-body pt-9 pb-0">
+			<div class="d-flex flex-wrap flex-sm-nowrap mb-6">
+				<div class="me-7 mb-4">
+					<div class="symbol symbol-160px symbol-lg-160px symbol-fixed position-relative" style="overflow: hidden;">
+						<img src="/upload/${employeeVO.imgFileUrl }" class="img-fluid rounded" style="object-fit: cover;"/>
+					</div>
+				</div>
+				<div class="flex-grow-1">
+					<div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+						<div class="d-flex flex-column">
+							<div class="d-flex align-items-center mb-2">
+								<a href="#" class="text-gray-800 text-hover-primary fs-2 fw-bold me-1">${employeeVO.empNm }</a>
+								<a href="#">
+									<i class="ki-duotone ki-verify fs-1 text-primary">
+										<span class="path1"></span>
+										<span class="path2"></span>
+									</i>
+								</a>
+							</div>
+							<div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
+								<a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
+								<i class="ki-duotone ki-address-book fs-4 me-1">
+									<span class="path1"></span>
+									<span class="path2"></span>
+									<span class="path3"></span>
+								</i>${employeeVO.empEmlAddr}</a>
+								<a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
+								<i class="ki-duotone ki-geolocation fs-4 me-1">
+									<span class="path1"></span>
+									<span class="path2"></span>
+								</i>${employeeVO.empAddr} ${employeeVO.empDaddr}</a>
+								<a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary mb-2">
+								<i class="ki-duotone ki-sms fs-4 me-1">
+									<span class="path1"></span>
+									<span class="path2"></span>
+								</i>${employeeVO.empTelno}</a>
+							</div>
+						</div>
+						<div class="d-flex my-4">
+							<a href="#" class="btn btn-light btn-active-text-gray-900 me-3" id="empDeleteDiv">
+							    <i class="ki-duotone ki-check fs-2 d-none"></i>
+							    <span class="indicator-label" id="deleteBtn">퇴사처리</span>
+							    <span class="indicator-progress">잠시만 기다려주세요..!
+							    <span class="spinner-border spinner-border-sm align-middle ms-2 d-none"></span></span>
+							</a>
+							<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_modify_user">사원 정보 수정</a>
+						</div>
+					</div>
+					<div class="d-flex flex-wrap justify-content-between">
+						<div class="d-flex flex-column flex-grow-1 pe-8">
+							<div class="d-flex flex-wrap">
+								<div class="border border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+									<div class="fs-1 fw-bold">${employeeVO.deptCd}</div>
+									<div class="fw-semibold fs-6 text-gray-500">${employeeVO.teamCd }</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+<form action="/information/empdelete.do" method="post" id="delForm">
+    <input type="hidden" name="empId" value="${employeeVO.empId }" />
+<!--     <button type="submit" id="delSubmit"></button> -->
+</form>
+	<div class="row g-5 g-xxl-8">
+		<div class="col-xl-6">
+			<div class="card mb-5 mb-xxl-8">
+				<div class="card-header border-0">
+					<h3 class="card-title fw-bold text-gray-900">사원 세부 정보</h3>
+					
+				</div>
+				<div class="card-body pt-2">
+					<div class="d-flex align-items-center mb-7">
+						<div class="symbol symbol-50px me-5">
+							<span class="text-muted d-block fw-semibold">사번  :</span>
+						</div>
+						<div class="flex-grow-1">
+							<span class="text-muted d-block fw-semibold">${employeeVO.empNo }</span>
+						</div>
+					</div>
+					<div class="d-flex align-items-center mb-7">
+						<div class="symbol symbol-50px me-5">
+							<span class="text-muted d-block fw-semibold">직급  :</span>
+						</div>
+						<div class="flex-grow-1">
+							<span class="text-muted d-block fw-semibold">${employeeVO.jbgdCd }</span>
+						</div>
+					</div>
+					<div class="d-flex align-items-center mb-7">
+						<div class="symbol symbol-50px me-5">
+							<span class="text-muted d-block fw-semibold">성별  :</span>
+						</div>
+						<div class="flex-grow-1">
+							<span class="text-muted d-block fw-semibold">${employeeVO.empGndr }</span>
+						</div>
+					</div>
+					<div class="d-flex align-items-center mb-7">
+						<div class="symbol symbol-50px me-5">
+							<span class="text-muted d-block fw-semibold">국적  :</span>
+						</div>
+						<div class="flex-grow-1">
+							<span class="text-muted d-block fw-semibold">${employeeVO.empNtn }</span>
+						</div>
+					</div>
+					<div class="d-flex align-items-center mb-7">
+						<div class="symbol symbol-50px me-5">
+							<span class="text-muted d-block fw-semibold">출생년도  :</span>
+						</div>
+						<div class="flex-grow-1">
+							<span class="text-muted d-block fw-semibold">${employeeVO.empBrdt }</span>
+						</div>
+					</div>
+					<div class="d-flex align-items-center mb-7">
+						<div class="symbol symbol-50px me-5">
+							<span class="text-muted d-block fw-semibold">우편번호  :</span>
+						</div>
+						<div class="flex-grow-1">
+							<span class="text-muted d-block fw-semibold">${employeeVO.empZip }</span>
+						</div>
+					</div>
+					<div class="d-flex align-items-center mb-7">
+						<div class="symbol symbol-50px me-5">
+							<span class="text-muted d-block fw-semibold">운전면허 여부  :</span>
+						</div>
+						<c:choose>
+						    <c:when test="${employeeVO.empDlnYn == 'Y'}">
+								<div class="flex-grow-1">
+									<span class="text-muted d-block fw-semibold">보유중</span>
+								</div>
+						    </c:when>
+						    <c:otherwise>
+								<div class="flex-grow-1">
+									<span class="text-muted d-block fw-semibold">없음</span>
+								</div>
+						    </c:otherwise>
+						</c:choose>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="kt_modal_modify_user" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered mw-650px">
+		<div class="modal-content">
+			<div class="modal-header" id="kt_modal_add_user_header">
+				<h2 class="fw-bold">사원 정보 수정</h2>
+				<div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+					<i class="ki-duotone ki-cross fs-1">
+						<span class="path1"></span>
+						<span class="path2"></span>
+					</i>
+				</div>
+			</div>
+			<div class="modal-body px-5 my-7">
+				<form id="kt_modal_add_user_form" class="form" action="/information/empinfomodify.do" method="post" enctype="multipart/form-data">
+					<div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
+					    <div class="fv-row mb-7 d-flex flex-column align-items-center justify-content-center">
+					        <label class="d-block fw-semibold fs-6 mb-5">프로필 이미지</label>
+					        <style>
+					            .image-input-placeholder { background-image: url('assets/media/svg/files/blank-image.svg'); }
+					            [data-bs-theme="dark"] .image-input-placeholder { background-image: url('assets/media/svg/files/blank-image-dark.svg'); }
+					        </style>
+					        <div class="image-input image-input-outline image-input-placeholder" data-kt-image-input="true">
+					            <div class="image-input-wrapper w-125px h-125px" style="background-image: url('/upload/${employeeVO.imgFileUrl }');"></div>
+					            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="프로필 사진 변경">
+					                <i class="ki-duotone ki-pencil fs-7">
+					                    <span class="path1"></span>
+					                    <span class="path2"></span>
+					                </i>
+					                <input type="hidden" name="imgFileUrl" value="${employeeVO.imgFileUrl }">
+					                <input type="file" name="imgFile" accept=".png, .jpg, .jpeg" />
+					            </label>
+					            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="프로필 변경 취소">
+					                <i class="ki-duotone ki-cross fs-2">
+					                    <span class="path1"></span>
+					                    <span class="path2"></span>
+					                </i>
+					            </span>
+					            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="프로필 제거">
+					                <i class="ki-duotone ki-cross fs-2">
+					                    <span class="path1"></span>
+					                    <span class="path2"></span>
+					                </i>
+					            </span>
+							</div>
+							<div class="form-text">지원하는 확장자 : png, jpg, jpeg.</div>
+						</div>
+							<input type="hidden" name="coCd" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="기업코드" value="${employee.coCd }" />
+						<div class="fv-row mb-7">
+							<label class="required fw-semibold fs-6 mb-2">이름</label>
+							<input type="text" name="empNm" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="사원이름을 입력해주세요" value="${employeeVO.empNm }" />
+						</div>
+						<div class="fv-row mb-7">
+							<label class="required fw-semibold fs-6 mb-2">사번</label>
+							<input type="text" name="empNo" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="사번을 입력해주세요" value="${employeeVO.empNo }" />
+						</div>
+						<div class="fv-row mb-7">
+							<label class="required fw-semibold fs-6 mb-2">아이디</label>
+							<input type="text" name="empId" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="사원 아이디를 입력해주세요" value="${employeeVO.empId }" />
+						</div>
+						<div class="fv-row mb-7">
+							<label class="required fw-semibold fs-6 mb-2">전화번호</label>
+							<input type="tel" name="empTelno" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="전화번호 입력 " value="${employeeVO.empTelno }" />
+						</div>
+					</div>
+					<div class="text-center pt-10">
+						<button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">수정 초기화</button>
+						<button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+							<span class="indicator-label">수정</span>
+							<span class="indicator-progress">잠시만 기다려주세요..!
+							<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+						</button>
+					</div>
+				</form>
+			</div>
+<!-- 			<form action="/information/empdelete.do" method="post" id="delForm"> -->
+<%-- 				<input type="hidden" name="empId" value="${employeeVO.empId }"> --%>
+<!-- 			</form> -->
+		</div>
+	</div>
+</div>
+<form action="/information/empdetail.do" id="detailForm" method="post">
+    <input type="hidden" name="empId" value="${empList.empId}" id="empId"/>
+</form>
+<script type="text/javascript">
+$(function() {
+    var deleteBtn = $("#deleteBtn");
+    const spinner = $('.spinner-border');
+    const empDeleteDiv = $("#empDeleteDiv");
+//     const delSubmit = $("#delSubmit");
+    var delForm = $("#delForm");
+    
+    deleteBtn.on('click', function(event) {
+        event.preventDefault(); // 기본 동작 방지
+
+        // 스피너를 보여주고 문구 변경
+        spinner.removeClass('d-none');
+        deleteBtn.text('잠시만 기다려주세요..!');
+
+        Swal.fire({
+            title: '오늘 날짜로 퇴사처리 하시겠습니까?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#F06445',
+            cancelButtonColor: '#4FC9DA',
+            confirmButtonText: '예',
+            cancelButtonText: '아니요',
+            reverseButtons: false,
+        }).then((result) => {
+            // 스피너와 문구 초기화
+            spinner.addClass('d-none');
+            deleteBtn.text('퇴사처리');
+
+            if (result.isConfirmed) {
+                delForm.submit();
+            }
+        });
+    });
+});
+</script>
+		

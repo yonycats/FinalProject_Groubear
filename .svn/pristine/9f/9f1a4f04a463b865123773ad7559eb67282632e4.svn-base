@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="kr.or.ddit.comm.alarm.mapper.IAlarmMapper">
+  	<select id="selectList" resultType="kr.or.ddit.comm.alarm.vo.AlarmVO">
+  		select
+  			alarm_no,
+			emp_id,
+			alarm_nm,
+			alarm_cn,
+			alarm_crt_dt,
+			alarm_read_dt,
+			alarm_yn,
+			alarm_category
+		from alarm
+  	</select>
+  </mapper>

@@ -1,0 +1,95 @@
+import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
+
+// 차량 예약 컴포넌트
+const VehicleReservation = () => {
+    const [startTime, setStartTime] = useState('');
+    const [endTime, setEndTime] = useState('');
+    const [reason, setReason] = useState('');
+
+    const handleReservation = () => {
+        alert(`예약 완료!\n이용 시간: ${startTime} ~ ${endTime}\n대여사유: ${reason}`);
+    };
+
+    return (
+        <div className="card col-xl-6 mx-5" style={{ backgroundColor: '#c1c1c1' }}>
+            <div className="card-header border-0 pt-6">
+                <h1 className="fw-bold text-white py-3">차량 목록</h1>
+            </div>
+            <div className="card-body align-items-center justify-content-center">
+                <img src="/upload/kia01.png" style={{ width: '500px' }} alt="차량 이미지" />
+                <table className="table px-5">
+                    <tbody className="d-flex align-items-center justify-content-center">
+                        <tr>
+                            <td>
+                                <span className="badge badge-light-success fs-7 fw-bold">모델명 - K5</span>
+                            </td>
+                            <td>
+                                <span className="badge badge-light badge-light-primary fs-7 fw-bold">차량 번호 - 1215</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div className="d-flex justify-content-between">
+                    <div className="col-md-12 fv-row">
+                        <label className="fs-5 text-white fw-semibold mb-2">이용 시간</label>
+                        <div className="d-flex">
+                            <input type="time" className="form-control form-control-solid mx-1" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+                            <input type="time" className="form-control form-control-solid mx-1" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
+                        </div>
+                    </div>
+                </div>
+                <div className="d-flex flex-column mb-5">
+                    <label className="fs-6 text-white fw-semibold pt-5">대여사유</label>
+                    <textarea className="form-control form-control-solid" rows="6" value={reason} onChange={(e) => setReason(e.target.value)}></textarea>
+                </div>
+                <div className="d-flex justify-content-start align-items-center">
+                    <button type="button" className="btn btn-light" onClick={handleReservation}>
+                        <span className="indicator-label">예약하기</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// 지도 컴포넌트
+const Map = () => {
+    useEffect(() => {
+        const { kakao } = window;
+        const mapContainer = document.getElementById('map');
+        const mapOptions = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level: 3,
+        };
+        new kakao.maps.Map(mapContainer, mapOptions);
+    }, []);
+
+    return (
+        <div id="map" style={{ width: '800px', height: '800px' }}></div>
+    );
+};
+
+// 메인 애플리케이션 컴포넌트
+const App = () => {
+    return (
+        <div id="kt_app_content_container">
+            <VehicleReservation />
+            <div className="card col-xl-5 mx-5">
+                <div className="card-header border-0 pt-6">
+                    <h1 className="fw-bold text-gray-900 py-3">출장지 길찾기</h1>
+                </div>
+                <div className="card-body">
+                    <label className="fs-5 fw-semibold pt-5">목적지</label>
+                    <input className="form-control form-control-solid" placeholder="" />
+                    <button id="callApi">API 호출</button>
+                    <div id="result"></div>
+                    <Map />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// ReactDOM을 사용하여 App 컴포넌트를 렌더링
+ReactDOM.render(<App />, document.getElementById('root'));

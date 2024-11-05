@@ -1,0 +1,9 @@
+package kr.or.ddit.comm.file.service;
+
+import kr.or.ddit.comm.file.vo.AtchFileVO;
+
+public interface IFileService {
+
+	public void register(AtchFileVO atchFileVO);
+
+}

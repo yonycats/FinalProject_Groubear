@@ -1,0 +1,59 @@
+package kr.or.ddit.comm.alarm.controller;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.socket.WebSocketSession;
+
+import kr.or.ddit.comm.alarm.service.IAlarmService;
+import kr.or.ddit.comm.alarm.vo.AlarmVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+public class AlarmController {
+	
+	@Inject
+	private IAlarmService alarmService;
+	
+	Map<String, WebSocketSession> users = new ConcurrentHashMap<String, WebSocketSession>();
+	
+	public String alarmList(AlarmVO alarmVO, Model model) {
+		alarmService.selectList(alarmVO);
+		model.addAttribute("alarmVO", alarmVO);
+		return "tiles/employee/header";
+	}
+	
+	
+//	@PostMapping("/sendAlarm")
+//	public ResponseEntity<String> sendAlarm(AlarmVO alarmVO, Model model) throws Exception {
+//
+//		// 댓글 작성자 정보 가져오기
+//		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		EmployeeVO EmployeeVO = user.getMember();
+//		
+//		String empId = EmployeeVO.getEmpId();
+//		
+////	    // 알림 메시지 생성
+////	    String type = alarmVO.getAlarmCategory(); // 알림 유형
+////	    String content = alarmVO.getAlarmCn(); // 댓글 내용
+////	    String url = alarmVO.getAlarmUrl(); // 알림이 온 해당 링크(?)
+////	    
+////	    // WebSocket을 통해 알림 전송
+////	    WebSocketSession targetSession = users.get(empId);
+////	    log.info("targetSession ::: {}", targetSession);
+////	    
+////	    if (targetSession != null && targetSession.isOpen()) {
+////	        TextMessage alertMessage = new TextMessage(type + "," + empId + "," + content + "," + url);
+////	        targetSession.sendMessage(alertMessage);
+////	    }
+//	    
+//	    model.addAttribute("alarmVO", alarmVO);
+//	    return new ResponseEntity<String>("ok", HttpStatus.OK);
+//	}
+
+}

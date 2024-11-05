@@ -1,0 +1,327 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<div style="margin-bottom: 25px;">
+	<div style="margin-top: -32px;">
+		<div class="separator my-10"></div>
+	</div>
+	<div style="margin-left: 30px; margin-top: -100px;">
+		<h3>인사·정보 관리</h3>
+		<h6>사원정보 관리</h6>
+	</div>
+</div>
+<div id="kt_app_content_container">
+	<div class="app-main flex-column flex-row-fluid">
+		<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+			<div id="kt_app_content" class="app-content flex-column-fluid">
+				<div id="kt_app_content_container" class="app-container container-fluid">
+					<div class="card">
+						<div class="card-header border-0 pt-6">
+							<div class="card-title">
+								<div class="d-flex align-items-center position-relative my-1">
+									<form id="searchForm" style="display: contents;">
+										<input type="hidden" name="page" id="page"/>
+										<input id="myInput" name="searchWord" type="text" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-250px ps-5" style="margin-top: 0.5em;" placeholder="사원 검색" value="${searchWord }"/>
+										<button id="searchBtn" type="button" class="btn btn-flex btn-light-success ms-1 py-3 px-3" style="margin-top: 0.5em;">
+								            <i class="ki-duotone ki-magnifier fs-2">
+												<span class="path1" style="height: 1.1em;"></span> 
+												<span class="path2"></span>
+											</i>
+										</button>
+									</form>
+								</div>
+							</div>
+							<div class="card-toolbar">
+								<div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+									<button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+									<i class="ki-duotone ki-filter fs-2">
+										<span class="path1"></span>
+										<span class="path2"></span>
+									</i>정렬</button>
+									<div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+										<div class="px-7 py-5">
+											<div class="fs-5 text-gray-900 fw-bold">정렬 옵션</div>
+										</div>
+										<div class="separator border-gray-200"></div>
+										<div class="px-7 py-5" data-kt-user-table-filter="form">
+											<div class="mb-10">
+												<label class="form-label fs-6 fw-semibold">부서</label>
+												<select class="form-select form-select-solid fw-bold" data-kt-select2="true" data-placeholder="부서 선택" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
+													<option>부서 선택</option>
+													<c:forEach var="dept" items="${deptList}">
+											            <option value="${dept.deptCd}">${dept.deptNm}</option>
+											        </c:forEach>
+												</select>
+											</div>
+											<div class="mb-10">
+												<label class="form-label fs-6 fw-semibold">직급</label>
+												<select class="form-select form-select-solid fw-bold" data-kt-select2="true" data-placeholder="직급 선택" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
+													<option>직급 선택</option>
+													<c:forEach items="${jbgdList }" var="jbgd">
+														<option value="${jbgd.jbgdCd}">${jbgd.jbgdNm}</option>
+													</c:forEach>
+												</select>
+											</div>
+											
+											<div class="d-flex justify-content-end">
+												<button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
+												<button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
+											</div>
+										</div>
+									</div>
+									<button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_users">
+									<i class="ki-duotone ki-exit-up fs-2">
+										<span class="path1"></span>
+										<span class="path2"></span>
+									</i>엑셀로 일괄추가</button>
+									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
+									<i class="ki-duotone ki-plus fs-2"></i>사원 추가</button>
+								</div>
+								<div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">
+									<div class="fw-bold me-5">
+									<span class="me-2" data-kt-user-table-select="selected_count"></span>Selected</div>
+									<button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete Selected</button>
+								</div>
+								<div class="modal fade" id="kt_modal_export_users" tabindex="-1" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered mw-650px">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h2 class="fw-bold">엑셀로 일괄추가</h2>
+												<div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+													<i class="ki-duotone ki-cross fs-1">
+														<span class="path1"></span>
+														<span class="path2"></span>
+													</i>
+												</div>
+											</div>
+											<div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+												<form id="kt_modal_export_users_form" class="form" action="#">
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered mw-650px">
+										<div class="modal-content">
+											<div class="modal-header" id="kt_modal_add_user_header">
+												<h2 class="fw-bold">사원 추가</h2>
+												<div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+													<i class="ki-duotone ki-cross fs-1">
+														<span class="path1"></span>
+														<span class="path2"></span>
+													</i>
+												</div>
+											</div>
+											<div class="modal-body px-5 my-7">
+												<form id="kt_modal_add_user_form" class="form" action="/information/empinsert.do" method="post" enctype="multipart/form-data">
+													<div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
+													    <div class="fv-row mb-7 d-flex flex-column align-items-center justify-content-center">
+													        <label class="d-block fw-semibold fs-6 mb-5">프로필 이미지</label>
+													        <style>
+													            .image-input-placeholder { background-image: url('assets/media/svg/files/blank-image.svg'); }
+													            [data-bs-theme="dark"] .image-input-placeholder { background-image: url('assets/media/svg/files/blank-image-dark.svg'); }
+													        </style>
+													        <div class="image-input image-input-outline image-input-placeholder" data-kt-image-input="true">
+													            <div class="image-input-wrapper w-125px h-125px" style="background-image: url('/upload/noimg.jpg');"></div>
+													            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="프로필 사진 변경">
+													                <i class="ki-duotone ki-pencil fs-7">
+													                    <span class="path1"></span>
+													                    <span class="path2"></span>
+													                </i>
+													                <input type="file" name="imgFile" accept=".png, .jpg, .jpeg" />
+													            </label>
+															</div>
+															<div class="form-text">지원하는 확장자 : png, jpg, jpeg.</div>
+														</div>
+															<input type="hidden" name="coCd" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="기업코드" value="${employee.coCd }" />
+														<div class="fv-row mb-7">
+															<label class="required fw-semibold fs-6 mb-2">이름</label>
+															<input type="text" name="empNm" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="사원이름을 입력해주세요" value="" />
+														</div>
+														<div class="fv-row mb-7">
+															<label class="required fw-semibold fs-6 mb-2">사번</label>
+															<input type="text" name="empNo" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="사번을 입력해주세요" value="" />
+														</div>
+														<div class="fv-row mb-7">
+															<label class="required fw-semibold fs-6 mb-2">아이디</label>
+															<input type="text" name="empId" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="사원 아이디를 입력해주세요" value="" />
+														</div>
+														<div class="fv-row mb-7">
+															<label class="required fw-semibold fs-6 mb-2">임시 비밀번호</label>
+															<input type="text" name="empPw" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="임시비밀번호" value="1234" />
+														</div>
+														<div class="fv-row mb-7">
+														    <label class="required fw-semibold fs-6 mb-2">소속 부서</label>
+														    <select name="deptCd" id="deptSelect" class="form-control form-control-solid mb-3 mb-lg-0">
+														        <option value="" disabled selected>소속 부서 선택</option>
+														        <c:forEach var="dept" items="${deptList}">
+														            <option value="${dept.deptCd}">${dept.deptNm}</option>
+														        </c:forEach>
+														    </select>
+														</div>
+														
+														<div class="fv-row mb-7">
+														    <label class="required fw-semibold fs-6 mb-2">소속 팀</label>
+														    <select name="teamCd" id="teamSelect" class="form-control form-control-solid mb-3 mb-lg-0">
+														        <option value="" disabled selected>부서를 선택해주세요</option>
+														    </select>
+														</div>
+														<div class="fv-row mb-7">
+														    <label class="required fw-semibold fs-6 mb-2">직급</label>
+														    <select name="jbgdCd" id="jbgdSelect" class="form-control form-control-solid mb-3 mb-lg-0">
+														        <option value="" disabled selected>직급 선택</option>
+														        <c:forEach var="jbgd" items="${jbgdList}">
+														            <option value="${jbgd.jbgdCd}">${jbgd.jbgdNm}</option>
+														        </c:forEach>
+														    </select>
+														</div>
+												        <div class="fv-row mb-7">
+												            <label class="required fw-semibold fs-6 mb-2">입사일</label>
+												            <input type="date" id="empJncmpYmd" name="empJncmpYmd" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="YYYY-MM-DD" value="" />
+												        </div>
+														<div class="fv-row mb-7">
+															<label class="required fw-semibold fs-6 mb-2">전화번호</label>
+															<input type="tel" name="empTelno" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="전화번호 입력 " value="" />
+														</div>
+													</div>
+													<div class="text-center pt-10">
+														<button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">취소</button>
+														<button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+															<span class="indicator-label">등록</span>
+															<span class="indicator-progress">Please wait... 
+															<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+														</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-body py-4">
+							<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+								<thead>
+									<tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+										<th class="w-10px pe-2">
+											<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+												<input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
+											</div>
+										</th>
+										<th class="min-w-100px">이름</th>
+										<th class="min-w-100px">사번</th>
+										<th class="min-w-100px">부서</th>
+										<th class="min-w-100px">직급</th>
+										<th class="min-w-100px">입사일</th>
+										<th class="min-w-100px">전화번호</th>
+									</tr>
+								</thead>
+								<tbody class="text-gray-600 fw-semibold">
+								<c:set value="${pagingVO.dataList }" var="empAllList"/>
+								<c:choose>
+									<c:when test="${empty empAllList }">
+										<tr>
+											<td colspan="7" class="text-center pt-5">
+												사원이 존재하지 않습니다.
+											</td>
+										</tr>
+									</c:when>
+									<c:otherwise>
+										<c:forEach items="${empAllList }" var="empList">
+											<tr>
+												<td>
+													<div class="form-check form-check-sm form-check-custom form-check-solid">
+														<input class="form-check-input" type="checkbox" value="1" />
+													</div>
+												</td>
+												<td class="d-flex align-items-center">
+													<div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+														<a href="apps/user-management/users/view.html">
+															<div class="symbol-label">
+																<img src="/upload/${empList.imgFileUrl }" alt="" class="w-100" />
+															</div>
+														</a>
+													</div>
+													<div class="d-flex flex-column">
+													<form action="/information/empdetail.do" id="detailForm" method="post">
+													    <input type="hidden" name="empId" value="${empList.empId}" id="empId"/>
+													    <div class="text-gray-800 text-hover-primary mb-1" onclick="this.closest('form').submit();" style="cursor: pointer;">
+													        ${empList.empNm}
+													    </div>
+													</form>
+														<span>${empList.empEmlAddr }</span>
+													</div>
+												</td>
+												<td>${empList.empNo }</td>
+												<td>
+													<div class="badge badge-light-success fw-bold">${empList.deptCd }</div>
+												</td>
+												<td>
+													<div class="badge badge-light-primary fw-bold">${empList.jbgdCd }</div>
+												</td>
+												<td>${empList.empJncmpYmd }</td>
+												<td>${empList.empTelno }</td>
+											</tr>
+										</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="kt_app_footer" class="app-footer">
+		<div class="app-container container-fluid d-flex align-items-center justify-content-center flex-column flex-md-row flex-center flex-md-stack py-3">
+			<div class="card-footer clearfix" id="pagingArea">
+				${pagingVO.pagingHTML }
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(document).ready(function() {
+	var searchForm = $("#searchForm");
+	var pagingArea = $("#pagingArea");
+	
+	pagingArea.on("click", "a", function (event) {
+		event.preventDefault();
+		var pageNo = $(this).data("page");
+		searchForm.find("#page").val(pageNo);
+		searchForm.submit();
+	});
+	
+    $('#deptSelect').change(function() {
+        var deptCd = $(this).val();
+        var teamSelect = $('#teamSelect');
+        var option = $('');
+        
+        // 기존 팀 옵션 제거
+        teamSelect.html('<option value="" disabled selected>소속 팀 선택</option>');
+        console.log(deptCd);
+        if (deptCd) {
+            $.ajax({
+                url: '/empinformation/getteam.do',
+                type: 'GET',
+                data: { deptCd: deptCd },
+                contentType: 'application/json; charset=UTF-8',
+                success: function(data) {
+                	console.log(data);
+                    $.each(data, function(index, team) {
+                        option = $('<option></option>')
+                            .attr('value', team.teamCd)
+                            .text(team.teamNm);
+                        teamSelect.append(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching teams:', error);
+                }
+            });
+        }
+    });
+});
+</script>					

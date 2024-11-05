@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="kr.or.ddit.comm.alarm.mapper.IAlarmMapper">
+  	<select id="selectList"  parameterType="kr.or.ddit.comm.alarm.vo.AlarmVO" resultType="kr.or.ddit.comm.alarm.vo.AlarmVO">
+  		select
+			alarm_cn,
+			alarm_category,
+			alarm_crt_dt,
+			alarm_url
+		from alarm
+		where emp_id = #{alarmTarget}
+  	</select>
+  	
+  	<insert id="insertAlarm" parameterType="kr.or.ddit.comm.alarm.vo.AlarmVO">
+  		insert into alarm(
+		    alarm_no,
+		    emp_id,
+		    alarm_cn,
+		    alarm_category,
+		    alarm_url
+		) values (
+			seq_alarm.nextval,
+			#{alarmTarget},
+			#{alarmCn},
+			#{alarmCategory},
+			#{alarmUrl}
+		)
+  	</insert>
+  	
+  	<select id="countList" resultType="int" parameterType="kr.or.ddit.comm.alarm.vo.AlarmVO">
+  		select count(alarm_no)
+		from alarm
+		where emp_id = #{alarmTarget}
+  	</select>
+  	
+  </mapper>

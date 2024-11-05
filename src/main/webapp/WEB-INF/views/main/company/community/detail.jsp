@@ -1,0 +1,774 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<c:if test="${not empty message }">
+	<script type="text/javascript">
+		Swal.fire({ 
+			icon: 'success',
+			title: '${message}',
+			confirmButtonColor: '#4FC9DA',
+		});
+	</script>
+	<c:remove var="message" scope="request"/>
+</c:if>
+
+<div style="margin-bottom: 50px;">
+	<div style="margin-top: -32px;">
+		<div class="separator border-2 my-10"></div>
+	</div>
+	<div style="margin-left: 30px; margin-top: -100px;">
+		<h3>커뮤니티</h3>
+		<h6>게시글</h6>
+	</div>
+</div>
+
+<div class="mb-10" id="kt_social_feeds_posts">
+	<!--begin::Post 4-->
+	<!--begin::Card-->
+	<div class="card card-flush mb-10">
+		<!--begin::Card header-->
+		<div class="card-header pt-9 ms-3">
+			<!--begin::Author-->
+			<div class="d-flex ">
+				<!--begin::Info-->
+				<div
+					class="flex-grow-1 d-flex align-items-center position-relative my-1">
+					<!--begin::Name-->
+					<h2 class="me-3">${communityVO.cmntyTtl }</h2>
+					<!--end::Name-->
+					<!--begin::Date-->
+					<p class="text-gray-500 fw-semibold d-block"
+						style="margin-top: auto;">${employeeVO.empId }</p>
+					<!--end::Date-->
+					<input type="hidden" id="delYn" class="delYn"
+						value="${communityVO.cmntyDelYn }" />
+				</div>
+				<!--end::Info-->
+			</div>
+			<!--end::Author-->
+			<div class="card-toolbar">
+				<!--begin::Menu wrapper-->
+				<div class="m-0">
+					<!--begin::Menu toggle-->
+					<button
+						class="btn btn-icon btn-color-gray-500 btn-active-color-primary me-n4"
+						data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+						data-kt-menu-overflow="true">
+						<i class="ki-duotone ki-dots-square fs-1"> <span class="path1"></span>
+							<span class="path2"></span><span class="path3"></span><span
+							class="path4"></span>
+						</i>
+					</button>
+					<!--end::Menu toggle-->
+					<!--begin::Menu 2-->
+					<%-- 					<c:if test="${employee.empId eq communityVO.empId }"> --%>
+					<div
+						class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px"
+						data-kt-menu="true">
+						<!--begin::Menu item-->
+
+						<!-- /company/communityModify.do 수정  URI -->
+						<div class="menu-item px-3">
+							<a href="" id="cmtUdtBtn" class="menu-link px-3">수정</a>
+						</div>
+
+						<!--end::Menu item-->
+						<!--begin::Menu item-->
+						<div class="menu-item px-3">
+							<a href="" id="cmtCelBtn" class="menu-link px-3">삭제</a>
+						</div>
+						<!--end::Menu item-->
+					</div>
+					<%-- 					</c:if> --%>
+					<!--end::Menu 2-->
+				</div>
+				<!--end::Menu wrapper-->
+			</div>
+			<!--end::Card toolbar-->
+		</div>
+		<p class="text-gray-500 fw-semibold d-block ms-13">${communityVO.cmntyRegDt }</p>
+		<!--end::Card header-->
+		<!--begin::Card body-->
+		<div class="card-body">
+			<div class="mb-8">
+				<!--begin::Separator-->
+				<div class="separator separator-solid"></div>
+				<!--end::Separator-->
+			</div>
+			<!--begin::Post content-->
+			<div class="fs-6 fw-normal text-gray-700 ms-3">${communityVO.cmntyCn }</div>
+			<div style="display: flex; flex-wrap: wrap;">
+				<%-- 				<p>${communityVO.atchFiles }</p> --%>
+				<c:if test="${not empty communityVO.atchFiles}">
+					<c:forEach items="${communityVO.atchFiles[0].atchFileDetailList }"
+						var="fileDt">
+						<div style="margin-top: 10px; margin-right: 10px;">
+							<img src="/upload/${fileDt.atchFileDetailStrgNm}" width="250"
+								height="290">
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
+
+			<div style="margin-top: 10px;">
+				<c:if test="${not empty communityVO.atchFiles}">
+					<div class="separator separator-solid mb-8"></div>
+					<c:forEach items="${communityVO.atchFiles[0].atchFileDetailList}"
+						var="fileDt">
+						<table id="kt_file_manager_list" data-kt-filemanager-table="files"
+							class="table align-middle table-row-dashed fs-6 gy-1">
+							<tbody class="fw-semibold text-gray-600">
+								<tr>
+									<td><div class="d-flex align-items-center">
+											<i class="ki-duotone ki-files fs-2x text-primary me-4"></i> <a
+												href="#" class="text-gray-800 text-hover-primary">${fileDt.atchFileDetailStrgNm }</a>
+										</div></td>
+									<td>${fileDt.atchFileDetailFancysize }</td>
+									<td>${fileDt.atchFileDetailRegDt }</td>
+									<td class="text-end"
+										data-kt-filemanager-table="action_dropdown"><div
+											class="d-flex justify-content-end">
+											<!--begin::Share link-->
+
+											<!-- 다운로드 -->
+											<div class="ms-2" data-kt-filemanger-table="copy_link">
+												<button type="button" id="downloadBtn"
+													class="btn btn-sm btn-icon btn-light btn-active-light-primary"
+													data-kt-menu-trigger="click"
+													data-kt-menu-placement="bottom-end">
+													<c:url value="/upload/${fileDt.atchFileDetailStrgNm}"
+														var="downloadUrl">
+														<c:param name="fileNo" value="${fileList.fileNo }" />
+													</c:url>
+													<a href="${downloadUrl }"> <i
+														class="ki-duotone ki-folder-down"> <span class="path1"></span>
+															<span class="path2"></span>
+													</i>
+												</button>
+											</div>
+											<!--end::Share link-->
+											<!--begin::More-->
+										</div>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</c:forEach>
+				</c:if>
+			</div>
+			<!--end::Post content-->
+		</div>
+		<!--end::Card body-->
+		<!--begin::Card footer-->
+		<div class="card-footer pt-0">
+			<!--begin::Info-->
+			<div class="mb-6">
+				<!--begin::Separator-->
+				<div class="separator separator-solid"></div>
+				<!--end::Separator-->
+				<!--begin::Nav-->
+				<ul class="nav py-3">
+					<!--begin::Item-->
+					<li class="nav-item" id="commentShowBtn"><a
+						class="nav-link btn btn-sm btn-color-gray-600 btn-active-color-primary btn-active-light-primary fw-bold px-4 me-1 collapsible"
+						data-bs-toggle="collapse" href="#kt_social_feeds_comments_4">
+							<i class="ki-duotone ki-message-text-2 fs-2 me-1"> <span
+								class="path1"></span> <span class="path2"></span> <span
+								class="path3"></span>
+						</i>댓글
+					</a></li>
+					<!--end::Item-->
+				</ul>
+				<!-- 여기가 댓글 위치 -->
+
+				<div id="commentNull"></div>
+
+				<!-- 여기가 댓글 위치 -->
+			</div>
+			<!--end::Info-->
+
+
+			<!-- 원래 띄워져 있는 답글 입력 칸-->
+			<div class="d-flex align-items-center">
+				<!--begin::Author-->
+				<div class="symbol symbol-35px me-3">
+					<img src="/upload/${employeeVO.imgFileUrl }" alt="">
+				</div>
+				<!--end::Author-->
+
+				<div class="position-relative w-100">
+					<!--begin::Input-->
+
+					<input type="hidden" id="commentCmntyNo" name="commentCmntyNo"
+						value="${communityVO.cmntyNo}"> <input type="hidden"
+						id="upCmntNo" name="upCmntNo" value="${commentVO.upCmntNo }">
+					<textarea id="cmntCn"
+						class="form-control form-control-solid border ps-5" rows="1"
+						name="cmntCn" data-kt-autosize="true" placeholder="댓글을 작성해주세요"
+						data-kt-initialized="1"
+						style="overflow: hidden; overflow-wrap: break-word; resize: none; text-align: start; height: 80px;"></textarea>
+					<!--end::Input-->
+
+					<!--begin::Actions-->
+					<div class="position-absolute bottom-0 end-0 me-4 mb-2">
+						<!--begin::Btn -->
+
+						<!-- 댓글 -->
+						<button id="commentAddBtn"
+							class="btn btn-icon btn-sm btn-color-gray-500 btn-active-color-primary w-25px p-0">
+							<i class="bi bi-chat-square-text-fill fs-2"></i>
+						</button>
+
+					</div>
+					<!--end::Actions-->
+				</div>
+
+				<!--end::Input group-->
+			</div>
+
+
+			<!--end::Comment form-->
+		</div>
+		<!--end::Card footer-->
+	</div>
+	<input type="button" id="cancleBtn" class="btn btn-light-info" style="margin-left: 20px" value="목록">
+	<!--end::Card-->
+	<!--end::Post 4-->
+</div>
+
+
+<div class="modal fade" id="kt_modal_add_user">
+	<div class="modal-dialog modal-dialog-centered mw-650px">
+		<div class="modal-content">
+			<div class="modal-header" id="kt_modal_add_user_header">
+				<h2 class="fw-bold">수정</h2>
+				<div class="btn btn-icon btn-sm btn-active-icon-primary"
+					data-bs-dismiss="modal" data-kt-users-modal-action="close">
+					<i class="ki-duotone ki-cross fs-1"> <span class="path1"></span>
+						<span class="path2"></span>
+					</i>
+				</div>
+			</div>
+			<div class="modal-body px-5 my-7">
+				<form id="kt_modal_add_user_form" class="form communityModify"
+					action="" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="cmntyNo" id="cmntyNo"
+						value="${communityVO.cmntyNo }" /> <input type="hidden"
+						name="atchFileCd" value="${communityVO.atchFileCd }" />
+
+					<!-- 고정된 사용자 아이디 -->
+					<div class="d-flex flex-column scroll-y px-5 px-lg-10"
+						id="kt_modal_add_user_scroll" data-kt-scroll="true"
+						data-kt-scroll-activate="true" data-kt-scroll-max-height="auto"
+						data-kt-scroll-dependencies="#kt_modal_add_user_header"
+						data-kt-scroll-wrappers="#kt_modal_add_user_scroll"
+						data-kt-scroll-offset="300px">
+						<div class="fv-row mb-7">
+							<label class="required fw-semibold fs-6 mb-2">제목</label> <input
+								type="text" id="cmntyTtl" name="cmntyTtl"
+								value="${communityVO.cmntyTtl }"
+								class="form-control form-control-solid mb-3 mb-lg-0" />
+						</div>
+						<div class="fv-row mb-7">
+							<label class="required fw-semibold fs-6 mb-2">내용</label>
+							<textarea id="cmntyCn" name="cmntyCn" rows="10" cols="10"
+								class="form-control form-control-solid mb-3 mb-lg-0">${communityVO.cmntyCn }</textarea>
+						</div>
+						<div class="fv-row mb-7">
+							<label class="d-block fw-semibold fs-6 mb-0 mt-0"
+								style="padding-top: 8px">첨부파일</label> <input type="file"
+								id="atchFiles" name="atchFiles" multiple="multiple">
+						</div>
+						<c:if test="${not empty communityVO.atchFiles }">
+							<c:if test="${atchFileVO.atchFileDelYn == N }">
+								<ul class="mailbox-attachments d-flex align-items-stretch"
+									id="atchList">
+									<c:set var="cnt" value="0" />
+									<c:forEach
+										items="${communityVO.atchFiles[0].atchFileDetailList }"
+										var="fileList">
+										<li style="list-style-type: none; margin-right: 20px"
+											id="${fileList.atchFileDetailCd }"><i
+											id="atchFileDeleteBtn" onclick="atchFiledelBtn(this)"
+											class="ki-duotone ki-cross-square"
+											style="list-style-type: none; float: right;"> <span
+												class="path1"></span> <span class="path2"></span>
+										</i>
+											<div id="fileInfo">
+												<input type="text" id="atchFileDetailCd_${cnt }"
+													name="atchFileDetailCd"
+													value="${fileList.atchFileDetailCd }" /> <input
+													type="hidden" id="atchFileCd" name="atchFileCd"
+													value="${fileList.atchFileCd }" /> <input type="hidden"
+													id="atchFileDetailPathNm" name="atchFileDetailPathNm"
+													value="${fileList.atchFileDetailExtnNm }" /> <input
+													type="hidden" id="atchFileDetailExtnNm"
+													name="atchFileDetailExtnNm"
+													value="${fileList.atchFileDetailCd }" /> <input
+													type="hidden" id="atchFileDetailSize"
+													name="atchFileDetailSize"
+													value="${fileList.atchFileDetailSize }" /> <input
+													type="hidden" id="atchFileDetailStrgNm"
+													name="atchFileDetailStrgNm"
+													value="${fileList.atchFileDetailStrgNm }" /> <input
+													type="hidden" id="atchFileDetailRegDt"
+													name="atchFileDetailRegDt"
+													value="${fileList.atchFileDetailRegDt }" /> <input
+													type="hidden" id="atchFileDetailDelYn"
+													name="atchFileDetailDelYn"
+													value="${fileList.atchFileDetailDelYn }" /> <input
+													type="hidden" id="empId" name="empId"
+													value="${fileList.empId }" /> <a href="#"
+													id="atchFileDetailOrgnlNm"> <i
+													class="fas fa-paperclip me-3"></i>${fileList.atchFileDetailOrgnlNm }
+												</a> <span class="clearfix mt-1" id="atchFileDetailFancysize">
+													<span>${fileList.atchFileDetailFancysize }</span>
+												</span>
+											</div></li>
+										<c:set var="cnt" value="${cnt+1 }" />
+									</c:forEach>
+								</ul>
+							</c:if>
+						</c:if>
+						<input type="hidden" id="adCnt" value="${cnt }">
+					</div>
+				</form>
+				<div class="text-center pt-10" id="comunityModal">
+					<button type="reset" class="btn btn-light me-3" id="modifyCancel"
+						data-bs-dismiss="modal">취소</button>
+					<button type="button" id="modifyAdd" class="btn btn-primary"
+						data-kt-users-modal-action="button">
+						<span class="indicator-label">수정</span> <span
+							class="indicator-progress">Please wait... <span
+							class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+function replyBtn(commentNo) {
+	
+	let data = {
+			commentNo : commentNo
+		}
+		
+		$.ajax({
+			url : "/company/getreply.do",
+			type : "post",
+			contentType : "application/json; charset=utf-8",
+			data: JSON.stringify(data),
+			success: function(result) {
+				console.log("아작스 체킁:",result);
+				
+				let html = "";
+				
+				if(result == null && result == ""){
+					$("#commentReply").text("댓글이 없습니다.");
+				}else{
+					for(let i=0; i<result.length; i++){
+						html += `
+							<div class="border-gray-300" style="padding: 20px 0px 0px 0px;">
+								<input type="hidden" id="commentNo" name="replyCommentNo" value="\${result[i].commentNo }" />
+								<input type="hidden" id="upCmntNo" name="replyUpCmntNo" value="\${result[i].upCmntNo}" />
+								<div class="d-flex mb-2">
+									<div class="symbol symbol-35px me-4">
+										<img src="/upload/${employeeVO.imgFileUrl }" alt="" />
+									</div>
+									<div class="d-flex flex-column flex-row-fluid">
+										<div class="d-flex align-items-center flex-wrap mb-0">
+											<a href="#" class="text-gray-800 text-hover-primary fw-bold me-6">\${result[i].empId}</a>
+											<span class="text-gray-500 fw-semibold fs-7 me-5">\${result[i].cmntRegDt}</span>
+										</div>
+										<span id="replyCmntCn" name="replyCmntCn" class="text-gray-800 fs-7 fw-normal pt-1">\${result[i].cmntCn}</span>
+									</div>
+								</div>
+							</div>
+						`;
+					}
+					$("#commentReply"+commentNo).html(html);
+				} 
+			 },
+		        error: function(xhr, status, error) {
+		            console.error("AJAX 요청 실패:", error);
+		        }
+		});
+}
+
+
+function coco(btn){
+// 	alert("상위글 넘버: " + btn.dataset.dabinConum);
+	
+	console.log(`답글 추가 030`);
+	
+	
+	let replyUpCmntNo = btn.dataset.dabinConum;
+	let replyCmntCn = $(btn).closest('.replyInput').find("textarea[name='replyCmntCn']").val();
+	
+	console.log("내용", replyCmntCn);
+	console.log("up 댓글 번호", replyUpCmntNo);
+
+	let data = {
+		cmntCn : replyCmntCn,
+		upCmntNo : replyUpCmntNo
+	}
+	
+	console.log(data);
+	
+	if(replyCmntCn == null || replyCmntCn == ""){
+		alert("답글을 입력해주세요.");
+		return false;
+	}
+	
+	$.ajax({
+		url : "/company/replyInsert/1",
+		type : "post", 
+		contentType : "application/json; charset=utf-8",
+		data: JSON.stringify(data),
+		success: function(res) {
+			console.log(res);
+			
+			alert("작성 완료되었습니다.");
+			
+			location.reload();
+		}
+	});
+}
+
+function cocomentAdd(button) {
+	//alert(button.dataset.dabinConum)
+    console.log("답글버튼 눌림");
+    
+    // 클릭된 버튼의 부모 요소에서 댓글을 찾기
+    var commentMain = $(button).closest('.commentMain'); 
+
+    // 모든 replyInput 숨기기
+    $(".replyInput").hide();
+
+    commentMain.find('.replyAddBtn')[0].dataset.dabinConum=button.dataset.dabinConum;
+
+    // 현재 댓글의 replyInput만 보이기
+    commentMain.find('.replyInput').toggle();
+}
+function atchFiledelBtn(asd){
+
+	$(asd).parent().remove();
+	console.log($(asd).html()); 
+}
+
+
+$(function() {
+
+	var cmtUdtBtn = $("#cmtUdtBtn");					// 수정 들어가는 버튼
+	var modifyAdd = $("#modifyAdd");					// 수정 안의 수정버튼
+	var cmtCelBtn = $("#cmtCelBtn");					// 삭제
+	
+	var commentShowBtn = $("#commentShowBtn");			// 댓글 보기
+	var commentAddBtn = $("#commentAddBtn");			// 댓글 추가
+	
+	var replyAddBtn = $("#replyAddBtn");				// 대댓글 추가
+		
+	var ktModal = $("#kt_modal_add_user");
+
+	var form = $("#kt_modal_add_user_form");
+	
+	var replyInput = $(".replyInput");			// 대댓글 추가 div
+	
+	var downloadBtn = $("#downloadBtn");	// 다운
+	
+	var atchFileDeleteBtn = $("#atchFileDeleteBtn");	// 파일 지우기 
+	
+	var cancleBtn = $("#cancleBtn");		// 목록 버튼
+	
+	cancleBtn.on("click", function(){
+// 			console.log(${communityVO.cmntyType})
+		
+		if(${communityVO.cmntyType}){
+			console.log("아아아")
+			location.href="/company/communitySystem.do";
+		}
+	});
+	
+	modifyAdd.on("click", function(){
+		
+		let cmntyNo = $("#cmntyNo").val();
+		let cmntyTtl = $("#cmntyTtl").val();
+		let cmntyCn = $("#cmntyCn").val();
+		
+	    let atchFileDetailCd = $("#atchFileDetailCd").val();
+	    let atchFileCd = $("#atchFileCd").val();
+	    let atchFileDetailPathNm = $("#atchFileDetailPathNm").val();
+	    let atchFileDetailExtnNm = $("#atchFileDetailExtnNm").val();
+	    let atchFileDetailSize = $("#atchFileDetailSize").val();
+	    let atchFileDetailFancysize = $("#atchFileDetailFancysize").val();
+	    let atchFileDetailOrgnlNm = $("#atchFileDetailOrgnlNm").val();
+	    let atchFileDetailStrgNm = $("#atchFileDetailStrgNm").val();
+	    let atchFileDetailRegDt = $("#atchFileDetailRegDt").val();
+	    let empId = $("#empId").val();
+	    let atchFileDetailDelYn = $("#atchFileDetailDelYn").val();
+	    
+	    let atchFiles = $("#atchFiles")[0].files;
+	    
+	    // 내용, 제목, 게시물 번호
+	    
+	    let adCnt = $("#adCnt").val();
+	    console.log(adCnt);
+	    let arr = "";
+		for (var i = 0; i < adCnt; i++) {
+			
+			arr += $("#atchFileDetailCd_"+i).val() + ",";
+		}
+	    console.log(atchFileCd);
+
+
+		let formData = new FormData();
+	    formData.append("cmntyNo", cmntyNo);
+	    formData.append("cmntyTtl", cmntyTtl);
+	    formData.append("cmntyCn", cmntyCn);
+	    formData.append("arr", arr);
+	    
+	    formData.append("atchFileCd", atchFileCd);
+	    formData.append("empId", empId);
+	    
+	    // 모든 파일을 FormData에 추가
+	    for (let i = 0; i < atchFiles.length; i++) {
+	        formData.append("atchFiles", atchFiles[i]); // 파일 배열로 추가
+	        console.log("QWE"+i,atchFiles[i]);
+	    }
+	    
+	    console.log(formData);
+	    
+	    
+	    $.ajax({
+	        url: "/company/communityModify/1",
+	        type: "post",
+	        processData: false,
+	        contentType: false,
+	        data: formData,
+	        success: function(res) {
+	            console.log(res);
+	            alert("게시물 수정이 완료되었습니다.");
+	            location.reload();
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("게시물 수정에 실패했습니다:", error);
+	            alert("게시물 수정에 실패했습니다.");
+	        }
+	    });
+	    
+	});
+	
+	
+	
+	commentShowBtn.on("click", function(){
+		let cmntyNo = $("#cmntyNo").val();
+		let commentNo = $("#commentNo").val();
+		
+		console.log(cmntyNo);
+		
+		let data = {
+			cmntyNo : cmntyNo
+		 }
+		
+		 
+		$.ajax({
+			url : "/company/getcomment.do",
+			type : "post", 
+			contentType : "application/json; charset=utf-8",
+			data: JSON.stringify(data),
+			success: function(res) {
+				console.log("여긴 오뎅",res);
+				
+				if(res == null || res == ""){
+					$("#commentNull").text("댓글이 없습니다.");
+				}else{
+				let html = `
+					<!-- 시작-->
+					<div class="card-footer">
+						<div class="mb-6">
+							<div class="collapse show" id="kt_social_feeds_comments_1">`;
+		
+					for(let i=0; i<res.length; i++){
+						if (res[i].upCmntNo == 0 || res[i].upCmntNo == null) {
+
+						html += `
+									<div class="commentMain" data-comment-no="\${commentNo}">
+										<div class="d-flex 0pt-6 mb-10">
+											<div class="symbol symbol-45px me-3">
+												<img src="/upload/${employeeVO.imgFileUrl }" alt=""/>
+											</div>
+											<div class="d-flex flex-column flex-row-fluid">
+												<div class="d-flex align-items-center flex-wrap mb-0">
+													<input type="hidden" name="commentNo" value="\${res[i].commentNo}" />
+													<input type="hidden" name="upCmntNo" value="\${res[i].upCmntNo}" />
+													<a href="#" class="text-gray-800 text-hover-primary fw-bold me-6">\${res[i].empId}</a>
+													<span class="text-gray-500 fw-semibold fs-7 me-5">\${res[i].cmntRegDt}</span>
+														<button class="ms-auto text-gray-500 text-hover-primary fw-semibold fs-7 cocomentAddBtn" name="cocomentAddBtn"
+															style="background-color: transparent; border: none;"  data-dabin-conum="\${res[i].commentNo}" onclick="cocomentAdd(this)">답글</button>
+												</div>
+												<div class="d-flex align-items-center flex-wrap mb-0 toggle" id="Main">
+													<span class="text-gray-800 fs-7 fw-normal pt-1">\${res[i].cmntCn}</span>
+														<button name="replyPlus" class="replyPlus ms-auto text-gray-500 text-hover-primary fw-semibold fs-7"
+															style="background-color: transparent; border: none;" onclick="replyBtn(\${res[i].commentNo})" >댓글 더보기  ▼</button>
+															
+												</div>
+												<div id="commentReply\${res[i].commentNo}"></div>
+												
+											</div>
+										</div>
+								
+										
+										
+										<div class="d-flex align-items-center mb-9 replyInput" style="display : none !important;">
+											<div class="symbol symbol-35px me-3">
+												<img src="assets/media/avatars/300-3.jpg" alt="">
+											</div>
+						
+											<div class="position-relative w-100">
+												<input type="hidden" id="replyCommentNo" name="replyCommentNo" value="\${res[i].commentNo }">
+												<input type="hidden" id="replyUpCmntNo" name="replyUpCmntNo" value="\${res[i].upCmntNo }">
+												<textarea type="text" class="form-control form-control-solid border ps-5" rows="1"
+													name="replyCmntCn"  data-kt-autosize="true" placeholder="답글을 작성해주세요" data-kt-initialized="1"
+													style="overflow: hidden; overflow-wrap: break-word; resize: none; text-align: start; height: 80px;"></textarea>
+						
+												<div class="position-absolute bottom-0 end-0 me-4 mb-2 cocomment">
+													<button
+														class="btn btn-icon btn-sm btn-color-gray-500 btn-active-color-primary w-25px p-0 replyAddBtn" onclick="coco(this)"> 
+														<i class="bi bi-chat-square-text-fill fs-2"> 
+														</i> 
+													</button> 
+												</div>
+											</div>
+										</div>
+									</div>
+								
+								
+			             `;
+						}
+						
+					}
+					
+					$("#commentNull").html(html);	
+						html += `
+								 </div>
+							</div>
+						</div>
+				<!-- 종료 -->
+				`;
+				
+				}
+				
+			}
+		});
+		
+	});
+	
+	
+	commentAddBtn.on("click", function(){
+		let cmntCn = $("#cmntCn").val();
+		let cmntyNo = $("#commentCmntyNo").val();
+		
+		console.log(cmntCn);
+		console.log(cmntyNo);
+		console.log(upCmntNo);
+		
+		let data = {
+			cmntCn : cmntCn,
+			cmntyNo : cmntyNo
+		}
+		
+		console.log(data);
+		
+		if(cmntCn == null || cmntCn == ""){
+			alert("댓글을 입력해주세요.");
+			return false;
+		}
+		
+		$.ajax({
+			url : "/company/commentInsert/1",
+			type : "post", 
+			contentType : "application/json; charset=utf-8",
+			data: JSON.stringify(data),
+			success: function(res) {
+				console.log(res);
+				location.reload();
+			}
+		});
+		
+	});
+		
+		
+	cmtUdtBtn.on("click", function(e) {
+		// 현재 다빈이가 클릭한 버튼은 a태그 이므로, a태그가 가지고 있는 이벤트를 block합니다.
+		e.preventDefault();
+
+		// 이제 form 영역을 모달에 띄웠으니까 여기서 해야할일은 무엇일까요?
+		// 현재 보고 있는 페이지의 게시글 번호를 이용하여 게시글 번호에 일치하는 게시글 정보를 가져와서
+		// 모달 안에 들어있는 각각의 폼 영역에 가져온 데이터를 맵핑하는 일일겁니다!
+		// 아셨죠? 네엥
+
+		ktModal.modal("show");
+
+	});
+
+// 	modifyAdd.on("click", function() {
+		
+// 		console.log("수정버튼 눌림 :::");
+		
+// 		let title = $("#cmnty_ttl").val();
+// 		let content = $("#cmnty_cn").val();
+// 		let atchFiles = $("#atchFiles").val();
+		
+// 		console.log("title ::: ", title);
+// 		console.log("content ::: ", content);
+// 		console.log("atchFiles ::: ", atchFiles);
+	
+// 			if (title == null || title == "") {
+// 				alert("제목을 입력해주세요!");
+// 				return false;
+// 			}
+// 			if (content == null || content == "") {
+// 				alert("내용을 입력해주세요!");
+// 				return false;
+// 			}
+	
+// 		$(".communityModify").submit();
+		
+// 	});
+
+
+	cmtCelBtn.on("click", function(e) {
+// 	    e.preventDefault(); // 기본 링크 동작 방지
+	    var cmntyNo = $("#cmntyNo").val(); // 게시물 번호 가져오기
+
+	    // AJAX 요청
+	    $.ajax({
+	        url: "/company/communityRemove.do?cmntyNo=" + cmntyNo, // 올바른 cmntyNo 사용
+	        type: "GET", // GET 요청
+	        success: function(data) {
+	            
+	            // 리스트 페이지로 이동
+	            location.href = "/company/communityCompany.do";
+	        },
+	        error: function() {
+	            alert("삭제에 실패했습니다."); // 오류 처리
+	        }
+	    });
+	});
+});
+	
+	$("#modifyCancel").on("click",function(){
+		location.reload();
+		
+		
+	});
+</script>
+
+
+<!-- <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=\${res[i].empId}" alt="사진" /> -->

@@ -1,0 +1,34 @@
+package kr.or.ddit.groubear.contract.vo;
+
+import lombok.Data;
+
+@Data
+public class ContractVO {
+	private int ctrtNo;
+	private String gdsNo;
+	private String ctrtCon;
+	private String ctrtBgngDt;
+	private String ctrtExpryDt;
+	private String ctrtPre;
+	private String ctrtDt;
+	private String ctrtAmt;
+	private String ctrtNm;
+	private String ctrtBrno;
+	private String ctrtCnt;
+	private String premiumYn;
+	private String status;
+	
+	
+	// CompanyVO
+	private String coCd;
+	private String coNm;
+	private String coRegDt;
+	private int coCnt;
+	private String coBrno;
+	private String ceoNm;
+	private int coZip;
+	private String coAddr;
+	private String coDaddr;
+	private String coTel;
+	
+}

@@ -1,0 +1,208 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<div style="margin-bottom: 50px;">
+	<div style="margin-top: -32px;">
+		<div class="separator border-2 my-10"></div>
+	</div>
+	<div style="margin-left: 30px; margin-top: -100px;">
+		<h3>프로젝트</h3> 
+		<h6>프로젝트</h6>
+	</div>
+</div>
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+	<div class="d-flex flex-column flex-column-fluid">
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			<div id="kt_app_content_container" class="app-container container-fluid">
+				<div class="d-flex flex-wrap flex-stack pt-10 pb-8">
+					<h3 class="fw-bold my-2">내 할 일</h3>
+						<div class="card-toolbar flex-row-fluid justify-content-end gap-5" data-select2-id="select2-data-188-5om8">
+							<div class="d-flex flex-end my-1">
+								<ul class="nav nav-pills me-5">
+									<li class="nav-item m-0">
+										<a class="btn btn-sm btn-icon btn-light btn-color-muted btn-active-primary active me-3" data-bs-toggle="tab" href="#kt_project_targets_card_pane">
+											<i class="ki-duotone ki-element-plus fs-1">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+												<span class="path4"></span>
+												<span class="path5"></span>
+											</i>
+										</a>
+									</li>
+								<li class="nav-item m-0">
+										<a class="btn btn-sm btn-icon btn-light btn-color-muted btn-active-primary" data-bs-toggle="tab" href="#kt_project_targets_table_pane">
+											<i class="ki-duotone ki-row-horizontal fs-2">
+												<span class="path1"></span>
+												<span class="path2"></span>
+											</i>
+										</a>
+									</li>
+								</ul>
+								<div class="w-100 mw-150px me-5">
+									<select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="전체" data-kt-ecommerce-product-filter="status">
+										<option></option>
+										<option value="all">전체</option>
+										<option value="PRO001">대기</option>
+										<option value="PRO002">진행</option>
+										<option value="PRO001">완료</option>
+									</select>
+								</div>
+							<button type="button" id="addProBtn" class="btn btn-primary">프로젝트 추가하기</button>
+						</div>
+					</div>
+				</div>
+				<!-- 프로젝트 메인 홈 리스트 -->
+				<div class="tab-content">
+					<!-- 프로젝트 메인 홈 카드 리스트 -->
+					<div id="kt_project_targets_card_pane" class="tab-pane fade show active">
+						<div class="col-lg-12">
+						    <div class="row">
+						    	<c:set value="${proCardList }" var="proCardList"/>
+									<c:choose>
+										<c:when test="${empty proCardList }">
+											<div class="card-body">
+												프로젝트가 존재하지 않습니다.
+											</div>
+										</c:when>
+										<c:otherwise>
+								        <c:forEach items="${proCardList }" var="projectVO">           
+								            <div class="col-md-3">
+								                <div class="card mb-6 mb-xl-12">
+													<a href="/company/canbanList.do?proNo=${projectVO.proNo }" class="text-gray-900 text-hover-primary">
+									                    <div class="card-body">
+									                    	<c:if test="${projectVO.proSttsCd eq 'PRO001'}">
+																<span class="badge text-bg-primary mb-2">대기</span>
+															</c:if>
+															<c:if test="${projectVO.proSttsCd eq 'PRO002'}">
+																<span class="badge text-bg-warning mb-2">진행</span>
+															</c:if>
+															<c:if test="${projectVO.proSttsCd eq 'PRO003'}">
+																<span class="badge text-bg-success mb-2">완료</span>
+															</c:if>
+									                        <div class="mb-2">
+										                        <h3> ${projectVO.proNm } </h3>
+									                        </div>
+									                        <div class="mb-2">
+									                        	등록자 : ${projectVO.empId }
+									                        </div>
+									                        <div class="mb-2">
+									                        	${projectVO.proStartDt } - ${projectVO.proEndDt }
+									                        </div>
+									                        <!-- 참가자 목록 수정 예정 -->
+									                        <div class="d-flex flex-stack flex-wrap mb-2">
+									                            <div class="symbol-group symbol-hover my-1">
+									                                <%-- <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="${projectVO.empId }">
+									                                    <img alt="${projectVO.empId }" src="" />
+									                                </div> --%>
+									                            </div>
+									                        </div>
+									                    </div>
+								                   	</a>
+								                    <div class="card-footer">
+								                        <button type="button" class="btn btn-primary" onclick="javascript:location.href='/company/canbanList.do?proNo=${projectVO.proNo }'">칸반보드</button>
+								                        <button type="button" class="btn btn-warning" onclick="javascript:location.href='/company/ganttList.do?proNo=${projectVO.proNo }'">간트차트</button>
+								                    </div>
+								                </div>
+								            </div>
+								        </c:forEach>
+						       		 </c:otherwise>
+						        </c:choose>
+						    </div> 
+						</div>
+					</div>
+					<!-- 프로젝트 메인 홈 테이블 리스트 -->
+					<div id="kt_project_targets_table_pane" class="tab-pane fade">
+						<div class="card card-flush">
+							<div class="card-body pt-3">
+								<table id="kt_profile_overview_table" class="table table-row-bordered table-row-dashed gy-4 align-middle fw-bold">
+									<thead class="fs-7 text-gray-500 text-uppercase">
+										<tr>
+											<th class="min-w-250px">프로젝트명</th>
+											<th class="min-w-90px">등록일</th>
+											<th class="min-w-90px">시작일</th>
+											<th class="min-w-150px">마감일</th>
+											<th class="min-w-90px">참가자</th>
+											<th class="min-w-90px">진행상태</th>
+											<th class="min-w-50px">자세히보기</th>
+										</tr>
+									</thead>
+									<tbody class="fs-6">
+										<c:set value="${proTableList }" var="proTableList"/>
+										<c:choose>
+											<c:when test="${empty proTableList }">
+												<tr>
+													<td colspan="6" >
+														프로젝트가 존재하지 않습니다.
+													</td>
+												</tr>
+											</c:when>
+											<c:otherwise>
+												<c:forEach items="${proTableList }" var="projectVO">
+													<tr>
+														<td class="fw-bold">
+															<a href="/company/canbanList.do?proNo=${projectVO.proNo }" class="text-gray-900 text-hover-primary">
+																${projectVO.proNm }
+															</a>
+														</td>
+														<td>${projectVO.proBgngDt }</td>
+														<td>${projectVO.proStartDt }</td>
+														<td>${projectVO.proEndDt }</td>
+														<!-- 참가자 수정 필요 -->
+														<td>
+															<div class="symbol-group symbol-hover fs-8">
+																<div class="symbol symbol-25px symbol-circle" data-bs-toggle="tooltip" title="임윤아">
+																	<!-- <img alt="Pic" src="https://cdn.newsculture.press/news/photo/202308/530104_658274_2534.jpg" /> -->
+																</div>
+																<div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="김태연">
+																	<img alt="김태연" src="https://lh3.googleusercontent.com/proxy/fFQCA6eJ35atPiMLgUbdH0vCSNw_dV82N7E0-dlQW_ZRCCDoHYXVaj1jMXc9K1o47txHtJZlFMyrqg47OEvRhiSV6fqPm5H7uRjDFTi50JM6" />
+																</div>
+															</div>
+														</td>
+														<td>
+															<c:if test="${projectVO.proSttsCd eq 'PRO001'}">
+																<span class="badge text-bg-primary">대기</span>
+															</c:if>
+															<c:if test="${projectVO.proSttsCd eq 'PRO002'}">
+																<span class="badge text-bg-warning">진행</span>
+															</c:if>
+															<c:if test="${projectVO.proSttsCd eq 'PRO003'}">
+																<span class="badge text-bg-success">완료</span>
+															</c:if>
+														</td>
+														<td>
+															<a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">자세히 보기 
+															<i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+															<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+																<div class="menu-item px-3">
+																	<a href="/company/canbanList.do?proNo=${projectVO.proNo }" class="menu-link px-3">칸반보드</a>
+																</div>
+																<div class="menu-item px-3">
+																	<a href="/company/ganttList.do?proNo=${projectVO.proNo }" class="menu-link px-3">간트차트</a>
+																</div>
+															</div>
+														</td>
+													</tr>
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	var addProBtn = $("#addProBtn");		// 프로젝트 추가
+
+	// 프로젝트 추가
+	addProBtn.on("click", function () {
+		location.href = "/company/projectForm.do";
+	});
+});
+</script>

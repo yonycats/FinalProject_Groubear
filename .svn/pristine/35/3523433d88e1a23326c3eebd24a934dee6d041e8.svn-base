@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="kr.or.ddit.company.facilities.mapper.IFacilititesMapper">
+  	
+  	<insert id="insertFclt" parameterType="kr.or.ddit.company.facilities.vo.FacilityVO">
+  		INSERT INTO FACILITY (
+  			FCLT_CD, FCLT_CTGR_CD, FCLT_NM, FCLT_START_TM, FCLT_END_TM, FCLT_NOPE, ATCH_FILE_CD, FCLT_INFO
+  		) VALUES(
+  			#{fcltCd}, #{fcltCtgrCd}, #{fcltNm}, #{fcltStartTm}, #{fcltEndTm}, #{fcltNope}, #{atchFileCd}, #{fcltInfo}
+  		)
+  		
+  	</insert>
+  	<select id="setfcltCd" resultType="string">
+  		select seq_fclt_cd.nextval from dual
+  	
+  	</select>
+  	
+  	<insert id="setequipment" parameterType="kr.or.ddit.company.facilities.vo.FaciltyEquipmentVO">
+  		INSERT INTO FACILTY_EQUIPMENT (FCLT_CD, EQUIPMENT_CD) VALUES(#{fcltCd},#{equipmentCd})
+  	
+  	</insert>
+  	
+  	<select id="getFcltList" parameterType="kr.or.ddit.company.facilities.vo.FacilityCategoryVO" resultType="kr.or.ddit.company.facilities.vo.FacilityVO">
+  		SELECT FCLT_CD, FCLT_CTGR_CD, FCLT_NM, FCLT_START_TM, FCLT_END_TM, FCLT_NOPE, ATCH_FILE_CD, FCLT_INFO FROM FACILITY
+  		WHERE FCLT_CTGR_CD = #{fcltCtgrCd}
+  	
+  	</select>
+  	
+  	<select id="getFcltInfo" parameterType="kr.or.ddit.company.facilities.vo.FacilityVO" resultType="kr.or.ddit.company.facilities.vo.FacilityVO"> 
+		SELECT FCLT_CD, FCLT_CTGR_CD, FCLT_NM, FCLT_START_TM, FCLT_END_TM, FCLT_NOPE, ATCH_FILE_CD, FCLT_INFO FROM FACILITY
+  		WHERE FCLT_CD = #{fcltCd}
+  	</select>
+  	<select id="getFcltEq" parameterType="kr.or.ddit.company.facilities.vo.FacilityVO" resultType="kr.or.ddit.company.facilities.vo.FaciltyEquipmentVO">
+  		SELECT FCLT_CD, EQUIPMENT_CD FROM FACILTY_EQUIPMENT WHERE FCLT_CD = #{fcltCd}
+  	</select>
+  	
+  	<delete id="deleteFclt" parameterType="kr.or.ddit.company.facilities.vo.FacilityVO">
+  		DELETE FROM FACILITY WHERE FCLT_CD=#{fcltCd}
+  	</delete>
+  	
+  	<select id="getfcltCtgrList" parameterType="kr.or.ddit.comm.security.vo.EmployeeVO" resultType="kr.or.ddit.company.facilities.vo.FacilityCategoryVO">
+		SELECT 
+			FCLT_CTGR_CD, CO_CD, FCLT_CTGR_NM, FCLT_CTGR_IMG_URL, FCLT_CTGR_TURN 
+		FROM 
+			FACILITY_CATEGORY 
+		WHERE 
+			CO_CD = #{coCd}
+		ORDER BY 
+			FCLT_CTGR_TURN ASC
+  	</select>
+  	
+  	<select id="getfcltCtgrInfo" parameterType="kr.or.ddit.company.facilities.vo.FacilityCategoryVO" resultType="kr.or.ddit.company.facilities.vo.FacilityCategoryVO">
+  		SELECT 
+			FCLT_CTGR_CD, CO_CD, FCLT_CTGR_NM, FCLT_CTGR_IMG_URL, FCLT_CTGR_TURN 
+		FROM 
+			FACILITY_CATEGORY 
+		WHERE 
+			FCLT_CTGR_CD = #{fcltCtgrCd}
+  	</select>
+	<select id="getEqList" parameterType="kr.or.ddit.company.facilities.vo.FacilityVO" resultType="kr.or.ddit.company.facilities.vo.EquipmentVO">
+		SELECT 
+			b.EQUIPMENT_NM, b.EQUIPMENT_ICON
+		FROM
+			(SELECT 
+				FCLT_CD, EQUIPMENT_CD 
+			FROM 
+				FACILTY_EQUIPMENT 
+			WHERE 
+				FCLT_CD = #{fcltCd} ) a
+		LEFT OUTER JOIN 
+			(
+			SELECT * FROM EQUIPMENT 
+			) b
+		 ON a.EQUIPMENT_CD = b.EQUIPMENT_CD
+	</select>
+	
+	<select id="getFcltImg" parameterType="kr.or.ddit.company.facilities.vo.FacilityVO" resultType="kr.or.ddit.comm.file.vo.AtchFileDetailVO">
+		SELECT * FROM ATCH_FILE_DETAIL WHERE ATCH_FILE_CD = #{atchFileCd}
+	
+	</select>
+	  	
+  </mapper>

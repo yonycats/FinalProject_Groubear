@@ -1,0 +1,95 @@
+package kr.or.ddit.groubear.cmnty.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.comm.cmnty.vo.CmntyVO;
+import kr.or.ddit.comm.file.vo.AtchFileDetailVO;
+import kr.or.ddit.comm.paging.vo.PaginationInfoVO;
+import kr.or.ddit.comm.serviceresult.ServiceResult;
+
+public interface IGroCmntyMapper {
+
+	/**
+	 * 그루베어 시스템 공지사항 목록 갯수 가져오기
+	 * @param pagingVO
+	 * @return
+	 */
+	public int groNoticeSelectListCount(PaginationInfoVO<CmntyVO> pagingVO);
+
+	/**
+	 * 그루베어 시스템 공지사항 목록 가져오기
+	 * @param pagingVO
+	 * @return
+	 */
+	public List<CmntyVO> groNoticeSelectList(PaginationInfoVO<CmntyVO> pagingVO);
+
+	/**
+	 * 그루베어 시스템 공지사항 디테일 가져오기
+	 * @param cmntyNo
+	 * @return
+	 */
+	public CmntyVO groNoticeSelectOne(int cmntyNo);
+
+	/**
+	 * 파일 디테일 불러오기 (다운로드)
+	 * @param atchFileDetailCd
+	 * @return
+	 */
+	public AtchFileDetailVO atchFileDetailOneSelect(String atchFileDetailCd);
+	
+	/**
+	 * 파일 디테일 리스트 불러오기 (다운로드)
+	 * @param atchFileCd
+	 * @return
+	 */
+	public List<AtchFileDetailVO> atchFileDetailListSelect(String atchFileCd);
+
+	/**
+	 * 공지사항 등록하기
+	 * @param cmntyVO
+	 * @return
+	 */
+	public int cmntyNoticeInsert(CmntyVO cmntyVO);
+
+	/**
+	 * 파일 그룹 등록하기
+	 * @param cmntyVO
+	 * @return
+	 */
+	public int atchFileInsert(CmntyVO cmntyVO);
+
+	/**
+	 * 개별 파일 등록하기
+	 * @param atchFileDetailVO
+	 */
+	public void fileDetailInsert(AtchFileDetailVO atchFileDetailVO);
+
+	/**
+	 * 공지사항 수정하기
+	 * @param cmntyVO
+	 * @return
+	 */
+	public int cmntyNoticeModify(CmntyVO cmntyVO);
+
+	/**
+	 * 공지사항 파일 수정하기
+	 * @param cmntyVO
+	 * @return
+	 */
+	public int cmntyNoticeFileDetailModify(CmntyVO cmntyVO);
+
+	/**
+	 * 공지사항 삭제 처리
+	 * @param cmntyVO
+	 * @return
+	 */
+	public int cmntyNoticeDelete(int cmntyNo);
+
+	/**
+	 * 공지사항에 속한 파일들 삭제 처리
+	 * @param atchFileCd
+	 * @return
+	 */
+	public int fileDetailDelete(String atchFileCd);
+	
+}

@@ -1,0 +1,29 @@
+package kr.or.ddit.comm.tiles.controller;
+
+import java.util.Locale;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * Handles requests for the application home page.
+ */
+@Controller
+@RequestMapping("/groubear")
+@PreAuthorize("hasRole('ROLE_GROUBEAR')")
+public class GroubearMainController {
+	
+	
+	@GetMapping("/main.do")
+	public String home(Locale locale, Model model) {
+		
+		
+		
+		
+		return "groubear/mainPage/home";
+	}
+	
+}

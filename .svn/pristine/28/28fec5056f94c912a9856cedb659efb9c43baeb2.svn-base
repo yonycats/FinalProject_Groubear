@@ -1,0 +1,891 @@
+package kr.or.ddit.employee.elapr.controller;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import kr.or.ddit.comm.cmnty.vo.CmntyVO;
+import kr.or.ddit.comm.empallinfo.vo.EmployeeAllVO;
+import kr.or.ddit.comm.file.vo.AtchFileDetailVO;
+import kr.or.ddit.comm.form.service.IFormService;
+import kr.or.ddit.comm.form.vo.FormVO;
+import kr.or.ddit.comm.paging.vo.PaginationInfoVO;
+import kr.or.ddit.comm.security.vo.CompanyVO;
+import kr.or.ddit.comm.security.vo.CustomUser;
+import kr.or.ddit.comm.security.vo.EmployeeVO;
+import kr.or.ddit.comm.serviceresult.ServiceResult;
+import kr.or.ddit.comm.tiles.service.ITIlesService;
+import kr.or.ddit.company.personnelInformation.service.IInformationService;
+import kr.or.ddit.company.personnelInformation.vo.DepartmentVO;
+import kr.or.ddit.company.personnelInformation.vo.JobGradeVO;
+import kr.or.ddit.company.personnelInformation.vo.TeamVO;
+import kr.or.ddit.employee.elapr.service.IEmpElaprService;
+import kr.or.ddit.employee.elapr.vo.EmpAplnVO;
+import kr.or.ddit.employee.elapr.vo.EmpElaprPrslVO;
+import kr.or.ddit.employee.elapr.vo.EmpElaprVO;
+import kr.or.ddit.employee.elapr.vo.EmpRerncVO;
+import lombok.extern.slf4j.Slf4j;
+import oracle.net.aso.l;
+
+@Slf4j
+@Controller
+@PreAuthorize("hasAnyRole('ROLE_EMPLOYEE')")
+@RequestMapping("/employee")
+public class EmpElaprController {
+
+	@Inject
+	private IEmpElaprService elaprService;
+	
+	@Inject
+	private IFormService formService;
+	
+	@Inject
+	private ITIlesService tilesService;
+
+	@Inject
+	private IInformationService infoService;
+	  
+	
+	/**
+	 *  전자결재 메인 홈
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/elaprMain.do")
+	public String elaprMain(Model model) {
+		
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO empVO = user.getMember();
+		
+		DepartmentVO epmtVO = tilesService.getEpmt(empVO);
+		
+		TeamVO teamVO = tilesService.getTeam(empVO);
+				
+		
+		model.addAttribute("employeeVO", empVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		
+		String empId = empVO.getEmpId();
+		
+		// 메인 홈 카드 상단 3개
+		List<EmpElaprVO> cardList = elaprService.selectElaprCardList(empId);
+		// 메인 홈 테이블
+		List<EmpElaprVO> tableList = elaprService.selectElaprTableList(empId);
+		
+		model.addAttribute("cardList", cardList);
+		model.addAttribute("tableList", tableList);
+		return "employee/elapr/elaprMain";
+	}
+	
+	/**
+	 *  전자결재 양식 목록 출력 (Jstree)
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/elaprSelectJstree.do")
+	public ResponseEntity<JsonArray> elaprSelectJstree (Model model) {
+		// 시큐리티에서 로그인 정보 및 커스텀 유저 객체 가져오기 
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO empVO = user.getMember();
+		
+		DepartmentVO epmtVO = tilesService.getEpmt(empVO);
+		
+		TeamVO teamVO = tilesService.getTeam(empVO);
+				
+		
+		model.addAttribute("employeeVO", empVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		
+		// 아래처럼 treeList를 프론트에 전달
+		// id, text, parent, type 변수그대로사용
+		JsonArray treeList = new JsonArray();
+		List<FormVO> formList = elaprService.selectFormListJstree(empVO.getCoCd());
+		
+		// jstree에게 전달하기 위한 제이슨 형태의 객체로 데이터 가공하기
+		if(formList.size() > 0) {
+		    for(int i = 0; i < formList.size(); i++){
+		    	JsonObject json = new JsonObject();		// JSON 객체를 만들기 위한 준비
+		    	json.addProperty("id", formList.get(i).getDocFormNo());
+		    	json.addProperty("text", formList.get(i).getDocFormNm());
+		    	json.addProperty("parent", formList.get(i).getDocFormKndUp());
+		    	if (formList.get(i).getDocFormKndUp().equals("#")) {
+		    		json.addProperty("type", "default"); //css icon 폴더 아이콘
+		    	} else {
+		    		json.addProperty("type", "file"); //css icon 파일 아이콘
+		    	}
+		        treeList.add(json);
+		    }
+		}
+		return new ResponseEntity<JsonArray>(treeList, HttpStatus.OK);
+	}
+	
+     
+	/**
+	 *  선태한 양식 정보 가져오기
+	 * @param docFormNo
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/elaprSelectForm.do")
+	public ResponseEntity<FormVO> elaprSelectForm(@RequestParam("docFormNo") int docFormNo, Model model) {
+		
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO empVO = user.getMember();
+		
+		DepartmentVO epmtVO = tilesService.getEpmt(empVO);
+		
+		TeamVO teamVO = tilesService.getTeam(empVO);
+		
+		model.addAttribute("employeeVO", empVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		
+		FormVO formVO = formService.selectForm(docFormNo);
+		
+		return new ResponseEntity<FormVO>(formVO, HttpStatus.OK);
+	}
+	
+	/**
+	 *  전자결재 데이터 가져오기
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/empElaprSelectImpl.do")
+	public ResponseEntity<EmployeeAllVO> empElaprSelectImpl(Model model) {
+		
+
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO empVO = user.getMember();
+		EmployeeAllVO docEmployeeVO = elaprService.empElaprSelectImpl(empVO);
+		
+		DepartmentVO epmtVO = tilesService.getEpmt(empVO);
+		
+		TeamVO teamVO = tilesService.getTeam(empVO);
+		
+		model.addAttribute("employeeVO", empVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		
+
+		// 날짜 세팅
+		LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+        String currentDt = today.format(formatter);
+        String empJncmpYmd = docEmployeeVO.getEmpJncmpYmd().substring(0, 10);
+        String empRsgntnYmd = docEmployeeVO.getEmpRsgntnYmd().substring(0, 10);
+        String elaprBgngDt = docEmployeeVO.getElaprBgngDt().substring(0, 10);
+        
+        docEmployeeVO.setCurrentDt(currentDt);
+        docEmployeeVO.setEmpJncmpYmd(empJncmpYmd);
+        docEmployeeVO.setEmpRsgntnYmd(empRsgntnYmd);
+        docEmployeeVO.setElaprBgngDt(elaprBgngDt);
+        
+		
+		return new ResponseEntity<EmployeeAllVO>(docEmployeeVO, HttpStatus.OK);
+	}
+	
+	// //////////////////// 전자결재 CRUD ////////////////////
+	
+	/**
+	 *  전자결재 추가폼
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/elaprForm.do") 
+	public String elaprForm(Model model) {
+		
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO empVO = user.getMember();
+		
+		DepartmentVO epmtVO = tilesService.getEpmt(empVO);
+		
+		TeamVO teamVO = tilesService.getTeam(empVO);
+		
+		// 결재정보
+		CompanyVO companyVO = tilesService.getCompany(empVO);
+
+		List<EmployeeVO> empAllList = infoService.comAllEmpList(empVO);
+		List<DepartmentVO> deptTeamList = infoService.selectDeptTeamList(empVO);
+		List<JobGradeVO> jbgdList = infoService.selectJBGDList(empVO);
+		List<TeamVO> teamList = infoService.selectTeamListByDept(empVO);
+				
+		model.addAttribute("companyVO",companyVO);
+		model.addAttribute("empAllList", empAllList);
+		model.addAttribute("deptTeamList", deptTeamList);
+		model.addAttribute("jbgdList", jbgdList);
+		model.addAttribute("teamList", teamList);
+		
+		log.info("companyVO : " + companyVO.getCeoId());
+		
+		model.addAttribute("employeeVO", empVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		
+		FormVO formVO = new FormVO();
+		formVO.setCoCd(empVO.getCoCd());
+		
+		// 양식 종류 가져오기
+		List<FormVO> docFormKndNmList = formService.groubearSelectDocFormKndNm(formVO);
+		model.addAttribute("docFormKndNmList", docFormKndNmList);
+		
+		model.addAttribute("formVO", formVO);
+		model.addAttribute("status", "i");
+		return "employee/elapr/elaprInsert";
+	}      
+	
+	/**
+	 *  전자결재 신청하기
+	 * @param elaprVO
+	 * @param model
+	 * @param docFormNo
+	 * @param request
+	 * @param ra
+	 * @return
+	 */
+	@PostMapping("/empElaprInsert.do")
+	public String empElaprInsert(EmpElaprVO elaprVO, Model model, 
+			HttpServletRequest request, RedirectAttributes ra) {
+		
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO empVO = user.getMember();
+		
+		DepartmentVO epmtVO = tilesService.getEpmt(empVO);
+		
+		TeamVO teamVO = tilesService.getTeam(empVO);
+				
+		model.addAttribute("employeeVO", empVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		
+		String goPage = "";
+		
+
+		if (empVO != null) {	// 로그인을 정상적으로 한 상태일 때만
+			elaprVO.setEmpId(empVO.getEmpId());
+			elaprVO.setCoCd(empVO.getCoCd());
+			
+			// 결재선 등록
+			List<EmpAplnVO> aplnList = elaprVO.getAplnList();
+			if (aplnList == null || aplnList.isEmpty()) {
+				log.info("null");
+			} else {
+				log.info("aplnList : " + aplnList.size());
+			}
+			
+			// 참조자 등록
+			List<EmpRerncVO> rerncList = elaprVO.getRerncList();
+			if (rerncList == null || rerncList.isEmpty()) {
+				log.info("null");
+			} else {
+				log.info("rerncList : " + rerncList.size());
+			}
+			
+			// 열람자 등록
+			List<EmpElaprPrslVO> prslList = elaprVO.getPrslList();
+			if (prslList == null || prslList.isEmpty()) {
+				log.info("null");
+			} else {
+				log.info("prslList : " + prslList.size());
+			}
+			
+			
+			ServiceResult result = elaprService.empElaprInsert(request, elaprVO);
+
+			if (result.equals(ServiceResult.OK)) {	// 정상적으로 DB에 연결됐다면	
+				ra.addFlashAttribute("message", "정상적으로 등록되었습니다.");
+				goPage = "redirect:/employee/elaprDetail.do?elaprNo=" + elaprVO.getElaprNo();
+				
+			} else {	// DB 연결에 문제가 생겼다면
+				model.addAttribute("message", "서버에 오류가 생겼습니다. 다시 시도해주세요.");
+				goPage = "redirect:/employee/elaprMain.do";
+			}
+			
+		} else {
+			ra.addFlashAttribute("message", "로그인 후 사용 가능합니다!");
+			goPage = "redirect:/login.do";
+		}
+		
+		return goPage;
+	}
+	
+	/**
+	 *  전자결재 상세보기
+	 * @param elaprNo
+	 * @param model
+	 * @param ra
+	 * @return
+	 */
+	@GetMapping("/elaprDetail.do")
+	public String elaprDetail(
+	        @RequestParam("elaprNo") int elaprNo, 
+	        @RequestParam(name = "status", required = false) String status,
+	        Model model, RedirectAttributes ra) {
+
+	    // 로그인한 사용자 정보를 가져옴
+	    CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    EmployeeVO empVO = user.getMember();
+	    
+	    // 부서 정보 및 팀 정보 가져오기
+	    DepartmentVO epmtVO = tilesService.getEpmt(empVO);
+	    TeamVO teamVO = tilesService.getTeam(empVO);
+	    
+	    // Model에 사용자, 부서, 팀 정보를 담음
+	    model.addAttribute("employeeVO", empVO);
+	    model.addAttribute("departmentVO", epmtVO);
+	    model.addAttribute("teamVO", teamVO);
+
+	    String goPage = "";
+	    
+	    // 사용자가 로그인한 상태일 때만 처리
+	    if (empVO != null) {    
+	        // 전자 결재 상세 정보 가져오기
+	        EmpElaprVO param = new EmpElaprVO();
+	        param.setElaprNo(elaprNo);
+	         
+	        EmpElaprVO elaprVO = elaprService.elaprDetail(param);
+	        model.addAttribute("elaprVO", elaprVO);  // 결재 정보 전달
+	        
+	        // 상태 코드 설정
+	        model.addAttribute("status", status);  // 상태코드 받아오기
+	        
+	        List<EmpAplnVO> aplnList = elaprService.selectAplnList(param);			// 결재자 리스트
+	        List<EmpRerncVO> rerncList = elaprService.selectRerncList(param);		// 참조자 리스트
+	        List<EmpElaprPrslVO> prslList = elaprService.selectPrslList(param);		// 열람자 리스트
+	        
+	        model.addAttribute("aplnList", aplnList);  	// 결재자 리스트 전달
+	        model.addAttribute("rerncList", rerncList);	// 참조자 리스트 전달
+	        model.addAttribute("prslList", prslList);	// 열람자 리스트 전달
+	        
+	        // 상신취소 유무 (결재승인이 한명이라도 있을 경우 상신 불가능)
+	        boolean isCancelable = (elaprService.getApprovalCount(elaprNo) == 0);
+	        model.addAttribute("isCancelable", isCancelable);
+
+	        
+			List<EmployeeVO> empAllList = infoService.comAllEmpList(empVO);
+			List<DepartmentVO> deptTeamList = infoService.selectDeptTeamList(empVO);
+			List<JobGradeVO> jbgdList = infoService.selectJBGDList(empVO);
+			List<TeamVO> teamList = infoService.selectTeamListByDept(empVO);
+					
+			model.addAttribute("empAllList", empAllList);
+			model.addAttribute("deptTeamList", deptTeamList);
+			model.addAttribute("jbgdList", jbgdList);
+			model.addAttribute("teamList", teamList);
+			
+	        
+	        goPage = "employee/elapr/elaprDetail";
+	    } else {
+	        ra.addFlashAttribute("message", "로그인 후 사용 가능합니다!");
+	        goPage = "redirect:/login.do";
+	    }
+
+	    String authrityNm = empVO.getAuthList().get(0).getAuthrityNm();
+	    model.addAttribute("authrityNm", authrityNm);
+	    
+	    return goPage;
+	}
+
+	
+	/**
+	 *  전자결재 수정폼
+	 * @param elaprNo
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/empElaprUpdate.do")
+	public String empElaprUpdate (int elaprNo, Model model) {
+
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO empVO = user.getMember();
+		
+		DepartmentVO epmtVO = tilesService.getEpmt(empVO);
+		
+		TeamVO teamVO = tilesService.getTeam(empVO);
+				
+		
+		model.addAttribute("employeeVO", empVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		
+		EmpElaprVO elaprVO = elaprService.selectElapr(elaprNo);
+		model.addAttribute("elaprVO", elaprVO);
+		model.addAttribute("status", "u");
+		
+		String authrityNm = empVO.getAuthList().get(0).getAuthrityNm();
+		model.addAttribute("authrityNm", authrityNm);
+		
+		return "employee/elapr/elaprInsert";
+	}
+	
+	/**
+	 *  전자결재 수정
+	 * @param elaprVO
+	 * @param model
+	 * @param request
+	 * @param ra
+	 * @return
+	 */
+	@PostMapping("/empElaprUpdate.do")
+	public String empElaprUpdate(EmpElaprVO elaprVO, Model model, HttpServletRequest request, RedirectAttributes ra) {
+		
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO empVO = user.getMember();
+		
+		DepartmentVO epmtVO = tilesService.getEpmt(empVO);
+		
+		TeamVO teamVO = tilesService.getTeam(empVO);
+				
+		
+		model.addAttribute("employeeVO", empVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		
+		String goPage = "";
+		
+		
+		if (empVO != null) {	// 로그인을 정상적으로 한 상태일 때만
+			elaprVO.setEmpId(empVO.getEmpId());
+			
+			ServiceResult result = elaprService.empElaprUpdate(request, elaprVO);
+			
+			if (result.equals(ServiceResult.OK)) {	// 정상적으로 DB에 연결됐다면	
+				ra.addFlashAttribute("message", "수정이 완료되었습니다");
+				goPage = "redirect:/employee/elaprDetail.do?elaprNo=" + elaprVO.getElaprNo();		// 경로 수정 필요
+				
+			} else {	// DB 연결에 문제가 생겼다면
+				model.addAttribute("message", "수정에 실패했습니다.");
+				model.addAttribute("elaprVO", elaprVO);
+				model.addAttribute("status", "u");
+				goPage = "/employee/elapr/elaprInsert";
+			}
+		} else {
+			ra.addFlashAttribute("message", "로그인 후 사용 가능합니다!");
+			goPage = "redirect:/login.do";
+		}
+		return goPage;
+	}
+	
+	/**
+	 * 전자결재 삭제
+	 * @param ra
+	 * @param request
+	 * @param elaprNo
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("/empElaprDelete.do")
+	public String empElaprDelete (
+			RedirectAttributes ra, HttpServletRequest request,
+			int elaprNo, Model model) {
+		
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO empVO = user.getMember();
+		
+		DepartmentVO epmtVO = tilesService.getEpmt(empVO);
+		
+		TeamVO teamVO = tilesService.getTeam(empVO);
+				
+		
+		model.addAttribute("employeeVO", empVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		
+		
+		String goPage = "";
+		
+		ServiceResult result = elaprService.empElaprDelete(request, elaprNo);
+		if (result.equals(ServiceResult.OK)) {
+			ra.addFlashAttribute("message", "삭제가 완료되었습니다.");
+			goPage = "redirect:/employee/elaprMain.do";
+		} else {
+			ra.addFlashAttribute("message", "서버에러, 다시 시도해주세요");
+			goPage = "redirect:/employee/empElaprUpdate.do?elaprNo=" + elaprNo;
+		}
+		return goPage;
+	}
+	
+	// //////////////////// 결재 대기 문서함 //////////////////// 
+	/**
+	 * 결재 대기 문서
+	 * @param currentPage
+	 * @param searchType
+	 * @param searchWord
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@GetMapping("/empElaprWating.do")
+	public String empElaprWating(
+			@RequestParam(name = "page", required = false, defaultValue = "1") int currentPage,
+			@RequestParam(required = false, defaultValue = "title") String searchType,
+			@RequestParam(required = false) String searchWord,
+			Model model, HttpServletRequest request) {
+		
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO empVO = user.getMember();
+		DepartmentVO epmtVO = tilesService.getEpmt(empVO);
+		TeamVO teamVO = tilesService.getTeam(empVO);
+				
+		
+		model.addAttribute("employeeVO", empVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		
+		model.addAttribute("status", "statusWating");
+		
+		// 페이징 처리
+		PaginationInfoVO<EmpElaprVO> pagingVO = new PaginationInfoVO<EmpElaprVO>(10, 5);
+		pagingVO.setEmpId(empVO.getEmpId());
+		
+		if(StringUtils.isNotBlank(searchWord)) {
+			pagingVO.setSearchWord(searchWord);
+			pagingVO.setSearchType(searchType);
+			model.addAttribute("searchWord", searchWord);
+			model.addAttribute("searchType", searchType);
+		}
+		
+		pagingVO.setCurrentPage(currentPage);
+		
+		int totalRecord = elaprService.selectWatingCount(pagingVO);
+		
+		pagingVO.setTotalRecord(totalRecord);
+		
+		List<EmpElaprVO> dataList = elaprService.selectWatingList(pagingVO);
+		
+		pagingVO.setDataList(dataList);
+		
+		HttpSession session = request.getSession();
+		model.addAttribute("message", session.getAttribute("message"));
+		session.removeAttribute("message");
+		
+		model.addAttribute("pagingVO", pagingVO);
+		
+		return "employee/elapr/elaprWating";
+	}
+	
+	/**
+	 * 결재 대기 -> 결재 진행
+	 * @param aplnVO
+	 * @param model
+	 * @param request
+	 * @param ra
+	 * @return
+	 */
+	@PostMapping("/empElaprWatingUpdate.do")
+	public String empElaprWatingUpdate(EmpAplnVO aplnVO, Model model, HttpServletRequest request, RedirectAttributes ra) {
+
+	    CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    EmployeeVO empVO = user.getMember();
+
+	    DepartmentVO epmtVO = tilesService.getEpmt(empVO);
+	    TeamVO teamVO = tilesService.getTeam(empVO);
+
+	    model.addAttribute("employeeVO", empVO);
+	    model.addAttribute("departmentVO", epmtVO);
+	    model.addAttribute("teamVO", teamVO);
+
+	    String goPage = "";
+
+	    if (empVO != null) { // 로그인이 정상적인 상태일 때만
+
+	        aplnVO.setEmpId(empVO.getEmpId());
+
+	        ServiceResult result = elaprService.empElaprWatingUpdate(request, aplnVO);
+
+	        if (result.equals(ServiceResult.OK)) { // DB에 정상적으로 업데이트되었을 때
+
+	            // 결재 상태가 모두 완료되었는지 확인
+	            int pendingCount = elaprService.countPendingApprovals(aplnVO.getElaprNo());
+	            
+	            if (pendingCount == 0) {
+	                // 모든 결재가 완료된 경우 전자결재 상태를 업데이트
+	                elaprService.updateApprovalStatus(aplnVO.getElaprNo(), "APRZ002");
+	                int  updateElaprEndDt = elaprService.updateElaprEndDt(aplnVO.getElaprNo());
+	            }
+
+	            ra.addFlashAttribute("message", "수정이 완료되었습니다");
+	            goPage = "redirect:/employee/empElaprWating.do";
+
+	        } else { // DB 연결에 문제가 생겼다면
+	            model.addAttribute("message", "수정에 실패했습니다.");
+	            model.addAttribute("aplnVO", aplnVO);
+	            model.addAttribute("status", "u");
+	            goPage = "/employee/elapr/elaprInsert";
+	        }
+	    } else {
+	        ra.addFlashAttribute("message", "로그인 후 사용 가능합니다!");
+	        goPage = "redirect:/login.do";
+	    }
+	    return goPage;
+	}
+	
+	/**
+	 * 결재 대기 -> 결재 반려
+	 * @param aplnVO
+	 * @param model
+	 * @param request
+	 * @param ra
+	 * @return
+	 */
+	@PostMapping("/empElaprRjctUpdate.do")
+	public String empElaprRjctUpdate(EmpAplnVO aplnVO, Model model, HttpServletRequest request, RedirectAttributes ra) {
+		
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO empVO = user.getMember();
+		
+		DepartmentVO epmtVO = tilesService.getEpmt(empVO);
+		TeamVO teamVO = tilesService.getTeam(empVO);
+		
+		model.addAttribute("employeeVO", empVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		
+		String goPage = "";
+		
+		if (empVO != null) { // 로그인이 정상적인 상태일 때만
+			
+			aplnVO.setEmpId(empVO.getEmpId());
+			
+			ServiceResult result = elaprService.empElaprRjctUpdate(request, aplnVO);
+			
+			if (result.equals(ServiceResult.OK)) { // DB에 정상적으로 업데이트되었을 때
+				
+				int  rjctElaprUpdate = elaprService.rjctElaprUpdate(aplnVO.getElaprNo());
+				
+				
+				ra.addFlashAttribute("message", "반려가 완료되었습니다");
+				goPage = "redirect:/employee/empElaprRjct.do";
+				
+			} else { // DB 연결에 문제가 생겼다면
+				model.addAttribute("message", "수정에 실패했습니다.");
+				model.addAttribute("aplnVO", aplnVO);
+				goPage = "/employee/elapr/elaprInsert";
+			}
+		} else {
+			ra.addFlashAttribute("message", "로그인 후 사용 가능합니다!");
+			goPage = "redirect:/login.do";
+		}
+		return goPage;
+	}
+ 
+	
+	// -------------------- 파일 다운로드 
+	/**
+	 * 단일 파일 다운로드 받기
+	 * @param atchFileDetailVO
+	 * @return
+	 */
+	@ResponseBody
+	@GetMapping("/elaprDownOne.do")
+	public void elaprDownOne(@RequestParam("atchFileDetailCd") String atchFileDetailCd,
+							HttpServletRequest request, HttpServletResponse response) {
+		// 파일 정보 불러오기
+		AtchFileDetailVO atchFileDetailVO = elaprService.atchFileDetailOneSelect(atchFileDetailCd);
+		String filePath = atchFileDetailVO.getAtchFileDetailPathNm();
+		
+		File saveFile = new File(filePath);
+		String filename = atchFileDetailVO.getAtchFileDetailOrgnlNm();
+		String filesize = String.valueOf(atchFileDetailVO.getAtchFileDetailSize());
+		
+		// 파일명이 한글로 되어있을 때
+		// 요청 Header 정보들 중, User-Agent 영역 안에 여러 키워드 정보들을 가지고
+		// 특정 키워드가 포함되어 있는지를 체크해서 파일며으이 출력 인코딩 부분을 설정합니다.
+		// 사용 브라우저 또는 어떠한 현상에 따라 발생하는 알고리즘이므로, 내가 사용하는 브라우저의 버전이나 
+		// 얻어온 header 정보들의 값에 따라 차이가 발생할 수 있습니다.
+		String agent = request.getHeader("User-Agent");
+		try {
+			// (agent, "trident") 이 두가지를 포함한다면 IE, Chrome일 것임
+			if (StringUtils.containsIgnoreCase(agent, "msie") || 
+					StringUtils.containsIgnoreCase(agent, "trident")) {	// IE, Chrome
+				filename = URLEncoder.encode(filename, "UTF-8");
+			} else {	// firefox, chrome (소문자 대문자에 따라서 크롬이 다름)
+				filename = new String(filename.getBytes(), "ISO-8859-1");
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		response.setHeader("content-Disposition", "attachment; filename=\"" + filename + "\"");
+		response.setHeader("Content-Length", filesize);
+		
+		
+		// 아래와 같이 사용하면 try() 내부에서 사용한 객체에 대해서 {} 안의 로직이 끝나고 나면 자동으로 () 내부의 객체가 닫힘
+		// try(){} ::: try with resource
+		// () 안에서 명시한 객체는 finally로 최종 열린 객체에 대한 close()를 처리하지 않아도 자동으로 close()가 이루어진다.
+		// try/catch의 확장판
+		try(OutputStream os = response.getOutputStream()) {
+			FileUtils.copyFile(saveFile, os);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 파일 리스트 알집으로 다운로드 받기
+	 * @param cmntyVO
+	 * @return
+	 */
+	@PostMapping("/elaprDownList.do")
+	public ResponseEntity<String> elaprDownList(@RequestBody EmpElaprVO elaprVO) {
+		// 사용자의 기본 경로과 운영체제별로 다운로드 경로 세팅하기
+	    String userHome = System.getProperty("user.home");
+	    String os = System.getProperty("os.name").toLowerCase();
+	    String downloadDir;
+
+	    if (os.contains("win")) {
+	        downloadDir = userHome + "\\Downloads\\"; // 윈도우
+	    } else if (os.contains("mac")) {
+	        downloadDir = userHome + "/Downloads/"; // 맥
+	    } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
+	        downloadDir = userHome + "/Downloads/"; // 리눅스
+	    } else {
+	        downloadDir = userHome + "/Downloads/"; // 기타 (예비용)
+	    }
+		
+		// 파일을 다운받을 기본 경로
+	    LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd HHmmss");
+        String formattedDate = now.format(formatter);
+        String downZipName = formattedDate + "_groubear.zip";
+	    
+        // 다운받을 경로 및 압축 파일의 이름 세팅하기
+		String dowmloadPath = downloadDir + downZipName;
+		
+	    // 파일 디테일 리스트 불러오기
+		List<AtchFileDetailVO> atchFileDetailList = elaprService.atchFileDetailListSelect(elaprVO.getAtchFileCd());
+		
+		try (ZipOutputStream zos = new ZipOutputStream(Files.newOutputStream(Paths.get(dowmloadPath)))) {
+			for (AtchFileDetailVO fileVO : atchFileDetailList) {
+				String filePath = fileVO.getAtchFileDetailPathNm();
+				File fileToZip = new File(filePath);
+				
+				// 파일 압축 메서드
+				if (fileToZip.exists()) {
+					zipFile(fileToZip, zos, fileVO.getAtchFileDetailOrgnlNm());
+				} else {
+					log.info("파일 없음 : " + filePath);
+				}
+			}
+		} catch (IOException e) {
+            log.error("ZIP 파일 생성 중 오류 발생: " + e.getMessage(), e);
+            return new ResponseEntity<String>("FAIL", HttpStatus.OK);
+        }
+		
+		return new ResponseEntity<String>("OK", HttpStatus.OK);
+	}
+
+	/**
+	 * 파일을 알집으로 압축하는 메소드
+	 * @param fileToZip
+	 * @param zos
+	 * @param fileName
+	 * @throws IOException
+	 */
+    private void zipFile(File fileToZip, ZipOutputStream zos, String fileName) throws IOException {
+    	// try-with-resources 구문으로, 해당 구문이 끝나면 자동으로 InputStream이 종료됨
+        try (InputStream fis = Files.newInputStream(fileToZip.toPath())) {
+        	// ZipEntry 객체를 생성하여 ZIP 파일 내에 추가할 항목을 정의 
+        	// 파일의 이름을 가져와서 ZIP 아카이브 내에서 이 이름으로 저장 
+            ZipEntry zipEntry = new ZipEntry(fileName);
+            // ZipOutputStream(zos)에 새로 생성한 zipEntry를 추가, ZIP 아카이브에서 다음 항목을 추가할 준비
+            zos.putNextEntry(zipEntry);
+            // 실제 파일 데이터를 ZIP 아카이브에 저장
+            Files.copy(fileToZip.toPath(), zos);
+            zos.closeEntry();
+        }
+    }
+    
+    /**
+     * 파일 미리보기
+     * @param cloudFileCd
+     * @return
+     */
+	@ResponseBody
+	@GetMapping("/imgElaprPreview.do")
+	public ResponseEntity<byte[]> imgElaprPreview(@RequestParam("atchFileDetailCd") String atchFileDetailCd) {
+		
+		// InputStream -> Byte단위의 자바 입력에 사용되는 최상위 클래스로서, 데이터를 입력받기 위한 입력 스트림 클래스(추상 클래스)
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+		
+		HttpHeaders headers = new HttpHeaders();
+		
+		// 파일 정보 가져오기
+		AtchFileDetailVO atchFileDetailVO = elaprService.atchFileDetailOneSelect(atchFileDetailCd);
+		
+	    try {
+	        in = new FileInputStream(atchFileDetailVO.getAtchFileDetailPathNm());
+
+	        // 파일 확장자에 따라 Content-Type 설정
+	        String extension = atchFileDetailVO.getAtchFileDetailExtnNm().toLowerCase(); // 대소문자 구분 없이 비교
+	        switch (extension) {
+            case "png":
+                headers.setContentType(MediaType.IMAGE_PNG);
+                break;
+            case "jpg":
+            case "jpeg":
+                headers.setContentType(MediaType.IMAGE_JPEG);
+                break;
+            case "gif":
+                headers.setContentType(MediaType.IMAGE_GIF);
+                break;
+            default:
+                headers.setContentType(MediaType.APPLICATION_OCTET_STREAM); // 기본 처리 (다운로드 하도록 처리)
+                break;
+        }
+	        // InputStream의 내용을 byte[]로 변환하여 반환
+	        entity = new ResponseEntity<>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	    } finally {
+	        try {
+	        	in.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return entity;
+	}
+	
+	
+}

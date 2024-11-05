@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ddit.employee.vehicleReservation.mapper.IVehicleMapper">
+
+
+
+
+	<sql id="rsvtSort">
+  		<if test="searchOrder != null">
+	        <if test="searchOrder == 'recent'">
+	            ORDER BY a.EMP_MDFCN_YMD DESC, a.EMP_DEL_YN ASC
+	        </if>
+	        <if test="searchOrder == 'empNm'">
+	            ORDER BY a.EMP_NM ASC, a.EMP_DEL_YN ASC
+	        </if>
+	        <if test="searchOrder =='empNo'">
+	            ORDER BY a.EMP_NO ASC, a.EMP_DEL_YN ASC
+	        </if>
+	        <if test="searchOrder == 'jbgdCd'">
+	            ORDER BY a.EJBGD_CD ASC, a.EMP_DEL_YN ASC
+	        </if>
+	    </if>
+  		<if test="searchOrder == null">
+			ORDER BY a.EMP_MDFCN_YMD ASC, a.EMP_DEL_YN ASC
+	    </if>
+  	</sql>
+	<sql id="rsvtSearch">
+  		<if test="searchWord != null">
+  			and (
+         		e.emp_nm like '%' || #{searchWord} || '%' or
+         		e.emp_telno like '%' || #{searchWord} || '%' or
+         		e.emp_no like '%' || #{searchWord} || '%' or
+         		d.dept_nm like '%' || #{searchWord} || '%' or
+         		j.jbgd_nm like '%' || #{searchWord} || '%' or
+         		t.team_nm like '%' || #{searchWord} || '%' 
+         	)
+  		</if>
+  	</sql>
+  
+  	<select id="selectRSVTPage" parameterType="kr.or.ddit.comm.paging.vo.PaginationInfoVO" resultType="int">
+  		SELECT COUNT (*) total_count
+		FROM (
+		    SELECT
+                E.EMP_ID AS EMP_ID, E.CO_CD, D.DEPT_NM AS DEPT_CD, E.JBGD_CD AS EJBGD_CD, J.JBGD_NM AS JBGD_CD, T.TEAM_NM AS TEAM_CD, E.EMP_PW, E.EMP_EML_ADDR, E.EMP_NM AS EMP_NM,
+			    E.EMP_NO, E.EMP_ZIP, E.EMP_ADDR, E.EMP_DADDR, E.EMP_TELNO, E.EMP_BRDT, E.EMP_GNDR,
+			    E.EMP_NTN, E.EMP_JNCMP_YMD, E.EMP_RSGNTN_YMD, E.EMP_CRT_YMD, E.EMP_MDFCN_YMD,
+			    E.EMP_DEL_YN, E.EMP_APRV_YN, E.ENABLED, E.EMP_DLN_YN, E.IMG_FILE_URL
+            FROM
+                EMPLOYEE E, DEPARTMENT D, JOBGRADE J, TEAM T
+            WHERE
+                E.CO_CD = #{coCd} 
+                AND E.DEPT_CD = D.DEPT_CD 
+                AND E.JBGD_CD = J.JBGD_CD 
+                AND E.TEAM_CD = T.TEAM_CD 
+				<include refid="rsvtSearch"/>
+		)
+  	</select>
+  	
+  	<select id="selectRSVTPaging" parameterType="kr.or.ddit.comm.paging.vo.PaginationInfoVO" resultType="kr.or.ddit.comm.empallinfo.vo.EmployeeAllVO">
+  		SELECT
+		    b.*
+		FROM (
+		    SELECT
+		        a.*, row_number() over (<include refid="rsvtSort"/>) rnum 
+		    FROM (
+            SELECT
+                E.EMP_ID AS EMP_ID, E.CO_CD, D.DEPT_NM AS DEPT_CD, E.JBGD_CD AS EJBGD_CD, J.JBGD_NM AS JBGD_CD, T.TEAM_NM AS TEAM_CD, E.EMP_PW, E.EMP_EML_ADDR, E.EMP_NM AS EMP_NM,
+			    E.EMP_NO, E.EMP_ZIP, E.EMP_ADDR, E.EMP_DADDR, E.EMP_TELNO, E.EMP_BRDT, E.EMP_GNDR,
+			    E.EMP_NTN, E.EMP_JNCMP_YMD, E.EMP_RSGNTN_YMD, E.EMP_CRT_YMD, E.EMP_MDFCN_YMD,
+			    E.EMP_DEL_YN, E.EMP_APRV_YN, E.ENABLED, E.EMP_DLN_YN, E.IMG_FILE_URL
+            FROM
+                EMPLOYEE E, DEPARTMENT D, JOBGRADE J, TEAM T
+            WHERE
+                E.CO_CD = #{coCd} 
+                AND E.DEPT_CD = D.DEPT_CD
+                AND E.JBGD_CD = J.JBGD_CD
+                AND E.TEAM_CD = T.TEAM_CD 
+		        <include refid="rsvtSearch"/>
+		    ) a
+		) b
+		<![CDATA[
+			WHERE b.rnum >= #{startRow} and b.rnum <= #{endRow}
+		]]>
+  	</select>
+
+
+
+
+
+
+
+
+
+
+	<insert id="insertReservation" parameterType="kr.or.ddit.company.vehicleManagement.vo.VHCLRSVTVO">
+		<selectKey keyProperty="rsvtCd" resultType="string" order="BEFORE">
+			SELECT CONCAT(#{vhclNo}, SEQ_RSVT_CD.NEXTVAL) FROM DUAL
+		</selectKey>
+		INSERT INTO VHCL_RSVT (
+			RSVT_CD,
+			VHCL_NO,
+			EMP_ID,
+			VHCL_RSVT_DT,
+			VHCL_RNTL_DT,
+			VHCL_RTN_DT,
+			RNTL_RSN,
+			VHCL_BTDST
+		) VALUES (
+			#{rsvtCd},
+			#{vhclNo},
+			#{empId},
+			SYSDATE,
+			#{vhclRntlDt},
+			#{vhclRtnDt},
+			#{rntlRsn},
+			#{vhclBtdst}
+		)
+	</insert>
+
+	<delete id="vhclDelte" parameterType="kr.or.ddit.company.vehicleManagement.vo.VHCLVO">
+		DELETE
+		FROM 
+			VHCL
+		WHERE
+			VHCL_NO = #{vhclNo}	
+	</delete>
+	
+
+	<select id="findVhclVO" resultType="kr.or.ddit.company.vehicleManagement.vo.VHCLVO">
+		SELECT
+			VHCL_NO,
+			VHCL_IMG_PATH,
+			CO_CD,
+			VHCL_MDL_NM,
+			VHCL_AVG_FUEL,
+			VHCL_KND_NM,
+			VHCL_RSVT_PSBLTY_YN,
+			VHCL_TYPE_FUEL
+		FROM
+			VHCL
+		WHERE 
+			VHCL_NO = #{vhclNo}
+	</select>
+
+
+	<update id="vhclInfoModify" parameterType="kr.or.ddit.company.vehicleManagement.vo.VHCLVO">
+		UPDATE 
+			VHCL
+		SET
+			VHCL_NO = #{vhclNo},
+			VHCL_IMG_PATH = #{vhclImgPath},
+			VHCL_MDL_NM = #{vhclMdlNm},
+			VHCL_AVG_FUEL = #{vhclAvgFuel},
+			VHCL_KND_NM = #{vhclKndNm},
+			VHCL_TYPE_FUEL = #{vhclTypeFuel},
+			VHCL_RSVT_PSBLTY_YN = #{vhclRsvtPsbltyYn}
+		WHERE 
+			VHCL_NO = #{vhclNo}
+	</update>
+
+
+	<select id="selectRSVTHistory" resultType="kr.or.ddit.company.vehicleManagement.vo.VHCLRSVTVO">
+		SELECT
+			RSVT_CD,
+			VHCL_NO,
+			EMP_ID,
+			VHCL_RSVT_DT,
+			VHCL_RNTL_DT,
+			VHCL_RTN_DT,
+			RNTL_RSN,
+			VHCL_BTDST
+		FROM
+			VHCL_RSVT
+		WHERE
+			EMP_ID = #{empId}
+
+	</select>
+
+	<select id="selectVhclList" resultType="kr.or.ddit.company.vehicleManagement.vo.VHCLVO">
+		SELECT
+			VHCL_NO,
+			VHCL_IMG_PATH,
+			CO_CD,
+			VHCL_MDL_NM,
+			VHCL_AVG_FUEL,
+			VHCL_KND_NM,
+			VHCL_RSVT_PSBLTY_YN,
+			VHCL_TYPE_FUEL
+		FROM
+			VHCL
+		WHERE 
+			CO_CD = #{CoCd}
+
+	</select>
+
+	<insert id="insertVHCL" parameterType="kr.or.ddit.company.vehicleManagement.vo.VHCLVO">
+		INSERT INTO VHCL (
+			VHCL_NO,
+			VHCL_IMG_PATH,
+			CO_CD,
+			VHCL_MDL_NM,
+			VHCL_AVG_FUEL,
+			VHCL_KND_NM,
+			VHCL_RSVT_PSBLTY_YN,
+			VHCL_TYPE_FUEL
+		) VALUES (
+			#{vhclNo},
+			#{vhclImgPath},
+			#{coCd},
+			#{vhclMdlNm},
+			#{vhclAvgFuel},
+			#{vhclKndNm},
+			'Y',
+			#{vhclTypeFuel}
+		)
+	</insert>
+
+	<select id="selectAllRSVTHistory"  parameterType="string"  resultType="kr.or.ddit.company.vehicleManagement.vo.VHCLRSVTVO">
+		SELECT
+			vr.RSVT_CD,
+			vr.VHCL_NO,
+			vr.EMP_ID,
+			e.EMP_NM as EMP_NM,
+			vr.VHCL_RSVT_DT,
+			vr.VHCL_RNTL_DT,
+			vr.VHCL_RTN_DT,
+			vr.RNTL_RSN,
+			vr.VHCL_BTDST
+		FROM
+			VHCL_RSVT vr,
+			employee e
+		WHERE CO_CD = #{coCd} AND vr.EMP_ID = e.EMP_ID
+	</select>
+
+
+</mapper>

@@ -1,0 +1,98 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<div style="margin-bottom: 25px;">
+	<div style="margin-top: -32px;">
+		<div class="separator my-10"></div>
+	</div>
+	<div style="margin-left: 30px; margin-top: -100px;">
+		<h3>차량 관리</h3>
+		<h6 class="text-muted min-w-100px">차량 예약 목록</h6>
+	</div>
+</div>
+
+<div id="kt_app_content_container">
+	<div class="app-main flex-column flex-row-fluid">
+		<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+			<div class="d-flex flex-column flex-column-fluid">
+				<div id="kt_app_content" class="app-content flex-column-fluid">
+					<div id="kt_app_content_container" class="app-container container-fluid">
+						<div class="card">
+							<div class="card-header border-0 pt-6">
+								<div class="card-title">
+									<div class="d-flex align-items-center position-relative my-1">
+										<form id="searchForm" style="display: contents;">
+											<input type="hidden" name="page" id="page"/>
+											<input id="myInput" name="searchWord" type="text" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-250px ps-5" style="margin-top: 0.5em;" placeholder="사원 검색" value="${searchWord }"/>
+											<button id="searchBtn" type="button" class="btn btn-flex btn-light-success ms-1 py-3 px-3" style="margin-top: 0.5em;">
+									            <i class="ki-duotone ki-magnifier fs-2">
+													<span class="path1" style="height: 1.1em;"></span> 
+													<span class="path2"></span>
+												</i>
+											</button>
+										</form>
+									</div>
+								</div>
+								<div class="card-toolbar">
+									<div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+										<button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+										<i class="ki-duotone ki-filter fs-2">
+											<span class="path1"></span>
+											<span class="path2"></span>
+										</i>정렬</button>
+									</div>
+								</div>
+							</div>
+							<div class="card-body py-4">
+								<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+									<thead>
+										<tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+											<th class="w-10px pe-2">
+												<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+													<input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
+												</div>
+											</th>
+											<th class="min-w-100px">예약번호</th>
+											<th class="min-w-100px">차량 번호</th>
+											<th class="min-w-100px">대여일시</th>
+											<th class="min-w-100px">반납일시</th>
+											<th class="min-w-100px">대여자</th>
+											<th class="min-w-100px">상세정보</th>
+										</tr>
+									</thead>
+									<tbody class="text-gray-600 fw-semibold">
+									<c:set value="${pagingVO.dataList }" var="vehicleHistoryList"/>
+									<c:choose>
+										<c:when test="${empty vehicleHistoryList }">
+											<tr>
+												<td colspan="7" class="text-center pt-5">
+													예약 내역이 없습니다.
+												</td>
+											</tr>
+										</c:when>
+										<c:otherwise>
+											<c:forEach items="${vehicleHistoryList }" var="history">
+												<tr>
+													<td>
+													</td>
+												</tr>
+											</c:forEach>
+										</c:otherwise>
+										</c:choose>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="kt_app_footer" class="app-footer">
+		<div class="app-container container-fluid d-flex align-items-center justify-content-center flex-column flex-md-row flex-center flex-md-stack py-3">
+			<div class="card-footer clearfix" id="pagingArea">
+				${pagingVO.pagingHTML }
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,37 @@
+package kr.or.ddit.groubear.map.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.comm.security.vo.CompanyVO;
+import kr.or.ddit.groubear.map.service.IMapService;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/groubear")
+@PreAuthorize("hasRole('ROLE_GROUBEAR')")
+public class MapController {
+	
+	@Inject
+	private IMapService mapService;
+	
+	@GetMapping("/map.do")
+	public String mapList(CompanyVO companyVO, Model model) {
+		List<CompanyVO> mapList = mapService.mapList(companyVO);
+		log.info("mapList ::: " + mapList);
+		
+		model.addAttribute("mapList", mapList);
+		model.addAttribute("companyVO", companyVO);
+		return "groubear/map/mapList";
+	}
+	
+
+}

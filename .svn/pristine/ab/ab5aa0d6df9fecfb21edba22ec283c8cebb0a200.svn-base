@@ -1,0 +1,34 @@
+package kr.or.ddit.comm.calendar.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.comm.calendar.vo.CalendarVO;
+
+public interface ICalendarMapper {
+
+	/**
+	 * 캘린더 일정 추가
+	 * @param calendarVO
+	 * @return
+	 */
+	public int calendarInsert(CalendarVO calendarVO);
+
+	/**
+	 * 캘린더 일정 리스트
+	 * @param empId
+	 * @return
+	 */
+	public List<CalendarVO> calendarList(String empId);
+
+	/**
+	 * 캘린더 일정 삭제
+	 * @param calendarNo
+	 * @return
+	 */
+	public int calendarDelete(int calendarNo);
+
+	public CalendarVO selectCalendar(int calendarNo);
+
+	public int calendarUpdate(CalendarVO calendarVO);
+
+}

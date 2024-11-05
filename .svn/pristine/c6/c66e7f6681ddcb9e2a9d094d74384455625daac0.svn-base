@@ -1,0 +1,240 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+
+<!-- sweetalert2 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+	.expln {
+	    margin-left: 0.5em;
+	    color: white;
+	    background-color: lightslategray;
+	    width: 1.1em;
+	    height: 1.1em;
+	    line-height: 1.1em;
+	}
+	.fs-2x {
+	    font-size: 1.5rem !important;
+	}
+</style>
+
+<!-- 넘겨받은 메세지가 있을 때만 자바스크립트를 실행-->
+<c:if test="${not empty message }">
+	<script type="text/javascript">
+		Swal.fire({ 
+			icon: 'success',
+			title: '${message}',
+			confirmButtonColor: '#4FC9DA',
+		});
+	</script>
+	<c:remove var="message" scope="request"/>
+</c:if>
+
+<div style="margin-bottom: 20px;">
+	<div style="margin-top: -32px;">
+		<div class="separator border-2 my-10"></div>
+	</div>
+	<div style="margin-left: 30px; margin-top: -100px;">
+		<h3>Q&A 관리</h3>
+		<h6>커뮤니티 관리</h6>
+	</div>
+</div>
+
+
+<div id="kt_app_content_container" class="app-container container-fluid" style="height: 100%;">
+	<div style="height: 100%;">
+
+		<!-- Q&A 메뉴 시작 -->
+        <div class="card card-flush mb-5" style="height: 70px;">
+            <div class="card-body d-flex" style="padding: 1em; align-items: center;">  
+ 
+                   <div class="menu-item">
+                    <div class="menu-link py-3 divHover clickBackColor" onclick="f_cloudStrgClick('${comCloudStrgVO.cloudStrgCd }')">
+                           <span class="menu-icon"> 
+                               <i class="ki-duotone ki-abstract-8 text-danger me-3"><span class="path1"></span><span class="path2"></span></i>
+                              </span>
+                          	<span class="menu-title">전체</span>
+                       </div>
+                   </div>
+ 
+                   <div class="menu-item">
+                    <div class="menu-link py-3 divHover clickBackColor" onclick="f_cloudStrgClick('${comCloudStrgVO.cloudStrgCd }')">
+                           <span class="menu-icon"> 
+                               <i class="ki-duotone ki-abstract-8 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
+                              </span>
+                          	<span class="menu-title">서비스이용</span>
+                       </div>
+                   </div>
+ 
+                   <div class="menu-item">
+                    <div class="menu-link py-3 divHover clickBackColor" onclick="f_cloudStrgClick('${comCloudStrgVO.cloudStrgCd }')">
+                           <span class="menu-icon"> 
+                               <i class="ki-duotone ki-abstract-8 text-info me-3"><span class="path1"></span><span class="path2"></span></i>
+                              </span>
+                          	<span class="menu-title">가격</span>
+                       </div>
+                   </div>
+ 
+                   <div class="menu-item">
+                    <div class="menu-link py-3 divHover clickBackColor" onclick="f_cloudStrgClick('${comCloudStrgVO.cloudStrgCd }')">
+                           <span class="menu-icon"> 
+                               <i class="ki-duotone ki-abstract-8 text-primary me-3"><span class="path1"></span><span class="path2"></span></i>
+                              </span>
+                          	<span class="menu-title">기타</span>
+                       </div>
+                   </div>
+
+            </div>
+        </div>
+		<!-- Q&A 메뉴 시작 -->	
+
+        <div class="p-0 mb-2" style="height: 85%">  
+	        <div class="card card-flush">
+	        
+			    <div class="card-header pt-9 d-flex"> 
+					<div class="text-gray-900"><h2><span>[가격] </span><span>프리미엄 가격 기준이 궁금해요.</span></h2></div>
+			        <div>
+			        	<span class="fs-6 fw-normal text-gray-700 mx-3">조회수 18</span>
+			        	<span class="fs-6 fw-normal text-gray-700 mx-3">yh003</span>
+			        	<span class="fs-6 fw-normal text-gray-700 mx-3">2024-10-19 18:25</span>
+			        </div>           
+			    </div> 
+			    
+				<div class="separator separator-solid mb-1"></div>
+
+			    <div class="card-body d-flex align-items-center" style="min-height: 15em;">  
+					<div class="fs-6 fw-normal text-gray-700">
+					    	프리미엄을 구매하면 추가적으로 어떤 것들이 제공되는 건가요?
+					</div>
+				</div>
+				<div class="separator separator-solid mb-1"></div>
+<!--  				
+                <div class="my-4 ms-5 ps-5" style="">    
+                    <button id="replyBtn" class="btn btn-sm btn-light-info">답변하기</button> 
+                </div>
+				 -->
+			    <div class="card-footer py-0" style="display: none;"> 
+				        <div class="align-items-center">
+				        	<div style="width: 100%"> 
+				                <textarea class="form-control border" cols="100%" rows="5" id="replyCn" name=""></textarea>     
+				        	</div>
+			                <div class="my-3" style="float: right;">    
+			                    <button id="replyAddBtn" class="btn btn-sm btn-primary">등록</button>
+			                    <button id="replyCancleBtn" class="btn btn-sm btn-danger">취소</button> 
+			                </div>
+				        </div> 
+				</div>
+	 
+
+ 				
+				<div class="card-footer py-2">
+					<div class="ms-5 my-5">
+				        <div>
+		                    <a href="#" class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold me-5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+		                    	그루베어 (yh000)
+		                    	</font></font></a> 
+		                    <span class="text-gray-500 fw-semibold"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2024-10-19 18:25</font></font></span>
+				 
+				        </div>
+				 
+				        <div class="pt-5">
+				            <p id="replyModifyContent" class="text-gray-800 fs-6 fw-normal pb-4">
+안녕하세요. 이것저것 아주 많이 제공됩니다. 감사합니다.<br> 
+				            </p> 
+				
+				        </div>
+				
+					</div>
+					
+			        <div class="separator mb-3"></div>
+			        <div class="my-3 mb-5" style="float: right;">    
+			            <button id="replyModifyBtn" class="btn btn-sm btn-primary">수정</button>
+			            <button id="replyCancleBtn" class="btn btn-sm btn-danger">취소</button>  
+			        </div> 
+			    </div>
+			
+				
+	        
+	        </div>
+		</div>
+		
+	</div>
+</div>
+
+<script>
+
+$(function() {
+	// pagingArea 내의 a 태그를 클릭했을 경우의 이벤트 주기
+	let searchForm = $("#searchForm");		
+	let pagingArea = $("#pagingArea");		// 페이징 처리 위한 div
+	
+	pagingArea.on("click", "a", function(event){
+		event.preventDefault();	// a 태그의 기본 기능 멈추기
+		var pageNo = $(this).data("page");
+		searchForm.find("#page").val(pageNo);
+		
+		$('#myInput').val("");
+		
+		searchForm.submit();
+	});
+	
+	// 검색 버튼 눌렀을 때 키워드 검색
+	$('#searchBtn').on('click', function() {
+		searchForm.submit();
+	});
+
+	// 엔터키를 눌렀을 때 키워드 검색
+	$('#searchForm').on('keydown', function(event) {
+		if (event.keyCode == 13) {	// Enter 키를 눌렀을 때 (엔터키 == 13번)
+			searchForm.submit();
+	    }
+	});
+	
+	// 답변하기 버튼 눌렀을 때
+	$('#replyBtn').on('click', function () {
+		$('.card-footer').css('display', 'block');
+	});
+	
+	// 등록 버튼 눌렀을 때
+	$('#replyAddBtn').on('click', function () {
+		let content = $('#replyCn').val();
+		console.log(content);
+	});
+	
+	// 답변하기 버튼 눌렀을 때
+	$('#replyCancleBtn').on('click', function () {
+		$('.card-footer').css('display', 'none');
+	});
+	
+	let reHtml = "";
+	let html = "";
+	
+	// 수정 버튼 눌렀을 때
+	$('.card-footer').on('click', '#replyModifyBtn', function () {
+		let content = $('#replyModifyContent').text();
+		reHtml = $('.card-footer').html(); 
+		console.log(content);
+		
+		html = 	`<div class='align-items-center'>
+				    	<div style='width: 100%'> 
+				        <textarea class='form-control' cols='100%' rows='5' id='replyCn' name=''>\${content}</textarea>     
+					</div>
+				    <div class='my-3' style='float: right;'>    
+				        <button id='replyUpdateBtn' class='btn btn-sm btn-primary'>등록</button>
+				        <button id='replyUdtCancleBtn' class='btn btn-sm btn-danger'>취소</button> 
+				    </div>
+				</div>`;
+				
+		$('.card-footer').html(html);
+	});
+	
+	// 수정 버튼 눌렀을 때
+	$('.card-footer').on('click', '#replyUdtCancleBtn', function () {
+		$('.card-footer').html(reHtml); 
+	});
+	
+});
+
+</script>

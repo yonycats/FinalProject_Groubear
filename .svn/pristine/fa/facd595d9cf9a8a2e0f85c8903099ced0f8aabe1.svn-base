@@ -1,0 +1,29 @@
+package kr.or.ddit.comm.alarm.service.impl;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.comm.alarm.mapper.IAlarmMapper;
+import kr.or.ddit.comm.alarm.service.IAlarmService;
+import kr.or.ddit.comm.alarm.vo.AlarmVO;
+
+@Service
+public class AlarmServiceImpl implements IAlarmService{
+
+	@Inject
+	private IAlarmMapper mapper;
+
+	@Override
+	public void selectList(AlarmVO alarmVO) {
+		mapper.selectList(alarmVO);
+	}
+
+	@Override
+	public void insertAlarm(AlarmVO alarmVO) {
+		mapper.insertAlarm(alarmVO);
+	}
+	
+	
+	
+}

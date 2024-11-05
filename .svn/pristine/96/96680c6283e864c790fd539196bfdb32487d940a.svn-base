@@ -1,0 +1,21 @@
+package kr.or.ddit.company.vehicleManagement.vo;
+
+import java.time.LocalDate;
+
+import lombok.Data;
+
+@Data
+public class VHCLRSVTVO {
+
+	private String rsvtCd;
+	private String vhclNo;
+	private String empId;
+	private LocalDate vhclRsvtDt;
+	private LocalDate vhclRntlDt;
+	private LocalDate vhclRtnDt;
+	private String rntlRsn;
+	private String vhclBtdst;
+	
+	private String empNm;
+	
+}

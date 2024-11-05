@@ -1,0 +1,39 @@
+package kr.or.ddit.comm.tiles.controller;
+
+import java.util.List;
+import java.util.Locale;
+
+import javax.inject.Inject;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.comm.cmnty.vo.CmntyVO;
+import kr.or.ddit.groubear.cmnty.service.IGroCmntyService;
+
+/**
+ * Handles requests for the application home page.
+ */
+@Controller
+@RequestMapping("/groubear")
+@PreAuthorize("hasRole('ROLE_GROUBEAR')")
+public class GroubearMainController {
+
+	@Inject
+	private IGroCmntyService groCmntyService;
+	
+	@GetMapping("/main.do")
+	public String home(Locale locale, Model model) {
+		
+		// Q&A 위젯 관련
+		// Q&A 카테고리별 전체 게시물과 Q&A 미답변 게시물 카운트하기
+		List<CmntyVO> qstnCountList = groCmntyService.qstnSttsAndListCount();
+		model.addAttribute("qstnListCount", qstnCountList);
+		
+		return "groubear/mainPage/home";
+	}
+	
+}

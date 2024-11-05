@@ -1,0 +1,304 @@
+package kr.or.ddit.employee.empInformation.controller;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.annotation.Resource;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import kr.or.ddit.comm.cloud.service.ICloudService;
+import kr.or.ddit.comm.login.service.ILoginService;
+import kr.or.ddit.comm.paging.vo.PaginationInfoVO;
+import kr.or.ddit.comm.security.vo.CompanyVO;
+import kr.or.ddit.comm.security.vo.CustomUser;
+import kr.or.ddit.comm.security.vo.EmployeeAuthVO;
+import kr.or.ddit.comm.security.vo.EmployeeVO;
+import kr.or.ddit.comm.serviceresult.ServiceResult;
+import kr.or.ddit.comm.tiles.service.ITIlesService;
+import kr.or.ddit.company.personnelInformation.service.IInformationService;
+import kr.or.ddit.company.personnelInformation.vo.DepartmentVO;
+import kr.or.ddit.company.personnelInformation.vo.JobGradeVO;
+import kr.or.ddit.company.personnelInformation.vo.MenuVO;
+import kr.or.ddit.company.personnelInformation.vo.TeamVO;
+import kr.or.ddit.employee.elapr.vo.EmpElaprVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/empinformation")
+@PreAuthorize("hasAnyRole('ROLE_EMPLOYEE')")
+public class EmpInformationController {
+
+	@Resource(name = "localPath")
+	private String localPath;
+
+	@Inject
+	private ICloudService cloudService;
+	
+	@Inject
+	private ILoginService loginService;
+	
+	@Inject
+	private ITIlesService tilesService;
+
+	@Inject
+	private IInformationService infoService;
+
+	// 권한 : 기업관리자
+	// 메뉴 : 기업관리자 - 인사정보관리 - 전체사원목록
+	// 설명 : 시큐리티안의 세션에서 coCd(기업코드) 파라미터로 받아와서 회사 전체 사원 출력
+	@GetMapping("/allinfo.do")
+	public String comInformationAllList(
+			@RequestParam(name="page", required = false, defaultValue = "1") int currentPage,
+			@RequestParam(required = false, defaultValue = "title") String searchType,
+			@RequestParam(required = false) String searchWord, 
+			@RequestParam(required = false) String searchOrder, 
+			Model model,
+			HttpServletRequest request) {
+
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmployeeVO employeeVO = user.getMember();
+		DepartmentVO epmtVO = tilesService.getEpmt(employeeVO);
+		TeamVO teamVO = tilesService.getTeam(employeeVO);
+		
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+
+		PaginationInfoVO<EmpElaprVO> pagingVO = new PaginationInfoVO<EmpElaprVO>(10,5);
+		pagingVO.setCoCd(employeeVO.getCoCd());
+		pagingVO.setEmpId(employeeVO.getEmpId());
+		
+		if(StringUtils.isNotBlank(searchWord)||StringUtils.isNotBlank(searchOrder)) {
+			pagingVO.setSearchWord(searchWord);
+			pagingVO.setSearchOrder(searchOrder);
+			model.addAttribute("searchWord", searchWord);
+			model.addAttribute("searchOrder", searchOrder);
+		}
+		
+		pagingVO.setCurrentPage(currentPage); 
+		
+		int totalRecord = infoService.selectEmpPage(pagingVO);
+		
+		pagingVO.setTotalRecord(totalRecord); 
+		
+		List<EmpElaprVO> dataList = infoService.selectEmpPaging(pagingVO);
+		
+		pagingVO.setDataList(dataList);
+		
+		HttpSession session = request.getSession();
+		model.addAttribute("message", session.getAttribute("message"));
+		session.removeAttribute("message");
+		
+		model.addAttribute("pagingVO", pagingVO);
+		
+		
+		CompanyVO companyVO = tilesService.getCompany(employeeVO);
+		model.addAttribute("companyVO", companyVO);
+		List<EmployeeVO> empAllList = infoService.comAllEmpList(employeeVO);
+		List<DepartmentVO> deptList = infoService.selectDeptList(employeeVO);
+		List<JobGradeVO> jbgdList = infoService.selectJBGDList(employeeVO);
+		List<TeamVO> teamList = infoService.selectTeamList(employeeVO);
+		model.addAttribute("employeeVO", employeeVO);
+		model.addAttribute("empAllList", empAllList);
+		model.addAttribute("deptList", deptList);
+		model.addAttribute("jbgdList", jbgdList);
+		model.addAttribute("teamList", teamList); 
+		
+		
+		
+		return "employee/empInformation/empInfoListForm";
+	}
+
+	@ResponseBody
+	@GetMapping("/getteam.do")
+	public List<TeamVO> getTeams(@RequestParam String deptCd) {
+		return infoService.getTeamsByDept(deptCd);
+	}
+	
+	@ResponseBody
+	@PostMapping("/empidchk.do")
+	public ResponseEntity<String> empIdChk(@RequestBody String empId) {
+	    // empId를 사용하여 서비스에서 중복 검사
+	    ServiceResult result = infoService.empIdChk(empId);
+	    
+	    log.info("result 찍어보기 : " + result);
+	    
+	    if (result == null) {
+	        return new ResponseEntity<>("success", HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
+	    }
+	}
+
+
+	@PostMapping("/empdetail.do")
+	public String empDetail(String empId, Model model) {
+
+		EmployeeVO employeeVO = infoService.selectEmployee(empId);
+		log.info("empVO" + employeeVO);
+		List<DepartmentVO> deptList = infoService.selectDeptList(employeeVO);
+		List<JobGradeVO> jbgdList = infoService.selectJBGDList(employeeVO);
+		model.addAttribute("employeeVO", employeeVO);
+		model.addAttribute("deptList", deptList);
+		model.addAttribute("jbgdList", jbgdList);
+
+		return "employee/empInformation/empInfoDetail";
+	}
+
+	@GetMapping("/empinfomodify.do")
+	public String empInfoModify(RedirectAttributes ra, HttpServletRequest req, @ModelAttribute EmployeeVO employeeVO,
+			Model model) throws Exception {
+		String goPage = "";
+
+		MultipartFile file = employeeVO.getImgFile();
+		String createdFileName = employeeVO.getImgFileUrl();
+		log.info("imgFilrUrl : " + employeeVO.getImgFileUrl());
+		// MultipartFile이 비어있지 않은 경우에만 새로운 파일 업로드
+		if (file != null && !file.isEmpty()) {
+			createdFileName = uploadFile(file.getOriginalFilename(), file.getBytes());
+			employeeVO.setImgFileUrl(createdFileName);
+			log.info("수정 했을 때 : " + employeeVO.getImgFileUrl());
+		} else {
+			// MultipartFile이 비어있다면 기존 파일 URL을 유지
+			createdFileName = employeeVO.getImgFileUrl();
+			employeeVO.setImgFileUrl(createdFileName);
+			log.info("수정 안 했을 때 : " + employeeVO.getImgFileUrl());
+		}
+
+		ServiceResult result = infoService.empInfoModify(req, employeeVO);
+		if (result.equals(ServiceResult.OK)) {
+			model.addAttribute("id", employeeVO.getEmpId());
+			model.addAttribute("status", "u");
+			model.addAttribute("message", "수정이 완료되었습니다!");
+			goPage = "information/comEmpInformation/comEmpDetail";
+		} else {
+			model.addAttribute("message", "수정에 실패하였습니다!");
+			model.addAttribute("employeeVO", employeeVO);
+			model.addAttribute("status", "u");
+			goPage = "information/comEmpInformation/comEmpDetail";
+		}
+		return goPage;
+	}
+
+	@PostMapping("/empdelete.do")
+	public String empDelete(RedirectAttributes ra, HttpServletRequest req, @ModelAttribute EmployeeVO employeeVO,
+			Model model) {
+		String goPage = "";
+		ServiceResult result = infoService.empDelete(req, employeeVO);
+		if (result.equals(ServiceResult.OK)) {
+			model.addAttribute("message", "퇴사처리 완료되었습니다!");
+			log.info("퇴사처리 완료");
+			goPage = "redirect:/empinformation/allinfo.do";
+		} else {
+			model.addAttribute("message", "퇴사처리에 실패하였습니다!");
+			log.info("퇴사처리 실패");
+			goPage = "redirect:/empinformation/allinfo.do";
+		}
+		return goPage;
+	}
+
+	// 권한 : 기업관리자
+	// 메뉴 : 기업관리자 - 인사정보관리 - 전체사원목록 - 사원추가
+	// 설명 : 전체사원목록 페이지에서 모달로 form 정보를 submit받아와 사원 정보 insert
+	@PostMapping("/empinsert.do")
+	public String empInsert(HttpServletRequest req, RedirectAttributes ra, @ModelAttribute EmployeeVO employeeVO,
+			Model model) throws Exception {
+		String goPage = "";
+		// 넘겨받은 데이터 검증 후, 에러가 발생한 데이터에 대한 에러정보 담을 공간
+		Map<String, String> errors = new HashMap<String, String>();
+		if (StringUtils.isBlank(employeeVO.getEmpId())) {
+			errors.put("값 미입력", "값을 입력해주세요!");
+		}
+
+		if (errors.size() > 0) {
+			model.addAttribute("errors", errors);
+			model.addAttribute("employeeVO", employeeVO);
+			goPage = "redirect:/empinformation/allinfo.do";
+		} else {
+			CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			EmployeeVO userVO = user.getMember();
+			EmployeeAuthVO authVO = new EmployeeAuthVO();
+			
+			authVO.setAuthrityNm("ROLE_EMPLOYEE");
+			authVO.setEmpId(employeeVO.getEmpId());
+			MultipartFile file = employeeVO.getImgFile();
+			String createdFileName;
+			if (file != null && !file.isEmpty()) {
+				createdFileName = uploadFile(file.getOriginalFilename(), file.getBytes());
+			} else {
+				createdFileName = "noimg.jpg";
+			}
+			employeeVO.setImgFileUrl(createdFileName);
+			
+			if (userVO != null) {
+				employeeVO.setCoCd(userVO.getCoCd());
+				ServiceResult result = infoService.insertEmployee(req, employeeVO);
+				cloudService.empCloudStrgCreate(employeeVO);
+				loginService.insertAuth(authVO);
+				if (result.equals(ServiceResult.OK)) {
+					ra.addFlashAttribute("message", "사원 등록 완료!");
+					goPage = "redirect:/empinformation/allinfo.do";
+				} else {
+					model.addAttribute("message", "서버에러, 다시 시도해주세요!");
+					goPage = "redirect:/empinformation/allinfo.do";
+				}
+			} else {
+				ra.addFlashAttribute("message", "로그인 후 사용 가능합니다!");
+				goPage = "redirect:/login.do";
+
+			}
+		}
+		return goPage;
+
+	}
+
+	private String uploadFile(String originalFilename, byte[] bytes) throws Exception {
+		log.info("uploadFile()실행...!");
+
+		UUID uuid = UUID.randomUUID();
+		String createdFileName = uuid.toString() + "_" + originalFilename;
+
+		// localPath 활용
+		File file = new File(localPath);
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+		File target = new File(localPath, createdFileName);
+		FileCopyUtils.copy(bytes, target);
+		return createdFileName;
+	}
+
+	@ResponseBody
+	@GetMapping("/getmenu.do")
+	public MenuVO getMenu(String menuNo) {
+		log.info("menuNo : " + menuNo);
+		
+		MenuVO menuVo = infoService.getMenu(menuNo);
+		
+		log.info("menuVO : " + menuVo);
+		return menuVo;
+	}
+}

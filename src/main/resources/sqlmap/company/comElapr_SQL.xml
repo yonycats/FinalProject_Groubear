@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="kr.or.ddit.company.elapr.mapper.IComElaprMapper">
+  	
+  	<!-- 검색 -->
+  	<sql id="provedocSearch">
+      <if test="searchWord != null">
+         and (
+         		elaprBgngDt like '%' || #{searchWord} || '%' or
+         		elaprMdfcnDt like '%' || #{searchWord} || '%' or
+         		elaprNm like '%' || #{searchWord} || '%' or
+         		deptNm like '%' || #{searchWord} || '%' or
+         		teamNm like '%' || #{searchWord} || '%' or
+         		empNm like '%' || #{searchWord} || '%'
+         	)
+      </if>
+   </sql>
+  	
+  	<!-- 전자결재 요청수 조회 -->
+  	<select id="comSelectElaprCount" parameterType="kr.or.ddit.company.elapr.vo.ComElaprVO" resultType="int">
+  		select count(elapr_no)
+		from  electronic_approval
+		where co_cd = #{coCd} and emp_id != #{empId}
+  	</select>
+  	
+  	<!-- 전자결재 요청 리스트 출력 -->
+  	<select id="comSelectElaprList" parameterType="kr.or.ddit.comm.paging.vo.PaginationInfoVO" resultType="kr.or.ddit.company.elapr.vo.ComElaprVO">
+  		select b.*, e.emp_nm, e.dept_cd, d.dept_nm, e.team_cd, t.team_nm, ea.elapr_no
+		    from (
+		        select a.*, row_number() over (order by elapr_no desc) rnum
+		        from (
+		            select 
+		                elapr_no, emp_id, elapr_bgng_dt, elapr_stts_cd, 
+		                elapr_opnn_cn, co_cd, doc_form_no
+		            from electronic_approval
+		            where co_cd = #{coCd} and emp_id != #{empId}
+		            
+		            order by elapr_no desc
+		            ) a
+		        ) b, employee e, department d, team t, electronic_approval ea
+		    where b.emp_id = e.emp_id and
+		          d.dept_cd = e.dept_cd and
+		          e.team_cd = t.team_cd and
+		          ea.elapr_no = b.doc_form_no
+		    order by ea.elapr_no desc
+  	</select>
+  	
+  </mapper>
