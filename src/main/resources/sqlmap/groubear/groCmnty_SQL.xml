@@ -401,7 +401,8 @@
 		                null as cmntyQstnAllcount, null as cmntyQstnSttsAllN
 		        from (select COM_DTL_CD, count(*) as cmntyQstnSttsYCount, CMNTY_TYPE
 		                from community
-		                where CMNTY_TYPE = 'Qstn'
+		                where CMNTY_TYPE = 'Qstn' and
+                      	 	  CMNTY_QSTN_STTS_YN = 'Y'
 		                group by COM_DTL_CD, CMNTY_TYPE) a
 		              inner join
 		             (select a.COM_DTL_CD, nvl(cmntyQstnSttsNCount, 0) as cmntyQstnSttsNCount

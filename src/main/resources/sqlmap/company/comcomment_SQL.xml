@@ -3,9 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.or.ddit.company.comment.mapper.ICommentMapper">
+<mapper namespace="kr.or.ddit.company.comment.mapper.IComCommentMapper">
 
-	<resultMap type="ComCommentVO" id="ComCommentMap">
+	<resultMap type="kr.or.ddit.company.comment.vo.ComCommentVO" id="ComCommentMap">
 		<id property="commentNo" column="comment_no" />
 		<result property="commentNo" column="comment_no" />
 		<result property="cmntyNo" column="cmnty_no" />
@@ -16,7 +16,7 @@
 		<collection property="cmntyNo" resultMap="ComCommunityMap" />
 	</resultMap>
 
-	<resultMap type="ComCommunityVO" id="ComCommunityMap">
+	<resultMap type="kr.or.ddit.company.community.vo.ComCommunityVO" id="ComCommunityMap">
 		<id property="cmntyNo" column="cmnty_no" />
 		<result property="cmntyNo" column="cmnty_no" />
 		<result property="empId" column="emp_id" />

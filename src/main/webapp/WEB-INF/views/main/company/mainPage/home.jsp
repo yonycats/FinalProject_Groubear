@@ -1,10 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+<style>
+a {
+  color: rgb(21 21 21);
+  text-decoration: none;
+}
+a:hover { 
+  color: rgb(57 196 215); 
+  text-decoration: none;
+}
+.txt_line {
+   width:22em;
+   padding:0 5px;
+   overflow:hidden;
+   text-overflow:ellipsis;
+   white-space:nowrap;
+}
+</style>
 
 
 <!-- 달력 관련 -->
@@ -85,1120 +104,130 @@
 
 				<!-- 이 안부터 row넣기 시작 -->
 
-				<!--start::Row-->
+				<!--프로젝트 시작-->
 				<div class="row gx-5 gx-xl-10 mb-xl-10">
 					<div class="col-xl-5">
-						<!--begin::Table widget 14-->
 						<div class="card card-flush h-md-100">
-							<!--begin::Header-->
 							<div class="card-header pt-7">
-								<!--begin::Title-->
 								<h3 class="card-title align-items-start flex-column">
-									<span class="card-label fw-bold text-gray-800"><font
-										style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">프로젝트 통계</font></font></span> <span
-										class="text-gray-500 mt-1 fw-semibold fs-6"><font
-										style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">37분 전에 업데이트됨</font></font></span>
+									<span class="card-label fw-bold text-gray-800">
+										<font style="vertical-align: inherit;">
+											<font style="vertical-align: inherit;">프로젝트</font>
+										</font>
+									</span> 
 								</h3>
-								<!--end::Title-->
-	
-								<!--begin::Toolbar-->
-								<div class="card-toolbar">
-									<a href="/good/apps/ecommerce/catalog/add-product.html"
-										class="btn btn-sm btn-light"><font
-										style="vertical-align: inherit;"><font
-											style="vertical-align: inherit;">역사</font></font></a>
-								</div>
-								<!--end::Toolbar-->
 							</div>
-							<!--end::Header-->
-	
-							<!--begin::Body-->
 							<div class="card-body pt-6">
-								<!--begin::Table container-->
 								<div class="table-responsive">
-									<!--begin::Table-->
 									<table
 										class="table table-row-dashed align-middle gs-0 gy-3 my-0">
-										<!--begin::Table head-->
 										<thead>
 											<tr class="fs-7 fw-bold text-gray-500 border-bottom-0">
-												<th class="p-0 pb-3 min-w-150px text-center" style="width: 150px;"><font
-													style="vertical-align: inherit;"><font
-														style="vertical-align: inherit;">담당</font></font></th>
-												<th class="p-0 pb-3 min-w-90px text-center"><font
-													style="vertical-align: inherit;"><font
-														style="vertical-align: inherit;">예산</font></font></th>
-												<th class="p-0 pb-3 min-w-90px text-center"><font
-													style="vertical-align: inherit;"><font
-														style="vertical-align: inherit;">진행도</font></font></th>
-												<th class="p-0 pb-3 min-w-130px text-center pe-10"><font
-													style="vertical-align: inherit;"><font
-														style="vertical-align: inherit;">상태</font></font></th>
-												<th class="p-0 pb-3 w-125px text-center pe-7"><font
-													style="vertical-align: inherit;"><font
-														style="vertical-align: inherit;">차트</font></font></th>
-												<th class="p-0 pb-3 w-50px text-center"><font
-													style="vertical-align: inherit;"><font
-														style="vertical-align: inherit;">보다</font></font></th>
+												<th class="p-0 pb-3 min-w-150px text-center" style="width: 150px;">
+													<font style="vertical-align: inherit;">
+														<font style="vertical-align: inherit;">제목</font>
+													</font>
+												</th>
+												<th class="p-0 pb-3 min-w-90px text-center">
+													<font style="vertical-align: inherit;">
+														<font style="vertical-align: inherit;">담당</font>
+													</font>
+												</th>
+												<th class="p-0 pb-3 min-w-130px text-center pe-10">
+													<font style="vertical-align: inherit;">
+														<font style="vertical-align: inherit;">참가자</font>
+													</font>
+												</th>
+												<th class="p-0 pb-3 w-130px text-center">
+													<font style="vertical-align: inherit;">
+														<font style="vertical-align: inherit;">자세히</font>
+													</font>
+												</th>
 											</tr>
 										</thead>
-										<!--end::Table head-->
-	
-										<!--begin::Table body-->
 										<tbody>
-	
-											<tr>
-												<td>
-													<div class="d-flex align-items-center">
-	
-														<div class="d-flex justify-content-start flex-column">
-															<a href="#"
-																class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">미비 앱</font></font></a> <span
-																class="text-gray-500 fw-semibold d-block fs-7"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">제인 쿠퍼</font></font></span>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end pe-0"><span
-													class="text-gray-600 fw-bold fs-6"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">32,400달러</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<!--begin::Label--> <span
-													class="badge badge-light-success fs-base"> <i
-														class="ki-duotone ki-arrow-up fs-5 text-success ms-n1"><span
-															class="path1"></span><span class="path2"></span></i><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;"> 9.2% </font></font></span> <!--end::Label-->
-	
-												</td>
-	
-												<td class="text-end pe-12"><span
-													class="badge py-3 px-4 fs-7 badge-light-primary"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">진행 중</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<div id="kt_table_widget_14_chart_1"
-														class="h-50px mt-n8 pe-7" data-kt-chart-color="success"
-														style="min-height: 50px;">
-														<div id="apexchartsg9ompbrl"
-															class="apexcharts-canvas apexchartsg9ompbrl apexcharts-theme-"
-															style="width: 92.25px; height: 50px;">
-															<svg id="SvgjsSvg1064" width="92.25" height="50"
-																xmlns="http://www.w3.org/2000/svg" version="1.1"
-																xmlns:xlink="http://www.w3.org/1999/xlink"
-																xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
-																xmlns:data="ApexChartsNS" transform="translate(0, 0)">
-																<foreignObject x="0" y="0" width="92.25" height="50">
-																<div class="apexcharts-legend"
-																	xmlns="http://www.w3.org/1999/xhtml"
-																	style="max-height: 25px;"></div></foreignObject>
-																<g id="SvgjsG1071" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1072" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1105" class="apexcharts-yaxis" rel="0"
-																	transform="translate(-18, 0)"></g>
-																<g id="SvgjsG1066"
-																	class="apexcharts-inner apexcharts-graphical"
-																	transform="translate(0, 1)">
-																<defs id="SvgjsDefs1065">
-																<clipPath id="gridRectMaskg9ompbrl">
-																<rect id="SvgjsRect1069" width="98.25" height="54" x="-3"
-																	y="-3" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath>
-																<clipPath id="forecastMaskg9ompbrl"></clipPath>
-																<clipPath id="nonForecastMaskg9ompbrl"></clipPath>
-																<clipPath id="gridRectMarkerMaskg9ompbrl">
-																<rect id="SvgjsRect1070" width="96.25" height="52" x="-2"
-																	y="-2" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs>
-																<g id="SvgjsG1079" class="apexcharts-grid">
-																<g id="SvgjsG1080"
-																	class="apexcharts-gridlines-horizontal"
-																	style="display: none;">
-																<line id="SvgjsLine1083" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line>
-																<line id="SvgjsLine1084" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line></g>
-																<g id="SvgjsG1081" class="apexcharts-gridlines-vertical"
-																	style="display: none;"></g>
-																<line id="SvgjsLine1086" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line>
-																<line id="SvgjsLine1085" x1="0" y1="1" x2="0" y2="48"
-																	stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line></g>
-																<g id="SvgjsG1082" class="apexcharts-grid-borders"
-																	style="display: none;"></g>
-																<g id="SvgjsG1073"
-																	class="apexcharts-area-series apexcharts-plot-series">
-																<g id="SvgjsG1074" class="apexcharts-series" zIndex="0"
-																	seriesName="NetxProfit" data:longestSeries="true"
-																	rel="1" data:realIndex="0">
-																<path id="SvgjsPath1077"
-																	d="M0 42.4C2.483653846153846 42.4 4.612500000000001 40 7.096153846153847 40C9.579807692307693 40 11.708653846153847 44 14.192307692307693 44C16.67596153846154 44 18.804807692307694 31.2 21.28846153846154 31.2C23.772115384615386 31.2 25.90096153846154 43.2 28.384615384615387 43.2C30.868269230769233 43.2 32.997115384615384 39.2 35.48076923076923 39.2C37.96442307692308 39.2 40.09326923076924 44 42.57692307692308 44C45.06057692307692 44 47.18942307692308 29.6 49.67307692307693 29.6C52.156730769230776 29.6 54.28557692307693 44 56.769230769230774 44C59.252884615384616 44 61.38173076923077 39.2 63.86538461538462 39.2C66.34903846153847 39.2 68.47788461538462 33.6 70.96153846153847 33.6C73.44519230769231 33.6 75.57403846153846 42.4 78.0576923076923 42.4C80.54134615384615 42.4 82.67019230769232 31.2 85.15384615384616 31.2C87.6375 31.2 89.76634615384616 37.6 92.25 37.6C92.25 37.6 92.25 37.6 92.25 48L0 48C0 48 0 42.4 0 42.4 "
-																	fill="rgba(255,255,255,1)" fill-opacity="1"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="0" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskg9ompbrl)"
-																	pathTo="M 0 42.4C 2.483653846153846 42.4 4.612500000000001 40 7.096153846153847 40C 9.579807692307693 40 11.708653846153847 44 14.192307692307693 44C 16.67596153846154 44 18.804807692307694 31.2 21.28846153846154 31.2C 23.772115384615386 31.2 25.90096153846154 43.2 28.384615384615387 43.2C 30.868269230769233 43.2 32.997115384615384 39.2 35.48076923076923 39.2C 37.96442307692308 39.2 40.09326923076924 44 42.57692307692308 44C 45.06057692307692 44 47.18942307692308 29.6 49.67307692307693 29.6C 52.156730769230776 29.6 54.28557692307693 44 56.769230769230774 44C 59.252884615384616 44 61.38173076923077 39.2 63.86538461538462 39.2C 66.34903846153847 39.2 68.47788461538462 33.6 70.96153846153847 33.6C 73.44519230769231 33.6 75.57403846153846 42.4 78.0576923076923 42.4C 80.54134615384615 42.4 82.67019230769232 31.2 85.15384615384616 31.2C 87.6375 31.2 89.76634615384616 37.6 92.25 37.6C 92.25 37.6 92.25 37.6 92.25 48 L 0 48z"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48z"></path>
-																<path id="SvgjsPath1078"
-																	d="M0 42.4C2.483653846153846 42.4 4.612500000000001 40 7.096153846153847 40C9.579807692307693 40 11.708653846153847 44 14.192307692307693 44C16.67596153846154 44 18.804807692307694 31.2 21.28846153846154 31.2C23.772115384615386 31.2 25.90096153846154 43.2 28.384615384615387 43.2C30.868269230769233 43.2 32.997115384615384 39.2 35.48076923076923 39.2C37.96442307692308 39.2 40.09326923076924 44 42.57692307692308 44C45.06057692307692 44 47.18942307692308 29.6 49.67307692307693 29.6C52.156730769230776 29.6 54.28557692307693 44 56.769230769230774 44C59.252884615384616 44 61.38173076923077 39.2 63.86538461538462 39.2C66.34903846153847 39.2 68.47788461538462 33.6 70.96153846153847 33.6C73.44519230769231 33.6 75.57403846153846 42.4 78.0576923076923 42.4C80.54134615384615 42.4 82.67019230769232 31.2 85.15384615384616 31.2C87.6375 31.2 89.76634615384616 37.6 92.25 37.6C92.25 37.6 92.25 37.6 92.25 37.6 "
-																	fill="none" fill-opacity="1" stroke="#b8d935"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="2" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskg9ompbrl)"
-																	pathTo="M 0 42.4C 2.483653846153846 42.4 4.612500000000001 40 7.096153846153847 40C 9.579807692307693 40 11.708653846153847 44 14.192307692307693 44C 16.67596153846154 44 18.804807692307694 31.2 21.28846153846154 31.2C 23.772115384615386 31.2 25.90096153846154 43.2 28.384615384615387 43.2C 30.868269230769233 43.2 32.997115384615384 39.2 35.48076923076923 39.2C 37.96442307692308 39.2 40.09326923076924 44 42.57692307692308 44C 45.06057692307692 44 47.18942307692308 29.6 49.67307692307693 29.6C 52.156730769230776 29.6 54.28557692307693 44 56.769230769230774 44C 59.252884615384616 44 61.38173076923077 39.2 63.86538461538462 39.2C 66.34903846153847 39.2 68.47788461538462 33.6 70.96153846153847 33.6C 73.44519230769231 33.6 75.57403846153846 42.4 78.0576923076923 42.4C 80.54134615384615 42.4 82.67019230769232 31.2 85.15384615384616 31.2C 87.6375 31.2 89.76634615384616 37.6 92.25 37.6"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48"
-																	fill-rule="evenodd"></path>
-																<g id="SvgjsG1075"
-																	class="apexcharts-series-markers-wrap apexcharts-hidden-element-shown"
-																	data:realIndex="0"></g></g>
-																<g id="SvgjsG1076" class="apexcharts-datalabels"
-																	data:realIndex="0"></g></g>
-																<line id="SvgjsLine1087" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1"
-																	stroke-linecap="butt" class="apexcharts-ycrosshairs"></line>
-																<line id="SvgjsLine1088" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke-dasharray="0" stroke-width="0"
-																	stroke-linecap="butt"
-																	class="apexcharts-ycrosshairs-hidden"></line>
-																<g id="SvgjsG1089" class="apexcharts-xaxis"
-																	transform="translate(0, 0)">
-																<g id="SvgjsG1090" class="apexcharts-xaxis-texts-g"
-																	transform="translate(0, 4)"></g></g>
-																<g id="SvgjsG1106"
-																	class="apexcharts-yaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1107"
-																	class="apexcharts-xaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1108"
-																	class="apexcharts-point-annotations apexcharts-hidden-element-shown"></g></g></svg>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end"><a href="#"
-													class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-														<i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
-												</a></td>
-											</tr>
-	
-											<tr>
-												<td>
-													<div class="d-flex align-items-center">
-	
-														<div class="d-flex justify-content-start flex-column">
-															<a href="#"
-																class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">아비오니카</font></font></a> <span
-																class="text-gray-500 fw-semibold d-block fs-7"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">에스더</font></font></span>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end pe-0"><span
-													class="text-gray-600 fw-bold fs-6"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">256,910달러</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<!--begin::Label--> <span
-													class="badge badge-light-danger fs-base"> <i
-														class="ki-duotone ki-arrow-down fs-5 text-danger ms-n1"><span
-															class="path1"></span><span class="path2"></span></i><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;"> 0.4% </font></font></span> <!--end::Label-->
-	
-												</td>
-	
-												<td class="text-end pe-12"><span
-													class="badge py-3 px-4 fs-7 badge-light-warning"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">보류 중</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<div id="kt_table_widget_14_chart_2"
-														class="h-50px mt-n8 pe-7" data-kt-chart-color="danger"
-														style="min-height: 50px;">
-														<div id="apexchartshvooxpjbg"
-															class="apexcharts-canvas apexchartshvooxpjbg apexcharts-theme-"
-															style="width: 92.25px; height: 50px;">
-															<svg id="SvgjsSvg1109" width="92.25" height="50"
-																xmlns="http://www.w3.org/2000/svg" version="1.1"
-																xmlns:xlink="http://www.w3.org/1999/xlink"
-																xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
-																xmlns:data="ApexChartsNS" transform="translate(0, 0)">
-																<foreignObject x="0" y="0" width="92.25" height="50">
-																<div class="apexcharts-legend"
-																	xmlns="http://www.w3.org/1999/xhtml"
-																	style="max-height: 25px;"></div></foreignObject>
-																<g id="SvgjsG1116" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1117" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1150" class="apexcharts-yaxis" rel="0"
-																	transform="translate(-18, 0)"></g>
-																<g id="SvgjsG1111"
-																	class="apexcharts-inner apexcharts-graphical"
-																	transform="translate(0, 1)">
-																<defs id="SvgjsDefs1110">
-																<clipPath id="gridRectMaskhvooxpjbg">
-																<rect id="SvgjsRect1114" width="98.25" height="54" x="-3"
-																	y="-3" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath>
-																<clipPath id="forecastMaskhvooxpjbg"></clipPath>
-																<clipPath id="nonForecastMaskhvooxpjbg"></clipPath>
-																<clipPath id="gridRectMarkerMaskhvooxpjbg">
-																<rect id="SvgjsRect1115" width="96.25" height="52" x="-2"
-																	y="-2" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs>
-																<g id="SvgjsG1124" class="apexcharts-grid">
-																<g id="SvgjsG1125"
-																	class="apexcharts-gridlines-horizontal"
-																	style="display: none;">
-																<line id="SvgjsLine1128" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line>
-																<line id="SvgjsLine1129" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line></g>
-																<g id="SvgjsG1126" class="apexcharts-gridlines-vertical"
-																	style="display: none;"></g>
-																<line id="SvgjsLine1131" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line>
-																<line id="SvgjsLine1130" x1="0" y1="1" x2="0" y2="48"
-																	stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line></g>
-																<g id="SvgjsG1127" class="apexcharts-grid-borders"
-																	style="display: none;"></g>
-																<g id="SvgjsG1118"
-																	class="apexcharts-area-series apexcharts-plot-series">
-																<g id="SvgjsG1119" class="apexcharts-series" zIndex="0"
-																	seriesName="NetxProfit" data:longestSeries="true"
-																	rel="1" data:realIndex="0">
-																<path id="SvgjsPath1122"
-																	d="M0 34.4C2.483653846153846 34.4 4.612500000000001 44 7.096153846153847 44C9.579807692307693 44 11.708653846153847 29.6 14.192307692307693 29.6C16.67596153846154 29.6 18.804807692307694 46.4 21.28846153846154 46.4C23.772115384615386 46.4 25.90096153846154 31.2 28.384615384615387 31.2C30.868269230769233 31.2 32.997115384615384 40.8 35.48076923076923 40.8C37.96442307692308 40.8 40.09326923076924 34.4 42.57692307692308 34.4C45.06057692307692 34.4 47.18942307692308 29.6 49.67307692307693 29.6C52.156730769230776 29.6 54.28557692307693 44.8 56.769230769230774 44.8C59.252884615384616 44.8 61.38173076923077 28.8 63.86538461538462 28.8C66.34903846153847 28.8 68.47788461538462 40.8 70.96153846153847 40.8C73.44519230769231 40.8 75.57403846153846 34.4 78.0576923076923 34.4C80.54134615384615 34.4 82.67019230769232 31.2 85.15384615384616 31.2C87.6375 31.2 89.76634615384616 42.4 92.25 42.4C92.25 42.4 92.25 42.4 92.25 48L0 48C0 48 0 34.4 0 34.4 "
-																	fill="rgba(255,255,255,1)" fill-opacity="1"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="0" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskhvooxpjbg)"
-																	pathTo="M 0 34.4C 2.483653846153846 34.4 4.612500000000001 44 7.096153846153847 44C 9.579807692307693 44 11.708653846153847 29.6 14.192307692307693 29.6C 16.67596153846154 29.6 18.804807692307694 46.4 21.28846153846154 46.4C 23.772115384615386 46.4 25.90096153846154 31.2 28.384615384615387 31.2C 30.868269230769233 31.2 32.997115384615384 40.8 35.48076923076923 40.8C 37.96442307692308 40.8 40.09326923076924 34.4 42.57692307692308 34.4C 45.06057692307692 34.4 47.18942307692308 29.6 49.67307692307693 29.6C 52.156730769230776 29.6 54.28557692307693 44.8 56.769230769230774 44.8C 59.252884615384616 44.8 61.38173076923077 28.8 63.86538461538462 28.8C 66.34903846153847 28.8 68.47788461538462 40.8 70.96153846153847 40.8C 73.44519230769231 40.8 75.57403846153846 34.4 78.0576923076923 34.4C 80.54134615384615 34.4 82.67019230769232 31.2 85.15384615384616 31.2C 87.6375 31.2 89.76634615384616 42.4 92.25 42.4C 92.25 42.4 92.25 42.4 92.25 48 L 0 48z"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48z"></path>
-																<path id="SvgjsPath1123"
-																	d="M0 34.4C2.483653846153846 34.4 4.612500000000001 44 7.096153846153847 44C9.579807692307693 44 11.708653846153847 29.6 14.192307692307693 29.6C16.67596153846154 29.6 18.804807692307694 46.4 21.28846153846154 46.4C23.772115384615386 46.4 25.90096153846154 31.2 28.384615384615387 31.2C30.868269230769233 31.2 32.997115384615384 40.8 35.48076923076923 40.8C37.96442307692308 40.8 40.09326923076924 34.4 42.57692307692308 34.4C45.06057692307692 34.4 47.18942307692308 29.6 49.67307692307693 29.6C52.156730769230776 29.6 54.28557692307693 44.8 56.769230769230774 44.8C59.252884615384616 44.8 61.38173076923077 28.8 63.86538461538462 28.8C66.34903846153847 28.8 68.47788461538462 40.8 70.96153846153847 40.8C73.44519230769231 40.8 75.57403846153846 34.4 78.0576923076923 34.4C80.54134615384615 34.4 82.67019230769232 31.2 85.15384615384616 31.2C87.6375 31.2 89.76634615384616 42.4 92.25 42.4C92.25 42.4 92.25 42.4 92.25 42.4 "
-																	fill="none" fill-opacity="1" stroke="#f06445"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="2" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskhvooxpjbg)"
-																	pathTo="M 0 34.4C 2.483653846153846 34.4 4.612500000000001 44 7.096153846153847 44C 9.579807692307693 44 11.708653846153847 29.6 14.192307692307693 29.6C 16.67596153846154 29.6 18.804807692307694 46.4 21.28846153846154 46.4C 23.772115384615386 46.4 25.90096153846154 31.2 28.384615384615387 31.2C 30.868269230769233 31.2 32.997115384615384 40.8 35.48076923076923 40.8C 37.96442307692308 40.8 40.09326923076924 34.4 42.57692307692308 34.4C 45.06057692307692 34.4 47.18942307692308 29.6 49.67307692307693 29.6C 52.156730769230776 29.6 54.28557692307693 44.8 56.769230769230774 44.8C 59.252884615384616 44.8 61.38173076923077 28.8 63.86538461538462 28.8C 66.34903846153847 28.8 68.47788461538462 40.8 70.96153846153847 40.8C 73.44519230769231 40.8 75.57403846153846 34.4 78.0576923076923 34.4C 80.54134615384615 34.4 82.67019230769232 31.2 85.15384615384616 31.2C 87.6375 31.2 89.76634615384616 42.4 92.25 42.4"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48"
-																	fill-rule="evenodd"></path>
-																<g id="SvgjsG1120"
-																	class="apexcharts-series-markers-wrap apexcharts-hidden-element-shown"
-																	data:realIndex="0"></g></g>
-																<g id="SvgjsG1121" class="apexcharts-datalabels"
-																	data:realIndex="0"></g></g>
-																<line id="SvgjsLine1132" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1"
-																	stroke-linecap="butt" class="apexcharts-ycrosshairs"></line>
-																<line id="SvgjsLine1133" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke-dasharray="0" stroke-width="0"
-																	stroke-linecap="butt"
-																	class="apexcharts-ycrosshairs-hidden"></line>
-																<g id="SvgjsG1134" class="apexcharts-xaxis"
-																	transform="translate(0, 0)">
-																<g id="SvgjsG1135" class="apexcharts-xaxis-texts-g"
-																	transform="translate(0, 4)"></g></g>
-																<g id="SvgjsG1151"
-																	class="apexcharts-yaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1152"
-																	class="apexcharts-xaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1153"
-																	class="apexcharts-point-annotations apexcharts-hidden-element-shown"></g></g></svg>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end"><a href="#"
-													class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-														<i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
-												</a></td>
-											</tr>
-	
-											<tr>
-												<td>
-													<div class="d-flex align-items-center">
-	
-														<div class="d-flex justify-content-start flex-column">
-															<a href="#"
-																class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">차트 CRM</font></font></a> <span
-																class="text-gray-500 fw-semibold d-block fs-7"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">제니 윌슨</font></font></span>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end pe-0"><span
-													class="text-gray-600 fw-bold fs-6"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">8,220달러</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<!--begin::Label--> <span
-													class="badge badge-light-success fs-base"> <i
-														class="ki-duotone ki-arrow-up fs-5 text-success ms-n1"><span
-															class="path1"></span><span class="path2"></span></i><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;"> 9.2% </font></font></span> <!--end::Label-->
-	
-												</td>
-	
-												<td class="text-end pe-12"><span
-													class="badge py-3 px-4 fs-7 badge-light-primary"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">진행 중</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<div id="kt_table_widget_14_chart_3"
-														class="h-50px mt-n8 pe-7" data-kt-chart-color="success"
-														style="min-height: 50px;">
-														<div id="apexchartskbwmm6i3f"
-															class="apexcharts-canvas apexchartskbwmm6i3f apexcharts-theme-"
-															style="width: 92.25px; height: 50px;">
-															<svg id="SvgjsSvg1154" width="92.25" height="50"
-																xmlns="http://www.w3.org/2000/svg" version="1.1"
-																xmlns:xlink="http://www.w3.org/1999/xlink"
-																xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
-																xmlns:data="ApexChartsNS" transform="translate(0, 0)">
-																<foreignObject x="0" y="0" width="92.25" height="50">
-																<div class="apexcharts-legend"
-																	xmlns="http://www.w3.org/1999/xhtml"
-																	style="max-height: 25px;"></div></foreignObject>
-																<g id="SvgjsG1161" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1162" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1195" class="apexcharts-yaxis" rel="0"
-																	transform="translate(-18, 0)"></g>
-																<g id="SvgjsG1156"
-																	class="apexcharts-inner apexcharts-graphical"
-																	transform="translate(0, 1)">
-																<defs id="SvgjsDefs1155">
-																<clipPath id="gridRectMaskkbwmm6i3f">
-																<rect id="SvgjsRect1159" width="98.25" height="54" x="-3"
-																	y="-3" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath>
-																<clipPath id="forecastMaskkbwmm6i3f"></clipPath>
-																<clipPath id="nonForecastMaskkbwmm6i3f"></clipPath>
-																<clipPath id="gridRectMarkerMaskkbwmm6i3f">
-																<rect id="SvgjsRect1160" width="96.25" height="52" x="-2"
-																	y="-2" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs>
-																<g id="SvgjsG1169" class="apexcharts-grid">
-																<g id="SvgjsG1170"
-																	class="apexcharts-gridlines-horizontal"
-																	style="display: none;">
-																<line id="SvgjsLine1173" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line>
-																<line id="SvgjsLine1174" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line></g>
-																<g id="SvgjsG1171" class="apexcharts-gridlines-vertical"
-																	style="display: none;"></g>
-																<line id="SvgjsLine1176" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line>
-																<line id="SvgjsLine1175" x1="0" y1="1" x2="0" y2="48"
-																	stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line></g>
-																<g id="SvgjsG1172" class="apexcharts-grid-borders"
-																	style="display: none;"></g>
-																<g id="SvgjsG1163"
-																	class="apexcharts-area-series apexcharts-plot-series">
-																<g id="SvgjsG1164" class="apexcharts-series" zIndex="0"
-																	seriesName="NetxProfit" data:longestSeries="true"
-																	rel="1" data:realIndex="0">
-																<path id="SvgjsPath1167"
-																	d="M0 46.4C2.483653846153846 46.4 4.612500000000001 28.8 7.096153846153847 28.8C9.579807692307693 28.8 11.708653846153847 44 14.192307692307693 44C16.67596153846154 44 18.804807692307694 34.4 21.28846153846154 34.4C23.772115384615386 34.4 25.90096153846154 42.4 28.384615384615387 42.4C30.868269230769233 42.4 32.997115384615384 46.4 35.48076923076923 46.4C37.96442307692308 46.4 40.09326923076924 38.4 42.57692307692308 38.4C45.06057692307692 38.4 47.18942307692308 28.8 49.67307692307693 28.8C52.156730769230776 28.8 54.28557692307693 44 56.769230769230774 44C59.252884615384616 44 61.38173076923077 28.8 63.86538461538462 28.8C66.34903846153847 28.8 68.47788461538462 46.4 70.96153846153847 46.4C73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C80.54134615384615 41.6 82.67019230769232 38.4 85.15384615384616 38.4C87.6375 38.4 89.76634615384616 42.4 92.25 42.4C92.25 42.4 92.25 42.4 92.25 48L0 48C0 48 0 46.4 0 46.4 "
-																	fill="rgba(255,255,255,1)" fill-opacity="1"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="0" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskkbwmm6i3f)"
-																	pathTo="M 0 46.4C 2.483653846153846 46.4 4.612500000000001 28.8 7.096153846153847 28.8C 9.579807692307693 28.8 11.708653846153847 44 14.192307692307693 44C 16.67596153846154 44 18.804807692307694 34.4 21.28846153846154 34.4C 23.772115384615386 34.4 25.90096153846154 42.4 28.384615384615387 42.4C 30.868269230769233 42.4 32.997115384615384 46.4 35.48076923076923 46.4C 37.96442307692308 46.4 40.09326923076924 38.4 42.57692307692308 38.4C 45.06057692307692 38.4 47.18942307692308 28.8 49.67307692307693 28.8C 52.156730769230776 28.8 54.28557692307693 44 56.769230769230774 44C 59.252884615384616 44 61.38173076923077 28.8 63.86538461538462 28.8C 66.34903846153847 28.8 68.47788461538462 46.4 70.96153846153847 46.4C 73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C 80.54134615384615 41.6 82.67019230769232 38.4 85.15384615384616 38.4C 87.6375 38.4 89.76634615384616 42.4 92.25 42.4C 92.25 42.4 92.25 42.4 92.25 48 L 0 48z"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48z"></path>
-																<path id="SvgjsPath1168"
-																	d="M0 46.4C2.483653846153846 46.4 4.612500000000001 28.8 7.096153846153847 28.8C9.579807692307693 28.8 11.708653846153847 44 14.192307692307693 44C16.67596153846154 44 18.804807692307694 34.4 21.28846153846154 34.4C23.772115384615386 34.4 25.90096153846154 42.4 28.384615384615387 42.4C30.868269230769233 42.4 32.997115384615384 46.4 35.48076923076923 46.4C37.96442307692308 46.4 40.09326923076924 38.4 42.57692307692308 38.4C45.06057692307692 38.4 47.18942307692308 28.8 49.67307692307693 28.8C52.156730769230776 28.8 54.28557692307693 44 56.769230769230774 44C59.252884615384616 44 61.38173076923077 28.8 63.86538461538462 28.8C66.34903846153847 28.8 68.47788461538462 46.4 70.96153846153847 46.4C73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C80.54134615384615 41.6 82.67019230769232 38.4 85.15384615384616 38.4C87.6375 38.4 89.76634615384616 42.4 92.25 42.4C92.25 42.4 92.25 42.4 92.25 42.4 "
-																	fill="none" fill-opacity="1" stroke="#b8d935"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="2" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskkbwmm6i3f)"
-																	pathTo="M 0 46.4C 2.483653846153846 46.4 4.612500000000001 28.8 7.096153846153847 28.8C 9.579807692307693 28.8 11.708653846153847 44 14.192307692307693 44C 16.67596153846154 44 18.804807692307694 34.4 21.28846153846154 34.4C 23.772115384615386 34.4 25.90096153846154 42.4 28.384615384615387 42.4C 30.868269230769233 42.4 32.997115384615384 46.4 35.48076923076923 46.4C 37.96442307692308 46.4 40.09326923076924 38.4 42.57692307692308 38.4C 45.06057692307692 38.4 47.18942307692308 28.8 49.67307692307693 28.8C 52.156730769230776 28.8 54.28557692307693 44 56.769230769230774 44C 59.252884615384616 44 61.38173076923077 28.8 63.86538461538462 28.8C 66.34903846153847 28.8 68.47788461538462 46.4 70.96153846153847 46.4C 73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C 80.54134615384615 41.6 82.67019230769232 38.4 85.15384615384616 38.4C 87.6375 38.4 89.76634615384616 42.4 92.25 42.4"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48"
-																	fill-rule="evenodd"></path>
-																<g id="SvgjsG1165"
-																	class="apexcharts-series-markers-wrap apexcharts-hidden-element-shown"
-																	data:realIndex="0"></g></g>
-																<g id="SvgjsG1166" class="apexcharts-datalabels"
-																	data:realIndex="0"></g></g>
-																<line id="SvgjsLine1177" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1"
-																	stroke-linecap="butt" class="apexcharts-ycrosshairs"></line>
-																<line id="SvgjsLine1178" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke-dasharray="0" stroke-width="0"
-																	stroke-linecap="butt"
-																	class="apexcharts-ycrosshairs-hidden"></line>
-																<g id="SvgjsG1179" class="apexcharts-xaxis"
-																	transform="translate(0, 0)">
-																<g id="SvgjsG1180" class="apexcharts-xaxis-texts-g"
-																	transform="translate(0, 4)"></g></g>
-																<g id="SvgjsG1196"
-																	class="apexcharts-yaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1197"
-																	class="apexcharts-xaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1198"
-																	class="apexcharts-point-annotations apexcharts-hidden-element-shown"></g></g></svg>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end"><a href="#"
-													class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-														<i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
-												</a></td>
-											</tr>
-	
-											<tr>
-												<td>
-													<div class="d-flex align-items-center">
-	
-														<div class="d-flex justify-content-start flex-column">
-															<a href="#"
-																class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">타워힐</font></font></a> <span
-																class="text-gray-500 fw-semibold d-block fs-7"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">코디 피셔</font></font></span>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end pe-0"><span
-													class="text-gray-600 fw-bold fs-6"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">74,000달러</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<!--begin::Label--> <span
-													class="badge badge-light-success fs-base"> <i
-														class="ki-duotone ki-arrow-up fs-5 text-success ms-n1"><span
-															class="path1"></span><span class="path2"></span></i><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;"> 9.2% </font></font></span> <!--end::Label-->
-	
-												</td>
-	
-												<td class="text-end pe-12"><span
-													class="badge py-3 px-4 fs-7 badge-light-success"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">완료됨</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<div id="kt_table_widget_14_chart_4"
-														class="h-50px mt-n8 pe-7" data-kt-chart-color="success"
-														style="min-height: 50px;">
-														<div id="apexchartswv7ca7hw"
-															class="apexcharts-canvas apexchartswv7ca7hw apexcharts-theme-"
-															style="width: 92.25px; height: 50px;">
-															<svg id="SvgjsSvg1199" width="92.25" height="50"
-																xmlns="http://www.w3.org/2000/svg" version="1.1"
-																xmlns:xlink="http://www.w3.org/1999/xlink"
-																xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
-																xmlns:data="ApexChartsNS" transform="translate(0, 0)">
-																<foreignObject x="0" y="0" width="92.25" height="50">
-																<div class="apexcharts-legend"
-																	xmlns="http://www.w3.org/1999/xhtml"
-																	style="max-height: 25px;"></div></foreignObject>
-																<g id="SvgjsG1206" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1207" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1240" class="apexcharts-yaxis" rel="0"
-																	transform="translate(-18, 0)"></g>
-																<g id="SvgjsG1201"
-																	class="apexcharts-inner apexcharts-graphical"
-																	transform="translate(0, 1)">
-																<defs id="SvgjsDefs1200">
-																<clipPath id="gridRectMaskwv7ca7hw">
-																<rect id="SvgjsRect1204" width="98.25" height="54" x="-3"
-																	y="-3" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath>
-																<clipPath id="forecastMaskwv7ca7hw"></clipPath>
-																<clipPath id="nonForecastMaskwv7ca7hw"></clipPath>
-																<clipPath id="gridRectMarkerMaskwv7ca7hw">
-																<rect id="SvgjsRect1205" width="96.25" height="52" x="-2"
-																	y="-2" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs>
-																<g id="SvgjsG1214" class="apexcharts-grid">
-																<g id="SvgjsG1215"
-																	class="apexcharts-gridlines-horizontal"
-																	style="display: none;">
-																<line id="SvgjsLine1218" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line>
-																<line id="SvgjsLine1219" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line></g>
-																<g id="SvgjsG1216" class="apexcharts-gridlines-vertical"
-																	style="display: none;"></g>
-																<line id="SvgjsLine1221" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line>
-																<line id="SvgjsLine1220" x1="0" y1="1" x2="0" y2="48"
-																	stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line></g>
-																<g id="SvgjsG1217" class="apexcharts-grid-borders"
-																	style="display: none;"></g>
-																<g id="SvgjsG1208"
-																	class="apexcharts-area-series apexcharts-plot-series">
-																<g id="SvgjsG1209" class="apexcharts-series" zIndex="0"
-																	seriesName="NetxProfit" data:longestSeries="true"
-																	rel="1" data:realIndex="0">
-																<path id="SvgjsPath1212"
-																	d="M0 28.8C2.483653846153846 28.8 4.612500000000001 45.6 7.096153846153847 45.6C9.579807692307693 45.6 11.708653846153847 44 14.192307692307693 44C16.67596153846154 44 18.804807692307694 32.8 21.28846153846154 32.8C23.772115384615386 32.8 25.90096153846154 45.6 28.384615384615387 45.6C30.868269230769233 45.6 32.997115384615384 42.4 35.48076923076923 42.4C37.96442307692308 42.4 40.09326923076924 28 42.57692307692308 28C45.06057692307692 28 47.18942307692308 36.8 49.67307692307693 36.8C52.156730769230776 36.8 54.28557692307693 44 56.769230769230774 44C59.252884615384616 44 61.38173076923077 36.8 63.86538461538462 36.8C66.34903846153847 36.8 68.47788461538462 46.4 70.96153846153847 46.4C73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C80.54134615384615 41.6 82.67019230769232 44 85.15384615384616 44C87.6375 44 89.76634615384616 34.4 92.25 34.4C92.25 34.4 92.25 34.4 92.25 48L0 48C0 48 0 28.8 0 28.8 "
-																	fill="rgba(255,255,255,1)" fill-opacity="1"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="0" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskwv7ca7hw)"
-																	pathTo="M 0 28.8C 2.483653846153846 28.8 4.612500000000001 45.6 7.096153846153847 45.6C 9.579807692307693 45.6 11.708653846153847 44 14.192307692307693 44C 16.67596153846154 44 18.804807692307694 32.8 21.28846153846154 32.8C 23.772115384615386 32.8 25.90096153846154 45.6 28.384615384615387 45.6C 30.868269230769233 45.6 32.997115384615384 42.4 35.48076923076923 42.4C 37.96442307692308 42.4 40.09326923076924 28 42.57692307692308 28C 45.06057692307692 28 47.18942307692308 36.8 49.67307692307693 36.8C 52.156730769230776 36.8 54.28557692307693 44 56.769230769230774 44C 59.252884615384616 44 61.38173076923077 36.8 63.86538461538462 36.8C 66.34903846153847 36.8 68.47788461538462 46.4 70.96153846153847 46.4C 73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C 80.54134615384615 41.6 82.67019230769232 44 85.15384615384616 44C 87.6375 44 89.76634615384616 34.4 92.25 34.4C 92.25 34.4 92.25 34.4 92.25 48 L 0 48z"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48z"></path>
-																<path id="SvgjsPath1213"
-																	d="M0 28.8C2.483653846153846 28.8 4.612500000000001 45.6 7.096153846153847 45.6C9.579807692307693 45.6 11.708653846153847 44 14.192307692307693 44C16.67596153846154 44 18.804807692307694 32.8 21.28846153846154 32.8C23.772115384615386 32.8 25.90096153846154 45.6 28.384615384615387 45.6C30.868269230769233 45.6 32.997115384615384 42.4 35.48076923076923 42.4C37.96442307692308 42.4 40.09326923076924 28 42.57692307692308 28C45.06057692307692 28 47.18942307692308 36.8 49.67307692307693 36.8C52.156730769230776 36.8 54.28557692307693 44 56.769230769230774 44C59.252884615384616 44 61.38173076923077 36.8 63.86538461538462 36.8C66.34903846153847 36.8 68.47788461538462 46.4 70.96153846153847 46.4C73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C80.54134615384615 41.6 82.67019230769232 44 85.15384615384616 44C87.6375 44 89.76634615384616 34.4 92.25 34.4C92.25 34.4 92.25 34.4 92.25 34.4 "
-																	fill="none" fill-opacity="1" stroke="#b8d935"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="2" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskwv7ca7hw)"
-																	pathTo="M 0 28.8C 2.483653846153846 28.8 4.612500000000001 45.6 7.096153846153847 45.6C 9.579807692307693 45.6 11.708653846153847 44 14.192307692307693 44C 16.67596153846154 44 18.804807692307694 32.8 21.28846153846154 32.8C 23.772115384615386 32.8 25.90096153846154 45.6 28.384615384615387 45.6C 30.868269230769233 45.6 32.997115384615384 42.4 35.48076923076923 42.4C 37.96442307692308 42.4 40.09326923076924 28 42.57692307692308 28C 45.06057692307692 28 47.18942307692308 36.8 49.67307692307693 36.8C 52.156730769230776 36.8 54.28557692307693 44 56.769230769230774 44C 59.252884615384616 44 61.38173076923077 36.8 63.86538461538462 36.8C 66.34903846153847 36.8 68.47788461538462 46.4 70.96153846153847 46.4C 73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C 80.54134615384615 41.6 82.67019230769232 44 85.15384615384616 44C 87.6375 44 89.76634615384616 34.4 92.25 34.4"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48"
-																	fill-rule="evenodd"></path>
-																<g id="SvgjsG1210"
-																	class="apexcharts-series-markers-wrap apexcharts-hidden-element-shown"
-																	data:realIndex="0"></g></g>
-																<g id="SvgjsG1211" class="apexcharts-datalabels"
-																	data:realIndex="0"></g></g>
-																<line id="SvgjsLine1222" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1"
-																	stroke-linecap="butt" class="apexcharts-ycrosshairs"></line>
-																<line id="SvgjsLine1223" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke-dasharray="0" stroke-width="0"
-																	stroke-linecap="butt"
-																	class="apexcharts-ycrosshairs-hidden"></line>
-																<g id="SvgjsG1224" class="apexcharts-xaxis"
-																	transform="translate(0, 0)">
-																<g id="SvgjsG1225" class="apexcharts-xaxis-texts-g"
-																	transform="translate(0, 4)"></g></g>
-																<g id="SvgjsG1241"
-																	class="apexcharts-yaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1242"
-																	class="apexcharts-xaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1243"
-																	class="apexcharts-point-annotations apexcharts-hidden-element-shown"></g></g></svg>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end"><a href="#"
-													class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-														<i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
-												</a></td>
-											</tr>
-	
-											<tr>
-												<td>
-													<div class="d-flex align-items-center">
-	
-														<div class="d-flex justify-content-start flex-column">
-															<a href="#"
-																class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">9도</font></font></a> <span
-																class="text-gray-500 fw-semibold d-block fs-7"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">사바나</font></font></span>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end pe-0"><span
-													class="text-gray-600 fw-bold fs-6"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">183,300달러</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<!--begin::Label--> <span
-													class="badge badge-light-danger fs-base"> <i
-														class="ki-duotone ki-arrow-down fs-5 text-danger ms-n1"><span
-															class="path1"></span><span class="path2"></span></i><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;"> 0.4% </font></font></span> <!--end::Label-->
-	
-												</td>
-	
-												<td class="text-end pe-12"><span
-													class="badge py-3 px-4 fs-7 badge-light-primary"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">진행 중</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<div id="kt_table_widget_14_chart_5"
-														class="h-50px mt-n8 pe-7" data-kt-chart-color="danger"
-														style="min-height: 50px;">
-														<div id="apexchartsdoz1vzul"
-															class="apexcharts-canvas apexchartsdoz1vzul apexcharts-theme-">
-															<svg id="SvgjsSvg1244" width="92.25" height="50"
-																xmlns="http://www.w3.org/2000/svg" version="1.1"
-																xmlns:xlink="http://www.w3.org/1999/xlink"
-																xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
-																xmlns:data="ApexChartsNS" transform="translate(0, 0)">
-																<foreignObject x="0" y="0" width="92.25" height="50">
-																<div class="apexcharts-legend"
-																	xmlns="http://www.w3.org/1999/xhtml"
-																	style="max-height: 25px;"></div></foreignObject>
-																<g id="SvgjsG1251" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1252" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1285" class="apexcharts-yaxis" rel="0"
-																	transform="translate(-18, 0)"></g>
-																<g id="SvgjsG1246"
-																	class="apexcharts-inner apexcharts-graphical"
-																	transform="translate(0, 1)">
-																<defs id="SvgjsDefs1245">
-																<clipPath id="gridRectMaskdoz1vzul">
-																<rect id="SvgjsRect1249" width="98.25" height="54" x="-3"
-																	y="-3" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath>
-																<clipPath id="forecastMaskdoz1vzul"></clipPath>
-																<clipPath id="nonForecastMaskdoz1vzul"></clipPath>
-																<clipPath id="gridRectMarkerMaskdoz1vzul">
-																<rect id="SvgjsRect1250" width="96.25" height="52" x="-2"
-																	y="-2" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs>
-																<g id="SvgjsG1259" class="apexcharts-grid">
-																<g id="SvgjsG1260"
-																	class="apexcharts-gridlines-horizontal"
-																	style="display: none;">
-																<line id="SvgjsLine1263" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line>
-																<line id="SvgjsLine1264" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line></g>
-																<g id="SvgjsG1261" class="apexcharts-gridlines-vertical"
-																	style="display: none;"></g>
-																<line id="SvgjsLine1266" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line>
-																<line id="SvgjsLine1265" x1="0" y1="1" x2="0" y2="48"
-																	stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line></g>
-																<g id="SvgjsG1262" class="apexcharts-grid-borders"
-																	style="display: none;"></g>
-																<g id="SvgjsG1253"
-																	class="apexcharts-area-series apexcharts-plot-series">
-																<g id="SvgjsG1254" class="apexcharts-series" zIndex="0"
-																	seriesName="NetxProfit" data:longestSeries="true"
-																	rel="1" data:realIndex="0">
-																<path id="SvgjsPath1257"
-																	d="M0 45.6C2.483653846153846 45.6 4.612500000000001 29.6 7.096153846153847 29.6C9.579807692307693 29.6 11.708653846153847 47.2 14.192307692307693 47.2C16.67596153846154 47.2 18.804807692307694 32.8 21.28846153846154 32.8C23.772115384615386 32.8 25.90096153846154 45.6 28.384615384615387 45.6C30.868269230769233 45.6 32.997115384615384 34.4 35.48076923076923 34.4C37.96442307692308 34.4 40.09326923076924 45.6 42.57692307692308 45.6C45.06057692307692 45.6 47.18942307692308 40.8 49.67307692307693 40.8C52.156730769230776 40.8 54.28557692307693 28 56.769230769230774 28C59.252884615384616 28 61.38173076923077 44.8 63.86538461538462 44.8C66.34903846153847 44.8 68.47788461538462 46.4 70.96153846153847 46.4C73.44519230769231 46.4 75.57403846153846 33.6 78.0576923076923 33.6C80.54134615384615 33.6 82.67019230769232 28 85.15384615384616 28C87.6375 28 89.76634615384616 45.6 92.25 45.6C92.25 45.6 92.25 45.6 92.25 48L0 48C0 48 0 45.6 0 45.6 "
-																	fill="rgba(255,255,255,1)" fill-opacity="1"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="0" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskdoz1vzul)"
-																	pathTo="M 0 45.6C 2.483653846153846 45.6 4.612500000000001 29.6 7.096153846153847 29.6C 9.579807692307693 29.6 11.708653846153847 47.2 14.192307692307693 47.2C 16.67596153846154 47.2 18.804807692307694 32.8 21.28846153846154 32.8C 23.772115384615386 32.8 25.90096153846154 45.6 28.384615384615387 45.6C 30.868269230769233 45.6 32.997115384615384 34.4 35.48076923076923 34.4C 37.96442307692308 34.4 40.09326923076924 45.6 42.57692307692308 45.6C 45.06057692307692 45.6 47.18942307692308 40.8 49.67307692307693 40.8C 52.156730769230776 40.8 54.28557692307693 28 56.769230769230774 28C 59.252884615384616 28 61.38173076923077 44.8 63.86538461538462 44.8C 66.34903846153847 44.8 68.47788461538462 46.4 70.96153846153847 46.4C 73.44519230769231 46.4 75.57403846153846 33.6 78.0576923076923 33.6C 80.54134615384615 33.6 82.67019230769232 28 85.15384615384616 28C 87.6375 28 89.76634615384616 45.6 92.25 45.6C 92.25 45.6 92.25 45.6 92.25 48 L 0 48z"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48z"></path>
-																<path id="SvgjsPath1258"
-																	d="M0 45.6C2.483653846153846 45.6 4.612500000000001 29.6 7.096153846153847 29.6C9.579807692307693 29.6 11.708653846153847 47.2 14.192307692307693 47.2C16.67596153846154 47.2 18.804807692307694 32.8 21.28846153846154 32.8C23.772115384615386 32.8 25.90096153846154 45.6 28.384615384615387 45.6C30.868269230769233 45.6 32.997115384615384 34.4 35.48076923076923 34.4C37.96442307692308 34.4 40.09326923076924 45.6 42.57692307692308 45.6C45.06057692307692 45.6 47.18942307692308 40.8 49.67307692307693 40.8C52.156730769230776 40.8 54.28557692307693 28 56.769230769230774 28C59.252884615384616 28 61.38173076923077 44.8 63.86538461538462 44.8C66.34903846153847 44.8 68.47788461538462 46.4 70.96153846153847 46.4C73.44519230769231 46.4 75.57403846153846 33.6 78.0576923076923 33.6C80.54134615384615 33.6 82.67019230769232 28 85.15384615384616 28C87.6375 28 89.76634615384616 45.6 92.25 45.6C92.25 45.6 92.25 45.6 92.25 45.6 "
-																	fill="none" fill-opacity="1" stroke="#f06445"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="2" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskdoz1vzul)"
-																	pathTo="M 0 45.6C 2.483653846153846 45.6 4.612500000000001 29.6 7.096153846153847 29.6C 9.579807692307693 29.6 11.708653846153847 47.2 14.192307692307693 47.2C 16.67596153846154 47.2 18.804807692307694 32.8 21.28846153846154 32.8C 23.772115384615386 32.8 25.90096153846154 45.6 28.384615384615387 45.6C 30.868269230769233 45.6 32.997115384615384 34.4 35.48076923076923 34.4C 37.96442307692308 34.4 40.09326923076924 45.6 42.57692307692308 45.6C 45.06057692307692 45.6 47.18942307692308 40.8 49.67307692307693 40.8C 52.156730769230776 40.8 54.28557692307693 28 56.769230769230774 28C 59.252884615384616 28 61.38173076923077 44.8 63.86538461538462 44.8C 66.34903846153847 44.8 68.47788461538462 46.4 70.96153846153847 46.4C 73.44519230769231 46.4 75.57403846153846 33.6 78.0576923076923 33.6C 80.54134615384615 33.6 82.67019230769232 28 85.15384615384616 28C 87.6375 28 89.76634615384616 45.6 92.25 45.6"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48"
-																	fill-rule="evenodd"></path>
-																<g id="SvgjsG1255"
-																	class="apexcharts-series-markers-wrap apexcharts-hidden-element-shown"
-																	data:realIndex="0"></g></g>
-																<g id="SvgjsG1256" class="apexcharts-datalabels"
-																	data:realIndex="0"></g></g>
-																<line id="SvgjsLine1267" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1"
-																	stroke-linecap="butt" class="apexcharts-ycrosshairs"></line>
-																<line id="SvgjsLine1268" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke-dasharray="0" stroke-width="0"
-																	stroke-linecap="butt"
-																	class="apexcharts-ycrosshairs-hidden"></line>
-																<g id="SvgjsG1269" class="apexcharts-xaxis"
-																	transform="translate(0, 0)">
-																<g id="SvgjsG1270" class="apexcharts-xaxis-texts-g"
-																	transform="translate(0, 4)"></g></g>
-																<g id="SvgjsG1286"
-																	class="apexcharts-yaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1287"
-																	class="apexcharts-xaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1288"
-																	class="apexcharts-point-annotations apexcharts-hidden-element-shown"></g></g></svg>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end"><a href="#"
-													class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-														<i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
-												</a></td>
-											</tr>
-											
-											<tr>
-												<td>
-													<div class="d-flex align-items-center">
-	
-														<div class="d-flex justify-content-start flex-column">
-															<a href="#"
-																class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">차트 CRM</font></font></a> <span
-																class="text-gray-500 fw-semibold d-block fs-7"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">제니 윌슨</font></font></span>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end pe-0"><span
-													class="text-gray-600 fw-bold fs-6"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">8,220달러</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<!--begin::Label--> <span
-													class="badge badge-light-success fs-base"> <i
-														class="ki-duotone ki-arrow-up fs-5 text-success ms-n1"><span
-															class="path1"></span><span class="path2"></span></i><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;"> 9.2% </font></font></span> <!--end::Label-->
-	
-												</td>
-	
-												<td class="text-end pe-12"><span
-													class="badge py-3 px-4 fs-7 badge-light-primary"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">진행 중</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<div id="kt_table_widget_14_chart_3"
-														class="h-50px mt-n8 pe-7" data-kt-chart-color="success"
-														style="min-height: 50px;">
-														<div id="apexchartskbwmm6i3f"
-															class="apexcharts-canvas apexchartskbwmm6i3f apexcharts-theme-"
-															style="width: 92.25px; height: 50px;">
-															<svg id="SvgjsSvg1154" width="92.25" height="50"
-																xmlns="http://www.w3.org/2000/svg" version="1.1"
-																xmlns:xlink="http://www.w3.org/1999/xlink"
-																xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
-																xmlns:data="ApexChartsNS" transform="translate(0, 0)">
-																<foreignObject x="0" y="0" width="92.25" height="50">
-																<div class="apexcharts-legend"
-																	xmlns="http://www.w3.org/1999/xhtml"
-																	style="max-height: 25px;"></div></foreignObject>
-																<g id="SvgjsG1161" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1162" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1195" class="apexcharts-yaxis" rel="0"
-																	transform="translate(-18, 0)"></g>
-																<g id="SvgjsG1156"
-																	class="apexcharts-inner apexcharts-graphical"
-																	transform="translate(0, 1)">
-																<defs id="SvgjsDefs1155">
-																<clipPath id="gridRectMaskkbwmm6i3f">
-																<rect id="SvgjsRect1159" width="98.25" height="54" x="-3"
-																	y="-3" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath>
-																<clipPath id="forecastMaskkbwmm6i3f"></clipPath>
-																<clipPath id="nonForecastMaskkbwmm6i3f"></clipPath>
-																<clipPath id="gridRectMarkerMaskkbwmm6i3f">
-																<rect id="SvgjsRect1160" width="96.25" height="52" x="-2"
-																	y="-2" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs>
-																<g id="SvgjsG1169" class="apexcharts-grid">
-																<g id="SvgjsG1170"
-																	class="apexcharts-gridlines-horizontal"
-																	style="display: none;">
-																<line id="SvgjsLine1173" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line>
-																<line id="SvgjsLine1174" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line></g>
-																<g id="SvgjsG1171" class="apexcharts-gridlines-vertical"
-																	style="display: none;"></g>
-																<line id="SvgjsLine1176" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line>
-																<line id="SvgjsLine1175" x1="0" y1="1" x2="0" y2="48"
-																	stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line></g>
-																<g id="SvgjsG1172" class="apexcharts-grid-borders"
-																	style="display: none;"></g>
-																<g id="SvgjsG1163"
-																	class="apexcharts-area-series apexcharts-plot-series">
-																<g id="SvgjsG1164" class="apexcharts-series" zIndex="0"
-																	seriesName="NetxProfit" data:longestSeries="true"
-																	rel="1" data:realIndex="0">
-																<path id="SvgjsPath1167"
-																	d="M0 46.4C2.483653846153846 46.4 4.612500000000001 28.8 7.096153846153847 28.8C9.579807692307693 28.8 11.708653846153847 44 14.192307692307693 44C16.67596153846154 44 18.804807692307694 34.4 21.28846153846154 34.4C23.772115384615386 34.4 25.90096153846154 42.4 28.384615384615387 42.4C30.868269230769233 42.4 32.997115384615384 46.4 35.48076923076923 46.4C37.96442307692308 46.4 40.09326923076924 38.4 42.57692307692308 38.4C45.06057692307692 38.4 47.18942307692308 28.8 49.67307692307693 28.8C52.156730769230776 28.8 54.28557692307693 44 56.769230769230774 44C59.252884615384616 44 61.38173076923077 28.8 63.86538461538462 28.8C66.34903846153847 28.8 68.47788461538462 46.4 70.96153846153847 46.4C73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C80.54134615384615 41.6 82.67019230769232 38.4 85.15384615384616 38.4C87.6375 38.4 89.76634615384616 42.4 92.25 42.4C92.25 42.4 92.25 42.4 92.25 48L0 48C0 48 0 46.4 0 46.4 "
-																	fill="rgba(255,255,255,1)" fill-opacity="1"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="0" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskkbwmm6i3f)"
-																	pathTo="M 0 46.4C 2.483653846153846 46.4 4.612500000000001 28.8 7.096153846153847 28.8C 9.579807692307693 28.8 11.708653846153847 44 14.192307692307693 44C 16.67596153846154 44 18.804807692307694 34.4 21.28846153846154 34.4C 23.772115384615386 34.4 25.90096153846154 42.4 28.384615384615387 42.4C 30.868269230769233 42.4 32.997115384615384 46.4 35.48076923076923 46.4C 37.96442307692308 46.4 40.09326923076924 38.4 42.57692307692308 38.4C 45.06057692307692 38.4 47.18942307692308 28.8 49.67307692307693 28.8C 52.156730769230776 28.8 54.28557692307693 44 56.769230769230774 44C 59.252884615384616 44 61.38173076923077 28.8 63.86538461538462 28.8C 66.34903846153847 28.8 68.47788461538462 46.4 70.96153846153847 46.4C 73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C 80.54134615384615 41.6 82.67019230769232 38.4 85.15384615384616 38.4C 87.6375 38.4 89.76634615384616 42.4 92.25 42.4C 92.25 42.4 92.25 42.4 92.25 48 L 0 48z"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48z"></path>
-																<path id="SvgjsPath1168"
-																	d="M0 46.4C2.483653846153846 46.4 4.612500000000001 28.8 7.096153846153847 28.8C9.579807692307693 28.8 11.708653846153847 44 14.192307692307693 44C16.67596153846154 44 18.804807692307694 34.4 21.28846153846154 34.4C23.772115384615386 34.4 25.90096153846154 42.4 28.384615384615387 42.4C30.868269230769233 42.4 32.997115384615384 46.4 35.48076923076923 46.4C37.96442307692308 46.4 40.09326923076924 38.4 42.57692307692308 38.4C45.06057692307692 38.4 47.18942307692308 28.8 49.67307692307693 28.8C52.156730769230776 28.8 54.28557692307693 44 56.769230769230774 44C59.252884615384616 44 61.38173076923077 28.8 63.86538461538462 28.8C66.34903846153847 28.8 68.47788461538462 46.4 70.96153846153847 46.4C73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C80.54134615384615 41.6 82.67019230769232 38.4 85.15384615384616 38.4C87.6375 38.4 89.76634615384616 42.4 92.25 42.4C92.25 42.4 92.25 42.4 92.25 42.4 "
-																	fill="none" fill-opacity="1" stroke="#b8d935"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="2" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskkbwmm6i3f)"
-																	pathTo="M 0 46.4C 2.483653846153846 46.4 4.612500000000001 28.8 7.096153846153847 28.8C 9.579807692307693 28.8 11.708653846153847 44 14.192307692307693 44C 16.67596153846154 44 18.804807692307694 34.4 21.28846153846154 34.4C 23.772115384615386 34.4 25.90096153846154 42.4 28.384615384615387 42.4C 30.868269230769233 42.4 32.997115384615384 46.4 35.48076923076923 46.4C 37.96442307692308 46.4 40.09326923076924 38.4 42.57692307692308 38.4C 45.06057692307692 38.4 47.18942307692308 28.8 49.67307692307693 28.8C 52.156730769230776 28.8 54.28557692307693 44 56.769230769230774 44C 59.252884615384616 44 61.38173076923077 28.8 63.86538461538462 28.8C 66.34903846153847 28.8 68.47788461538462 46.4 70.96153846153847 46.4C 73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C 80.54134615384615 41.6 82.67019230769232 38.4 85.15384615384616 38.4C 87.6375 38.4 89.76634615384616 42.4 92.25 42.4"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48"
-																	fill-rule="evenodd"></path>
-																<g id="SvgjsG1165"
-																	class="apexcharts-series-markers-wrap apexcharts-hidden-element-shown"
-																	data:realIndex="0"></g></g>
-																<g id="SvgjsG1166" class="apexcharts-datalabels"
-																	data:realIndex="0"></g></g>
-																<line id="SvgjsLine1177" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1"
-																	stroke-linecap="butt" class="apexcharts-ycrosshairs"></line>
-																<line id="SvgjsLine1178" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke-dasharray="0" stroke-width="0"
-																	stroke-linecap="butt"
-																	class="apexcharts-ycrosshairs-hidden"></line>
-																<g id="SvgjsG1179" class="apexcharts-xaxis"
-																	transform="translate(0, 0)">
-																<g id="SvgjsG1180" class="apexcharts-xaxis-texts-g"
-																	transform="translate(0, 4)"></g></g>
-																<g id="SvgjsG1196"
-																	class="apexcharts-yaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1197"
-																	class="apexcharts-xaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1198"
-																	class="apexcharts-point-annotations apexcharts-hidden-element-shown"></g></g></svg>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end"><a href="#"
-													class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-														<i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
-												</a></td>
-											</tr>
-	
-											<tr>
-												<td>
-													<div class="d-flex align-items-center">
-	
-														<div class="d-flex justify-content-start flex-column">
-															<a href="#"
-																class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">타워힐</font></font></a> <span
-																class="text-gray-500 fw-semibold d-block fs-7"><font
-																style="vertical-align: inherit;"><font
-																	style="vertical-align: inherit;">코디 피셔</font></font></span>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end pe-0"><span
-													class="text-gray-600 fw-bold fs-6"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">74,000달러</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<!--begin::Label--> <span
-													class="badge badge-light-success fs-base"> <i
-														class="ki-duotone ki-arrow-up fs-5 text-success ms-n1"><span
-															class="path1"></span><span class="path2"></span></i><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;"> 9.2% </font></font></span> <!--end::Label-->
-	
-												</td>
-	
-												<td class="text-end pe-12"><span
-													class="badge py-3 px-4 fs-7 badge-light-success"><font
-														style="vertical-align: inherit;"><font
-															style="vertical-align: inherit;">완료됨</font></font></span></td>
-	
-												<td class="text-end pe-0">
-													<div id="kt_table_widget_14_chart_4"
-														class="h-50px mt-n8 pe-7" data-kt-chart-color="success"
-														style="min-height: 50px;">
-														<div id="apexchartswv7ca7hw"
-															class="apexcharts-canvas apexchartswv7ca7hw apexcharts-theme-"
-															style="width: 92.25px; height: 50px;">
-															<svg id="SvgjsSvg1199" width="92.25" height="50"
-																xmlns="http://www.w3.org/2000/svg" version="1.1"
-																xmlns:xlink="http://www.w3.org/1999/xlink"
-																xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
-																xmlns:data="ApexChartsNS" transform="translate(0, 0)">
-																<foreignObject x="0" y="0" width="92.25" height="50">
-																<div class="apexcharts-legend"
-																	xmlns="http://www.w3.org/1999/xhtml"
-																	style="max-height: 25px;"></div></foreignObject>
-																<g id="SvgjsG1206" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1207" class="apexcharts-datalabels-group"
-																	transform="translate(0, 0) scale(1)"></g>
-																<g id="SvgjsG1240" class="apexcharts-yaxis" rel="0"
-																	transform="translate(-18, 0)"></g>
-																<g id="SvgjsG1201"
-																	class="apexcharts-inner apexcharts-graphical"
-																	transform="translate(0, 1)">
-																<defs id="SvgjsDefs1200">
-																<clipPath id="gridRectMaskwv7ca7hw">
-																<rect id="SvgjsRect1204" width="98.25" height="54" x="-3"
-																	y="-3" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath>
-																<clipPath id="forecastMaskwv7ca7hw"></clipPath>
-																<clipPath id="nonForecastMaskwv7ca7hw"></clipPath>
-																<clipPath id="gridRectMarkerMaskwv7ca7hw">
-																<rect id="SvgjsRect1205" width="96.25" height="52" x="-2"
-																	y="-2" rx="0" ry="0" opacity="1" stroke-width="0"
-																	stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs>
-																<g id="SvgjsG1214" class="apexcharts-grid">
-																<g id="SvgjsG1215"
-																	class="apexcharts-gridlines-horizontal"
-																	style="display: none;">
-																<line id="SvgjsLine1218" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line>
-																<line id="SvgjsLine1219" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="#e0e0e0" stroke-dasharray="0"
-																	stroke-linecap="butt" class="apexcharts-gridline"></line></g>
-																<g id="SvgjsG1216" class="apexcharts-gridlines-vertical"
-																	style="display: none;"></g>
-																<line id="SvgjsLine1221" x1="0" y1="48" x2="92.25"
-																	y2="48" stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line>
-																<line id="SvgjsLine1220" x1="0" y1="1" x2="0" y2="48"
-																	stroke="transparent" stroke-dasharray="0"
-																	stroke-linecap="butt"></line></g>
-																<g id="SvgjsG1217" class="apexcharts-grid-borders"
-																	style="display: none;"></g>
-																<g id="SvgjsG1208"
-																	class="apexcharts-area-series apexcharts-plot-series">
-																<g id="SvgjsG1209" class="apexcharts-series" zIndex="0"
-																	seriesName="NetxProfit" data:longestSeries="true"
-																	rel="1" data:realIndex="0">
-																<path id="SvgjsPath1212"
-																	d="M0 28.8C2.483653846153846 28.8 4.612500000000001 45.6 7.096153846153847 45.6C9.579807692307693 45.6 11.708653846153847 44 14.192307692307693 44C16.67596153846154 44 18.804807692307694 32.8 21.28846153846154 32.8C23.772115384615386 32.8 25.90096153846154 45.6 28.384615384615387 45.6C30.868269230769233 45.6 32.997115384615384 42.4 35.48076923076923 42.4C37.96442307692308 42.4 40.09326923076924 28 42.57692307692308 28C45.06057692307692 28 47.18942307692308 36.8 49.67307692307693 36.8C52.156730769230776 36.8 54.28557692307693 44 56.769230769230774 44C59.252884615384616 44 61.38173076923077 36.8 63.86538461538462 36.8C66.34903846153847 36.8 68.47788461538462 46.4 70.96153846153847 46.4C73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C80.54134615384615 41.6 82.67019230769232 44 85.15384615384616 44C87.6375 44 89.76634615384616 34.4 92.25 34.4C92.25 34.4 92.25 34.4 92.25 48L0 48C0 48 0 28.8 0 28.8 "
-																	fill="rgba(255,255,255,1)" fill-opacity="1"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="0" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskwv7ca7hw)"
-																	pathTo="M 0 28.8C 2.483653846153846 28.8 4.612500000000001 45.6 7.096153846153847 45.6C 9.579807692307693 45.6 11.708653846153847 44 14.192307692307693 44C 16.67596153846154 44 18.804807692307694 32.8 21.28846153846154 32.8C 23.772115384615386 32.8 25.90096153846154 45.6 28.384615384615387 45.6C 30.868269230769233 45.6 32.997115384615384 42.4 35.48076923076923 42.4C 37.96442307692308 42.4 40.09326923076924 28 42.57692307692308 28C 45.06057692307692 28 47.18942307692308 36.8 49.67307692307693 36.8C 52.156730769230776 36.8 54.28557692307693 44 56.769230769230774 44C 59.252884615384616 44 61.38173076923077 36.8 63.86538461538462 36.8C 66.34903846153847 36.8 68.47788461538462 46.4 70.96153846153847 46.4C 73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C 80.54134615384615 41.6 82.67019230769232 44 85.15384615384616 44C 87.6375 44 89.76634615384616 34.4 92.25 34.4C 92.25 34.4 92.25 34.4 92.25 48 L 0 48z"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48z"></path>
-																<path id="SvgjsPath1213"
-																	d="M0 28.8C2.483653846153846 28.8 4.612500000000001 45.6 7.096153846153847 45.6C9.579807692307693 45.6 11.708653846153847 44 14.192307692307693 44C16.67596153846154 44 18.804807692307694 32.8 21.28846153846154 32.8C23.772115384615386 32.8 25.90096153846154 45.6 28.384615384615387 45.6C30.868269230769233 45.6 32.997115384615384 42.4 35.48076923076923 42.4C37.96442307692308 42.4 40.09326923076924 28 42.57692307692308 28C45.06057692307692 28 47.18942307692308 36.8 49.67307692307693 36.8C52.156730769230776 36.8 54.28557692307693 44 56.769230769230774 44C59.252884615384616 44 61.38173076923077 36.8 63.86538461538462 36.8C66.34903846153847 36.8 68.47788461538462 46.4 70.96153846153847 46.4C73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C80.54134615384615 41.6 82.67019230769232 44 85.15384615384616 44C87.6375 44 89.76634615384616 34.4 92.25 34.4C92.25 34.4 92.25 34.4 92.25 34.4 "
-																	fill="none" fill-opacity="1" stroke="#b8d935"
-																	stroke-opacity="1" stroke-linecap="butt"
-																	stroke-width="2" stroke-dasharray="0"
-																	class="apexcharts-area" index="0"
-																	clip-path="url(#gridRectMaskwv7ca7hw)"
-																	pathTo="M 0 28.8C 2.483653846153846 28.8 4.612500000000001 45.6 7.096153846153847 45.6C 9.579807692307693 45.6 11.708653846153847 44 14.192307692307693 44C 16.67596153846154 44 18.804807692307694 32.8 21.28846153846154 32.8C 23.772115384615386 32.8 25.90096153846154 45.6 28.384615384615387 45.6C 30.868269230769233 45.6 32.997115384615384 42.4 35.48076923076923 42.4C 37.96442307692308 42.4 40.09326923076924 28 42.57692307692308 28C 45.06057692307692 28 47.18942307692308 36.8 49.67307692307693 36.8C 52.156730769230776 36.8 54.28557692307693 44 56.769230769230774 44C 59.252884615384616 44 61.38173076923077 36.8 63.86538461538462 36.8C 66.34903846153847 36.8 68.47788461538462 46.4 70.96153846153847 46.4C 73.44519230769231 46.4 75.57403846153846 41.6 78.0576923076923 41.6C 80.54134615384615 41.6 82.67019230769232 44 85.15384615384616 44C 87.6375 44 89.76634615384616 34.4 92.25 34.4"
-																	pathFrom="M 0 48 L 0 48 L 7.096153846153847 48 L 14.192307692307693 48 L 21.28846153846154 48 L 28.384615384615387 48 L 35.48076923076923 48 L 42.57692307692308 48 L 49.67307692307693 48 L 56.769230769230774 48 L 63.86538461538462 48 L 70.96153846153847 48 L 78.0576923076923 48 L 85.15384615384616 48 L 92.25 48"
-																	fill-rule="evenodd"></path>
-																<g id="SvgjsG1210"
-																	class="apexcharts-series-markers-wrap apexcharts-hidden-element-shown"
-																	data:realIndex="0"></g></g>
-																<g id="SvgjsG1211" class="apexcharts-datalabels"
-																	data:realIndex="0"></g></g>
-																<line id="SvgjsLine1222" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1"
-																	stroke-linecap="butt" class="apexcharts-ycrosshairs"></line>
-																<line id="SvgjsLine1223" x1="0" y1="0" x2="92.25" y2="0"
-																	stroke-dasharray="0" stroke-width="0"
-																	stroke-linecap="butt"
-																	class="apexcharts-ycrosshairs-hidden"></line>
-																<g id="SvgjsG1224" class="apexcharts-xaxis"
-																	transform="translate(0, 0)">
-																<g id="SvgjsG1225" class="apexcharts-xaxis-texts-g"
-																	transform="translate(0, 4)"></g></g>
-																<g id="SvgjsG1241"
-																	class="apexcharts-yaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1242"
-																	class="apexcharts-xaxis-annotations apexcharts-hidden-element-shown"></g>
-																<g id="SvgjsG1243"
-																	class="apexcharts-point-annotations apexcharts-hidden-element-shown"></g></g></svg>
-														</div>
-													</div>
-												</td>
-	
-												<td class="text-end"><a href="#"
-													class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-														<i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
-												</a></td>
-											</tr>
-	
+											<tbody class="fs-6">
+												<c:set value="${proCardList }" var="proCardList"/>
+												<c:choose>
+													<c:when test="${empty proCardList }">
+														<tr>
+															<td colspan="4" class="text-center">
+																<a href="/company/project.do">
+											                	    <img src="/resources/file/image/cloudEmpty.png" class="w-50"/>
+											                    	<h3 class=" fw-bolder text-dark">프로젝트가 존재하지 않습니다.</h3>
+											                    </a>
+					              				 			</td>
+														</tr>
+													</c:when>
+													<c:otherwise>
+														<c:forEach items="${proCardList }" var="projectVO">
+															<tr>
+																<td>
+																	<div class="d-flex align-items-center">
+																		<div class="d-flex justify-content-start flex-column">
+																			<a href="/company/canbanList.do?proNo=${projectVO.proNo }" class="text-gray-900 text-hover-primary">
+																				<font style="vertical-align: inherit;">
+																					<font style="vertical-align: inherit;">${projectVO.proNm }</font>
+																				</font>
+																			</a> 
+																			<span class="text-gray-500 fw-semibold d-block fs-7">	
+																				<font style="vertical-align: inherit;">
+																					<font style="vertical-align: inherit;">${projectVO.proStartDt } - ${projectVO.proEndDt }</font>
+																				</font>
+																			</span>
+																		</div>
+																	</div>
+																</td>
+																<td class="text-center pe-0">
+																	<span class="text-gray-600 fw-bold fs-6">
+																		<font style="vertical-align: inherit;">
+																			<font style="vertical-align: inherit;">${projectVO.empNm }</font>
+																		</font>
+																	</span>
+																</td>
+																<td class="text-center pe-12">
+																	<div class="d-flex flex-stack flex-wrap mb-2">
+																	    <div class="symbol-group symbol-hover my-1">
+																	        <c:forEach items="${projectVO.participantImgFileUrlsList}" var="participantImgFileUrl" varStatus="status">
+																	        	<c:choose>
+																	        		 <c:when test="${status.index lt projectVO.participantEmpNamesList.size()}">
+																	        			<div class="symbol symbol-30px symbol-circle" data-bs-toggle="tooltip"  title="${projectVO.participantEmpNamesList[status.index] }" style="overflow: hidden;">
+																	        				<img alt="${projectVO.participantEmpNamesList[status.index] }" src="/upload/${participantImgFileUrl.trim() }" style="object-fit: cover;">
+																	        			</div>
+																	        		</c:when>
+																	        	</c:choose>
+																	        </c:forEach>
+																	    </div>
+																	</div>
+																</td>
+																<td>
+																	<a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">자세히보기
+																	<i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+																	<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+																		<div class="menu-item px-3">
+																			<a href="/company/canbanList.do?proNo=${projectVO.proNo }" class="menu-link px-3">칸반보드</a>
+																		</div>
+																		<div class="menu-item px-3">
+																			<a href="/company/ganttList.do?proNo=${projectVO.proNo }" class="menu-link px-3">간트차트</a>
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														</c:forEach>
+													</c:otherwise>
+												</c:choose>
+											</tbody>
 										</tbody>
-										<!--end::Table body-->
 									</table>
 								</div>
-								<!--end::Table-->
 							</div>
-							<!--end: Card Body-->
 						</div>
-						<!--end::Table widget 14-->
 					</div>
 	
-					<!--begin::Col-->
+					<!--캘린더 시작-->
 					<div class="col-lg-12 col-xl-12 col-xxl-7 mb-5 mb-xl-0">
 						<div class="card card-flush overflow-hidden h-md-100">
-							<div class="card-header py-5">
+							<div class="card-header">
 								<h2 class="card-title fw-bold">캘린더</h2>
 								<div class="card-toolbar">
 									<button class="btn btn-flex btn-primary" data-kt-calendar="add">
@@ -1209,7 +238,7 @@
 	
 							<div
 								class="card-body d-flex justify-content-between flex-column pb-1 px-0"
-								style="height: 500px;">
+								style="height: 730px;">
 								<!-- 캘린더 시작 -->
 								<div id="kt_calendar_app"></div>
 								<!-- 캘린더 종료 -->
@@ -1218,7 +247,7 @@
 	
 						<!--전체 모달 시작-->
 						<!--일정 추가 모달 시작-->
-						<div class="modal fade" id="kt_modal_add_event" tabindex="1"
+						<div class="modal fade" id="kt_modal_add_event" tabindex-="1"
 							aria-hidden="true" data-bs-focus="false">
 							<!--begin::Modal dialog-->
 							<div class="modal-dialog modal-dialog-centered mw-650px">
@@ -1227,6 +256,152 @@
 									<!--begin::Form-->
 									<form class="form" action="/company/calInsert.do" method="post"
 										id="kt_modal_add_event_form">
+										<!--begin::Modal header-->
+										<div class="modal-header">
+											<!--begin::Modal title-->
+											<h2 class="fw-bold" data-kt-calendar="title">일정 추가</h2>
+											<!--end::Modal title-->
+											<!--begin::Close-->
+											<div class="btn btn-icon btn-sm btn-active-icon-primary"
+												id="kt_modal_add_event_close">
+												<i class="ki-duotone ki-cross fs-1"> <span class="path1"></span>
+													<span class="path2"></span>
+												</i>
+											</div>
+											<!--end::Close-->
+										</div>
+										<!--end::Modal header-->
+										<!--begin::Modal body-->
+										<div class="modal-body py-10 px-lg-17">
+											<!--begin::Input group-->
+											<div class="fv-row mb-9">
+												<!--begin::Label-->
+												<label class="fs-6 fw-semibold required mb-2">일정명</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" class="form-control form-control-solid"
+													placeholder="일정명을 입력해주세요." name="calendarNm" id="calendarNm"
+													value="${calendarVO.calendarNm }" />
+												<!--end::Input-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="fv-row mb-9">
+												<!--begin::Label-->
+												<label class="fs-6 fw-semibold mb-2">일정 설명</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" class="form-control form-control-solid"
+													placeholder="일정 설명을 입력해주세요." name="calendarCn"
+													id="calendarCn" value="${calendarVO.calendarCn }" />
+												<!--end::Input-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="fv-row mb-9">
+												<!--begin::Label-->
+												<label class="fs-6 fw-semibold mb-2">일정 장소</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+												<input type="text" class="form-control form-control-solid"
+													placeholder="일정 장소를 입력해주세요." name="calendarDaddr"
+													id="calendarDaddr" value="${calendarVO.calendarDaddr }" />
+												<!--end::Input-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="fv-row mb-9">
+												<!--begin::Checkbox-->
+												<label class="form-check form-check-custom form-check-solid">
+													<input class="form-check-input" type="checkbox" value=""
+													id="kt_calendar_datepicker_allday" /> <span
+													class="form-check-label fw-semibold"
+													for="kt_calendar_datepicker_allday">종일</span>
+												</label>
+												<!--end::Checkbox-->
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="row row-cols-lg-2 g-10">
+												<div class="col">
+													<div class="fv-row mb-9">
+														<!--begin::Label-->
+														<label class="fs-6 fw-semibold mb-2 required">시작일</label>
+														<!--end::Label-->
+														<!--begin::Input-->
+														<input class="form-control form-control-solid"
+															name="calendarDt" placeholder="일정 시작일을 입력해주세요."
+															id="kt_calendar_datepicker_start_date"
+															value="${calendarVO.calendarDt }" />
+														<%-- <input class="form-control form-control-solid" name="calendar_event_start_date" placeholder="Pick a start date" id="calendar_dt" value="${calendarVO.calendarDt }" /> --%>
+														<!--end::Input-->
+													</div>
+												</div>
+												<div class="col" data-kt-calendar="datepicker">
+													<div class="fv-row mb-9">
+														<!--begin::Label-->
+														<label class="fs-6 fw-semibold mb-2">시작 시간</label>
+														<!--end::Label-->
+														<!--begin::Input-->
+														<input class="form-control form-control-solid"
+															name="calendarStartTime" placeholder="일정 시작 시간을 입력해주세요."
+															id="kt_calendar_datepicker_start_time"
+															value="${calendarVO.calendarStartTime }" />
+														<!--end::Input-->
+													</div>
+												</div>
+											</div>
+											<!--end::Input group-->
+											<!--begin::Input group-->
+											<div class="row row-cols-lg-2 g-10">
+												<div class="col">
+													<div class="fv-row mb-9">
+														<!--begin::Label-->
+														<label class="fs-6 fw-semibold mb-2 required">종료일</label>
+														<!--end::Label-->
+														<!--begin::Input-->
+														<input class="form-control form-control-solid"
+															name="calendarEndDt" placeholder="일정 종료일을 입력해주세요."
+															id="kt_calendar_datepicker_end_date"
+															value="${calendarVO.calendarEndDt }" />
+														<!-- <input class="form-control form-control-solid" name="calendar_event_end_date" placeholder="Pick a end date" id="kt_calendar_datepicker_end_date" /> -->
+														<%-- <input class="form-control form-control-solid" name="calendar_event_end_date" placeholder="Pick a end date" id="calendar_end_dt" value="${calendarVO.calendarEndDt }" /> --%>
+														<!--end::Input-->
+													</div>
+												</div>
+												<div class="col" data-kt-calendar="datepicker">
+													<div class="fv-row mb-9">
+														<!--begin::Label-->
+														<label class="fs-6 fw-semibold mb-2">종료 시간</label>
+														<!--end::Label-->
+														<!--begin::Input-->
+														<input class="form-control form-control-solid"
+															name="calendarEndTime" placeholder="일정 종료 시간을 입력해주세요."
+															id="kt_calendar_datepicker_end_time"
+															value="${calendarVO.calendarEndTime }" />
+														<!--end::Input-->
+													</div>
+												</div>
+											</div>
+											<!--end::Input group-->
+										</div>
+										<!--end::Modal body-->
+										<!--begin::Modal footer-->
+										<div class="modal-footer flex-center">
+											<!--begin::Button-->
+											<button type="reset" id="kt_modal_add_event_cancel"
+												class="btn btn-light me-3">취소</button>
+											<!--end::Button-->
+											<!--begin::Button-->
+											<button type="submit" id="kt_modal_add_event_submit"
+												class="btn btn-primary">
+												<span class="indicator-label">저장</span> <span
+													class="indicator-progress">저장 중 <span
+													class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+											</button>
+											<!--end::Button-->
+										</div>
+										<!--end::Modal footer-->
 									</form>
 									<!--end::Form-->
 								</div>
@@ -1350,570 +525,192 @@
 	
 	
 					</div>
-					<!--end::Col-->
+					<!--캘린더 종료-->
 				</div>
 				<!--end::Row-->
 
 
 				<div class="row g-5 g-xxl-10">
-					<!--begin::Col-->
-					<div class="col-xl-4 mb-xl-5 mb-xxl-10">
-						<!--begin::Chart widget 9-->
-						<div class="card card-flush h-xl-100">
-							<!--begin::Header-->
-							<div class="card-header pt-5">
-								<!--begin::Title-->
-								<div class="card-title d-flex flex-column">
-									<!--begin::Info-->
-									<div class="d-flex align-items-center">
-										<!--begin::Currency-->
-										<span
-											class="fs-4 fw-semibold text-gray-500 me-1 align-self-start">$</span>
-										<!--end::Currency-->
-	
-										<!--begin::Amount-->
-										<span class="fs-2hx fw-bold text-gray-900 me-2 lh-1">47,07</span>
-										<!--end::Amount-->
-	
-										<!--begin::Badge-->
-										<span
-											class="badge badge-success fs-6 lh-1 py-1 px-2 d-flex flex-center"
-											style="height: 22px"> <i
-											class="ki-duotone ki-black-up fs-7 text-white ms-n1"></i> 2.2%
-										</span>
-										<!--end::Badge-->
-									</div>
-									<!--end::Info-->
-	
-									<!--begin::Subtitle-->
-									<span
-										class="d-flex align-items-center text-gray-500 pt-1 fw-semibold fs-6">
-										Avg order Value <span class="ms-1" data-bs-toggle="tooltip"
-										data-bs-placement="right" title=""
-										data-bs-original-title="Recent Stats" data-kt-initialized="1">
-											<i class="ki-duotone ki-information fs-2 text-primary"><span
-												class="path1"></span><span class="path2"></span><span
-												class="path3"></span></i>
-									</span>
-									</span>
-									<!--end::Subtitle-->
-								</div>
-								<!--end::Title-->
-	
-								<!--begin::Toolbar-->
-								<div class="card-toolbar">
-									<!--begin::Menu-->
-									<button
-										class="btn btn-icon btn-color-gray-500 btn-active-color-primary justify-content-end"
-										data-kt-menu-trigger="click"
-										data-kt-menu-placement="bottom-end"
-										data-kt-menu-overflow="true">
-	
-										<i class="ki-duotone ki-dots-square fs-1"><span
-											class="path1"></span><span class="path2"></span><span
-											class="path3"></span><span class="path4"></span></i>
-									</button>
-	
-									<!--begin::Menu 2-->
-									<div
-										class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px"
-										data-kt-menu="true">
-										<!--begin::Menu item-->
-										<div class="menu-item px-3">
-											<div class="menu-content fs-6 text-gray-900 fw-bold px-3 py-4">Quick
-												Actions</div>
-										</div>
-										<!--end::Menu item-->
-	
-										<!--begin::Menu separator-->
-										<div class="separator mb-3 opacity-75"></div>
-										<!--end::Menu separator-->
-	
-										<!--begin::Menu item-->
-										<div class="menu-item px-3">
-											<a href="#" class="menu-link px-3"> New Ticket </a>
-										</div>
-										<!--end::Menu item-->
-	
-										<!--begin::Menu item-->
-										<div class="menu-item px-3">
-											<a href="#" class="menu-link px-3"> New Customer </a>
-										</div>
-										<!--end::Menu item-->
-	
-										<!--begin::Menu item-->
-										<div class="menu-item px-3" data-kt-menu-trigger="hover"
-											data-kt-menu-placement="right-start">
-											<!--begin::Menu item-->
-											<a href="#" class="menu-link px-3"> <span
-												class="menu-title">New Group</span> <span class="menu-arrow"></span>
-											</a>
-											<!--end::Menu item-->
-	
-											<!--begin::Menu sub-->
-											<div class="menu-sub menu-sub-dropdown w-175px py-4">
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3"> Admin Group </a>
-												</div>
-												<!--end::Menu item-->
-	
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3"> Staff Group </a>
-												</div>
-												<!--end::Menu item-->
-	
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3"> Member Group </a>
-												</div>
-												<!--end::Menu item-->
-											</div>
-											<!--end::Menu sub-->
-										</div>
-										<!--end::Menu item-->
-	
-										<!--begin::Menu item-->
-										<div class="menu-item px-3">
-											<a href="#" class="menu-link px-3"> New Contact </a>
-										</div>
-										<!--end::Menu item-->
-	
-										<!--begin::Menu separator-->
-										<div class="separator mt-3 opacity-75"></div>
-										<!--end::Menu separator-->
-	
-										<!--begin::Menu item-->
-										<div class="menu-item px-3">
-											<div class="menu-content px-3 py-3">
-												<a class="btn btn-primary  btn-sm px-4" href="#">
-													Generate Reports </a>
-											</div>
-										</div>
-										<!--end::Menu item-->
-									</div>
-									<!--end::Menu 2-->
-	
-									<!--end::Menu-->
-								</div>
-								<!--end::Toolbar-->
-							</div>
-							<!--end::Header-->
-	
-							<!--begin::Body-->
-							<div class="card-body d-flex align-items-end pb-6 ps-4 pe-6">
-								<!--begin::Chart-->
-								<div id="" class="w-100 min-h-auto"
-									style="height: 250px; min-height: 265px;">
-									<div id="apexcharts2cmtcw82l"
-										class="apexcharts-canvas apexcharts2cmtcw82l apexcharts-theme-"
-										style="width: 459px; height: 250px;">
-										<svg id="SvgjsSvg1298" width="459" height="250"
-											xmlns="http://www.w3.org/2000/svg" version="1.1"
-											xmlns:xlink="http://www.w3.org/1999/xlink"
-											xmlns:svgjs="http://svgjs.dev"
-											class="apexcharts-svg apexcharts-zoomable hovering-zoom"
-											xmlns:data="ApexChartsNS" transform="translate(0, 0)">
-												<foreignObject x="0" y="0" width="459" height="250">
-												<div class="apexcharts-legend"
-												xmlns="http://www.w3.org/1999/xhtml"
-												style="max-height: 125px;"></div></foreignObject>
-												<g id="SvgjsG1305" class="apexcharts-datalabels-group"
-												transform="translate(0, 0) scale(1)"></g>
-												<g id="SvgjsG1306" class="apexcharts-datalabels-group"
-												transform="translate(0, 0) scale(1)"></g>
-												<rect id="SvgjsRect1335" width="0" height="0" x="0" y="0"
-												rx="0" ry="0" opacity="1" stroke-width="0" stroke="none"
-												stroke-dasharray="0" fill="#fefefe"></rect>
-												<g id="SvgjsG1362" class="apexcharts-yaxis" rel="0"
-												transform="translate(11.739583969116211, 0)">
-												<g id="SvgjsG1363" class="apexcharts-yaxis-texts-g">
-												<text id="SvgjsText1365" font-family="inherit" x="20" y="34"
-												text-anchor="end" dominant-baseline="auto" font-size="12px"
-												font-weight="400" fill="#b5b0a1"
-												class="apexcharts-text apexcharts-yaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1366">32</tspan>
-												<title>32</title></text>
-												<text id="SvgjsText1368" font-family="inherit" x="20"
-												y="52.2348" text-anchor="end" dominant-baseline="auto"
-												font-size="12px" font-weight="400" fill="#b5b0a1"
-												class="apexcharts-text apexcharts-yaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1369">30</tspan>
-												<title>30</title></text>
-												<text id="SvgjsText1371" font-family="inherit" x="20"
-												y="70.4696" text-anchor="end" dominant-baseline="auto"
-												font-size="12px" font-weight="400" fill="#b5b0a1"
-												class="apexcharts-text apexcharts-yaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1372">28</tspan>
-												<title>28</title></text>
-												<text id="SvgjsText1374" font-family="inherit" x="20"
-												y="88.70439999999999" text-anchor="end"
-												dominant-baseline="auto" font-size="12px" font-weight="400"
-												fill="#b5b0a1"
-												class="apexcharts-text apexcharts-yaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1375">26</tspan>
-												<title>26</title></text>
-												<text id="SvgjsText1377" font-family="inherit" x="20"
-												y="106.9392" text-anchor="end" dominant-baseline="auto"
-												font-size="12px" font-weight="400" fill="#b5b0a1"
-												class="apexcharts-text apexcharts-yaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1378">24</tspan>
-												<title>24</title></text>
-												<text id="SvgjsText1380" font-family="inherit" x="20"
-												y="125.174" text-anchor="end" dominant-baseline="auto"
-												font-size="12px" font-weight="400" fill="#b5b0a1"
-												class="apexcharts-text apexcharts-yaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1381">22</tspan>
-												<title>22</title></text>
-												<text id="SvgjsText1383" font-family="inherit" x="20"
-												y="143.4088" text-anchor="end" dominant-baseline="auto"
-												font-size="12px" font-weight="400" fill="#b5b0a1"
-												class="apexcharts-text apexcharts-yaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1384">20</tspan>
-												<title>20</title></text>
-												<text id="SvgjsText1386" font-family="inherit" x="20"
-												y="161.64360000000002" text-anchor="end"
-												dominant-baseline="auto" font-size="12px" font-weight="400"
-												fill="#b5b0a1"
-												class="apexcharts-text apexcharts-yaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1387">18</tspan>
-												<title>18</title></text>
-												<text id="SvgjsText1389" font-family="inherit" x="20"
-												y="179.87840000000003" text-anchor="end"
-												dominant-baseline="auto" font-size="12px" font-weight="400"
-												fill="#b5b0a1"
-												class="apexcharts-text apexcharts-yaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1390">16</tspan>
-												<title>16</title></text>
-												<text id="SvgjsText1392" font-family="inherit" x="20"
-												y="198.11320000000003" text-anchor="end"
-												dominant-baseline="auto" font-size="12px" font-weight="400"
-												fill="#b5b0a1"
-												class="apexcharts-text apexcharts-yaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1393">14</tspan>
-												<title>14</title></text>
-												<text id="SvgjsText1395" font-family="inherit" x="20"
-												y="216.34800000000004" text-anchor="end"
-												dominant-baseline="auto" font-size="12px" font-weight="400"
-												fill="#b5b0a1"
-												class="apexcharts-text apexcharts-yaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1396">12</tspan>
-												<title>12</title></text></g></g>
-												<g id="SvgjsG1300"
-												class="apexcharts-inner apexcharts-graphical"
-												transform="translate(41.73958396911621, 30)">
-												<defs id="SvgjsDefs1299">
-												<clipPath id="gridRectMask2cmtcw82l">
-												<rect id="SvgjsRect1303" width="415.2604160308838"
-												height="190.348" x="-4" y="-4" rx="0" ry="0" opacity="1"
-												stroke-width="0" stroke="none" stroke-dasharray="0"
-												fill="#fff"></rect></clipPath>
-												<clipPath id="forecastMask2cmtcw82l"></clipPath>
-												<clipPath id="nonForecastMask2cmtcw82l"></clipPath>
-												<clipPath id="gridRectMarkerMask2cmtcw82l">
-												<rect id="SvgjsRect1304" width="411.2604160308838"
-												height="186.348" x="-2" y="-2" rx="0" ry="0" opacity="1"
-												stroke-width="0" stroke="none" stroke-dasharray="0"
-												fill="#fff"></rect></clipPath></defs>
-												<g id="SvgjsG1318" class="apexcharts-grid">
-												<g id="SvgjsG1319" class="apexcharts-gridlines-horizontal">
-												<line id="SvgjsLine1323" x1="0" y1="18.2348"
-												x2="407.2604160308838" y2="18.2348" stroke="#eaeaea"
-												stroke-dasharray="4" stroke-linecap="butt"
-												class="apexcharts-gridline"></line>
-												<line id="SvgjsLine1324" x1="0" y1="36.4696"
-												x2="407.2604160308838" y2="36.4696" stroke="#eaeaea"
-												stroke-dasharray="4" stroke-linecap="butt"
-												class="apexcharts-gridline"></line>
-												<line id="SvgjsLine1325" x1="0" y1="54.7044"
-												x2="407.2604160308838" y2="54.7044" stroke="#eaeaea"
-												stroke-dasharray="4" stroke-linecap="butt"
-												class="apexcharts-gridline"></line>
-												<line id="SvgjsLine1326" x1="0" y1="72.9392"
-												x2="407.2604160308838" y2="72.9392" stroke="#eaeaea"
-												stroke-dasharray="4" stroke-linecap="butt"
-												class="apexcharts-gridline"></line>
-												<line id="SvgjsLine1327" x1="0" y1="91.174"
-												x2="407.2604160308838" y2="91.174" stroke="#eaeaea"
-												stroke-dasharray="4" stroke-linecap="butt"
-												class="apexcharts-gridline"></line>
-												<line id="SvgjsLine1328" x1="0" y1="109.40880000000001"
-												x2="407.2604160308838" y2="109.40880000000001"
-												stroke="#eaeaea" stroke-dasharray="4" stroke-linecap="butt"
-												class="apexcharts-gridline"></line>
-												<line id="SvgjsLine1329" x1="0" y1="127.64360000000002"
-												x2="407.2604160308838" y2="127.64360000000002"
-												stroke="#eaeaea" stroke-dasharray="4" stroke-linecap="butt"
-												class="apexcharts-gridline"></line>
-												<line id="SvgjsLine1330" x1="0" y1="145.87840000000003"
-												x2="407.2604160308838" y2="145.87840000000003"
-												stroke="#eaeaea" stroke-dasharray="4" stroke-linecap="butt"
-												class="apexcharts-gridline"></line>
-												<line id="SvgjsLine1331" x1="0" y1="164.11320000000003"
-												x2="407.2604160308838" y2="164.11320000000003"
-												stroke="#eaeaea" stroke-dasharray="4" stroke-linecap="butt"
-												class="apexcharts-gridline"></line>
-												<line id="SvgjsLine1332" x1="0" y1="182.34800000000004"
-												x2="407.2604160308838" y2="182.34800000000004"
-												stroke="#eaeaea" stroke-dasharray="4" stroke-linecap="butt"
-												class="apexcharts-gridline"></line></g>
-												<g id="SvgjsG1320" class="apexcharts-gridlines-vertical"></g>
-												<line id="SvgjsLine1334" x1="0" y1="182.348"
-												x2="407.2604160308838" y2="182.348" stroke="transparent"
-												stroke-dasharray="0" stroke-linecap="butt"></line>
-												<line id="SvgjsLine1333" x1="0" y1="1" x2="0" y2="182.348"
-												stroke="transparent" stroke-dasharray="0"
-												stroke-linecap="butt"></line></g>
-												<g id="SvgjsG1321" class="apexcharts-grid-borders">
-												<line id="SvgjsLine1322" x1="0" y1="0" x2="407.2604160308838"
-												y2="0" stroke="#eaeaea" stroke-dasharray="4"
-												stroke-linecap="butt" class="apexcharts-gridline"></line></g>
-												<g id="SvgjsG1307"
-												class="apexcharts-area-series apexcharts-plot-series">
-												<g id="SvgjsG1308" class="apexcharts-series" zIndex="0"
-												seriesName="Order" data:longestSeries="true" rel="1"
-												data:realIndex="0">
-												<path id="SvgjsPath1311"
-												d="M0 100.29139999999998C23.756857601801553 100.29139999999998 44.11987840334574 100.29139999999998 67.8767360051473 100.29139999999998C91.63359360694885 100.29139999999998 111.99661440849303 54.70439999999999 135.7534720102946 54.70439999999999C159.51032961209614 54.70439999999999 179.87335041364034 54.70439999999999 203.6302080154419 54.70439999999999C227.38706561724345 54.70439999999999 247.75008641878762 9.117399999999975 271.5069440205892 9.117399999999975C295.26380162239076 9.117399999999975 315.6268224239349 9.117399999999975 339.3836800257365 9.117399999999975C363.14053762753804 9.117399999999975 383.50355842908226 45.58699999999999 407.2604160308838 45.58699999999999C407.2604160308838 45.58699999999999 407.2604160308838 45.58699999999999 407.2604160308838 182.348L0 182.348C0 182.348 0 100.29139999999998 0 100.29139999999998 "
-												fill="rgba(246,241,233,1)" fill-opacity="1"
-												stroke-opacity="1" stroke-linecap="butt" stroke-width="0"
-												stroke-dasharray="0" class="apexcharts-area" index="0"
-												clip-path="url(#gridRectMask2cmtcw82l)"
-												pathTo="M 0 100.29139999999998C 23.756857601801553 100.29139999999998 44.11987840334574 100.29139999999998 67.8767360051473 100.29139999999998C 91.63359360694885 100.29139999999998 111.99661440849303 54.70439999999999 135.7534720102946 54.70439999999999C 159.51032961209614 54.70439999999999 179.87335041364034 54.70439999999999 203.6302080154419 54.70439999999999C 227.38706561724345 54.70439999999999 247.75008641878762 9.117399999999975 271.5069440205892 9.117399999999975C 295.26380162239076 9.117399999999975 315.6268224239349 9.117399999999975 339.3836800257365 9.117399999999975C 363.14053762753804 9.117399999999975 383.50355842908226 45.58699999999999 407.2604160308838 45.58699999999999C 407.2604160308838 45.58699999999999 407.2604160308838 45.58699999999999 407.2604160308838 182.348 L 0 182.348z"
-												pathFrom="M 0 291.7568 L 0 291.7568 L 67.8767360051473 291.7568 L 135.7534720102946 291.7568 L 203.6302080154419 291.7568 L 271.5069440205892 291.7568 L 339.3836800257365 291.7568 L 407.2604160308838 291.7568z"></path>
-												<path id="SvgjsPath1312"
-												d="M0 100.29139999999998C23.756857601801553 100.29139999999998 44.11987840334574 100.29139999999998 67.8767360051473 100.29139999999998C91.63359360694885 100.29139999999998 111.99661440849303 54.70439999999999 135.7534720102946 54.70439999999999C159.51032961209614 54.70439999999999 179.87335041364034 54.70439999999999 203.6302080154419 54.70439999999999C227.38706561724345 54.70439999999999 247.75008641878762 9.117399999999975 271.5069440205892 9.117399999999975C295.26380162239076 9.117399999999975 315.6268224239349 9.117399999999975 339.3836800257365 9.117399999999975C363.14053762753804 9.117399999999975 383.50355842908226 45.58699999999999 407.2604160308838 45.58699999999999C407.2604160308838 45.58699999999999 407.2604160308838 45.58699999999999 407.2604160308838 45.58699999999999 "
-												fill="none" fill-opacity="1" stroke="#f6f1e9"
-												stroke-opacity="1" stroke-linecap="butt" stroke-width="4"
-												stroke-dasharray="0" class="apexcharts-area" index="0"
-												clip-path="url(#gridRectMask2cmtcw82l)"
-												pathTo="M 0 100.29139999999998C 23.756857601801553 100.29139999999998 44.11987840334574 100.29139999999998 67.8767360051473 100.29139999999998C 91.63359360694885 100.29139999999998 111.99661440849303 54.70439999999999 135.7534720102946 54.70439999999999C 159.51032961209614 54.70439999999999 179.87335041364034 54.70439999999999 203.6302080154419 54.70439999999999C 227.38706561724345 54.70439999999999 247.75008641878762 9.117399999999975 271.5069440205892 9.117399999999975C 295.26380162239076 9.117399999999975 315.6268224239349 9.117399999999975 339.3836800257365 9.117399999999975C 363.14053762753804 9.117399999999975 383.50355842908226 45.58699999999999 407.2604160308838 45.58699999999999"
-												pathFrom="M 0 291.7568 L 0 291.7568 L 67.8767360051473 291.7568 L 135.7534720102946 291.7568 L 203.6302080154419 291.7568 L 271.5069440205892 291.7568 L 339.3836800257365 291.7568 L 407.2604160308838 291.7568"
-												fill-rule="evenodd"></path>
-												<g id="SvgjsG1309"
-												class="apexcharts-series-markers-wrap apexcharts-hidden-element-shown"
-												data:realIndex="0">
-												<g class="apexcharts-series-markers">
-												<path id="SvgjsPath1400"
-												d="M 135.7534720102946, 0 
-	           m -0, 0 
-	           a 0,0 0 1,0 0,0 
-	           a 0,0 0 1,0 -0,0"
-												fill="#f6f1e9" fill-opacity="1" stroke="#4fc9da"
-												stroke-opacity="0.9" stroke-linecap="butt" stroke-width="3"
-												stroke-dasharray="0" cx="135.7534720102946" cy="0"
-												shape="circle"
-												class="apexcharts-marker wr8hydt8rk no-pointer-events"
-												default-marker-size="0"></path></g></g></g>
-												<g id="SvgjsG1313" class="apexcharts-series" zIndex="1"
-												seriesName="Revenue" data:longestSeries="true" rel="2"
-												data:realIndex="1">
-												<path id="SvgjsPath1316"
-												d="M0 182.348C23.756857601801553 182.348 44.11987840334574 145.8784 67.8767360051473 145.8784C91.63359360694885 145.8784 111.99661440849303 145.8784 135.7534720102946 145.8784C159.51032961209614 145.8784 179.87335041364034 100.29139999999998 203.6302080154419 100.29139999999998C227.38706561724345 100.29139999999998 247.75008641878762 100.29139999999998 271.5069440205892 100.29139999999998C295.26380162239076 100.29139999999998 315.6268224239349 127.64359999999999 339.3836800257365 127.64359999999999C363.14053762753804 127.64359999999999 383.50355842908226 127.64359999999999 407.2604160308838 127.64359999999999C407.2604160308838 127.64359999999999 407.2604160308838 127.64359999999999 407.2604160308838 182.348L0 182.348C0 182.348 0 182.348 0 182.348 "
-												fill="rgba(79,201,218,1)" fill-opacity="1" stroke-opacity="1"
-												stroke-linecap="butt" stroke-width="0" stroke-dasharray="0"
-												class="apexcharts-area" index="1"
-												clip-path="url(#gridRectMask2cmtcw82l)"
-												pathTo="M 0 182.348C 23.756857601801553 182.348 44.11987840334574 145.8784 67.8767360051473 145.8784C 91.63359360694885 145.8784 111.99661440849303 145.8784 135.7534720102946 145.8784C 159.51032961209614 145.8784 179.87335041364034 100.29139999999998 203.6302080154419 100.29139999999998C 227.38706561724345 100.29139999999998 247.75008641878762 100.29139999999998 271.5069440205892 100.29139999999998C 295.26380162239076 100.29139999999998 315.6268224239349 127.64359999999999 339.3836800257365 127.64359999999999C 363.14053762753804 127.64359999999999 383.50355842908226 127.64359999999999 407.2604160308838 127.64359999999999C 407.2604160308838 127.64359999999999 407.2604160308838 127.64359999999999 407.2604160308838 182.348 L 0 182.348z"
-												pathFrom="M 0 291.7568 L 0 291.7568 L 67.8767360051473 291.7568 L 135.7534720102946 291.7568 L 203.6302080154419 291.7568 L 271.5069440205892 291.7568 L 339.3836800257365 291.7568 L 407.2604160308838 291.7568z"></path>
-												<path id="SvgjsPath1317"
-												d="M0 182.348C23.756857601801553 182.348 44.11987840334574 145.8784 67.8767360051473 145.8784C91.63359360694885 145.8784 111.99661440849303 145.8784 135.7534720102946 145.8784C159.51032961209614 145.8784 179.87335041364034 100.29139999999998 203.6302080154419 100.29139999999998C227.38706561724345 100.29139999999998 247.75008641878762 100.29139999999998 271.5069440205892 100.29139999999998C295.26380162239076 100.29139999999998 315.6268224239349 127.64359999999999 339.3836800257365 127.64359999999999C363.14053762753804 127.64359999999999 383.50355842908226 127.64359999999999 407.2604160308838 127.64359999999999C407.2604160308838 127.64359999999999 407.2604160308838 127.64359999999999 407.2604160308838 127.64359999999999 "
-												fill="none" fill-opacity="1" stroke="#f6f1e9"
-												stroke-opacity="1" stroke-linecap="butt" stroke-width="4"
-												stroke-dasharray="0" class="apexcharts-area" index="1"
-												clip-path="url(#gridRectMask2cmtcw82l)"
-												pathTo="M 0 182.348C 23.756857601801553 182.348 44.11987840334574 145.8784 67.8767360051473 145.8784C 91.63359360694885 145.8784 111.99661440849303 145.8784 135.7534720102946 145.8784C 159.51032961209614 145.8784 179.87335041364034 100.29139999999998 203.6302080154419 100.29139999999998C 227.38706561724345 100.29139999999998 247.75008641878762 100.29139999999998 271.5069440205892 100.29139999999998C 295.26380162239076 100.29139999999998 315.6268224239349 127.64359999999999 339.3836800257365 127.64359999999999C 363.14053762753804 127.64359999999999 383.50355842908226 127.64359999999999 407.2604160308838 127.64359999999999"
-												pathFrom="M 0 291.7568 L 0 291.7568 L 67.8767360051473 291.7568 L 135.7534720102946 291.7568 L 203.6302080154419 291.7568 L 271.5069440205892 291.7568 L 339.3836800257365 291.7568 L 407.2604160308838 291.7568"
-												fill-rule="evenodd"></path>
-												<g id="SvgjsG1314"
-												class="apexcharts-series-markers-wrap apexcharts-hidden-element-shown"
-												data:realIndex="1">
-												<g class="apexcharts-series-markers">
-												<path id="SvgjsPath1401"
-												d="M 135.7534720102946, 0 
-	           m -0, 0 
-	           a 0,0 0 1,0 0,0 
-	           a 0,0 0 1,0 -0,0"
-												fill="#4fc9da" fill-opacity="1" stroke="#dad3c3"
-												stroke-opacity="0.9" stroke-linecap="butt" stroke-width="3"
-												stroke-dasharray="0" cx="135.7534720102946" cy="0"
-												shape="circle"
-												class="apexcharts-marker wce3s0n1zl no-pointer-events"
-												default-marker-size="0"></path></g></g></g>
-												<g id="SvgjsG1310" class="apexcharts-datalabels"
-												data:realIndex="0"></g>
-												<g id="SvgjsG1315" class="apexcharts-datalabels"
-												data:realIndex="1"></g></g>
-												<line id="SvgjsLine1336" x1="135.2534720102946" y1="0"
-												x2="135.2534720102946" y2="182.348" stroke="#b5b0a1"
-												stroke-dasharray="3" stroke-linecap="butt"
-												class="apexcharts-xcrosshairs" x="135.2534720102946" y="0"
-												width="1" height="182.348" fill="#b1b9c4" filter="none"
-												fill-opacity="0.9" stroke-width="1"></line>
-												<line id="SvgjsLine1337" x1="0" y1="0" x2="407.2604160308838"
-												y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1"
-												stroke-linecap="butt" class="apexcharts-ycrosshairs"></line>
-												<line id="SvgjsLine1338" x1="0" y1="0" x2="407.2604160308838"
-												y2="0" stroke-dasharray="0" stroke-width="0"
-												stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line>
-												<g id="SvgjsG1339" class="apexcharts-xaxis"
-												transform="translate(0, 0)">
-												<g id="SvgjsG1340" class="apexcharts-xaxis-texts-g"
-												transform="translate(0, -4)">
-												<text id="SvgjsText1342" font-family="inherit" x="0"
-												y="210.348" text-anchor="middle" dominant-baseline="auto"
-												font-size="12px" font-weight="400" fill="#b5b0a1"
-												class="apexcharts-text apexcharts-xaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1343"></tspan>
-												<title></title></text>
-												<text id="SvgjsText1345" font-family="inherit"
-												x="67.87673600514731" y="210.348" text-anchor="middle"
-												dominant-baseline="auto" font-size="12px" font-weight="400"
-												fill="#b5b0a1"
-												class="apexcharts-text apexcharts-xaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1346">06 Sep</tspan>
-												<title>06 Sep</title></text>
-												<text id="SvgjsText1348" font-family="inherit"
-												x="135.7534720102946" y="210.348" text-anchor="middle"
-												dominant-baseline="auto" font-size="12px" font-weight="400"
-												fill="#b5b0a1"
-												class="apexcharts-text apexcharts-xaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1349">13 Sep</tspan>
-												<title>13 Sep</title></text>
-												<text id="SvgjsText1351" font-family="inherit"
-												x="203.63020801544187" y="210.348" text-anchor="middle"
-												dominant-baseline="auto" font-size="12px" font-weight="400"
-												fill="#b5b0a1"
-												class="apexcharts-text apexcharts-xaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1352">20 Sep</tspan>
-												<title>20 Sep</title></text>
-												<text id="SvgjsText1354" font-family="inherit"
-												x="271.5069440205891" y="210.348" text-anchor="middle"
-												dominant-baseline="auto" font-size="12px" font-weight="400"
-												fill="#b5b0a1"
-												class="apexcharts-text apexcharts-xaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1355">27 Sep</tspan>
-												<title>27 Sep</title></text>
-												<text id="SvgjsText1357" font-family="inherit"
-												x="339.3836800257364" y="210.348" text-anchor="middle"
-												dominant-baseline="auto" font-size="12px" font-weight="400"
-												fill="#b5b0a1"
-												class="apexcharts-text apexcharts-xaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1358">30 Sep</tspan>
-												<title>30 Sep</title></text>
-												<text id="SvgjsText1360" font-family="inherit"
-												x="407.2604160308837" y="210.348" text-anchor="middle"
-												dominant-baseline="auto" font-size="12px" font-weight="400"
-												fill="#b5b0a1"
-												class="apexcharts-text apexcharts-xaxis-label "
-												style="font-family: inherit;">
-												<tspan id="SvgjsTspan1361"></tspan>
-												<title></title></text></g></g>
-												<g id="SvgjsG1397"
-												class="apexcharts-yaxis-annotations apexcharts-hidden-element-shown"></g>
-												<g id="SvgjsG1398"
-												class="apexcharts-xaxis-annotations apexcharts-hidden-element-shown"></g>
-												<g id="SvgjsG1399"
-												class="apexcharts-point-annotations apexcharts-hidden-element-shown"></g>
-												<rect id="SvgjsRect1402" width="0" height="0" x="0" y="0"
-												rx="0" ry="0" opacity="1" stroke-width="0" stroke="none"
-												stroke-dasharray="0" fill="#fefefe"
-												class="apexcharts-zoom-rect"></rect>
-												<rect id="SvgjsRect1403" width="0" height="0" x="0" y="0"
-												rx="0" ry="0" opacity="1" stroke-width="0" stroke="none"
-												stroke-dasharray="0" fill="#fefefe"
-												class="apexcharts-selection-rect"></rect></g></svg>
-										<div class="apexcharts-tooltip apexcharts-theme-light"
-											style="left: 188.493px; top: 57.7044px;">
-											<div class="apexcharts-tooltip-title"
-												style="font-family: inherit; font-size: 12px;">13 Sep</div>
-											<div class="apexcharts-tooltip-series-group apexcharts-active"
-												style="order: 1; display: flex;">
-												<span class="apexcharts-tooltip-marker"
-													style="background-color: rgb(246, 241, 233);"></span>
-												<div class="apexcharts-tooltip-text"
-													style="font-family: inherit; font-size: 12px;">
-													<div class="apexcharts-tooltip-y-group">
-														<span class="apexcharts-tooltip-text-y-label">Order:
-														</span><span class="apexcharts-tooltip-text-y-value">$26
-															thousands</span>
-													</div>
-													<div class="apexcharts-tooltip-goals-group">
-														<span class="apexcharts-tooltip-text-goals-label"></span><span
-															class="apexcharts-tooltip-text-goals-value"></span>
-													</div>
-													<div class="apexcharts-tooltip-z-group">
-														<span class="apexcharts-tooltip-text-z-label"></span><span
-															class="apexcharts-tooltip-text-z-value"></span>
-													</div>
-												</div>
-											</div>
-											<div class="apexcharts-tooltip-series-group apexcharts-active"
-												style="order: 2; display: flex;">
-												<span class="apexcharts-tooltip-marker"
-													style="background-color: rgb(79, 201, 218);"></span>
-												<div class="apexcharts-tooltip-text"
-													style="font-family: inherit; font-size: 12px;">
-													<div class="apexcharts-tooltip-y-group">
-														<span class="apexcharts-tooltip-text-y-label">Revenue:
-														</span><span class="apexcharts-tooltip-text-y-value">$16
-															thousands</span>
-													</div>
-													<div class="apexcharts-tooltip-goals-group">
-														<span class="apexcharts-tooltip-text-goals-label"></span><span
-															class="apexcharts-tooltip-text-goals-value"></span>
-													</div>
-													<div class="apexcharts-tooltip-z-group">
-														<span class="apexcharts-tooltip-text-z-label"></span><span
-															class="apexcharts-tooltip-text-z-value"></span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div
-											class="apexcharts-xaxistooltip apexcharts-xaxistooltip-bottom apexcharts-theme-light"
-											style="left: 148.134px; top: 214.348px;">
-											<div class="apexcharts-xaxistooltip-text"
-												style="font-family: inherit; font-size: 12px; min-width: 34.5729px;">13
-												Sep</div>
-										</div>
-										<div
-											class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light">
-											<div class="apexcharts-yaxistooltip-text"></div>
-										</div>
-									</div>
-								</div>
-								<!--end::Chart-->
-							</div>
-							<!--end::Body-->
-						</div>
-						<!--end::Chart widget 9-->
-					</div>
-					<!--end::Col-->
-	
-					
-					<!--begin::Col-->
-					<div class="col-xl-8 mb-5 mb-xxl-10">
 
-						<div class="card card-flush h-xl-100">
+					<div class="col-md-5 col-lg-6 col-xl-6 col-xxl-3 mb-10">
+						
+						<!-- 증명서 위젯 시작 -->
+						<div class="card card-flush h-lg-100 mb-5 mb-xl-10">
+						
+							<div class="card-header pt-9 ps-12">
+								<div class="card-title d-flex flex-column">
+									<div class="d-flex align-items-center ms-2">
+										<span class="fs-4 fw-semibold text-gray-500 me-5 align-self-start">
+											<i class="ki-duotone ki-abstract-25 fs-3x mt-1">
+											 <span class="path1"></span>  
+											 <span class="path2"></span>
+											</i>
+										</span>
+										<span class="fs-2x fw-bold text-gray-900 me-2 lh-1 ls-n2">
+											<a href="/groubear/cmntyQstnList.do">새로운 증명서 요청</a>
+										</span>
+									</div> 
+								</div>  
+							</div> 
+
+							<div class="card-body pt-2 pb-4 d-flex align-items-center">
+								<div class="d-flex flex-column content-justify-center w-100 ms-2"> 
+								
+									<div class="d-flex fs-3 fw-semibold align-items-center ms-5">
+										<div class="bullet w-15px h-7px rounded-2 bg-danger me-3"></div>
+										<div class="text-gray-700 flex-grow-1 ms-2">
+											<a href="/groubear/cmntyQstnList.do?cmntyType=QSTNKND001">서비스이용</a>
+										</div>
+										<div class="fw-bolder text-gray-700 fs-2 me-4">
+											<span>
+												<a href="/groubear/cmntyQstnList.do?cmntyType=QSTNKND001">
+												</a>	
+											</span>
+										</div>
+									</div>
+
+									<div class="d-flex fs-3 fw-semibold align-items-center my-3 ms-5">
+										<div class="bullet w-15px h-7px rounded-2 bg-primary me-3"></div>
+										<div class="text-gray-700 flex-grow-1 ms-2">
+											<a href="/groubear/cmntyQstnList.do?cmntyType=QSTNKND002">가격</a>
+										</div>
+										<div class="fw-bolder text-gray-700 fs-2 me-4">
+											<span>
+												<a href="/groubear/cmntyQstnList.do?cmntyType=QSTNKND002">
+												</a>	
+											</span>
+										</div>
+									</div> 
+
+									<div class="d-flex fs-3 fw-semibold align-items-center ms-5">
+										<div class="bullet w-15px h-7px rounded-2 bg-success me-3"></div>  
+										<div class="text-gray-700 flex-grow-1 ms-2">
+											<a href="/groubear/cmntyQstnList.do?cmntyType=QSTNKND003">기타</a>
+										</div>
+										<div class="fw-bolder text-gray-700 fs-2 me-4">
+											<span>
+												<a href="/groubear/cmntyQstnList.do?cmntyType=QSTNKND003">
+												</a>	
+											</span>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						
+						</div>
+						<!-- 증명서 위젯 끝 -->
+						 
+						
+					</div>
+	
+
+					<div class="col-md-7 col-lg-6 col-xl-6 col-xxl-3 mb-10">
+						<div class="card card-flush h-lg-100">  
+						    <!--begin::Header-->
+						    <div class="card-header pt-5">
+						        <!--begin::Title-->
+						        <h3 class="card-title text-gray-800">Highlights</h3>
+						        <!--end::Title-->
+						
+						        <!--begin::Toolbar-->
+						        <div class="card-toolbar d-none">          
+						            <!--begin::Daterangepicker(defined in src/js/layout/app.js)-->
+						            <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left" class="btn btn-sm btn-light d-flex align-items-center px-4" data-kt-initialized="1">           
+						                <!--begin::Display range-->
+						                <div class="text-gray-600 fw-bold">8 10월 2024 - 6 11월 2024</div>
+						                <!--end::Display range-->
+						
+						                <i class="ki-duotone ki-calendar-8 fs-1 ms-2 me-0"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span></i>          
+						            </div>  
+						            <!--end::Daterangepicker-->                         
+						        </div>
+						        <!--end::Toolbar-->
+						    </div>
+						    <!--end::Header-->
+						
+						    <!--begin::Body-->
+						    <div class="card-body pt-5">                 
+						                    <!--begin::Item-->
+						            <div class="d-flex flex-stack">
+						                <!--begin::Section-->
+						                <div class="text-gray-700 fw-semibold fs-6 me-2">Avg. Client Rating</div>                   
+						                <!--end::Section-->  
+						
+						                <!--begin::Statistics--> 
+						                <div class="d-flex align-items-senter">
+						                                            <i class="ki-duotone ki-arrow-up-right fs-2 text-success me-2"><span class="path1"></span><span class="path2"></span></i>  
+						                                        
+						                    <!--begin::Number-->           
+						                    <span class="text-gray-900 fw-bolder fs-6">7.8</span> 
+						                    <!--end::Number-->  
+						                    
+						                                            <span class="text-gray-500 fw-bold fs-6">/10</span> 
+						                                    </div>  
+						                <!--end::Statistics-->           
+						            </div>
+						            <!--end::Item-->
+						
+						                            <!--begin::Separator-->
+						                <div class="separator separator-dashed my-3"></div>
+						                <!--end::Separator-->
+						             
+						                    <!--begin::Item-->
+						            <div class="d-flex flex-stack">
+						                <!--begin::Section-->
+						                <div class="text-gray-700 fw-semibold fs-6 me-2">Avg. Quotes</div>                   
+						                <!--end::Section-->  
+						
+						                <!--begin::Statistics--> 
+						                <div class="d-flex align-items-senter">
+						                                            <i class="ki-duotone ki-arrow-down-right fs-2 text-danger me-2"><span class="path1"></span><span class="path2"></span></i>                 
+						                                        
+						                    <!--begin::Number-->           
+						                    <span class="text-gray-900 fw-bolder fs-6">730</span> 
+						                    <!--end::Number-->  
+						                    
+						                                                             
+						                                    </div>  
+						                <!--end::Statistics-->           
+						            </div>
+						            <!--end::Item-->
+						
+						                            <!--begin::Separator-->
+						                <div class="separator separator-dashed my-3"></div>
+						                <!--end::Separator-->
+						             
+						                    <!--begin::Item-->
+						            <div class="d-flex flex-stack">
+						                <!--begin::Section-->
+						                <div class="text-gray-700 fw-semibold fs-6 me-2">Avg. Agent Earnings</div>                   
+						                <!--end::Section-->  
+						
+						                <!--begin::Statistics--> 
+						                <div class="d-flex align-items-senter">
+						                                            <i class="ki-duotone ki-arrow-up-right fs-2 text-success me-2"><span class="path1"></span><span class="path2"></span></i>  
+						                                        
+						                    <!--begin::Number-->           
+						                    <span class="text-gray-900 fw-bolder fs-6">$2,309</span> 
+						                    <!--end::Number-->  
+						                    
+						                                                             
+						                                    </div>  
+						                <!--end::Statistics-->           
+						            </div>
+						            <!--end::Item-->
+						
+						             
+						            
+						    </div>
+						    <!--end::Body-->
+						</div>
+						
+					</div>
+	
+
+					<div class="col-xl-6 mb-5 mb-xxl-10">
+
+						<div class="card card-flush h-xl-80">
 							<div class="card-body pt-3">
 								<div class="d-flex flex-column gap-10">
 									<div class="table-responsive">
@@ -1971,421 +768,217 @@
 						</div>
 
 					</div>
-					<!--end::Col-->
 					
 				</div>
 	
 	
 				<div class="row gx-5 gx-xl-10 mb-xl-10">
 	
+					<!-- 긴급 문서함 -->
 					<div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-10">
-						<div class="card card-flush h-md-50 mb-5 mb-xl-10">
-							<div class="card-header pt-5">
-								<div class="card-title d-flex flex-column">
-									<div class="d-flex align-items-center">
-										<span
-											class="fs-4 fw-semibold text-gray-500 me-1 align-self-start">$</span>
-										<span class="fs-2hx fw-bold text-gray-900 me-2 lh-1 ls-n2">69,700</span>
-										<span class="badge badge-light-success fs-base"> <i
-											class="ki-duotone ki-arrow-up fs-5 text-success ms-n1"><span
-												class="path1"></span><span class="path2"></span></i> 2.2%
-										</span>
-									</div>
-									<span class="text-gray-500 pt-1 fw-semibold fs-6">Expected
-										Earnings</span>
-								</div>
-							</div>
-	
-							<div class="card-body pt-2 pb-4 d-flex align-items-center">
-								<div class="d-flex flex-center me-5 pt-2">
-									<div id="" style="min-width: 70px; min-height: 70px">
-										<canvas height="70" width="70"></canvas>
-									</div>
-								</div>
-	
-								<div class="d-flex flex-column content-justify-center w-100">
-									<!--begin::Label-->
-									<div class="d-flex fs-6 fw-semibold align-items-center">
-										<!--begin::Bullet-->
-										<div class="bullet w-8px h-6px rounded-2 bg-danger me-3"></div>
-										<div class="text-gray-500 flex-grow-1 me-4">Shoes</div>
-										<div class="fw-bolder text-gray-700 text-xxl-end">$7,660</div>
-									</div>
-	
-									<div class="d-flex fs-6 fw-semibold align-items-center my-3">
-										<div class="bullet w-8px h-6px rounded-2 bg-primary me-3"></div>
-										<div class="text-gray-500 flex-grow-1 me-4">Gaming</div>
-										<div class="fw-bolder text-gray-700 text-xxl-end">$2,820</div>
-									</div>
-	
-									<div class="d-flex fs-6 fw-semibold align-items-center">
-										<div class="bullet w-8px h-6px rounded-2 me-3"
-											style="background-color: #E4E6EF"></div>
-										<div class="text-gray-500 flex-grow-1 me-4">Others</div>
-										<div class=" fw-bolder text-gray-700 text-xxl-end">$45,257</div>
-									</div>
-								</div>
-							</div>
+						<div class="card card-flush px-5 py-3 h-md-50 mb-5 mb-xl-10">
+							<div id="kt_security_recent_alerts" class="carousel carousel-custom carousel-stretch slide" data-bs-ride="carousel" data-bs-interval="4000">
+				                <div class="d-flex flex-stack align-items-center flex-wrap">
+				                    <h4 class="text-gray-500 fw-semibold mb-0 pe-2"><span class="badge badge-light-danger mb-2">긴급 문서함</span></h4>
+				                    <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="0" class="ms-1 active"></li>
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="1" class="ms-1"></li>
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="2" class="ms-1"></li>
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="3" class="ms-1"></li>
+				                    </ol>
+				                </div>
+				                <div class="carousel-inner">
+				                	<c:set value="${emrgList }" var="elaprEmrgList"/>
+									<c:choose>
+										<c:when test="${empty elaprEmrgList }">
+											<tr>
+												<div class="d-flex flex-column flex-center ">
+													<a href="/company/comElaprEmrg.do">
+								                	    <img src="/resources/file/image/cloudEmpty.png" class="mw-150px"/>
+								                    	<div class=" fw-bolder text-dark">긴급 문서가 존재하지 않습니다.</div>
+								                    </a>
+		              				 			</div>
+											</tr>
+										</c:when>
+										<c:otherwise>
+						                    <c:forEach items="${emrgList }" var="elaprVO" varStatus="status">
+							                    <div class="carousel-item ${status.first ? 'active' : ''  }">
+							                        <div class="carousel-wrapper">
+							                            <div class="d-flex flex-column flex-grow-1">
+							                                <a href="/company/elaprDetail.do?elaprNo=${elaprVO.elaprNo }" class="fs-5 fw-bold text-gray-900 text-hover-primary">${elaprVO.elaprNm }</a>
+							                                <p class="text-gray-600 fs-6 fw-semibold pt-3 mb-0">기안자 | ${elaprVO.empNm }</p>
+							                            </div>
+							                            <div class="d-flex flex-stack pt-8">
+							                                <div class="text-gray-700 fw-semibold fs-6 me-2">기안일 | ${elaprVO.elaprBgngDt }</div>
+							                                <a href="/company/elaprDetail.do?elaprNo=${elaprVO.elaprNo }"  class="btn btn-sm btn-light">자세히 보기</a>
+							                            </div>
+							                        </div>
+							                    </div>
+						                    </c:forEach>
+					                    </c:otherwise>
+				                    </c:choose>
+				                </div>
+				            </div>
 						</div>
-	
-						<div class="card card-flush h-md-50 mb-xl-10">
-							<div class="card-header pt-5">
-								<div class="card-title d-flex flex-column">
-									<div class="d-flex align-items-center">
-										<span class="fs-2hx fw-bold text-gray-900 me-2 lh-1 ls-n2">1,836</span>
-										<span class="badge badge-light-danger fs-base"> <i
-											class="ki-duotone ki-arrow-down fs-5 text-danger ms-n1"><span
-												class="path1"></span><span class="path2"></span></i> 2.2%
-										</span>
-									</div>
-									<span class="text-gray-500 pt-1 fw-semibold fs-6">Orders
-										This Month</span>
-								</div>
-							</div>
-	
-							<div class="card-body d-flex align-items-end pt-0">
-								<div class="d-flex align-items-center flex-column mt-3 w-100">
-									<div class="d-flex justify-content-between w-100 mt-auto mb-2">
-										<span class="fw-bolder fs-6 text-gray-900">1,048 to Goal</span>
-										<span class="fw-bold fs-6 text-gray-500">62%</span>
-									</div>
-									<div class="h-8px mx-3 w-100 bg-light-success rounded">
-										<div class="bg-success rounded h-8px" role="progressbar"
-											style="width: 62%;" aria-valuenow="50" aria-valuemin="0"
-											aria-valuemax="100"></div>
-									</div>
-								</div>
-							</div>
+						
+						<!-- 참조 문서함 -->
+						<div class="card card-flush px-5 py-3 h-md-50 mb-5 mb-xl-10">
+							<div id="kt_security_recent_alerts" class="carousel carousel-custom carousel-stretch slide" data-bs-ride="carousel" data-bs-interval="4000">
+				                <div class="d-flex flex-stack align-items-center flex-wrap">
+				                    <h4 class="text-gray-500 fw-semibold mb-0 pe-2"><span class="badge badge-light-info mb-2">참조 문서함</span></h4>
+				                    <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="0" class="ms-1 active"></li>
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="1" class="ms-1"></li>
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="2" class="ms-1"></li>
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="3" class="ms-1"></li>
+				                    </ol>
+				                </div>
+				                <div class="carousel-inner">
+				                	<c:set value="${rerncList }" var="elaprRerncList"/>
+									<c:choose>
+										<c:when test="${empty elaprRerncList }">
+											<tr>
+												<div class="d-flex flex-column flex-center ">
+													<a href="/company/comElaprRernc.do">
+								                	    <img src="/resources/file/image/cloudEmpty.png" class="mw-150px"/>
+								                    	<div class=" fw-bolder text-dark">참조 문서가 존재하지 않습니다.</div>
+								                    </a>
+		              				 			</div>
+											</tr>
+										</c:when>
+										<c:otherwise>
+						                    <c:forEach items="${rerncList }" var="elaprVO" varStatus="status">
+							                    <div class="carousel-item ${status.first ? 'active' : ''  }">
+							                        <div class="carousel-wrapper">
+							                            <div class="d-flex flex-column flex-grow-1">
+							                                <a href="/company/elaprDetail.do?elaprNo=${elaprVO.elaprNo }" class="fs-5 fw-bold text-gray-900 text-hover-primary">${elaprVO.elaprNm }</a>
+							                                <p class="text-gray-600 fs-6 fw-semibold pt-3 mb-0">기안자 | ${elaprVO.empNm }</p>
+							                            </div>
+							                            <div class="d-flex flex-stack pt-8">
+							                                <div class="text-gray-700 fw-semibold fs-6 me-2">기안일 | ${elaprVO.elaprBgngDt }</div>
+							                                <a href="/company/elaprDetail.do?elaprNo=${elaprVO.elaprNo }"  class="btn btn-sm btn-light">자세히 보기</a>
+							                            </div>
+							                        </div>
+							                    </div>
+						                    </c:forEach>
+					                    </c:otherwise>
+				                    </c:choose>
+				                </div>
+				            </div>
 						</div>
+						<!-- 참조 문서함 -->
 					</div>
 	
 	
-					<!--begin::Col-->
 					<div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-10">
-						<!--begin::Card widget 6-->
-						<div class="card card-flush  h-md-50 mb-5 mb-xl-10">
-							<!--begin::Header-->
-							<div class="card-header pt-5">
-								<!--begin::Title-->
-								<div class="card-title d-flex flex-column">
-									<!--begin::Info-->
-									<div class="d-flex align-items-center">
-										<!--begin::Currency-->
-										<span
-											class="fs-4 fw-semibold text-gray-500 me-1 align-self-start">$</span>
-										<!--end::Currency-->
-	
-										<!--begin::Amount-->
-										<span class="fs-2hx fw-bold text-gray-900 me-2 lh-1 ls-n2">2,420</span>
-										<!--end::Amount-->
-	
-										<!--begin::Badge-->
-										<span class="badge badge-light-success fs-base"> <i
-											class="ki-duotone ki-arrow-up fs-5 text-success ms-n1"><span
-												class="path1"></span><span class="path2"></span></i> 2.6%
-										</span>
-										<!--end::Badge-->
-									</div>
-									<!--end::Info-->
-	
-									<!--begin::Subtitle-->
-									<span class="text-gray-500 pt-1 fw-semibold fs-6">Average
-										Daily Sales</span>
-									<!--end::Subtitle-->
-								</div>
-								<!--end::Title-->
-							</div>
-							<!--end::Header-->
-	
-							<!--begin::Card body-->
-							<div class="card-body d-flex align-items-end px-0 pb-0">
-								<!--begin::Chart-->
-								<div id="" class="w-100" style="height: 80px; min-height: 80px;">
-									<div id="apexchartszcdkpn5m"
-										class="apexcharts-canvas apexchartszcdkpn5m apexcharts-theme-"
-										style="width: 360px; height: 80px;">
-										<svg id="SvgjsSvg1248" width="360" height="80"
-											xmlns="http://www.w3.org/2000/svg" version="1.1"
-											xmlns:xlink="http://www.w3.org/1999/xlink"
-											xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
-											xmlns:data="ApexChartsNS" transform="translate(0, 0)">
-												<foreignObject x="0" y="0" width="360" height="80">
-												<div class="apexcharts-legend"
-												xmlns="http://www.w3.org/1999/xhtml"
-												style="max-height: 40px;"></div></foreignObject>
-												<g id="SvgjsG1254" class="apexcharts-datalabels-group"
-												transform="translate(0, 0) scale(1)"></g>
-												<g id="SvgjsG1255" class="apexcharts-datalabels-group"
-												transform="translate(0, 0) scale(1)"></g>
-												<g id="SvgjsG1295" class="apexcharts-yaxis" rel="0"
-												transform="translate(-18, 0)"></g>
-												<g id="SvgjsG1250"
-												class="apexcharts-inner apexcharts-graphical"
-												transform="translate(41.166666666666664, 4.5)">
-												<defs id="SvgjsDefs1249">
-												<clipPath id="gridRectMaskzcdkpn5m">
-												<rect id="SvgjsRect1252" width="353.00000000000006"
-												height="84" x="-37.666666666666664" y="-6.5" rx="0" ry="0"
-												opacity="1" stroke-width="0" stroke="none"
-												stroke-dasharray="0" fill="#fff"></rect></clipPath>
-												<clipPath id="forecastMaskzcdkpn5m"></clipPath>
-												<clipPath id="nonForecastMaskzcdkpn5m"></clipPath>
-												<clipPath id="gridRectMarkerMaskzcdkpn5m">
-												<rect id="SvgjsRect1253" width="281.6666666666667"
-												height="75" x="-2" y="-2" rx="0" ry="0" opacity="1"
-												stroke-width="0" stroke="none" stroke-dasharray="0"
-												fill="#fff"></rect></clipPath></defs>
-												<g id="SvgjsG1275" class="apexcharts-grid">
-												<g id="SvgjsG1276" class="apexcharts-gridlines-horizontal"
-												style="display: none;">
-												<line id="SvgjsLine1279" x1="-31.166666666666664" y1="0"
-												x2="308.83333333333337" y2="0" stroke="#eaeaea"
-												stroke-dasharray="4" stroke-linecap="butt"
-												class="apexcharts-gridline"></line>
-												<line id="SvgjsLine1280" x1="-31.166666666666664" y1="71"
-												x2="308.83333333333337" y2="71" stroke="#eaeaea"
-												stroke-dasharray="4" stroke-linecap="butt"
-												class="apexcharts-gridline"></line></g>
-												<g id="SvgjsG1277" class="apexcharts-gridlines-vertical"
-												style="display: none;"></g>
-												<line id="SvgjsLine1282" x1="0" y1="71"
-												x2="277.6666666666667" y2="71" stroke="transparent"
-												stroke-dasharray="0" stroke-linecap="butt"></line>
-												<line id="SvgjsLine1281" x1="0" y1="1" x2="0" y2="71"
-												stroke="transparent" stroke-dasharray="0"
-												stroke-linecap="butt"></line></g>
-												<g id="SvgjsG1278" class="apexcharts-grid-borders"
-												style="display: none;"></g>
-												<g id="SvgjsG1256"
-												class="apexcharts-bar-series apexcharts-plot-series">
-												<g id="SvgjsG1257" class="apexcharts-series" rel="1"
-												seriesName="Sales" data:realIndex="0">
-												<path id="SvgjsPath1262"
-												d="M-8.22638888888889 60.501000000000005L-8.22638888888889 54.876C-8.22638888888889 51.876 -5.22638888888889 48.876 -2.2263888888888896 48.876L2.2263888888888888 48.876C5.22638888888889 48.876 8.22638888888889 51.876 8.22638888888889 54.876L8.22638888888889 60.501000000000005C8.22638888888889 63.501000000000005 5.22638888888889 66.501 2.2263888888888896 66.501L-2.2263888888888888 66.501C-5.22638888888889 66.501 -8.22638888888889 63.501000000000005 -8.22638888888889 60.501000000000005C-8.22638888888889 60.501000000000005 -8.22638888888889 60.501000000000005 -8.22638888888889 60.501000000000005 "
-												fill="rgba(79,201,218,0.85)" fill-opacity="1"
-												stroke="transparent" stroke-opacity="1"
-												stroke-linecap="round" stroke-width="9" stroke-dasharray="0"
-												class="apexcharts-bar-area" index="0"
-												clip-path="url(#gridRectMaskzcdkpn5m)"
-												pathTo="M -8.22638888888889 60.501000000000005 L -8.22638888888889 54.876 C -8.22638888888889 51.876 -5.22638888888889 48.876 -2.2263888888888896 48.876 L 2.2263888888888888 48.876 C 5.22638888888889 48.876 8.22638888888889 51.876 8.22638888888889 54.876 L 8.22638888888889 60.501000000000005 C 8.22638888888889 63.501000000000005 5.22638888888889 66.501 2.2263888888888896 66.501 L -2.2263888888888888 66.501 C -5.22638888888889 66.501 -8.22638888888889 63.501000000000005 -8.22638888888889 60.501000000000005 Z "
-												pathFrom="M -8.22638888888889 66.501 L -8.22638888888889 66.501 L 8.22638888888889 66.501 L 8.22638888888889 66.501 L 8.22638888888889 66.501 L 8.22638888888889 66.501 L 8.22638888888889 66.501 L -8.22638888888889 66.501 Z"
-												cy="44.375" cx="8.22638888888889" j="0" val="30"
-												barHeight="26.625" barWidth="25.45277777777778"></path>
-												<path id="SvgjsPath1264"
-												d="M38.05138888888889 60.501000000000005L38.05138888888889 28.251000000000005C38.05138888888889 25.251000000000005 41.05138888888889 22.251000000000005 44.05138888888889 22.251000000000005L48.50416666666666 22.251000000000005C51.50416666666666 22.251000000000005 54.50416666666666 25.251000000000005 54.50416666666666 28.251000000000005L54.50416666666666 60.501000000000005C54.50416666666666 63.501000000000005 51.50416666666666 66.501 48.50416666666666 66.501L44.05138888888889 66.501C41.05138888888889 66.501 38.05138888888889 63.501000000000005 38.05138888888889 60.501000000000005C38.05138888888889 60.501000000000005 38.05138888888889 60.501000000000005 38.05138888888889 60.501000000000005 "
-												fill="rgba(79,201,218,0.85)" fill-opacity="1"
-												stroke="transparent" stroke-opacity="1"
-												stroke-linecap="round" stroke-width="9" stroke-dasharray="0"
-												class="apexcharts-bar-area" index="0"
-												clip-path="url(#gridRectMaskzcdkpn5m)"
-												pathTo="M 38.05138888888889 60.501000000000005 L 38.05138888888889 28.251 C 38.05138888888889 25.251 41.05138888888889 22.251 44.05138888888889 22.251 L 48.50416666666666 22.251 C 51.50416666666666 22.251 54.50416666666666 25.251 54.50416666666666 28.251 L 54.50416666666666 60.501000000000005 C 54.50416666666666 63.501000000000005 51.50416666666666 66.501 48.50416666666666 66.501 L 44.05138888888889 66.501 C 41.05138888888889 66.501 38.05138888888889 63.501000000000005 38.05138888888889 60.501000000000005 Z "
-												pathFrom="M 38.05138888888889 66.501 L 38.05138888888889 66.501 L 54.50416666666666 66.501 L 54.50416666666666 66.501 L 54.50416666666666 66.501 L 54.50416666666666 66.501 L 54.50416666666666 66.501 L 38.05138888888889 66.501 Z"
-												cy="17.75" cx="54.50416666666666" j="1" val="60"
-												barHeight="53.25" barWidth="25.45277777777778"></path>
-												<path id="SvgjsPath1266"
-												d="M84.32916666666667 60.501000000000005L84.32916666666667 34.46350000000001C84.32916666666667 31.46350000000001 87.32916666666667 28.46350000000001 90.32916666666667 28.46350000000001L94.78194444444445 28.46350000000001C97.78194444444445 28.46350000000001 100.78194444444445 31.46350000000001 100.78194444444445 34.46350000000001L100.78194444444445 60.501000000000005C100.78194444444445 63.501000000000005 97.78194444444445 66.501 94.78194444444445 66.501L90.32916666666667 66.501C87.32916666666667 66.501 84.32916666666667 63.501000000000005 84.32916666666667 60.501000000000005C84.32916666666667 60.501000000000005 84.32916666666667 60.501000000000005 84.32916666666667 60.501000000000005 "
-												fill="rgba(79,201,218,0.85)" fill-opacity="1"
-												stroke="transparent" stroke-opacity="1"
-												stroke-linecap="round" stroke-width="9" stroke-dasharray="0"
-												class="apexcharts-bar-area" index="0"
-												clip-path="url(#gridRectMaskzcdkpn5m)"
-												pathTo="M 84.32916666666667 60.501000000000005 L 84.32916666666667 34.46350000000001 C 84.32916666666667 31.46350000000001 87.32916666666667 28.463500000000007 90.32916666666667 28.463500000000007 L 94.78194444444445 28.463500000000007 C 97.78194444444445 28.463500000000007 100.78194444444445 31.46350000000001 100.78194444444445 34.46350000000001 L 100.78194444444445 60.501000000000005 C 100.78194444444445 63.501000000000005 97.78194444444445 66.501 94.78194444444445 66.501 L 90.32916666666667 66.501 C 87.32916666666667 66.501 84.32916666666667 63.501000000000005 84.32916666666667 60.501000000000005 Z "
-												pathFrom="M 84.32916666666667 66.501 L 84.32916666666667 66.501 L 100.78194444444445 66.501 L 100.78194444444445 66.501 L 100.78194444444445 66.501 L 100.78194444444445 66.501 L 100.78194444444445 66.501 L 84.32916666666667 66.501 Z"
-												cy="23.962500000000006" cx="100.78194444444445" j="2"
-												val="53" barHeight="47.037499999999994"
-												barWidth="25.45277777777778"></path>
-												<path id="SvgjsPath1268"
-												d="M130.60694444444445 60.501000000000005L130.60694444444445 41.5635C130.60694444444445 38.5635 133.60694444444445 35.5635 136.60694444444445 35.5635L141.05972222222223 35.5635C144.05972222222223 35.5635 147.05972222222223 38.5635 147.05972222222223 41.5635L147.05972222222223 60.501000000000005C147.05972222222223 63.501000000000005 144.05972222222223 66.501 141.05972222222223 66.501L136.60694444444445 66.501C133.60694444444445 66.501 130.60694444444445 63.501000000000005 130.60694444444445 60.501000000000005C130.60694444444445 60.501000000000005 130.60694444444445 60.501000000000005 130.60694444444445 60.501000000000005 "
-												fill="rgba(79,201,218,0.85)" fill-opacity="1"
-												stroke="transparent" stroke-opacity="1"
-												stroke-linecap="round" stroke-width="9" stroke-dasharray="0"
-												class="apexcharts-bar-area" index="0"
-												clip-path="url(#gridRectMaskzcdkpn5m)"
-												pathTo="M 130.60694444444445 60.501000000000005 L 130.60694444444445 41.5635 C 130.60694444444445 38.5635 133.60694444444445 35.5635 136.60694444444445 35.5635 L 141.05972222222223 35.5635 C 144.05972222222223 35.5635 147.05972222222223 38.5635 147.05972222222223 41.5635 L 147.05972222222223 60.501000000000005 C 147.05972222222223 63.501000000000005 144.05972222222223 66.501 141.05972222222223 66.501 L 136.60694444444445 66.501 C 133.60694444444445 66.501 130.60694444444445 63.501000000000005 130.60694444444445 60.501000000000005 Z "
-												pathFrom="M 130.60694444444445 66.501 L 130.60694444444445 66.501 L 147.05972222222223 66.501 L 147.05972222222223 66.501 L 147.05972222222223 66.501 L 147.05972222222223 66.501 L 147.05972222222223 66.501 L 130.60694444444445 66.501 Z"
-												cy="31.0625" cx="147.05972222222223" j="3" val="45"
-												barHeight="39.9375" barWidth="25.45277777777778"></path>
-												<path id="SvgjsPath1270"
-												d="M176.88472222222222 60.501000000000005L176.88472222222222 28.251000000000005C176.88472222222222 25.251000000000005 179.88472222222222 22.251000000000005 182.88472222222222 22.251000000000005L187.3375 22.251000000000005C190.3375 22.251000000000005 193.3375 25.251000000000005 193.3375 28.251000000000005L193.3375 60.501000000000005C193.3375 63.501000000000005 190.3375 66.501 187.3375 66.501L182.88472222222222 66.501C179.88472222222222 66.501 176.88472222222222 63.501000000000005 176.88472222222222 60.501000000000005C176.88472222222222 60.501000000000005 176.88472222222222 60.501000000000005 176.88472222222222 60.501000000000005 "
-												fill="rgba(79,201,218,0.85)" fill-opacity="1"
-												stroke="transparent" stroke-opacity="1"
-												stroke-linecap="round" stroke-width="9" stroke-dasharray="0"
-												class="apexcharts-bar-area" index="0"
-												clip-path="url(#gridRectMaskzcdkpn5m)"
-												pathTo="M 176.88472222222222 60.501000000000005 L 176.88472222222222 28.251 C 176.88472222222222 25.251 179.88472222222222 22.251 182.88472222222222 22.251 L 187.3375 22.251 C 190.3375 22.251 193.3375 25.251 193.3375 28.251 L 193.3375 60.501000000000005 C 193.3375 63.501000000000005 190.3375 66.501 187.3375 66.501 L 182.88472222222222 66.501 C 179.88472222222222 66.501 176.88472222222222 63.501000000000005 176.88472222222222 60.501000000000005 Z "
-												pathFrom="M 176.88472222222222 66.501 L 176.88472222222222 66.501 L 193.3375 66.501 L 193.3375 66.501 L 193.3375 66.501 L 193.3375 66.501 L 193.3375 66.501 L 176.88472222222222 66.501 Z"
-												cy="17.75" cx="193.3375" j="4" val="60" barHeight="53.25"
-												barWidth="25.45277777777778"></path>
-												<path id="SvgjsPath1272"
-												d="M223.16250000000002 60.501000000000005L223.16250000000002 14.938500000000005C223.16250000000002 11.938500000000005 226.16250000000002 8.938500000000005 229.16250000000002 8.938500000000005L233.6152777777778 8.938500000000005C236.6152777777778 8.938500000000005 239.6152777777778 11.938500000000005 239.6152777777778 14.938500000000005L239.6152777777778 60.501000000000005C239.6152777777778 63.501000000000005 236.6152777777778 66.501 233.6152777777778 66.501L229.16250000000002 66.501C226.16250000000002 66.501 223.16250000000002 63.501000000000005 223.16250000000002 60.501000000000005C223.16250000000002 60.501000000000005 223.16250000000002 60.501000000000005 223.16250000000002 60.501000000000005 "
-												fill="rgba(79,201,218,0.85)" fill-opacity="1"
-												stroke="transparent" stroke-opacity="1"
-												stroke-linecap="round" stroke-width="9" stroke-dasharray="0"
-												class="apexcharts-bar-area" index="0"
-												clip-path="url(#gridRectMaskzcdkpn5m)"
-												pathTo="M 223.16250000000002 60.501000000000005 L 223.16250000000002 14.938500000000001 C 223.16250000000002 11.938500000000001 226.16250000000002 8.938500000000001 229.16250000000002 8.938500000000001 L 233.6152777777778 8.938500000000001 C 236.6152777777778 8.938500000000001 239.6152777777778 11.938500000000001 239.6152777777778 14.938500000000001 L 239.6152777777778 60.501000000000005 C 239.6152777777778 63.501000000000005 236.6152777777778 66.501 233.6152777777778 66.501 L 229.16250000000002 66.501 C 226.16250000000002 66.501 223.16250000000002 63.501000000000005 223.16250000000002 60.501000000000005 Z "
-												pathFrom="M 223.16250000000002 66.501 L 223.16250000000002 66.501 L 239.6152777777778 66.501 L 239.6152777777778 66.501 L 239.6152777777778 66.501 L 239.6152777777778 66.501 L 239.6152777777778 66.501 L 223.16250000000002 66.501 Z"
-												cy="4.4375" cx="239.6152777777778" j="5" val="75"
-												barHeight="66.5625" barWidth="25.45277777777778"></path>
-												<path id="SvgjsPath1274"
-												d="M269.4402777777778 60.501000000000005L269.4402777777778 34.46350000000001C269.4402777777778 31.46350000000001 272.4402777777778 28.46350000000001 275.4402777777778 28.46350000000001L279.8930555555556 28.46350000000001C282.8930555555556 28.46350000000001 285.8930555555556 31.46350000000001 285.8930555555556 34.46350000000001L285.8930555555556 60.501000000000005C285.8930555555556 63.501000000000005 282.8930555555556 66.501 279.8930555555556 66.501L275.4402777777778 66.501C272.4402777777778 66.501 269.4402777777778 63.501000000000005 269.4402777777778 60.501000000000005C269.4402777777778 60.501000000000005 269.4402777777778 60.501000000000005 269.4402777777778 60.501000000000005 "
-												fill="rgba(79,201,218,0.85)" fill-opacity="1"
-												stroke="transparent" stroke-opacity="1"
-												stroke-linecap="round" stroke-width="9" stroke-dasharray="0"
-												class="apexcharts-bar-area" index="0"
-												clip-path="url(#gridRectMaskzcdkpn5m)"
-												pathTo="M 269.4402777777778 60.501000000000005 L 269.4402777777778 34.46350000000001 C 269.4402777777778 31.46350000000001 272.4402777777778 28.463500000000007 275.4402777777778 28.463500000000007 L 279.8930555555556 28.463500000000007 C 282.8930555555556 28.463500000000007 285.8930555555556 31.46350000000001 285.8930555555556 34.46350000000001 L 285.8930555555556 60.501000000000005 C 285.8930555555556 63.501000000000005 282.8930555555556 66.501 279.8930555555556 66.501 L 275.4402777777778 66.501 C 272.4402777777778 66.501 269.4402777777778 63.501000000000005 269.4402777777778 60.501000000000005 Z "
-												pathFrom="M 269.4402777777778 66.501 L 269.4402777777778 66.501 L 285.8930555555556 66.501 L 285.8930555555556 66.501 L 285.8930555555556 66.501 L 285.8930555555556 66.501 L 285.8930555555556 66.501 L 269.4402777777778 66.501 Z"
-												cy="23.962500000000006" cx="285.8930555555556" j="6" val="53"
-												barHeight="47.037499999999994" barWidth="25.45277777777778"></path>
-												<g id="SvgjsG1259" class="apexcharts-bar-goals-markers">
-												<g id="SvgjsG1261" className="apexcharts-bar-goals-groups"
-												class="apexcharts-hidden-element-shown"
-												clip-path="url(#gridRectMarkerMaskzcdkpn5m)"></g>
-												<g id="SvgjsG1263" className="apexcharts-bar-goals-groups"
-												class="apexcharts-hidden-element-shown"
-												clip-path="url(#gridRectMarkerMaskzcdkpn5m)"></g>
-												<g id="SvgjsG1265" className="apexcharts-bar-goals-groups"
-												class="apexcharts-hidden-element-shown"
-												clip-path="url(#gridRectMarkerMaskzcdkpn5m)"></g>
-												<g id="SvgjsG1267" className="apexcharts-bar-goals-groups"
-												class="apexcharts-hidden-element-shown"
-												clip-path="url(#gridRectMarkerMaskzcdkpn5m)"></g>
-												<g id="SvgjsG1269" className="apexcharts-bar-goals-groups"
-												class="apexcharts-hidden-element-shown"
-												clip-path="url(#gridRectMarkerMaskzcdkpn5m)"></g>
-												<g id="SvgjsG1271" className="apexcharts-bar-goals-groups"
-												class="apexcharts-hidden-element-shown"
-												clip-path="url(#gridRectMarkerMaskzcdkpn5m)"></g>
-												<g id="SvgjsG1273" className="apexcharts-bar-goals-groups"
-												class="apexcharts-hidden-element-shown"
-												clip-path="url(#gridRectMarkerMaskzcdkpn5m)"></g></g>
-												<g id="SvgjsG1260"
-												class="apexcharts-bar-shadows apexcharts-hidden-element-shown"></g></g>
-												<g id="SvgjsG1258"
-												class="apexcharts-datalabels apexcharts-hidden-element-shown"
-												data:realIndex="0"></g></g>
-												<line id="SvgjsLine1283" x1="-31.166666666666664" y1="0"
-												x2="308.83333333333337" y2="0" stroke="#b6b6b6"
-												stroke-dasharray="0" stroke-width="1" stroke-linecap="butt"
-												class="apexcharts-ycrosshairs"></line>
-												<line id="SvgjsLine1284" x1="-31.166666666666664" y1="0"
-												x2="308.83333333333337" y2="0" stroke-dasharray="0"
-												stroke-width="0" stroke-linecap="butt"
-												class="apexcharts-ycrosshairs-hidden"></line>
-												<g id="SvgjsG1285" class="apexcharts-xaxis"
-												transform="translate(0, 0)">
-												<g id="SvgjsG1286" class="apexcharts-xaxis-texts-g"
-												transform="translate(0, -4)"></g></g>
-												<g id="SvgjsG1296"
-												class="apexcharts-yaxis-annotations apexcharts-hidden-element-shown"></g>
-												<g id="SvgjsG1297"
-												class="apexcharts-xaxis-annotations apexcharts-hidden-element-shown"></g>
-												<g id="SvgjsG1298"
-												class="apexcharts-point-annotations apexcharts-hidden-element-shown"></g></g></svg>
-										<div class="apexcharts-tooltip apexcharts-theme-light">
-											<div class="apexcharts-tooltip-title"
-												style="font-family: inherit; font-size: 12px;"></div>
-											<div class="apexcharts-tooltip-series-group" style="order: 1;">
-												<span class="apexcharts-tooltip-marker"
-													style="background-color: rgb(79, 201, 218);"></span>
-												<div class="apexcharts-tooltip-text"
-													style="font-family: inherit; font-size: 12px;">
-													<div class="apexcharts-tooltip-y-group">
-														<span class="apexcharts-tooltip-text-y-label"></span><span
-															class="apexcharts-tooltip-text-y-value"></span>
-													</div>
-													<div class="apexcharts-tooltip-goals-group">
-														<span class="apexcharts-tooltip-text-goals-label"></span><span
-															class="apexcharts-tooltip-text-goals-value"></span>
-													</div>
-													<div class="apexcharts-tooltip-z-group">
-														<span class="apexcharts-tooltip-text-z-label"></span><span
-															class="apexcharts-tooltip-text-z-value"></span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div
-											class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light">
-											<div class="apexcharts-yaxistooltip-text"></div>
-										</div>
-									</div>
-								</div>
-								<!--end::Chart-->
-							</div>
-							<!--end::Card body-->
+						<!-- 전체 문서함 -->
+						<div class="card card-flush px-5 py-3 h-md-50 mb-5 mb-xl-10">
+							<div id="kt_security_recent_alerts" class="carousel carousel-custom carousel-stretch slide" data-bs-ride="carousel" data-bs-interval="4000">
+				                <div class="d-flex flex-stack align-items-center flex-wrap">
+				                    <h4 class="text-gray-500 fw-semibold mb-0 pe-2"><span class="badge badge-light-warning mb-2">전체 문서함</span></h4>
+				                    <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="0" class="ms-1 active"></li>
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="1" class="ms-1"></li>
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="2" class="ms-1"></li>
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="3" class="ms-1"></li>
+				                    </ol>
+				                </div>
+				                <div class="carousel-inner">
+				                	<c:set value="${allList }" var="elaprAllList"/>
+									<c:choose>
+										<c:when test="${empty elaprAllList }">
+											<tr>
+												<div class="d-flex flex-column flex-center ">
+													<a href="/company/comElaprAll.do">
+								                	    <img src="/resources/file/image/cloudEmpty.png" class="mw-150px"/>
+								                    	<div class=" fw-bolder text-dark">문서가 존재하지 않습니다.</div>
+								                    </a>
+		              				 			</div>
+											</tr>
+										</c:when>
+										<c:otherwise>
+						                    <c:forEach items="${allList }" var="elaprVO" varStatus="status">
+							                    <div class="carousel-item ${status.first ? 'active' : ''  }">
+							                        <div class="carousel-wrapper">
+														<c:if test="${elaprVO.elaprSttsCd eq 'APRZ001' }">
+								                        	<h4 class="text-gray-500 fw-semibold mb-0 pe-2">
+																<span class="badge badge-light-warning">진행</span>
+															</h4>
+														</c:if>
+														<c:if test="${elaprVO.elaprSttsCd eq 'APRZ002' }">
+								                        	<h4 class="text-gray-500 fw-semibold mb-0 pe-2">
+																<span class="badge badge-light-info">완료</span>
+															</h4>
+														</c:if>
+														<c:if test="${elaprVO.elaprSttsCd eq 'APRZ003' }">
+								                        	<h4 class="text-gray-500 fw-semibold mb-0 pe-2">
+																<span class="badge badge-light-danger">반려</span>
+															</h4>
+														</c:if>
+							                            <div class="d-flex flex-column flex-grow-1">
+							                                <a href="/company/elaprDetail.do?elaprNo=${elaprVO.elaprNo }" class="fs-5 fw-bold text-gray-900 text-hover-primary">${elaprVO.elaprNm }</a>
+							                                <p class="text-gray-600 fs-6 fw-semibold pt-3 mb-0">기안자 | ${elaprVO.empNm }</p>
+							                            </div>
+							                            <div class="d-flex flex-stack pt-8">
+							                                <div class="text-gray-700 fw-semibold fs-6 me-2">기안일 | ${elaprVO.elaprBgngDt }</div>
+							                                <a href="/company/elaprDetail.do?elaprNo=${elaprVO.elaprNo }"  class="btn btn-sm btn-light">자세히 보기</a>
+							                            </div>
+							                        </div>
+							                    </div>
+						                    </c:forEach>
+				                   	 	</c:otherwise>
+				                    </c:choose>
+				                </div>
+				            </div>
 						</div>
-						<!--end::Card widget 6-->
-	
-	
-						<!--begin::Card widget 7-->
-						<div class="card card-flush h-md-50 mb-xl-10">
-							<!--begin::Header-->
-							<div class="card-header pt-5">
-								<!--begin::Title-->
-								<div class="card-title d-flex flex-column">
-									<!--begin::Amount-->
-									<span class="fs-2hx fw-bold text-gray-900 me-2 lh-1 ls-n2">6.3k</span>
-									<!--end::Amount-->
-	
-									<!--begin::Subtitle-->
-									<span class="text-gray-500 pt-1 fw-semibold fs-6">New
-										Customers This Month</span>
-									<!--end::Subtitle-->
-								</div>
-								<!--end::Title-->
-							</div>
-							<!--end::Header-->
-	
-							<!--begin::Card body-->
-							<div class="card-body d-flex flex-column justify-content-end pe-0">
-								<!--begin::Title-->
-								<span class="fs-6 fw-bolder text-gray-800 d-block mb-2">Today’s
-									Heroes</span>
-								<!--end::Title-->
-	
-								<!--begin::Users group-->
-								<div class="symbol-group symbol-hover flex-nowrap">
-									<div class="symbol symbol-35px symbol-circle"
-										data-bs-toggle="tooltip" data-bs-original-title="Alan Warden"
-										data-kt-initialized="1">
-										<span
-											class="symbol-label bg-warning text-inverse-warning fw-bold">A</span>
-									</div>
-									<div class="symbol symbol-35px symbol-circle"
-										data-bs-toggle="tooltip" aria-label="Michael Eberon"
-										data-bs-original-title="Michael Eberon" data-kt-initialized="1"></div>
-									<div class="symbol symbol-35px symbol-circle"
-										data-bs-toggle="tooltip" data-bs-original-title="Susan Redwood"
-										data-kt-initialized="1">
-										<span
-											class="symbol-label bg-primary text-inverse-primary fw-bold">S</span>
-									</div>
-									<div class="symbol symbol-35px symbol-circle"
-										data-bs-toggle="tooltip" aria-label="Melody Macy"
-										data-bs-original-title="Melody Macy" data-kt-initialized="1">
-									</div>
-									<div class="symbol symbol-35px symbol-circle"
-										data-bs-toggle="tooltip" data-bs-original-title="Perry Matthew"
-										data-kt-initialized="1">
-										<span
-											class="symbol-label bg-danger text-inverse-danger fw-bold">P</span>
-									</div>
-									<div class="symbol symbol-35px symbol-circle"
-										data-bs-toggle="tooltip" aria-label="Barry Walter"
-										data-bs-original-title="Barry Walter" data-kt-initialized="1">
-									</div>
-									<a href="#" class="symbol symbol-35px symbol-circle"
-										data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">
-										<span class="symbol-label bg-light text-gray-400 fs-8 fw-bold">+42</span>
-									</a>
-								</div>
-								<!--end::Users group-->
-							</div>
-							<!--end::Card body-->
+						<!-- 전체 문서함 -->
+						
+						<!-- 열람 문서함 -->
+						<div class="card card-flush px-5 py-3 h-md-50 mb-5 mb-xl-10">
+							<div id="kt_security_recent_alerts" class="carousel carousel-custom carousel-stretch slide" data-bs-ride="carousel" data-bs-interval="4000">
+				                <div class="d-flex flex-stack align-items-center flex-wrap">
+				                    <h4 class="text-gray-500 fw-semibold mb-0 pe-2"><span class="badge badge-light-success mb-2">열람 문서함</span></h4>
+				                    <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="0" class="ms-1 active"></li>
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="1" class="ms-1"></li>
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="2" class="ms-1"></li>
+				                        <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="3" class="ms-1"></li>
+				                    </ol>
+				                </div>
+				                <div class="carousel-inner">
+				                	<c:set value="${prslList }" var="elaprPrslList"/>
+									<c:choose>
+										<c:when test="${empty elaprPrslList }">
+											<tr>
+												<div class="d-flex flex-column flex-center ">
+													<a href="/company/comElaprPrsl.do">
+								                	    <img src="/resources/file/image/cloudEmpty.png" class="mw-150px"/>
+								                    	<div class=" fw-bolder text-dark">열람 문서가 존재하지 않습니다.</div>
+								                    </a>
+		              				 			</div>
+											</tr>
+										</c:when>
+										<c:otherwise>
+						                    <c:forEach items="${prslList }" var="elaprVO" varStatus="status">
+							                    <div class="carousel-item ${status.first ? 'active' : ''  }">
+							                        <div class="carousel-wrapper">
+							                            <div class="d-flex flex-column flex-grow-1">
+							                                <a href="/company/elaprDetail.do?elaprNo=${elaprVO.elaprNo }" class="fs-5 fw-bold text-gray-900 text-hover-primary">${elaprVO.elaprNm }</a>
+							                                <p class="text-gray-600 fs-6 fw-semibold pt-3 mb-0">기안자 | ${elaprVO.empNm }</p>
+							                            </div>
+							                            <div class="d-flex flex-stack pt-8">
+							                                <div class="text-gray-700 fw-semibold fs-6 me-2">기안일 | ${elaprVO.elaprBgngDt }</div>
+							                                <a href="/company/elaprDetail.do?elaprNo=${elaprVO.elaprNo }"  class="btn btn-sm btn-light">자세히 보기</a>
+							                            </div>
+							                        </div>
+							                    </div>
+						                    </c:forEach>
+				                    	</c:otherwise>
+				                    </c:choose>
+				                </div>
+				            </div>
 						</div>
-						<!--end::Card widget 7-->
+						<!-- 열람 문서함 -->
 					</div>
 					<!--end::Col-->
 	

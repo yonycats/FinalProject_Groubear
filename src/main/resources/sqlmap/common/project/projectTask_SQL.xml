@@ -25,15 +25,15 @@
   	<!-- 일감 리스트 출력 -->
   	<select id="selectProTaskList" parameterType="int" resultMap="projectTaskMap">
   		SELECT
-		    pro_task_no, pro_task_nm, pro_task_cn, p.emp_id, pro_task_stts_cd, pro_task_pregrt,
+		    pro_task_no, pro_task_nm, pro_task_cn, pt.emp_id, pro_task_stts_cd, pro_task_pregrt,
 		    emp.emp_nm, emp.img_file_url,
 		    TO_CHAR(pro_task_bang_dt, 'YYYY-MM-DD HH24:MI') AS pro_task_bgng_dt, 
 		    TO_CHAR(pro_task_start_dt, 'YYYY-MM-DD HH24:MI') AS pro_task_start_dt, 
 		    TO_CHAR(pro_task_end_dt, 'YYYY-MM-DD HH24:MI') AS pro_task_end_dt
 		FROM project_task pt
-		    LEFT JOIN project p ON p.pro_no = pt.pro_no
-		    LEFT JOIN employee emp ON p.emp_id = emp.emp_id
-		WHERE p.pro_no = #{proNo} 
+		    LEFT JOIN employee emp ON pt.emp_id = emp.emp_id 
+            LEFT JOIN project p ON p.pro_no = pt.pro_no
+		WHERE p.pro_no = #{proNo}
 			AND pro_task_del_yn in ('N', 'n') 
 		ORDER BY pro_task_no desc
   	</select>

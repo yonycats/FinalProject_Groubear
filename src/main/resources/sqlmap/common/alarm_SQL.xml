@@ -31,9 +31,9 @@
   	</insert>
   	
   	<select id="countList" resultType="int" parameterType="kr.or.ddit.comm.alarm.vo.AlarmVO">
-  		select count(alarm_no)
+  		select count(alarm_yn)
 		from alarm
-		where emp_id = #{alarmTarget}
+		where emp_id = #{alarmTarget} and alarm_yn = 'N'
   	</select>
   	
   </mapper>

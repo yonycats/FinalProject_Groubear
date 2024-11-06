@@ -23,7 +23,7 @@
 		<collection property="atchFiles" resultMap="AtchFileMap"></collection>
 	</resultMap>
 	
-	<resultMap type="kr.or.ddit.company.comment.vo.ComCommentVO" id="CommentMap">
+	<resultMap type="kr.or.ddit.company.comment.vo.ComCommentVO" id="ComCommentMap">
 		<result property="commentNo" column="comment_no" />
 		<result property="cmntyNo" column="cmnty_no" />
 		<result property="empId" column="emp_id" />
@@ -93,7 +93,7 @@
 
 	<select id="communityCompany" resultType="kr.or.ddit.company.community.vo.ComCommunityVO"
 		parameterType="string">
-	select
+		select
 			cmnty_no,
 			cmnty_notice_yn,
 			cmnty_del_yn,
@@ -171,10 +171,8 @@
  	
  	</insert>
  	
- 	
- 	
 	<insert id="insertCommunity" parameterType="kr.or.ddit.company.community.vo.ComCommunityVO">
-	     insert into community (
+	    insert into community (
 	        cmnty_no,
 	        atch_file_cd,
 	        cmnty_type,
@@ -194,7 +192,7 @@
 	        #{coCd}
 	    )
 	</insert>
-
+	
 	<select id="communityDetail" parameterType="int" resultMap="ComCommunityMap">
 		SELECT 
 		    c.cmnty_no,
@@ -269,7 +267,7 @@
 		<include refid="cmntySearch"/>
 	</select>
 	
-	<select id="selectCmntyList" parameterType="kr.or.ddit.comm.paging.vo.PaginationInfoVO" resultType="kr.or.ddit.company.community.vo.ComCommunityVO">
+	<select id="selectCmntyList" parameterType="kr.or.ddit.comm.paging.vo.PaginationInfoVO" resultType="kr.or.ddit.employee.community.vo.CommunityVO">
 		select
 			b.*
 		from (
