@@ -41,17 +41,15 @@
     });
 </script>
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=directions_car,notifications,play_circle,stop_circle" />
 <link rel="stylesheet" href="" />
 
-<div class="sidebar">
-    <c:set var="customUser" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}" />
-    <c:forEach items="${customUser.menuList}" var="mem">
-		<input type="hidden" value="${mem.menuNo}" data-menu-list="${mem.menuNo}">
-		
-    </c:forEach>
-</div>
+<c:set var="customUser" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}" />
+<c:forEach items="${customUser.menuList}" var="mem">
+<input type="hidden" value="${mem.menuNo}" data-menu-list="${mem.menuNo}">
+</c:forEach>
 
 
 <div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
@@ -786,13 +784,13 @@
 		<div class="d-flex me-5">
 			<div class="me-5">
 				<div class="symbol symbol-40px cursor-pointer" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" data-kt-menu-overflow="true">
-					<img src="/upload/${employeeVO.imgFileUrl }" alt="" />
+					<img src="/upload/${customUser.member.imgFileUrl }" alt="" />
 				</div>
 				<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
 					<div class="menu-item px-3">
 						<div class="menu-content d-flex align-items-center px-3">
 							<div class="symbol symbol-50px me-5">
-								<img src="/upload/${employeeVO.imgFileUrl }" alt="" />
+								<img src="/upload/${customUser.member.imgFileUrl }" alt="" />
 							</div>
 							<div class="d-flex flex-column">
 								<div class="fw-bold d-flex align-items-center fs-5">Max Smith 
@@ -901,15 +899,14 @@
 				</div>
 			</div>
 			<div class="me-2">
-				<a href="#" class="app-sidebar-username text-gray-800 text-hover-primary fs-6 fw-semibold lh-0">${employeeVO.empNm }</a>
+				<a href="#" class="app-sidebar-username text-gray-800 text-hover-primary fs-6 fw-semibold lh-0">${customUser.member.empNm }</a>
 				<span class="app-sidebar-deckription text-gray-500 fw-semibold d-block fs-8">
-					<c:if test="${not empty departmentVO.deptNm }">
-						<span>${departmentVO.deptNm }</span>
+					<c:if test="${not empty customUser.member.deptNm }">
+						<span>${customUser.member.deptNm }</span>
 					</c:if>
-					<c:if test="${not empty teamVO.teamNm }">
-						 <span> / ${teamVO.teamNm }</span>
+					<c:if test="${not empty customUser.member.teamNm }">
+						 <span> / ${customUser.member.teamNm }</span>
 					</c:if>			
-					
 				</span>
 			</div>
 		</div>
@@ -921,6 +918,11 @@
 		</a>
 	</div>
 </div>
+
+
+
+
+
 
 <script type="text/javascript">
 $(function () {

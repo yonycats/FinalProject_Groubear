@@ -32,7 +32,7 @@
 									<div class="d-flex flex-column">
 										<div class="d-flex align-items-center mb-1">
 											<h3 class="me-2">${projectVO.proNm }</h3>
-											<c:if test="${projectVO.proSttsCd eq 'PRO001'}">
+											<%-- <c:if test="${projectVO.proSttsCd eq 'PRO001'}">
 												<span class="badge text-bg-primary">대기</span>
 											</c:if>
 											<c:if test="${projectVO.proSttsCd eq 'PRO002'}">
@@ -40,7 +40,7 @@
 											</c:if>
 											<c:if test="${projectVO.proSttsCd eq 'PRO003'}"> 
 												<span class="badge text-bg-success">완료</span>
-											</c:if>
+											</c:if> --%>
 										</div>
 									</div>
 									<div class="d-flex mb-4">
@@ -55,7 +55,7 @@
 								</div>
 								
 								<div class="col-md-6"></div>
-								<form action="/company//projectDelete.do" method="post" id="delForm">
+								<form action="/company/projectDelete.do" method="post" id="delForm">
 									<input type="hidden" name="proNo" value="${projectVO.proNo }"/>
 									<sec:csrfInput/>
 								</form>
@@ -89,12 +89,23 @@
 											<div class="fw-semibold fs-6 text-gray-500">프로젝트 종료일</div>
 										</div>
 									</div>
-									<!-- 참가자 이미지 변경 -->
-									<div class="symbol-group symbol-hover mb-3">
-				                         <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="임윤아">
-											<!-- <img alt="임윤아" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F5090%2F2022%2F09%2F15%2F0002164136_001_20220915113004061.jpg&type=sc960_832" /> -->
-											<img src="/upload/${employeeVO.imgFileUrl }" alt="" />
-										</div>
+									<div class="d-flex flex-stack flex-wrap mb-2">
+									    <div class="symbol-group symbol-hover my-1">
+									        <%-- <c:forEach items="${projectVO.participantImgFileUrlsList}" var="participantImgFileUrl" varStatus="status">
+									        	<c:choose>
+									        		 <c:when test="${status.index lt projectVO.participantEmpNamesList.size()}">
+				 					        			<div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"  title="${projectVO.participantEmpNamesList[status.index] }">
+									        				<img alt="${projectVO.participantEmpNamesList[status.index] }" src="/upload/${participantImgFileUrl.trim() }">
+									        			</div>
+									        		</c:when>
+									        	</c:choose>
+									        </c:forEach> --%>
+									        <c:forEach items="${projectVO.participantImgFileUrlsList }" var="participantImgFileUrl">
+									        	<div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip">
+									        		<img alt="" src="/upload/${participantImgFileUrl.trim() }">
+									        	</div>
+									        </c:forEach>
+									    </div>
 									</div>
 								</div>
 							</div>
@@ -125,7 +136,7 @@
 						            <c:if test="${projectTaskVO.proTaskSttsCd eq 'TASK001'}">
 						                <div class="card mb-6 mb-xl-9 draggable" id="task-${projectTaskVO.proTaskNo}" draggable="true">
             								<div class="card-body">
-            									<%-- <span class="badge text-bg-primary">${projectTaskVO.proTaskPregrt }%</span> --%>
+            									<span class="badge text-bg-primary" style="position:absolute; top:10px; left: 10px; ">${projectTaskVO.proTaskPregrt }%</span>
 						                        <div class="mb-2">
 						                            <h4>${projectTaskVO.proTaskNm}</h4>
 						                        </div>
@@ -136,7 +147,7 @@
 						                            <div class="symbol-group symbol-hover my-1">
 						                                <!-- 참여자 아이콘 -->
 								                         <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" >
-															<img src="/upload/${employeeVO.imgFileUrl }" alt="" />
+															<img alt="${projectTaskVO.empNm }" src="/upload/${projectTaskVO.imgFileUrl }">
 														</div>
 						                            </div>
 						                        </div>
@@ -170,18 +181,18 @@
 						            <c:if test="${projectTaskVO.proTaskSttsCd eq 'TASK002'}">
 						                <div class="card mb-6 mb-xl-9 draggable" id="task-${projectTaskVO.proTaskNo}" draggable="true">
 						                    <div class="card-body">
-						                    	<%-- <span class="badge text-bg-warning">${projectTaskVO.proTaskPregrt }%</span> --%>
+						                    	<span class="badge text-bg-warning" style="position:absolute; top:10px; left: 10px; ">${projectTaskVO.proTaskPregrt }%</span>
 						                        <div class="mb-2">
 						                            <h4>${projectTaskVO.proTaskNm}</h4>
 						                        </div>
 						                        <div class="fs-6 fw-semibold text-gray-600 mb-5">${projectTaskVO.proTaskCn}</div>
 						                        <div class="fs-6 fw-semibold text-gray-600 mb-5">${projectTaskVO.proTaskStartDt} - ${projectTaskVO.proTaskEndDt }</div>
 						                        <div class="d-flex flex-stack flex-wrap">
-						                             <!-- 참여자 정보 -->
+						                            <!-- 참여자 정보 -->
 						                            <div class="symbol-group symbol-hover my-1">
 						                                <!-- 참여자 아이콘 -->
 								                         <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" >
-															<img src="/upload/${employeeVO.imgFileUrl }" alt="" />
+															<img alt="${employeeVO.empNm }" src="/upload/${employeeVO.imgFileUrl }">
 														</div>
 						                            </div>
 						                        </div>
@@ -216,7 +227,7 @@
 						            <c:if test="${projectTaskVO.proTaskSttsCd eq 'TASK003'}">
 						                <div class="card mb-6 mb-xl-9 draggable" id="task-${projectTaskVO.proTaskNo}" draggable="true">
 						                    <div class="card-body">
-						                    	<%-- <span class="badge text-bg-success">${projectTaskVO.proTaskPregrt }%</span> --%>
+						                    	<span class="badge text-bg-success" style="position:absolute; top:10px; left: 10px; ">${projectTaskVO.proTaskPregrt }%</span>
 						                        <div class="mb-2">
 						                            <h4>${projectTaskVO.proTaskNm}</h4>
 						                        </div>
@@ -227,11 +238,11 @@
 						                            <div class="symbol-group symbol-hover my-1">
 						                                <!-- 참여자 아이콘 -->
 								                         <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" >
-															<img src="/upload/${employeeVO.imgFileUrl }" alt="" />
+								                         	<img alt="${employeeVO.empNm }" src="/upload/${employeeVO.imgFileUrl }">
 														</div>
 						                            </div>
 						                        </div>
-						                        <div class="d-flex mb-4 flex-end">
+						                        <%-- <div class="d-flex mb-4 flex-end">
 						                            <sec:authentication property="principal.member" var="emp"/>
 						                            <c:if test="${emp.empId eq projectTaskVO.empId}">
 						                                <button type="button" id="udtCanBtn" class="btn btn-warning me-2 udtCanBtn">수정</button>
@@ -242,7 +253,7 @@
 						                            <input type="hidden" name="proTaskNo" value="${projectTaskVO.proTaskNo}" />
 						                            <input type="hidden" name="proNo" value="${projectTaskVO.proNo}" />
 						                            <sec:csrfInput/>
-						                        </form>
+						                        </form> --%>
 						                    </div>
 						                </div>
 						            </c:if>
@@ -344,103 +355,114 @@ $(function(){
 	let dragged;
 	let orgCard;
 
-	/* 드래그 가능한 대상에서 발생하는 이벤트 */
+	// 드래그 가능한 대상에서 발생하는 이벤트
 	document.addEventListener("drag", event => {
-	  console.log("dragging");
+		console.log("dragging");
 	});
-
+	
+	// 완료일 경우에는 이동 안됨
 	document.addEventListener("dragstart", event => {
-	  dragged = event.target;
+		const taskId = event.target.id;
+		
+		if ($(event.target).find(".badge").hasClass("text-bg-success")) {
+			event.preventDefault();
+			return;
+		}
+		
+		dragged = event.target;
 		orgCard = dragged.parentNode;
-	  event.target.classList.add("dragging");
+		event.target.classList.add("dragging");
 	});
 
 	document.addEventListener("dragend", event => {
-	  event.target.classList.remove("dragging");
+		event.target.classList.remove("dragging");
 	});
 
-	/* 드롭 대상에서 발생하는 이벤트 */
+	// 드롭 대상에서 발생하는 이벤트
 	document.addEventListener("dragover", event => {
-	  // 드롭을 허용하기 위해 기본 동작 취소
-	  event.preventDefault();
+		// 드롭을 허용하기 위해 기본 동작 취소
+		event.preventDefault();
 	}, false);
 
 	document.addEventListener("dragenter", event => {
-	  // 드래그 가능한 요소가 대상 위로 오면 강조
-	  if (event.target.classList.contains("dropzone")) {
-	    event.target.classList.add("dragover");
-	  }
+		// 드래그 가능한 요소가 대상 위로 오면 강조
+		if (event.target.classList.contains("dropzone")) {
+			event.target.classList.add("dragover");
+		}
 	});
 
 	document.addEventListener("dragleave", event => {
-		  const dropzone = event.target.closest(".dropzone");
-		  if (dropzone) {
+		const dropzone = event.target.closest(".dropzone");
+		if (dropzone) {
 			dropzone.classList.remove("dragover");
-		  }
-		});
+		}
+	});
 
-		document.addEventListener("drop", event => {
-		  // 기본 동작을 취소해 링크 열리지 않도록 방지
-		  event.preventDefault();
-		  const dropzone = event.target.closest(".dropzone");
-		  
-		  if (dropzone) {
-			// 드래그한 요소를 새로운 위치에 삽입
-			dropzone.classList.remove("dragover");
-			if (dragged && dropzone !== dragged.parentNode) {
-			  dropzone.appendChild(dragged);
-			  updateTaskStatus(dropzone.id, dragged.id, function(success){
-					if (!success) {
-						orgCard.appendChild(dragged);
-					}
-				});
-			}
-		  }
-		});
+	document.addEventListener("drop", event => {
+	    event.preventDefault();
+	    const dropzone = event.target.closest(".dropzone");
 
-		function updateTaskStatus(columnId, taskId, callback) {
-			const taskStatusMap = {
-				"waiting-column": "TASK001",  	 // 대기 상태
-				"inprogress-column": "TASK002",  // 진행 상태
-				"completed-column": "TASK003"  	 // 완료 상태
-			};
-			
-			const newStatus = taskStatusMap[columnId];
-			console.log("taskId"+taskId);
-			
-			let pregrtVal = 0;
-			if (newStatus === "TASK003") {
-				pregrtVal = 100;
-			}
-			
-			var data = {
-				proTaskNo: taskId.replace('task-', ''),
-				proTaskSttsCd : newStatus,
-				proTaskPregrt : pregrtVal
-			};
-			console.log(data)
-			
-		  $.ajax({
-			url: '/company/updateTaskStatus.do',
-			type: 'POST',
-			contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(data),
-			success: function(response) {
-			  Swal.fire({
-				icon: 'success',
-				title: '상태가 업데이트되었습니다.',
-			  });
-				callback(true);
-			},
-			error: function() {
-			  Swal.fire({
-				icon: 'error',
-				title: '오류가 발생했습니다.',
-			  });
-				callback(false);
-			}
-	  });
+	    if (dropzone) {
+	        dropzone.classList.remove("dragover");
+	        if (dragged && dropzone !== dragged.parentNode) {
+	            dropzone.appendChild(dragged);
+	            updateTaskStatus(dropzone.id, dragged.id, function(success, newPregrt, badgeColor){
+	                if (!success) {
+	                    orgCard.appendChild(dragged); // 실패 시 원래 위치로 복구
+	                } else {
+	                    // 성공 시 진행률과 색상을 업데이트
+	                    $(dragged).find(".badge")
+	                        .text(newPregrt + '%')
+	                        .removeClass("text-bg-primary text-bg-warning text-bg-success")
+	                        .addClass(badgeColor);
+	                    
+	                    // 진행률이 100일 경우 버튼 숨기기
+	                    if (newPregrt === 100) {
+	                    	$(dragged).find(".udtCanBtn, .delCanBtn").hide();
+	                    }
+	                }
+	            });
+	        }
+	    }
+	});
+
+	function updateTaskStatus(columnId, taskId, callback) {
+	    const taskStatusMap = {
+	        "waiting-column": { status: "TASK001", pregrt: 0, color: "text-bg-primary" },
+	        "inprogress-column": { status: "TASK002", pregrt: 50, color: "text-bg-warning" },
+	        "completed-column": { status: "TASK003", pregrt: 100, color: "text-bg-success" }
+	    };
+	    
+	    const { status: newStatus, pregrt: pregrtVal, color: badgeColor } = taskStatusMap[columnId];
+	    
+	    const data = {
+	        proTaskNo: taskId.replace('task-', ''),
+	        proTaskSttsCd: newStatus,
+	        proTaskPregrt: pregrtVal
+	    };
+	    
+	    $.ajax({
+	        url: '/company/updateTaskStatus.do',
+	        type: 'POST',
+	        contentType: "application/json; charset=utf-8",
+	        data: JSON.stringify(data),
+	        success: function(response) {
+	            Swal.fire({
+	                icon: 'success',
+	                title: '상태가 업데이트되었습니다.',
+	            });
+	            callback(true, pregrtVal, badgeColor);
+	        },
+	        error: function() {
+	            Swal.fire({
+	                icon: 'error',
+	                title: '오류가 발생했습니다.',
+	            });
+	            callback(false, pregrtVal, badgeColor);
+	        }
+	    });
 	}
+
 });
 </script>
  

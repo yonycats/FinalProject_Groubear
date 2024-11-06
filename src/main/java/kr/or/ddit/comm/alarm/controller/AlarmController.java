@@ -58,6 +58,8 @@ public class AlarmController {
 		
 		if(type.equals("community")) {
 			alarmVO.setAlarmCn( empId + "님이 회원님의 게시물에 "+ alarmVO.getAlarmCn() + " 댓글을 작성하였습니다.");
+		}else if(type.equals("community:Re")) {
+			alarmVO.setAlarmCn( empId + "님이 회원님의 댓글에 "+ alarmVO.getAlarmCn() + " 대댓글을 작성하였습니다.");
 		}
 			alarmService.insertAlarm(alarmVO);
 			log.info("alarmVO :::" + alarmVO);

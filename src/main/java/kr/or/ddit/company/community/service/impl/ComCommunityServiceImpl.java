@@ -13,8 +13,6 @@ import kr.or.ddit.comm.security.vo.EmployeeVO;
 import kr.or.ddit.company.community.mapper.IComCommunityMapper;
 import kr.or.ddit.company.community.service.IComCommunityService;
 import kr.or.ddit.company.community.vo.ComCommunityVO;
-import kr.or.ddit.employee.community.service.ICommunityService;
-import kr.or.ddit.employee.community.vo.CommunityVO;
 
 @Service
 public class ComCommunityServiceImpl implements IComCommunityService {
@@ -22,10 +20,6 @@ public class ComCommunityServiceImpl implements IComCommunityService {
 	@Inject
 	private IComCommunityMapper mapper;
 
-	@Override
-	public List<ComCommunityVO> communitySystem(EmployeeVO employeeVO) {
-		return mapper.communitySystem(employeeVO);
-	}
 
 	@Override
 	public List<ComCommunityVO> communityFree(EmployeeVO employeeVO) {
@@ -43,6 +37,11 @@ public class ComCommunityServiceImpl implements IComCommunityService {
 	}
 
 	@Override
+	public void insertCommunity(ComCommunityVO ComCommunityVO) {
+		mapper.insertCommunity(ComCommunityVO);
+	}
+
+	@Override
 	public String atchFileInsert(AtchFileVO afVO) {
 		mapper.atchFileinsert(afVO);
 
@@ -57,6 +56,15 @@ public class ComCommunityServiceImpl implements IComCommunityService {
 	}
 
 	@Override
+	public ComCommunityVO communityDetail(int cmntyNo) throws Exception {
+		mapper.incrementHit(cmntyNo);
+
+		ComCommunityVO ComCommunityVO =  mapper.communityDetail(cmntyNo);
+		
+		return ComCommunityVO;
+	}
+
+	@Override
 	public void deleteAtchFile(AtchFileDetailVO atchFileDetailVO) {
 		mapper.deleteAtchFile(atchFileDetailVO);
 	}
@@ -67,6 +75,11 @@ public class ComCommunityServiceImpl implements IComCommunityService {
 		atchFileDetailVO.setAtchFileCd(afVO.getAtchFileCd());
 		atchFileInsert(afVO);
 		mapper.updateAtchFile(atchFileDetailVO);
+	}
+
+	@Override
+	public void communityModify(ComCommunityVO ComCommunityVO) {
+		mapper.communityModify(ComCommunityVO);
 	}
 
 	@Override
@@ -90,36 +103,23 @@ public class ComCommunityServiceImpl implements IComCommunityService {
 	}
 
 	@Override
-	public void downloadFile(AtchFileVO atchFileVO) {
-		mapper.downloadFile(atchFileVO);
+	public int selectCmntyCount(PaginationInfoVO<ComCommunityVO> pagingVO) {
+		return mapper.selectCmntyCount(pagingVO);
 	}
 
 	@Override
-	public void insertCommunity(ComCommunityVO communityVO) {
-		mapper.insertCommunity(communityVO);
+	public List<ComCommunityVO> selectCmntyList(PaginationInfoVO<ComCommunityVO> pagingVO) {
+		return mapper.selectCmntyList(pagingVO);
 	}
 
 	@Override
-	public ComCommunityVO communityDetail(int cmntyNo) throws Exception {
-		mapper.incrementHit(cmntyNo);
-
-		ComCommunityVO communityVO = mapper.communityDetail(cmntyNo);
-		return communityVO;
+	public void downloadFile(AtchFileDetailVO atchFileDetailVO) {
+		mapper.downloadFile(atchFileDetailVO);
 	}
 
-	@Override
-	public void communityModify(ComCommunityVO communityVO) {
-		mapper.communityModify(communityVO);
-	}
-//
 //	@Override
-//	public int selectCmntyCount(PaginationInfoVO<ComCommunityVO> pagingVO) {
-//		return mapper.selectCmntyCount(pagingVO);
-//	}
-//
-//	@Override
-//	public List<ComCommunityVO> selectCmntyList(PaginationInfoVO<ComCommunityVO> pagingVO) {
-//		return mapper.selectCmntyList(pagingVO);
+//	public CommentVO showComment(int cmtNo) {
+//		return mapper.showComment(cmtNo);
 //	}
 
 

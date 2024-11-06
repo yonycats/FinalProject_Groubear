@@ -330,13 +330,17 @@
 			</div>
 			<!-- 폴더 수정 모달 끝 -->
 			
-			<!-- 전사, 개인 클라우드함 나누기 -->
+			<!-- 전사, 부서, 개인 클라우드함 나누기 -->
 			<c:set var="comCloudStrgVO" value="${null }"/>
+			<c:set var="deptCloudStrgVO" value="${null }"/>
 			<c:set var="myCloudStrgVO" value="${null }"/>
 			
 			<c:forEach items="${allCloudStrgList }" var="allCloudStrg">
 				<c:if test="${allCloudStrg.cloudStrgKnd eq 'com' }">
 					<c:set var="comCloudStrgVO" value="${allCloudStrg }"/>
+				</c:if>
+				<c:if test="${allCloudStrg.cloudStrgKnd eq 'dept' }">
+					<c:set var="deptCloudStrgVO" value="${allCloudStrg }"/>
 				</c:if>
 				<c:if test="${allCloudStrg.cloudStrgKnd eq 'prvt' }">
 					<c:set var="myCloudStrgVO" value="${allCloudStrg }"/>
@@ -442,7 +446,7 @@
 						<!-- 개인 클라우드함 시작 -->
 						<div class="menu-title-gray-700">
 						    <div class="menu-item">
-								<div class="menu-title-gray-700"> 
+								<div class="menu-title-gray-700">
 									<c:choose>
 										<c:when test="${parentCloud.cloudKnd eq 'prvt' }">
 					                        <div class="menu-link py-3 divHover clickBackColor">
@@ -455,17 +459,17 @@
 				                            <span class="menu-icon"> 
 				                                <i class="ki-duotone ki-abstract-8 text-info me-3 fs-1"><span class="path1"></span><span class="path2"></span></i>
 			                                </span>
-			                            	<span class="menu-title fs-4">개인</span> 
+			                            	<span class="menu-title fs-4">개인</span>
 				                        </div>
-		                            	<div id="cloudStrgPlusBtn" class="ki-outline ki-plus fs-3 fs-1" style="margin-left: 4em;"></div>   
+		                            	<div id="cloudStrgPlusBtn" class="ki-outline ki-plus fs-3" style="margin-left: 4em;"></div>   
 			                        </div> 
 								</div>
 						        
 						        <!-- 데이터 세팅하지 않은 기존 코드
 			                    <div id="cloudStrgNmDiv" style="display: none;">
 				                    <div style="display: flex; justify-content: center;">
-			                        	<input type="text" class="form-control" id="cloudStrgNm" name="cloudStrgNm" style="width: 70%; height: 2em; border-radius: 0.75rem;">
-			                            <div class="ki-duotone ki-check fs-1 ms-1 divHover" onclick="f_cloudStrgAddBtn()" style="margin-left: 4em;">
+			                        	<input type="text" class="form-control fs-6" id="cloudStrgNm" name="cloudStrgNm" style="width: 70%; height: 2.5em; border-radius: 0.75rem;">
+			                            <div class="ki-duotone ki-check fs-1 ms-1 mt-1 divHover" onclick="f_cloudStrgAddBtn()">
 											 <span class="path1"></span>
 											 <span class="path2"></span> 
 										</div> 
@@ -476,10 +480,10 @@
 						        <!-- 발표를 위한 데이터 세팅 -->
 			                    <div id="cloudStrgNmDiv" style="display: none;">
 				                    <div style="display: flex; justify-content: center;">
-			                        	<input type="text" class="form-control" id="cloudStrgNm" name="cloudStrgNm" style="width: 70%; height: 2em; border-radius: 0.75rem;" value="추가함">
-			                            <div class="ki-duotone ki-check fs-1 ms-1 divHover" onclick="f_cloudStrgAddBtn()" style="margin-left: 4em;">
+			                        	<input type="text" class="form-control fs-6" id="cloudStrgNm" name="cloudStrgNm" style="width: 70%; height: 2.5em; border-radius: 0.75rem;" value="추가함">
+			                            <div class="ki-duotone ki-check fs-1 ms-1 mt-1 divHover" onclick="f_cloudStrgAddBtn()">
 											 <span class="path1"></span>
-											 <span class="path2"></span> 
+											 <span class="path2"></span>  
 										</div> 
 				                    </div>
 			                    </div> 
@@ -508,7 +512,7 @@
 									</div>
 						
 						        </div> 
-						         
+						          
 						    </div>
 						</div>
 						<!-- 개인 클라우드함 끝 -->
@@ -580,10 +584,10 @@
 	            
 	            
 	                    <!-- 경로 시작-->
-	                    <div class="d-flex flex-stack">
+	                    <div class="d-flex flex-stack mb-3">
 	            
 	                        <!-- 폴더 경로 시작 -->
-	                        <div class="badge badge-lg badge-light-primary fs-5" style="font-size: 0.8em;">
+	                        <div class="badge badge-lg badge-light-primary px-4 py-2" style="font-size: 1em;">
 	                            <div class="d-flex align-items-center flex-wrap">
 	                                <i class="ki-duotone ki-abstract-32 fs-2 text-primary me-3">
 	                                    <span class="path1"></span><span class="path2"></span> 
@@ -611,7 +615,7 @@
 	                        <!-- 폴더 경로 끝 -->
 	            
 	                        <!-- 폴더 내부의 폴더 및 파일 갯수 시작 -->
-	                        <div class="badge badge-lg badge-light-info" style="font-size: 1em;"> 
+	                        <div class="badge badge-lg badge-light-info px-4 py-3" style="font-size: 1.1em;"> 
 	                            <span id="kt_file_manager_items_counter">${pagingVO.totalRecord }개 항목</span>
 	                        </div>
 	                        <!-- 폴더 내부의 폴더 및 파일 갯수 끝 -->
@@ -620,10 +624,10 @@
 	                    <!-- 경로 끝-->
 	
 						
-						<table id="kt_file_manager_list" data-kt-filemanager-table="folders" class="table align-middle table-row-dashed fs-4 gy-3 mb-0" style="width: 98.5%;">
+						<table id="kt_file_manager_list" data-kt-filemanager-table="folders" class="table align-middle table-row-dashed fs-6 gy-3 mb-0" style="width: 98.5%;">
 
                             <thead>
-                                <tr class="text-gray-500 fw-bold fs-7"> 
+                                <tr class="text-gray-500 fw-bold fs-5"> 
 									<th width="7%" class="pe-2">
 										<div class="form-check form-check-sm form-check-custom form-check-solid mt-1" style="display: flex; justify-content: center; margin-right: 0.2em;">
 											<input id="checkAll" class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_file_manager_list .form-check-input" value="">
@@ -638,15 +642,15 @@
                             </thead>
                           </table>
                            
-						<div style="width:100%; height:90%; overflow:auto">
-							<table id="kt_file_manager_list" data-kt-filemanager-table="folders" class="table align-middle table-row-dashed fs-4 gy-3 mb-0" style="width: 100%; height: 90%;">
+						<div class="border-bottom" style="width:100%; height:55em; overflow:auto">
+							<table id="kt_file_manager_list" data-kt-filemanager-table="folders" class="table align-middle table-row-dashed fs-6 gy-3 mb-0" style="width: 100%;">
 	                            <tbody class="fw-semibold text-gray-600" style="font-size: 1em;">
 	                            	<c:set value="${pagingVO.dataList }" var="CloudStrgList"/>
 		                            <c:choose>
 		                            	<c:when test="${empty CloudStrgList }">
 				                            <tr>
 					                            <td colspan="6" class="dt-empty">
-						                            <div class="d-flex flex-column flex-center mt-10">
+						                            <div class="d-flex flex-column flex-center mt-20">
 									                    <img src="${pageContext.request.contextPath }/resources/file/image/cloudEmpty.png" class="mw-500px">
 									                    <div class="fs-1 fw-bolder text-dark">파일이 없습니다.</div>
 					              				 	</div> 
@@ -674,7 +678,7 @@
 						                                            <span class="icon-wrapper">
 						                                                <i class="ki-duotone ki-folder fs-2x text-primary me-4"><span class="path1"></span><span class="path2"></span></i>
 						                                            </span>
-						                                            <a href="/employee/cloudList.do?selectStrgCd=${cloudStrgFldr.cloudStrgFldrCd }" class="text-gray-800 text-hover-primary">${cloudStrgFldr.cloudStrgFldrNm }</a> 
+						                                            <a id="thisALink" href="/employee/cloudList.do?selectStrgCd=${cloudStrgFldr.cloudStrgFldrCd }" class="text-gray-800 text-hover-primary" onclick="f_fldrLinkBtn('${cloudStrgFldr.cloudStrgFldrCd }', event)">${cloudStrgFldr.cloudStrgFldrNm }</a> 
 						                                        </div> 
 						                                    </td> 
 						                                    <td width="10%" class="text-center">-</td>
@@ -724,7 +728,6 @@
 							                                   </td>
 							                                   <td width="43%">
 							                                       <div class="d-flex align-items-center">
-							                                           <span class="icon-wrapper"><i class="ki-duotone ki-files fs-2x text-primary me-4"></i></span>
 							                                           <a href="/employee/imgPreview.do?cloudFileCd=${cloudFile.cloudFileCd }" target="_blank" class="">
 							                                              	 ${cloudFile.cloudFileOrgnlNm } 
 							                                           </a>
@@ -742,6 +745,7 @@
 							                                   <td width="10%" class="text-center">${cloudFile.cloudFileFancysize }</td>
 							                                   <td width="10%" class="text-center">${cloudFile.cloudFileExtnNm }</td> 
 							                                   <td width="20%" class="text-center">${cloudFile.cloudFileRegDt }</td>
+						                               		   <td width="10%" class="pe-5"></td>
 							                               </tr>
 						                                
 				                              		  </c:forEach>
@@ -783,8 +787,9 @@ let strgSelectNm = null;	// Jstree에서 선택한 저장소의 이름
 
 let moveFldrOrFileCd;	// 이동할 폴더 또는 파일 코드
 let selectStrgCd = '${selectStrgCd}'; 		// 폴더 이동 후 페이지 이동할 현재 화면의 저장소 코드
+let jbgdCd = '${jbgdCd}'; // 나의 직급
 
-let checkArr = new Array();		// 체크박스가 선택된 게시물들을 넣을 공간
+let checkArr = new Array();		// 체크박스가 선택된 게시물들을 넣을 공간  
 
 let searchWord = '${searchWord}';
 
@@ -1208,9 +1213,9 @@ function f_cloudStrgAddBtn() {
 			html = `<div class='menu-link py-3 divHover blockHover'>
 			                <div class='menu-link p-0 ms-2' onclick='f_cloudStrgClick("\${res.cloudStrgCd }")' style='max-width: 7em;'>
 			                <span class='menu-bullet'><span class='bullet bullet-dot'></span></span>
-			            	<span class='menu-title'>\${res.cloudStrgNm }</span>
+			            	<span class='menu-title fs-4'>\${res.cloudStrgNm }</span>
 			            </div> 
-			            <div id='cloudStrgDeleteBtn' class='ki-outline ki-cross fs-3 none' data-selectstrgCd='\${res.cloudStrgCd}' style="margin-left: 4em;"></div>   
+			            <div id='cloudStrgDeleteBtn' class='ki-outline ki-cross fs-3 none' data-selectstrgCd='\${res.cloudStrgCd}' style='margin-left: 4em;'></div>   
 			        </div>`;
 			
 			customDiv.append(html);
@@ -1643,7 +1648,6 @@ function f_fldrLinkBtn(fldrCd, e) {
 	e.preventDefault();
 	console.log("jbgdCd : " + jbgdCd);
 	
-	let thisALink = $(this);
 	let jbgdArray = [];
 	
 	axios.get("/employee/cloudFldrAuthrtListSelect.do?cloudStrgFldrCd=" + fldrCd)
@@ -1674,7 +1678,7 @@ function f_fldrLinkBtn(fldrCd, e) {
 	
 	if (jbgdArray.includes(jbgdCd)) {
 		console.log("권한 있음!");
-		thisALink.href;	// 권한이 있으면 폴더 접속
+		location.href = "/employee/cloudList.do?selectStrgCd=" + fldrCd;	// 권한이 있으면 폴더 접속   
 	} else {
 		Swal.fire({
 			icon: 'warning',

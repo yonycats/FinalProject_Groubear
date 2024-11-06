@@ -36,9 +36,13 @@ public class EmployeeVO {
 	private String imgFileUrl;
 	private String teamCd;
 	
+	private String deptNm;
+	private String teamNm;
+	private String jbgdNm;
+	private String coNm;
+	
 	private MultipartFile imgFile;		// 프로필 이미지 파일을 받을 때 사용
 	List<EmployeeAuthVO> authList;
 	List<DepartmentMenuVO> menuList;	// 로그인한 사용자의 메뉴 목록
 }
-
 

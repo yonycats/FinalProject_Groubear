@@ -163,8 +163,9 @@
 		               NULL AS CLOUD_FILE_FANCYSIZE,     
 		               NULL AS CLOUD_FILE_ORGNL_NM,      
 		               NULL AS CLOUD_FILE_STRG_NM,      
-		               NULL AS CLOUD_FILE_UP_CD       
-		        FROM CLOUD_STRG_FLDR
+		               NULL AS CLOUD_FILE_UP_CD,
+		               CO_CD
+		        FROM CLOUD_STRG_FLDR F INNER JOIN EMPLOYEE E ON (F.CLOUD_STRG_FLDR_REG_EMP_ID = E.EMP_ID)
 		            UNION ALL   
 		        SELECT NULL AS CLOUD_STRG_FLDR_CD,        
 		               NULL AS CLOUD_STRG_FLDR_NM,       
@@ -179,16 +180,17 @@
 		               CLOUD_FILE_FANCYSIZE,            
 		               CLOUD_FILE_ORGNL_NM,           
 		               CLOUD_FILE_STRG_NM,            
-		               CLOUD_FILE_UP_CD               
-		        FROM CLOUD_FILE) A
-		WHERE  1=1
+		               CLOUD_FILE_UP_CD,
+		               CO_CD
+		        FROM CLOUD_FILE A INNER JOIN EMPLOYEE E ON (A.CLOUD_FILE_REG_EMP_ID = E.EMP_ID)) A	
+		WHERE A.CO_CD = #{coCd}
 		<include refid="cloudSearch"/>
 		ORDER BY A.CLOUD_STRG_FLDR_NM ASC, A.CLOUD_FILE_ORGNL_NM ASC
 	</select>
 
 	<!-- 키워드 검색하기 카운트 -->	
 	<select id="cloudListSearchCount" parameterType="kr.or.ddit.comm.paging.vo.PaginationInfoVO"  resultType="int">
-		SELECT COUNT(*)
+		SELECT count(*)
 		FROM (SELECT CLOUD_STRG_FLDR_CD,           
 		               CLOUD_STRG_FLDR_NM,             
 		               CLOUD_STRG_FLDR_REG_EMP_ID,    
@@ -202,8 +204,9 @@
 		               NULL AS CLOUD_FILE_FANCYSIZE,     
 		               NULL AS CLOUD_FILE_ORGNL_NM,      
 		               NULL AS CLOUD_FILE_STRG_NM,      
-		               NULL AS CLOUD_FILE_UP_CD       
-		        FROM CLOUD_STRG_FLDR
+		               NULL AS CLOUD_FILE_UP_CD,
+		               CO_CD
+		        FROM CLOUD_STRG_FLDR F INNER JOIN EMPLOYEE E ON (F.CLOUD_STRG_FLDR_REG_EMP_ID = E.EMP_ID)
 		            UNION ALL   
 		        SELECT NULL AS CLOUD_STRG_FLDR_CD,        
 		               NULL AS CLOUD_STRG_FLDR_NM,       
@@ -218,9 +221,10 @@
 		               CLOUD_FILE_FANCYSIZE,            
 		               CLOUD_FILE_ORGNL_NM,           
 		               CLOUD_FILE_STRG_NM,            
-		               CLOUD_FILE_UP_CD               
-		        FROM CLOUD_FILE) A
-		WHERE  1=1
+		               CLOUD_FILE_UP_CD,
+		               CO_CD
+		        FROM CLOUD_FILE A INNER JOIN EMPLOYEE E ON (A.CLOUD_FILE_REG_EMP_ID = E.EMP_ID)) A
+		WHERE A.CO_CD = #{coCd}
 		<include refid="cloudSearch"/>
 		ORDER BY A.CLOUD_STRG_FLDR_NM ASC, A.CLOUD_FILE_ORGNL_NM ASC
 	</select>
@@ -489,6 +493,7 @@
 								)
 		CONNECT BY 
 		    PRIOR CLOUD_STRG_FLDR_CD = CLOUD_FLDR_UP_CD
+		order by STRG_NM asc
   	</select>
   	
   	<!-- 클라우드 파일 업로드하기 -->
@@ -625,7 +630,6 @@
 			   ,co_cd
 			   ,jbgd_nm
 			   ,jbgd_crt_dt
-			   ,jbgd_actvtn_yn
 			   ,jbgd_auth_prord
 		FROM jobgrade
 		WHERE co_cd = #{coCd}

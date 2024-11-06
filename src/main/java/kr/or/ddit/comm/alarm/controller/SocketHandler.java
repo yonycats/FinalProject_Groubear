@@ -75,11 +75,14 @@ public class SocketHandler extends TextWebSocketHandler {
 			// 각 행동에 따라 알림 처리
 			// type
 			switch (alarmCategory) {
-			case "approval":
-				sendMessageToalarmTargetUser("approval", alarmTarget, alarmCn, alarmUrl);
+			case "elapr":
+				sendMessageToalarmTargetUser("elapr", alarmTarget, alarmCn, alarmUrl);
 				break;
-			case "schedule":
-				sendMessageToalarmTargetUser("schedule", alarmTarget, alarmCn, alarmUrl);
+			case "community:Re":
+				sendMessageToalarmTargetUser("community:Re", alarmTarget, alarmCn, alarmUrl);
+				break;
+			case "calender":
+				sendMessageToalarmTargetUser("calender", alarmTarget, alarmCn, alarmUrl);
 				break;
 			case "project":
 				sendMessageToalarmTargetUser("project", alarmTarget, alarmCn, alarmUrl);
@@ -120,7 +123,12 @@ public class SocketHandler extends TextWebSocketHandler {
 				TextMessage tmpMsg = new TextMessage(cmntyFormatMessage);
 				alarmTargetSession.sendMessage(tmpMsg);
 				log.info("메시지를 {}에게 이렇게 보냄: {}", alarmTarget, tmpMsg.getPayload());
-			} else if (alarmCategory == "approval") {
+			} else if (alarmCategory == "community:Re") {
+				String replyFormatMessage = replyFormatMessage(alarmCategory, alarmCn, alarmUrl);
+				TextMessage tmpMsg = new TextMessage(replyFormatMessage);
+				alarmTargetSession.sendMessage(tmpMsg);
+				log.info("메시지를 {}에게 이렇게 보냄: {}", alarmTarget, tmpMsg.getPayload());
+			} else if (alarmCategory == "elapr") {
 				String approFormatMessage = approFormatMessage(alarmCategory, alarmCn, alarmUrl);
 				TextMessage tmpMsg = new TextMessage(approFormatMessage);
 				alarmTargetSession.sendMessage(tmpMsg);
@@ -130,7 +138,7 @@ public class SocketHandler extends TextWebSocketHandler {
 				TextMessage tmpMsg = new TextMessage(qnaFormatMessage);
 				alarmTargetSession.sendMessage(tmpMsg);
 				log.info("메시지를 {}에게 이렇게 보냄: {}", alarmTarget, tmpMsg.getPayload());
-			} else if (alarmCategory == "schedule") {
+			} else if (alarmCategory == "calender") {
 				String schFormatMessage = schFormatMessage(alarmCategory, alarmCn, alarmUrl);
 				TextMessage tmpMsg = new TextMessage(schFormatMessage);
 				alarmTargetSession.sendMessage(tmpMsg);
@@ -138,11 +146,6 @@ public class SocketHandler extends TextWebSocketHandler {
 			} else if (alarmCategory == "project") {
 				String projFormatMessage = projFormatMessage(alarmCategory, alarmCn, alarmUrl);
 				TextMessage tmpMsg = new TextMessage(projFormatMessage);
-				alarmTargetSession.sendMessage(tmpMsg);
-				log.info("메시지를 {}에게 이렇게 보냄: {}", alarmTarget, tmpMsg.getPayload());
-			} else if (alarmCategory == "video") {
-				String videoFormatMessage = videoFormatMessage(alarmCategory, alarmCn, alarmUrl);
-				TextMessage tmpMsg = new TextMessage(videoFormatMessage);
 				alarmTargetSession.sendMessage(tmpMsg);
 				log.info("메시지를 {}에게 이렇게 보냄: {}", alarmTarget, tmpMsg.getPayload());
 			} else if (alarmCategory == "car") {
@@ -241,6 +244,21 @@ public class SocketHandler extends TextWebSocketHandler {
 //				+ "			<span class=\"badge badge-light fs-8\">${alarmVO.alarmCrtDt}</span>\r\n" 
 				+ "	</div>\r\n";
 	}
+	
+	private String replyFormatMessage(String alarmCategory, String alarmCn, String alarmUrl) { // aMessage 커뮤니티
+		return "	<div class=\"d-flex flex-stack py-4\">\r\n" + "<div class=\"d-flex align-items-center\">\r\n"
+		+ "			<div class=\"symbol symbol-35px me-4\">\r\n"
+		+ "				<span class=\"symbol-label bg-light-primary\"> <i\r\n"
+		+ "					class=\"ki-duotone ki-abstract-28 fs-2 text-primary\"><span\r\n"
+		+ "						class=\"path1\"></span> <span class=\"path2\"></span>\r\n"
+		+ "						</i>\r\n" + "</span>\r\n" + "</div>\r\n"
+		+ "				<div class=\"mb-0 me-2\">\r\n" + "<a href=" + alarmUrl + "\r\n"
+		+ "						class=\"fs-6 text-gray-800 text-hover-primary fw-bold\">" + alarmCategory
+		+ "</a>\r\n" + "<div class=\"text-gray-500 fs-7\">" + alarmCn + "</div>\r\n"
+		+ "					</div>\r\n" + "				</div>\r\n"
+//				+ "			<span class=\"badge badge-light fs-8\">${alarmVO.alarmCrtDt}</span>\r\n" 
++ "	</div>\r\n";
+	}
 
 	private String approFormatMessage(String alarmCategory, String alarmCn, String alarmUrl) { // aMessage 전자결재
 		return "	<div class=\"d-flex flex-stack py-4\">\r\n" + "		<div class=\"d-flex align-items-center\">\r\n"
@@ -276,22 +294,6 @@ public class SocketHandler extends TextWebSocketHandler {
 				+ "				<span class=\"symbol-label bg-light-success\"> <i\r\n"
 				+ "					class=\"ki-duotone ki-abstract-12 fs-2 text-success\"> <span\r\n"
 				+ "						class=\"path1\"></span> <span class=\"path2\"></span>\r\n"
-				+ "					</i>\r\n" + "				</span>\r\n" + "			</div>\r\n"
-				+ "				<div class=\"mb-0 me-2\">\r\n" + "<a href=" + alarmUrl + "\r\n"
-				+ "						class=\"fs-6 text-gray-800 text-hover-primary fw-bold\">" + alarmCategory
-				+ "</a>\r\n" + "<div class=\"text-gray-500 fs-7\">" + alarmCn + "</div>\r\n"
-				+ "					</div>\r\n" + "				</div>\r\n"
-//				+ "			<span class=\"badge badge-light fs-8\">${alarmVO.alarmCrtDt}</span>\r\n" 
-				+ "	</div>\r\n";
-	}
-
-	private String videoFormatMessage(String alarmCategory, String alarmCn, String alarmUrl) { // aMessage 화상채팅
-		return "	<div class=\"d-flex flex-stack py-4\">\r\n" + "		<div class=\"d-flex align-items-center\">\r\n"
-				+ "			<div class=\"symbol symbol-35px me-4\">\r\n"
-				+ "				<span class=\"symbol-label bg-light-primary\"> <i\r\n"
-				+ "					class=\"ki-duotone ki-colors-square fs-2 text-primary\">\r\n"
-				+ "					<span class=\"path1\"></span> <span class=\"path2\"></span> <span\r\n"
-				+ "						class=\"path3\"></span> <span class=\"path4\"></span>\r\n"
 				+ "					</i>\r\n" + "				</span>\r\n" + "			</div>\r\n"
 				+ "				<div class=\"mb-0 me-2\">\r\n" + "<a href=" + alarmUrl + "\r\n"
 				+ "						class=\"fs-6 text-gray-800 text-hover-primary fw-bold\">" + alarmCategory

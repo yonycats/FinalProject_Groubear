@@ -355,7 +355,7 @@
 	                            &nbsp;&nbsp;파일 업로드
                         	</button>
 		                </div> 
-		                
+		                <%-- 
 			            <div class="d-flex flex-column">
 	                        <div class="d-flex justify-content-between w-100 fs-7 fw-bold mb-3">
 	                            <span>전사 클라우드함 용량</span>
@@ -367,7 +367,7 @@
 	
 	                        <div class=" fw-semibold text-gray-600 fs-8 mb-3 mt-2">10GB 중 ${cloudStrgFileSizeSumStr } 사용</div>
 	                    </div>
-		 
+		  --%>
 						<!-- 클라우드함 메뉴 시작 -->
 						<!-- 전사 클라우드함 시작 -->
 						<div class="menu-title-gray-700">
@@ -433,8 +433,8 @@
 						        
 			                    <div id="cloudStrgNmDiv" style="display: none;">
 				                    <div style="display: flex; justify-content: center;">
-			                        	<input type="text" class="form-control" id="cloudStrgNm" name="cloudStrgNm" style="width: 70%; height: 2em; border-radius: 0.75rem;">
-			                            <div class="ki-duotone ki-check fs-1 ms-1 divHover" onclick="f_cloudStrgAddBtn()" style="margin-left: 4em;">
+			                        	<input type="text" class="form-control fs-6" id="cloudStrgNm" name="cloudStrgNm" style="width: 70%; height: 2.5em; border-radius: 0.75rem;">
+			                            <div class="ki-duotone ki-check fs-1 ms-1 mt-1 divHover" onclick="f_cloudStrgAddBtn()" style="margin-left: 4em;">
 											 <span class="path1"></span>
 											 <span class="path2"></span> 
 										</div> 
@@ -449,15 +449,17 @@
 				                        </div>
 			                        </div> 
 					
-					            	<c:forEach items="${myCloudStrgCustomList }" var="myCloudStrgCustom">
-							            <div class="menu-link py-3 divHover blockHover">
-					                        <div class="menu-link p-0 ms-2" onclick="f_cloudStrgClick('${myCloudStrgCustom.cloudStrgCd }')" style="max-width: 7em;">
-							                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-				                            	<span class="menu-title fs-4">${myCloudStrgCustom.cloudStrgNm }</span>
+									<div id="customDiv">
+						            	<c:forEach items="${myCloudStrgCustomList }" var="myCloudStrgCustom">
+								            <div class="menu-link py-3 divHover blockHover">
+						                        <div class="menu-link p-0 ms-2" onclick="f_cloudStrgClick('${myCloudStrgCustom.cloudStrgCd }')" style="max-width: 7em;">
+								                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+					                            	<span class="menu-title fs-4">${myCloudStrgCustom.cloudStrgNm }</span>
+						                        </div> 
+							                    <div id="cloudStrgDeleteBtn" class="ki-outline ki-cross fs-3 none" data-selectstrgCd="${myCloudStrgCustom.cloudStrgCd}" style="margin-left: 4em;"></div>   
 					                        </div> 
-						                    <div id="cloudStrgDeleteBtn" class="ki-outline ki-cross fs-3 none" data-selectstrgCd="${myCloudStrgCustom.cloudStrgCd}" style="margin-left: 4em;"></div>   
-				                        </div> 
-					            	</c:forEach>
+						            	</c:forEach>
+						            </div>
 						
 						        </div> 
 						         
@@ -532,10 +534,10 @@
 	            
 	            
 	                    <!-- 경로 시작-->
-	                    <div class="d-flex flex-stack">
+	                    <div class="d-flex flex-stack mb-3">
 	            
 	                        <!-- 폴더 경로 시작 -->
-	                        <div class="badge badge-lg badge-light-primary fs-5" style="font-size: 0.8em;">
+	                        <div class="badge badge-lg badge-light-primary px-4 py-2" style="font-size: 1em;">
 	                            <div class="d-flex align-items-center flex-wrap">
 	                                <i class="ki-duotone ki-abstract-32 fs-2 text-primary me-3">
 	                                    <span class="path1"></span><span class="path2"></span> 
@@ -563,7 +565,7 @@
 	                        <!-- 폴더 경로 끝 -->
 	            
 	                        <!-- 폴더 내부의 폴더 및 파일 갯수 시작 -->
-	                        <div class="badge badge-lg badge-light-info" style="font-size: 1em;"> 
+	                        <div class="badge badge-lg badge-light-info px-4 py-3" style="font-size: 1.1em;"> 
 	                            <span id="kt_file_manager_items_counter">${pagingVO.totalRecord }개 항목</span>
 	                        </div>
 	                        <!-- 폴더 내부의 폴더 및 파일 갯수 끝 -->
@@ -575,7 +577,7 @@
 						<table id="kt_file_manager_list" data-kt-filemanager-table="folders" class="table align-middle table-row-dashed fs-4 gy-3 mb-0" style="width: 98.5%;">
 
                             <thead>
-                                <tr class="text-gray-500 fw-bold fs-7"> 
+                                <tr class="text-gray-500 fw-bold fs-5"> 
 									<th width="7%" class="pe-2">
 										<div class="form-check form-check-sm form-check-custom form-check-solid mt-1" style="display: flex; justify-content: center; margin-right: 0.2em;">
 											<input id="checkAll" class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_file_manager_list .form-check-input" value="">
@@ -590,7 +592,7 @@
                             </thead>
                           </table>
                            
-						<div style="width:100%; height:90%; overflow:auto">
+						  <div class="border-bottom" style="width:100%; height:55em; overflow:auto">
 							<table id="kt_file_manager_list" data-kt-filemanager-table="folders" class="table align-middle table-row-dashed fs-4 gy-3 mb-0" style="width: 100%; height: 90%;">
 	                            <tbody class="fw-semibold text-gray-600" style="font-size: 1em;">
 	                            	<c:set value="${pagingVO.dataList }" var="CloudStrgList"/>
@@ -598,7 +600,7 @@
 		                            	<c:when test="${empty CloudStrgList }">
 				                            <tr>
 					                            <td colspan="6" class="dt-empty">
-						                            <div class="d-flex flex-column flex-center mt-10">
+						                            <div class="d-flex flex-column flex-center mt-20">
 									                    <img src="${pageContext.request.contextPath }/resources/file/image/cloudEmpty.png" class="mw-500px">
 									                    <div class="fs-1 fw-bolder text-dark">파일이 없습니다.</div>
 					              				 	</div> 
@@ -676,7 +678,6 @@
 							                                   </td>
 							                                   <td width="43%">
 							                                       <div class="d-flex align-items-center">
-							                                           <span class="icon-wrapper"><i class="ki-duotone ki-files fs-2x text-primary me-4"></i></span>
 							                                           <a href="/company/imgPreview.do?cloudFileCd=${cloudFile.cloudFileCd }" target="_blank" class="">
 							                                              	 ${cloudFile.cloudFileOrgnlNm } 
 							                                           </a>
@@ -694,6 +695,7 @@
 							                                   <td width="10%" class="text-center">${cloudFile.cloudFileFancysize }</td>
 							                                   <td width="10%" class="text-center">${cloudFile.cloudFileExtnNm }</td> 
 							                                   <td width="20%" class="text-center">${cloudFile.cloudFileRegDt }</td>
+							                               	   <td width="10%" class="pe-5"></td>
 							                               </tr>
 						                                
 				                              		  </c:forEach>
@@ -1160,9 +1162,9 @@ function f_cloudStrgAddBtn() {
 			html = `<div class='menu-link py-3 divHover blockHover'>
 			                <div class='menu-link p-0 ms-2' onclick='f_cloudStrgClick("\${res.cloudStrgCd }")' style='max-width: 7em;'>
 			                <span class='menu-bullet'><span class='bullet bullet-dot'></span></span>
-			            	<span class='menu-title'>\${res.cloudStrgNm }</span>
+			            	<span class='menu-title fs-4'>\${res.cloudStrgNm }</span>
 			            </div> 
-			            <div id='cloudStrgDeleteBtn' class='ki-outline ki-cross fs-3 none' data-selectstrgCd='\${res.cloudStrgCd}' style="margin-left: 4em;"></div>   
+			            <div id='cloudStrgDeleteBtn' class='ki-outline ki-cross fs-3 none' data-selectstrgCd='\${res.cloudStrgCd}' style="margin-left: 4em;" style='margin-left: 4em;'></div>   
 			        </div>`;
 			
 			customDiv.append(html);

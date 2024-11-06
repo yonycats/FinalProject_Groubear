@@ -176,11 +176,12 @@
  -->
 
 										<!-- 발표를 위한 데이터 세팅 -->
-						                <textarea class="form-control border" cols="100%" rows="5" id="cmntCn" name="cmntCn" wrap="hard">안녕하세요!
+						                <!-- <textarea class="form-control border" cols="100%" rows="5" id="cmntCn" name="cmntCn" wrap="hard">안녕하세요!
 '베이직'은 메인 홈페이지에서 소개하는 인사관리, 양식, 증명서, 전자결재, 클라우드 등의
 기본적인 메뉴들을 사용할 수 있고,
 '프리미엄'은 그 외에 추가로 차량관리, 시설예약, 보안 등의 메뉴를 추가로 사용하실 수 있습니다.
-감사합니다.</textarea>     
+감사합니다.</textarea>       -->
+						                <textarea class="form-control border" cols="100%" rows="5" id="cmntCn" name="cmntCn" wrap="hard"></textarea>      
 
 						        	</div>
 					                <div class="my-3" style="float: right;">    

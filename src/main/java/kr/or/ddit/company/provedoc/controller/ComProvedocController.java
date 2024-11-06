@@ -25,6 +25,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import kr.or.ddit.comm.alarm.service.IAlarmService;
+import kr.or.ddit.comm.alarm.vo.AlarmVO;
 import kr.or.ddit.comm.empallinfo.service.IEmpAllInfoService;
 import kr.or.ddit.comm.empallinfo.vo.EmployeeAllVO;
 import kr.or.ddit.comm.form.service.IFormService;
@@ -63,6 +65,9 @@ public class ComProvedocController {
 	
 	@Inject
 	private IEmpAllInfoService empAllInfoService;
+
+	@Inject
+	private IAlarmService alarmService;
 	
 	// 증명서 목록 게시물 수 조회 (기업 관리자 - 증명서 요청관리)
 	@GetMapping("/provedocAplyList.do")
@@ -314,6 +319,22 @@ public class ComProvedocController {
 			HttpSession session = request.getSession();
 			
 			if (result.equals(ServiceResult.OK)) {	// 정상적으로 DB에 연결됐다면	
+
+				// 실시간 알림 코드 추가
+				// 증명서를 신청한 사람의 정보 가져오기
+				EmployeeVO param = new EmployeeVO();
+				param.setEmpId(provedocVO.getPrdocAplyEmpId());
+				EmployeeAllVO empMyAllVO = empAllInfoService.selectEmpImpl(param);
+				
+				AlarmVO alarmVO = new AlarmVO();
+				alarmVO.setAlarmCategory("prove");  
+				alarmVO.setAlarmTarget(provedocVO.getPrdocIsprEmpId());
+				alarmVO.setAlarmCn("'"+empMyAllVO.getEmpNm()+"'님이 신청하신 증명서가 발급되었습니다.");
+				alarmVO.setAlarmUrl("/company/provedocAplyList.do");
+				
+				alarmService.insertAlarm(alarmVO);
+				
+				
 				session.setAttribute("message", "정상적으로 발급되었습니다.");
 				goPage = "redirect:/company/provedocAplyList.do";
 				

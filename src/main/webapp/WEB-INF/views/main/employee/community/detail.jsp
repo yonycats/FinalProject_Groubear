@@ -389,10 +389,12 @@ function replyBtn(commentNo) {
 function coco(btn){
 	let replyUpCmntNo = btn.dataset.dabinConum;
 	let replyCmntCn = $(btn).closest('.replyInput').find("textarea[name='replyCmntCn']").val();
-	
+	let cmntyNo = $("#commentCmntyNo").val();
+	let replyEmpId = $("#replyEmpId").val();
 
 	console.log("내용", replyCmntCn);
 	console.log("up 댓글 번호", replyUpCmntNo);
+	console.log("사원", replyEmpId);
 
 	let data = {
 		cmntCn : replyCmntCn,
@@ -421,51 +423,37 @@ function coco(btn){
 			    icon: 'success',
 			    title: '정상적으로 등록 되었습니다.'
 			});
+				
+		      let sendParams = {
+	                  alarmCategory:"community:Re",
+	                  alarmTarget : replyEmpId,
+//	                  alarmCn : empId +'님이 회원님의 게시물에 "'+ cmntCn +'" 댓글이 등록하였습니다.',
+	                  alarmCn : replyCmntCn,
+	                  alarmUrl : "/employee/communityDetail.do?cmntyNo=" + cmntyNo
+	               };
+		      
+		      
+		      	// 두 번째 AJAX 호출
+                     $.ajax({
+                         url : "/insertAlarm",
+                         type : "post", 
+                         contentType : "application/json; charset=utf-8",
+                         data: JSON.stringify(sendParams),
+                         success: function(res){
+                             webSocket.send(JSON.stringify(sendParams)); // 웹소켓 메시지 전송
+                         },
+                         error: function(xhr, status, error) {
+                             console.error("Error inserting alarm:", error);
+                         }
+                  });
 			
 			setTimeout(() => {
 				location.reload();
 			}, 1000);
 			
-			
-			let sendParams = {
-					alarmCategory:"community",
-					alarmTarget : empId,
-					alarmCn : alarmTarget+'님이 회원님의 게시물의 댓글에 "'+ cmntCn +'" 댓글을 등록하였습니다.',
-					alarmUrl : "/employee/communityDetail.do?cmntyNo=" + cmntyNo
-				};
-				
-// 	         	   // 두 번째 AJAX 호출
-// 		            $.ajax({
-// 		                url : "/employee/insertAlarm",
-// 		                type : "post", 
-// 		                contentType : "application/json; charset=utf-8",
-// 		                data: JSON.stringify(sendParams),
-// 		                success: function(res){
-// 		                    webSocket.send(JSON.stringify(sendParams)); // 웹소켓 메시지 전송
-		                    
-// 		                    // Create new toast element
-// //			                    const newToast = targetElement.cloneNode(true);
-// //			                    container.append(newToast);
-
-// //			                    // Create new toast instance --- more info: https://getbootstrap.com/docs/5.1/components/toasts/#getorcreateinstance
-// //			                    const toast = bootstrap.Toast.getOrCreateInstance(newToast);
-
-// //			                    // Toggle toast to show --- more info: https://getbootstrap.com/docs/5.1/components/toasts/#show
-// //			                    toast.show();
-// 		                },
-// 		                error: function(xhr, status, error) {
-// 		                    console.error("Error inserting alarm:", error);
-// 		                }
-// 		            });
-
-			
+				}
+			});
 		}
-	});
-	
-
-
-		
-}
 
 function cocomentAdd(button) {
     
@@ -730,6 +718,7 @@ $(function() {
 											<div class="position-relative w-100">
 												<input type="hidden" id="replyCommentNo" name="replyCommentNo" value="\${res[i].commentNo }">
 												<input type="hidden" id="replyUpCmntNo" name="replyUpCmntNo" value="\${res[i].upCmntNo }">
+												<input type="hidden" id="replyEmpId" name="replyEmpId" value="\${res[i].empId }">
 												<textarea type="text" class="form-control form-control-solid border ps-5" rows="1"
 													name="replyCmntCn"  data-kt-autosize="true" placeholder="답글을 작성해주세요" data-kt-initialized="1"
 													style="overflow: hidden; overflow-wrap: break-word; resize: none; text-align: start; height: 80px;"></textarea>

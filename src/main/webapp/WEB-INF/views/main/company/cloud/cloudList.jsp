@@ -422,53 +422,23 @@
 		            <div class="card-body" style="padding: 1em;"> 
 		                
 		                <div>
-	                        <button type="button" class="fs-3 btn btn-flex btn-primary fw-bold w-100 mb-8 mt-3" data-bs-toggle="modal" data-bs-target="#kt_modal_upload">
-	                            <span class="text-center" style="width: 100%">
-		                            <i class="ki-duotone ki-folder-up fs-2"><span class="path1"></span><span class="path2"></span></i>
-		                            &nbsp;&nbsp;파일 업로드
-	                            </span>
+	                        <button type="button" class="btn btn-flex btn-primary fw-bold w-100 mb-8 mt-3" data-bs-toggle="modal" data-bs-target="#kt_modal_upload">
+	                            <i class="ki-duotone ki-folder-up fs-2"><span class="path1"></span><span class="path2"></span></i>
+	                            &nbsp;&nbsp;파일 업로드
                         	</button>
 		                </div> 
 		                
-		                <c:if test="${parentCloud.cloudKnd eq 'com' }">
-				            <div class="d-flex flex-column">
-		                        <div class="d-flex justify-content-between w-100 fs-4 fw-bold mb-3">
-		                            <span>전사 클라우드함 용량</span>
-		                        </div>
+			            <div class="d-flex flex-column">
+	                        <div class="d-flex justify-content-between w-100 fs-7 fw-bold mb-3">
+	                            <span>전사 클라우드함 용량</span>
+	                        </div>
 	                        
-		                        <div class="h-6px bg-light rounded" style="border: 1px solid #e2d2d270;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="현재  ${fileSizePercent}% 사용 중">
-		                            <div class="bg-danger rounded h-5px" role="progressbar" style="width: ${fileSizePercent}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-		                        </div>
-		
-		                        <div class=" fw-semibold text-gray-600 fs-5 mb-3 mt-2">10GB 중 ${cloudStrgFileSizeSumStr } 사용</div>
-		                    </div>
-		                </c:if>
-		                <c:if test="${parentCloud.cloudKnd eq 'dept' }">
-				            <div class="d-flex flex-column">
-		                        <div class="d-flex justify-content-between w-100 fs-4 fw-bold mb-3">
-		                            <span>부서 클라우드함 용량</span>
-		                        </div> 
-		
-		                        <div class="h-6px bg-light rounded" style="border: 1px solid #e2d2d270;">
-		                            <div class="bg-danger rounded h-5px" role="progressbar" style="width: ${fileSizePercent};" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-		                        </div>
-		
-		                        <div class=" fw-semibold text-gray-600 fs-5 mb-3 mt-2">10GB 중 ${cloudStrgFileSizeSumStr } 사용</div>
-		                    </div>
-		                </c:if>
-		                <c:if test="${parentCloud.cloudKnd eq 'prvt' }">
-				            <div class="d-flex flex-column">
-		                        <div class="d-flex justify-content-between w-100 fs-4 fw-bold mb-3">
-		                            <span>개인 클라우드함 용량</span>
-		                        </div>
-		
-		                        <div class="h-6px bg-light rounded" style="border: 1px solid #e2d2d270;">
-		                            <div class="bg-danger rounded h-5px" role="progressbar" style="width: ${fileSizePercent};" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-		                        </div>
-		
-		                        <div class=" fw-semibold text-gray-600 fs-5 mb-3 mt-2">10GB 중 ${cloudStrgFileSizeSumStr } 사용</div>
-		                    </div>
-		                </c:if>
+	                        <div class="h-6px bg-light rounded" style="border: 1px solid #e2d2d270;" data-bs-toggle="tooltip" title="현재  ${fileSizePercent}% 사용 중">
+	                            <div class="bg-danger rounded h-4px" role="progressbar" style="width: ${fileSizePercent}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+	                        </div>
+	
+	                        <div class=" fw-semibold text-gray-600 fs-8 mb-3 mt-2">10GB 중 ${cloudStrgFileSizeSumStr } 사용</div>
+	                    </div>
 		 
 						<!-- 클라우드함 메뉴 시작 -->
 						<!-- 전사 클라우드함 시작 -->
@@ -483,7 +453,7 @@
 								</c:otherwise>
 							</c:choose>
 		                            <span class="menu-icon"> 
-		                                <i class="ki-duotone ki-abstract-8 text-danger me-3 fs-1"><span class="path1"></span><span class="path2"></span></i>
+		                                <i class="ki-duotone ki-abstract-8 text-danger me-3"><span class="path1"></span><span class="path2"></span></i>
 	                                </span>
 	                            	<span class="menu-title fs-4">${comCloudStrgVO.cloudStrgNm }</span>
 		                        </div>
@@ -525,7 +495,7 @@
 									</c:choose>
 				                        <div class="menu-link p-0" onclick="f_cloudStrgClick('${myCloudStrgVO.cloudStrgCd }')" style="max-width: 7.5em;">
 				                            <span class="menu-icon"> 
-				                                <i class="ki-duotone ki-abstract-8 text-info me-3 fs-1"><span class="path1"></span><span class="path2"></span></i>
+				                                <i class="ki-duotone ki-abstract-8 text-info me-3"><span class="path1"></span><span class="path2"></span></i>
 			                                </span>
 			                            	<span class="menu-title fs-4">개인</span>
 				                        </div>
@@ -533,31 +503,15 @@
 			                        </div> 
 								</div>
 						        
-						        <!-- 데이터 세팅하지 않은 기존 코드
 			                    <div id="cloudStrgNmDiv" style="display: none;">
 				                    <div style="display: flex; justify-content: center;">
-			                        	<input type="text" class="form-control" id="cloudStrgNm" name="cloudStrgNm" style="width: 70%; height: 2em; border-radius: 0.75rem;">
-			                            <div class="ki-duotone ki-check fs-1 ms-1 divHover" onclick="f_cloudStrgAddBtn()" style="margin-left: 4em;">
+			                        	<input type="text" class="form-control fs-6" id="cloudStrgNm" name="cloudStrgNm" style="width: 70%; height: 2.5em; border-radius: 0.75rem;">
+			                            <div class="ki-duotone ki-check fs-1 ms-1 mt-1 divHover" onclick="f_cloudStrgAddBtn()" style="margin-left: 4em;">
 											 <span class="path1"></span>
 											 <span class="path2"></span> 
 										</div> 
 				                    </div>
 			                    </div> 
-						         -->
-						        
-						        <!-- 발표를 위한 데이터 세팅 -->
-			                    <div id="cloudStrgNmDiv" style="display: none;">
-				                    <div style="display: flex; justify-content: center;">
-			                        	<input type="text" class="form-control" id="cloudStrgNm" name="cloudStrgNm" style="width: 70%; height: 2em; border-radius: 0.75rem;" value="추가함">
-			                            <div class="ki-duotone ki-check fs-1 ms-1 divHover" onclick="f_cloudStrgAddBtn()" style="margin-left: 4em;">
-											 <span class="path1"></span>
-											 <span class="path2"></span> 
-										</div> 
-				                    </div>
-			                    </div> 
-			                    
-			                    
-			                    
 			                    
 						        <div id="customCloudStrg" class="pt-1"> 
 						            <div class="menu-link py-3 divHover">
@@ -566,7 +520,7 @@
 			                            	<span class="menu-title fs-4">${myCloudStrgVO.cloudStrgNm }</span>
 				                        </div>
 			                        </div> 
-									
+					
 									<div id="customDiv">
 						            	<c:forEach items="${myCloudStrgCustomList }" var="myCloudStrgCustom">
 								            <div class="menu-link py-3 divHover blockHover">
@@ -577,7 +531,7 @@
 							                    <div id="cloudStrgDeleteBtn" class="ki-outline ki-cross fs-3 none" data-selectstrgCd="${myCloudStrgCustom.cloudStrgCd}" style="margin-left: 4em;"></div>   
 					                        </div> 
 						            	</c:forEach>
-									</div>
+						            </div>
 						
 						        </div> 
 						         
@@ -656,10 +610,10 @@
 	            
 	            
 	                    <!-- 경로 시작-->
-	                    <div class="d-flex flex-stack">
+	                    <div class="d-flex flex-stack mb-3">
 	            
 	                        <!-- 폴더 경로 시작 -->
-	                        <div class="badge badge-lg badge-light-primary fs-5" style="font-size: 0.8em;">
+	                        <div class="badge badge-lg badge-light-primary px-4 py-2" style="font-size: 1em;">
 	                            <div class="d-flex align-items-center flex-wrap">
 	                                <i class="ki-duotone ki-abstract-32 fs-2 text-primary me-3">
 	                                    <span class="path1"></span><span class="path2"></span> 
@@ -687,7 +641,7 @@
 	                        <!-- 폴더 경로 끝 -->
 	            
 	                        <!-- 폴더 내부의 폴더 및 파일 갯수 시작 -->
-	                        <div class="badge badge-lg badge-light-info" style="font-size: 1em;"> 
+	                        <div class="badge badge-lg badge-light-info px-4 py-3" style="font-size: 1.1em;"> 
 	                            <span id="kt_file_manager_items_counter">${selectFldrAndFileCount }개 항목</span>
 	                        </div>
 	                        <!-- 폴더 내부의 폴더 및 파일 갯수 끝 -->
@@ -696,10 +650,10 @@
 	                    <!-- 경로 끝-->
 	
 						
-						<table id="kt_file_manager_list" data-kt-filemanager-table="folders" class="table align-middle table-row-dashed fs-4 gy-3 mb-0" style="width: 98.5%;">
+						<table id="kt_file_manager_list" data-kt-filemanager-table="folders" class="table align-middle table-row-dashed fs-6 gy-3 mb-0" style="width: 98.5%;">
 
                             <thead>
-                                <tr class="text-gray-500 fw-bold fs-7"> 
+                                <tr class="text-gray-500 fw-bold fs-5"> 
 									<th width="7%" class="pe-2">
 										<div class="form-check form-check-sm form-check-custom form-check-solid mt-1" style="display: flex; justify-content: center; margin-right: 0.2em;">
 											<input id="checkAll" class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_file_manager_list .form-check-input" value="">
@@ -713,17 +667,17 @@
                                 </tr> 
                             </thead>
                           </table>
-                            
-						<div style="width:100%; height:90%; overflow:auto">
-							<table id="kt_file_manager_list" data-kt-filemanager-table="folders" class="table align-middle table-row-dashed fs-4 gy-3 mb-0" style="width: 100%; height: 90%">
+                           
+						  <div class="border-bottom" style="width:100%; height:55em; overflow:auto">
+							<table id="kt_file_manager_list" data-kt-filemanager-table="folders" class="table align-middle table-row-dashed fs-6 gy-3 mb-0" style="width: 100%;">
 	
-	                            <tbody class="fw-semibold text-gray-600" style="font-size: 1em;">  
+	                            <tbody class="fw-semibold text-gray-600" style="font-size: 1em;">
 	                            
 		                            <c:choose>
 		                            	<c:when test="${empty cloudFolderAndFileList && empty cloudFolderAndFileList }">
 				                            <tr>
 					                            <td colspan="6" class="dt-empty">
-						                            <div class="d-flex flex-column flex-center mt-10">
+						                            <div class="d-flex flex-column flex-center mt-20">
 									                    <img src="${pageContext.request.contextPath }/resources/file/image/cloudEmpty.png" class="mw-500px">
 									                    <div class="fs-1 fw-bolder text-dark">파일이 없습니다.</div>
 					              				 	</div> 
@@ -800,7 +754,6 @@
 						                                   </td>
 						                                   <td width="43%">
 						                                       <div class="d-flex align-items-center">
-						                                           <span class="icon-wrapper"><i class="ki-duotone ki-files fs-2x text-primary me-4"></i></span>
 						                                           <a href="/company/imgPreview.do?cloudFileCd=${cloudStrgFile.cloudFileCd }" target="_blank" class="">
 						                                              	 ${cloudStrgFile.cloudFileOrgnlNm } 
 						                                           </a>
@@ -818,28 +771,7 @@
 						                                   <td width="10%" class="text-center">${cloudStrgFile.cloudFileFancysize }</td>
 						                                   <td width="10%" class="text-center">${cloudStrgFile.cloudFileExtnNm }</td> 
 						                                   <td width="20%" class="text-center">${cloudStrgFile.cloudFileRegDt }</td>
-						                                   <!-- 더보기 버튼 시작 -->
-						                                   <!-- <td width="10%" class="pe-5" data-kt-filemanager-table="action_dropdown">
-							                                    <div class="ms-2">
-							                                        <button type="button" class="btn btn-sm btn-icon btn-light btn-active-light-primary me-2" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-							                                            <i class="ki-duotone ki-element-plus fs-3 m-0">
-							                                            	 <span class="path1"></span> 
-																			 <span class="path2"></span>
-																			 <span class="path3"></span>
-																			 <span class="path4"></span> 
-																			 <span class="path5"></span>
-																		</i>
-							                                        </button>
-							                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-150px py-4" data-kt-menu="true">
-							
-							                                            <div class="menu-item px-3">
-							                                                <div class="menu-link px-3">다운로드</div>
-							                                            </div>
-							                                            
-							                                        </div>
-							                                    </div>
-						                                	</td> -->
-						                                	<!-- 더보기 버튼 끝 -->
+						                                   <td width="10%" class="pe-5"></td>
 						                            	</tr>
 			                            		
 				                            		</c:forEach>
@@ -1311,9 +1243,9 @@ function f_cloudStrgAddBtn() {
 			html = `<div class='menu-link py-3 divHover blockHover'>
 			                <div class='menu-link p-0 ms-2' onclick='f_cloudStrgClick("\${res.cloudStrgCd }")' style='max-width: 7em;'>
 			                <span class='menu-bullet'><span class='bullet bullet-dot'></span></span>
-			            	<span class='menu-title'>\${res.cloudStrgNm }</span>
+			            	<span class='menu-title fs-4'>\${res.cloudStrgNm }</span>
 			            </div> 
-			            <div id='cloudStrgDeleteBtn' class='ki-outline ki-cross fs-3 none' data-selectstrgCd='\${res.cloudStrgCd}' style="margin-left: 4em;"></div>   
+			            <div id='cloudStrgDeleteBtn' class='ki-outline ki-cross fs-3 none' data-selectstrgCd='\${res.cloudStrgCd}' style='margin-left: 4em;'></div>   
 			        </div>`;
 			
 			customDiv.append(html);
@@ -1758,7 +1690,7 @@ function f_createJstree(treeData) {
 	         "cloudFlrd": {
 	             "icon": "ki-outline ki-file text-warning"
 	         } 
-	     },
+	     }, 
 	     "plugins": ["types", "dnd"]
 	 })
 	 

@@ -50,7 +50,7 @@ public class EmpVehicleReservation {
 	 * @return
 	 */
 	@GetMapping("/vehicledashboard.do")
-	public String vehicleDashBoard(Model model) {
+	public String empVehicleDashBoard(Model model) {
 		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		EmployeeVO userVO = user.getMember();
 
@@ -146,7 +146,7 @@ public class EmpVehicleReservation {
 		
 		List<VHCLRSVTVO> vhclMyRsvtList = vehicleService.selectMyRSVTHistory(userVO.getEmpId());
 		model.addAttribute("vhclMyRsvtList", vhclMyRsvtList);
-		return "company/vehicleForm/reservationHistory";
+		return "employee/vehicleForm/reservationHistory";
 	}
 
 	

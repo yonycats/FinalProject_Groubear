@@ -14,7 +14,12 @@ import kr.or.ddit.company.facilities.vo.EquipmentVO;
 import kr.or.ddit.company.facilities.vo.FacilityCategoryVO;
 import kr.or.ddit.company.facilities.vo.FacilityVO;
 import kr.or.ddit.company.facilities.vo.FaciltyEquipmentVO;
+import kr.or.ddit.employee.facilities.vo.FacilityReservationDetailVO;
 
+/**
+ * @author gihyeokkwon
+ *
+ */
 @Service
 public class FacilititesServiceImpl implements IFacilititesService {
 
@@ -74,6 +79,24 @@ public class FacilititesServiceImpl implements IFacilititesService {
 	@Override
 	public List<AtchFileDetailVO> getFcltImg(FacilityVO fcltVO) {
 		return mapper.getFcltImg(fcltVO);
+	}
+
+	
+	//날짜로 예약 정보 LIST
+	@Override
+	public List<FacilityReservationDetailVO> getFRDList(String sdfNow) {
+		return mapper.getFRDList(sdfNow);
+	}
+	
+	// 검색 정보 다음 예약 정보 가져오기
+	@Override
+	public FacilityReservationDetailVO getNextfrsvd(FacilityReservationDetailVO rsvdVO) {
+		return mapper.getNextfcrsvd(rsvdVO);
+	}
+
+	@Override
+	public int rsvAvailable(FacilityReservationDetailVO rsvdVO) {
+		return mapper.rsvAvailable(rsvdVO);
 	}
 	
 }

@@ -18,7 +18,10 @@
 
 <section class="tab-content">
 <form id="projectTaskForm" action="/company/canbanInsert.do" method="post">
-	<c:if test="${status ne 'u' }">
+<input type="hidden" id="proStartDt" value="${proStartDt }">
+<input type="hidden" id="proEndDt" value="${proEndDt }">
+<input type="hidden" name="empId" value="${employeeVO.empId }">
+	<c:if test="${status ne 'u' }">	 
 		<input type="hidden" name="proNo" value="${proNo}" />
 	</c:if>
 	<c:if test="${status eq 'u' }">
@@ -26,6 +29,7 @@
 	</c:if>
 		<div id="kt_app_content" class="app-container container-fluid">
 			<div class="d-flex flex-column gap-7 gap-lg-10">
+			
 				<!-- 일감 상태 등록 시작 (수정시) -->
 				<c:if test="${status eq 'u' }">
 					<div class="card card-flush py-4">
@@ -71,11 +75,45 @@
 							<input type="text" id="proTaskCn" name="proTaskCn" class="form-control mb-2" placeholder="일감 내용을 입력하세요" value="${projectTaskVO.proTaskCn }" />
 						</div>
 						<!-- 일감 설명 등록 종료 -->
-						
+						<!-- 일감 참여일 등록 시작 -->
+						<c:if test="${status ne 'u' }">
+							<div class="row g-9 mb-8">
+								<div class="col-md-6 fv-row">
+									<label class="fs-6 fw-semibold mb-2">프로젝트 시작일</label>
+									<!-- <label class="required fs-6 fw-semibold mb-2">프로젝트 시작일</label> -->
+									<div class="position-relative d-flex align-items-center">
+										<i class="ki-duotone ki-calendar-8 fs-2 position-absolute mx-4">
+											<span class="path1"></span>
+											<span class="path2"></span>
+											<span class="path3"></span>
+											<span class="path4"></span>
+											<span class="path5"></span>
+											<span class="path6"></span>
+										</i>
+										<input class="form-control form-control-solid ps-12 flatpickr-input active" type="datetime-local" id="proStartDt" name="proStartDt" value="${proStartDt }" readonly />
+									</div>
+								</div>
+								<div class="col-md-6 fv-row">
+									<label class="fs-6 fw-semibold mb-2">프로젝트 마감일</label>
+									<div class="position-relative d-flex align-items-center">
+										<i class="ki-duotone ki-calendar-8 fs-2 position-absolute mx-4">
+											<span class="path1"></span>
+											<span class="path2"></span>
+											<span class="path3"></span>
+											<span class="path4"></span>
+											<span class="path5"></span>
+											<span class="path6"></span>
+										</i>
+										<input class="form-control form-control-solid ps-12 flatpickr-input active" type="datetime-local"  id="proEndDt" name="proEndDt" value="${proEndDt }" readonly/>
+									</div>
+								</div>
+							</div>
+						</c:if>
+						<!-- 일감 참여일 등록 종료 -->
 						<!-- 일감 참여일 등록 시작 -->
 						<div class="row g-9 mb-8">
 							<div class="col-md-6 fv-row">
-								<label class="required fs-6 fw-semibold mb-2">시작일</label>
+								<label class="required fs-6 fw-semibold mb-2">일감 시작일</label>
 								<div class="position-relative d-flex align-items-center">
 									<i class="ki-duotone ki-calendar-8 fs-2 position-absolute mx-4">
 										<span class="path1"></span>
@@ -89,7 +127,7 @@
 								</div>
 							</div>
 							<div class="col-md-6 fv-row">
-								<label class="required fs-6 fw-semibold mb-2">마감일</label>
+								<label class="required fs-6 fw-semibold mb-2">일감 마감일</label>
 								<div class="position-relative d-flex align-items-center">
 									<i class="ki-duotone ki-calendar-8 fs-2 position-absolute mx-4">
 										<span class="path1"></span>
@@ -108,51 +146,6 @@
 					<!-- 일감 내용 입력 종료 -->
 				</div>
 				<!-- 일감 등록 종료 -->
-				
-				<!-- 일감 담당자 등록 시작 -->
-				<div class="card card-flush py-4">
-					<div class="card-header">
-						<div class="card-title">
-							<h2>담당자 ${stts }</h2>
-						</div>
-					</div>
-					<!-- 담당자 등록 시작 -->
-					<div class="card-body pt-0">
-						<div class="" data-kt-ecommerce-catalog-add-product="auto-options">
-							<label class="form-label">일감 담당자를 등록해주세요</label>
-							<div id="kt_ecommerce_add_product_options">
-								<div class="form-group">
-									<div id="repeater-list" data-repeater-list="kt_ecommerce_add_product_options" class="d-flex flex-column gap-3">
-										<div data-repeater-item="" class="form-group d-flex flex-wrap align-items-center gap-5">
-											<%-- <input type="text" class="form-control mw-100 w-200px" placeholder="${role }명" name="participantList[1].empId" value="${employee.empId}" /> --%>
-											<input type="text" class="form-control mw-100 w-200px" placeholder="담당자명" id="empId" name="empId" value="${projectTaskVO.empId}"/>
-										
-											<%-- <input type="text" class="form-control mw-100 w-200px" placeholder="${role }명" id="empId" name="empId" value="${employee.empId}"/> --%>
-											<!-- 주소록 완성되면 이 방법을 수정할 것 -->
-											<!-- <div class="w-100 w-md-200px">
-												<select class="form-select" name="product_option" data-placeholder="Select a variation" data-kt-ecommerce-catalog-add-product="product_option">
-													<option>참가자 부서</option>
-													<option value="">내용 입력 필요</option>
-												</select>
-											</div>
-											<input type="text" class="form-control mw-100 w-200px" name="product_option_value" placeholder="참가자명" /> -->
-											<!-- <button type="button" data-repeater-delete="" class="btn btn-sm btn-icon btn-light-danger">
-												<i class="ki-duotone ki-cross fs-1">
-													<span class="path1"></span>
-													<span class="path2"></span>
-												</i>
-											</button> -->
-											
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 담당자 등록 시작 -->
-				</div>
-				<!-- 일감 담당자 등록 시작 -->
-				
 				<!-- 진행률 등록 시작 -->
 				<c:if test="${status eq 'u' }">
 					<div class="card card-flush py-4">
@@ -207,6 +200,9 @@ $(function () {
 	var addTasKBtn = $("#addTasKBtn");	// 일감 추가 버튼
 	var cancelBtn = $("#cancelBtn");	// 취소 버튼
 	var projectTaskForm = $("#projectTaskForm");
+	
+	var proStartDt = new Date($("#proStartDt").val());	// 프로젝트 시작일
+	var proEndDt = new Date($("#proEndDt").val());		// 프로젝트 종료일
 
 	// 목록 버튼
 	listBtn.on("click", function () {
@@ -248,8 +244,8 @@ $(function () {
 	
 	// 시작일 유효성 검사
 	$("#proTaskStartDt").on("change", function () {
-		var proTaskStartDt = $(this).val();
 		var currentTaskDt = new Date();
+		var proTaskStartDt = $(this).val();
 		var newTaskStartDt = new Date(proTaskStartDt);
 		
 		if (newTaskStartDt < currentTaskDt) {
@@ -259,26 +255,51 @@ $(function () {
 				confirmButtonColor: '#4FC9DA',
 				confirmButtonText: '확인',
 				reverseButtons: false,
-				});
-				$(this).val('');
-			}
-		});
-	
-	// 마감일 유효성 검사
-	$("#proTaskEndDt").on("change", function () {
-		var proTaskEndDt = $(this).val();
-		var proTaskStartDt = $("#proTaskStartDt").val();
+			});
+			$(this).val('');
+			return;
+		}
 		
-		if (proTaskStartDt && new Date(proTaskEndDt) < new Date(proTaskStartDt)) {
+		if (newTaskStartDt < proStartDt || newTaskStartDt > proEndDt) {
 			Swal.fire({
-				title: '마감일은 시작일보다 빠를 수 없습니다..',
+				title: '일감 시작일은 프로젝트 시작일과 종료일 사이로 입력해주세요.',
 				icon: 'warning',
 				confirmButtonColor: '#4FC9DA',
 				confirmButtonText: '확인',
 				reverseButtons: false,
-				});
+			});
 				$(this).val('');
 			}
+	});
+	
+	// 마감일 유효성 검사
+	$("#proTaskEndDt").on("change", function () {
+		var proTaskEndDt = $(this).val();
+		var newTaskEndDt = new Date(proTaskEndDt);
+		var proTaskStartDt = new Date($("#proTaskStartDt").val());
+		
+		if (proTaskStartDt && newTaskEndDt < proTaskStartDt) {
+			Swal.fire({
+				title: '마감일은 시작일보다 빠를 수 없습니다.',
+				icon: 'warning',
+				confirmButtonColor: '#4FC9DA',
+				confirmButtonText: '확인',
+				reverseButtons: false,
+			});
+			$(this).val('');
+			return;
+		}
+		
+		if (newTaskEndDt < proStartDt || newTaskEndDt > proEndDt ) {
+			Swal.fire({
+				title: '일감 마감일은 프로젝트 시작일과 종료일 사이로 입력해주세요.',
+				icon: 'warning',
+				confirmButtonColor: '#4FC9DA',
+				confirmButtonText: '확인',
+				reverseButtons: false,
+			});
+			$(this).val('');
+		}
 	});
 	
 	// 진행률 수정
@@ -319,8 +340,7 @@ $(function () {
 	        if (proTaskNm == null || proTaskNm == "" ||
 	            proTaskCn == null || proTaskCn == "" ||
 	            proTaskStartDt == null || proTaskStartDt == "" ||
-	            proTaskEndDt == null || proTaskEndDt == "" ||
-	            empId == null || empId == ""
+	            proTaskEndDt == null || proTaskEndDt == ""
 	        ) {
 	            Swal.fire({
 	                icon: 'warning',

@@ -126,7 +126,7 @@
 								<!--end::Card header-->
 								<!--begin::Card body-->
 								<div class="card-body"  id="kt_chat_messenger_body">
-									
+									<input type="hidden" id="fcltCd" value="${fcltVO.fcltCd }">
 									<!--begin::Row-->
 										<div class="row mb-7">
 											<label class="col-lg-2 fw-semibold text-muted">위치</label>
@@ -183,34 +183,34 @@
 										<div class="row mb-7">
 											<label class="col-lg-2 fw-semibold text-muted">예약일자</label>
 											<div class="col-lg-10">
-												<input id="reservationDt" name="reservationDt" type="date" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-400px ps-12" style="margin-top: 0.5em;"/>
+												<input id="reservationDt" name="reservationDt" type="date" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-400px ps-12" style="margin-top: 0.5em;" value="${sdfNow }"/>
 											</div>
 										</div>
 										<div class="row mb-7">
 											<label class="col-lg-2 fw-semibold text-muted">예약 시간</label>
-											<div class="col-lg-10">
-												<div class="row mt-5 mb-5">
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 <input type="button" class="form-control" name="year1" value="11:00" style="width: 15%;" />
-												 </div>
+											<div class="col-lg-3">
+												<select class="col form-select form-select-solid fw-bold" id="rsvStartTm" data-kt-select2="true" data-placeholder="부서 선택" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
+													<option disabled="disabled">시작 시간 선택</option>
+													<c:forEach items="${rsvList }" var="tm">
+														<option value="${tm }">${tm }</option>
+													</c:forEach> 
+												</select>
 											</div>
+											~
+											<div class="col-lg-3">
+												<select class="col form-select form-select-solid fw-bold" id="rsvEndTm" data-kt-select2="true" data-placeholder="부서 선택" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
+													<option disabled="disabled">종료 시간 선택</option>
+													<%-- <c:forEach>
+													</c:forEach> --%>
+												</select>
+											</div>
+											<div class="col-lg-3">
+												<input type="button" class="form-control" id="rsvBtn" value="예약"/>
+											</div>
+											 
 										</div>
-								</div>
+									</div>
+											
 							</div>
 						</div>
 					</div>
@@ -220,6 +220,68 @@
 	</div>
 	
 <script type="text/javascript">
+$(function() {
+	$("#rsvStartTm").on("change",function(){
+		console.log("시작시간 변경");
+		var startTm = $("#rsvStartTm option:selected").val();
+		var fcltCd = $("#fcltCd").val();
+		var reservationDt = $("#reservationDt").val();
+		var formData = {
+			rsvtBgngTm : startTm,
+			fcltCd : fcltCd,
+			rsvtYmd : reservationDt
+		}
+		//시작 시간부터 선택 가능한 시간 가져오기
+		$.ajax({
+			url : "/employee/facilties/rsvTm.do",
+			type : "post",
+			contentType: "application/json; charset=utf-8",
+	        data: JSON.stringify(formData) ,
+	        success: function(res) {
+	        	for (var i = 0; i < res.length; i++) {
+	        		 $("#rsvEndTm").append("<option value="+res[i]+">"+res[i]+"</option>");	
+				}
+	        }
+		});
+	});
+	
+	$("#rsvBtn").on("click",function(){
+		var fcltCd = $("#fcltCd").val();
+		var rsvDt = $("#reservationDt").val();
+		var rsvStartTm = $("#rsvStartTm option:selected").val();
+		var rsvEndTm = $("#rsvEndTm option:selected").val();
+		
+		var formData = {
+				fcltCd : fcltCd,
+				rsvtYmd : rsvDt,
+				rsvtBgngTm : rsvStartTm,
+				rsvtEndTm : rsvEndTm
+		}
+		console.log(formData);
+		$.ajax({
+			url : "/employee/facilties/available.do",
+			type : "post",
+			contentType: "application/json; charset=utf-8",
+	        data: JSON.stringify(formData) ,
+	        success: function(res) {
+	        	Swal.fire({
+					icon: 'success',
+					title: '시설을 예약했습니다.',
+					confirmButtonColor: '#4FC9DA',
+				});
+	        },
+	        error: function(res) {
+	        	Swal.fire({
+					icon: 'warning',
+					title: '시설예약에 실패했습니다.',
+					confirmButtonColor: '#4FC9DA',
+				});
+			}
+		});
+	});
+});
+
+
 var slideIndex = 0;
 showSlides();
 
@@ -237,5 +299,7 @@ function showSlides() {
     slides[slideIndex - 1].style.display = "block";
 
     setTimeout(showSlides, 3000); // 2초마다 이미지가 체인지됩니다
-}
+};
+
+
 </script>

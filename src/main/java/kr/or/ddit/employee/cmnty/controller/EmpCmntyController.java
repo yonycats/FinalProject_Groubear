@@ -40,6 +40,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.or.ddit.comm.alarm.service.IAlarmService;
+import kr.or.ddit.comm.alarm.vo.AlarmVO;
 import kr.or.ddit.comm.cmnty.service.ICmntyService;
 import kr.or.ddit.comm.cmnty.vo.CmntyVO;
 import kr.or.ddit.comm.commcode.service.ICommCodeService;
@@ -76,6 +78,9 @@ public class EmpCmntyController {
 	
 	@Inject
 	private IGroCmntyService groCmntyService;
+
+	@Inject
+	private IAlarmService alarmService;
 	
 	@GetMapping("/cmntyNoticeList.do")
 	public String cmntyNoticeList (
@@ -414,8 +419,11 @@ public class EmpCmntyController {
 			model.addAttribute("employeeAllVO", employeeAllVO);
 			
 			CmntyVO cmntyVO = cmntyService.qstnSelectOne(cmntyNo);
-			cmntyVO.setCmntyCn(cmntyVO.getCmntyCn().replace("\n","<br>"));
 			
+			if (cmntyVO.getCmntyCn() != null && cmntyVO.getCmntyCn().contains("\n")) {
+				cmntyVO.setCmntyCn(cmntyVO.getCmntyCn().replace("\n","<br>"));
+			}
+
 			if (cmntyVO.getCmntCn() != null && cmntyVO.getCmntCn().contains("\n")) {
 				cmntyVO.setCmntCn(cmntyVO.getCmntCn().replace("\n","<br>"));
 			}
@@ -510,6 +518,22 @@ public class EmpCmntyController {
 				// Q&A 등록하기
 				ServiceResult result = cmntyService.cmntyQstnInsert(cmntyVO);
 				if (result.equals(ServiceResult.OK)) {
+					
+					// 실시간 알림 코드 추가
+					// 모든 그룹웨어 관리자 리스트 가져오기 -> Q&A 등록 알람 뿌리기
+					List<EmployeeAllVO> empMyAllVO = empAllInfoService.selectGroubearEmpList();
+					
+					for (EmployeeAllVO empVO2 : empMyAllVO) {
+						AlarmVO alarmVO = new AlarmVO();
+						alarmVO.setAlarmCategory("prove");  
+						alarmVO.setAlarmTarget(empVO2.getEmpId());
+						alarmVO.setAlarmCn("새로운 Q&A가 등록되었습니다.");
+						alarmVO.setAlarmUrl("/employee/cmntyQstnDetail.do?cmntyNo=" + cmntyVO.getCmntyNo());
+						
+						alarmService.insertAlarm(alarmVO);
+					}
+					
+					
 					ra.addFlashAttribute("message", "문의가 등록되었습니다.");
 					goPage = "redirect:/employee/cmntyQstnDetail.do?cmntyNo=" + cmntyVO.getCmntyNo();
 				} else {

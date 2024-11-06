@@ -79,7 +79,48 @@
 	
 	<select id="getFcltImg" parameterType="kr.or.ddit.company.facilities.vo.FacilityVO" resultType="kr.or.ddit.comm.file.vo.AtchFileDetailVO">
 		SELECT * FROM ATCH_FILE_DETAIL WHERE ATCH_FILE_CD = #{atchFileCd}
-	
 	</select>
+	
+	<select id="getFRDList" parameterType="string" resultType="kr.or.ddit.employee.facilities.vo.FacilityReservationDetailVO">
+		SELECT 
+			FCLT_RSVT_DSCTN_CD, MEM_ID, FCLT_CD, RSVT_YMD, RSVT_BGNG_TM, RSVT_END_TM 
+		FROM 
+			FACILITY_RESERVATION_DETAIL 
+		WHERE 
+			RSVT_YMD = #{sdfNow}
+	</select>
+	  	
+	<select id="getNextfcrsvd" parameterType="kr.or.ddit.employee.facilities.vo.FacilityReservationDetailVO" resultType="kr.or.ddit.employee.facilities.vo.FacilityReservationDetailVO">
+		SELECT 
+			FCLT_RSVT_DSCTN_CD, MEM_ID, FCLT_CD, TO_CHAR(RSVT_YMD,'yyyy-MM-dd') RSVT_YMD, RSVT_BGNG_TM, RSVT_END_TM 
+		FROM 
+			FACILITY_RESERVATION_DETAIL 
+		WHERE 
+			TO_CHAR(RSVT_YMD,'yyyy-MM-dd') = #{rsvtYmd}
+		AND 
+			FCLT_CD = #{fcltCd}
+		AND
+		<![CDATA[
+			RSVT_BGNG_TM > #{rsvtBgngTm}
+		]]>
+		AND ROWNUM = 1
+	</select>
+	  	
+	  	
+	 <insert id="rsvAvailable" parameterType="kr.or.ddit.employee.facilities.vo.FacilityReservationDetailVO">
+	 	INSERT INTO FACILITY_RESERVATION_DETAIL (
+	 		FCLT_RSVT_DSCTN_CD, MEM_ID, FCLT_CD, RSVT_YMD, RSVT_BGNG_TM, RSVT_END_TM
+	 	) VALUES(
+	 		SEQ_FCLT_RSV_CD.nextval, #{memId}, #{fcltCd}, #{rsvtYmd}, #{rsvtBgngTm}, #{rsvtEndTm})
+	 
+	 </insert>
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
 	  	
   </mapper>

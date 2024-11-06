@@ -8,6 +8,7 @@ import kr.or.ddit.company.facilities.vo.EquipmentVO;
 import kr.or.ddit.company.facilities.vo.FacilityCategoryVO;
 import kr.or.ddit.company.facilities.vo.FacilityVO;
 import kr.or.ddit.company.facilities.vo.FaciltyEquipmentVO;
+import kr.or.ddit.employee.facilities.vo.FacilityReservationDetailVO;
 
 public interface IFacilititesMapper {
 
@@ -32,5 +33,11 @@ public interface IFacilititesMapper {
 	public List<EquipmentVO> getEqList(FacilityVO fcltVO);
 
 	public List<AtchFileDetailVO> getFcltImg(FacilityVO fcltVO);
+
+	public List<FacilityReservationDetailVO> getFRDList(String sdfNow);
+
+	public FacilityReservationDetailVO getNextfcrsvd(FacilityReservationDetailVO rsvdVO);
+
+	public int rsvAvailable(FacilityReservationDetailVO rsvdVO);
 
 }

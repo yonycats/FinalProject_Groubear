@@ -1,7 +1,11 @@
 package kr.or.ddit.comm.empallinfo.vo;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.or.ddit.comm.security.vo.EmployeeAuthVO;
+import kr.or.ddit.company.personnelInformation.vo.DepartmentMenuVO;
 import lombok.Data;
 
 @Data
@@ -80,4 +84,7 @@ public class EmployeeAllVO {
 	private String elaprDelYn;		// 전자결재삭제여부
 	private String elaprEmrgYn;		// 전자결재긴급여부
 	private String elaprOpnnCn;		// 기안자의견
+	
+	List<EmployeeAuthVO> authList;
+	List<DepartmentMenuVO> menuList;	// 로그인한 사용자의 메뉴 목록
 }

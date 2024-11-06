@@ -73,6 +73,7 @@
 											<th class="min-w-100px">대여자</th>
 											<th class="min-w-100px">예약일시</th>
 											<th class="min-w-100px">이용 시간</th>
+											<th class="min-w-100px">예약 변경</th>
 										</tr>
 									</thead>
 									<tbody class="text-gray-600 fw-semibold">
@@ -87,12 +88,21 @@
 										</c:when>
 										<c:otherwise>
 											<c:forEach items="${vhclMyRsvtList }" var="rsvtList">
-												<tr>
+												<tr class="py-3">
 													<td>${fn:replace(rsvtList.rsvtCd, "/", "")}</td>
 													<td>${rsvtList.vhclNo}</td>
 													<td>${rsvtList.empNm }</td>
 													<td>${rsvtList.vhclRsvtDt }</td>
 													<td>${fn:replace(rsvtList.vhclRntlDt, "T", "일 ") }시<br/>${fn:replace(rsvtList.vhclRtnDt, "T", "일 ") }시</td>
+													<td class="justify-content-end">
+														<button type="button" class="btn btn-flex btn-light-primary me-2" data-bs-toggle="modal" data-bs-target="#kt_modal_modify_rsvt">
+								                        	예약 수정
+							                        	</button>
+														<button type="button" class="btn btn-light-success" data-bs-toggle="modal" data-bs-target="#kt_modal_delete_rsvt">
+										                	예약 취소     
+														</button>
+													
+													</td>
 												</tr>
 											</c:forEach>
 										</c:otherwise>
@@ -114,6 +124,99 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="kt_modal_add_vehicle" tabindex="-1" aria-hidden="true">
+	<form class="form" action="/comvehicle/vhclinsert.do" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="coCd" value="${userVO.coCd }">
+		<div class="modal-dialog modal-dialog-centered mw-650px">
+			<div class="modal-content">
+				<div class="modal-header" id="kt_modal_add_user_header">
+					<h2 class="fw-bold">차량 추가</h2>
+					<div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+						<i class="ki-duotone ki-cross fs-1">
+							<span class="path1"></span>
+							<span class="path2"></span>
+						</i>
+					</div>
+				</div>
+				<div class="row card-body pt-5">
+					<div class="d-flex flex-column fv-row">
+						<label class="fs-5 fw-semibold pt-5">이용 시간</label>
+				    	<div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+					    <div class="col-12">
+					        <div class="d-flex">
+					            <input type="hidden" class="form-control flatpickr-input active" id="vhclIndt" name="vhclIndt">
+					            <input type="datetime-local" class="form-control flatpickr-input active" id="vhclRntlDt" name="vhclRntlDt">
+					            <input type="datetime-local" class="form-control flatpickr-input active" id="vhclRtnDt" name="vhclRtnDt">
+					        </div>
+					    </div>
+						    
+						<label class="fs-5 fw-semibold pt-5">목적지</label>
+						<div class="input-group">
+						    <input type="text" class="form-control" placeholder="목적지를 입력해주세요" name="vhclBtdst" id="vhclBtdst">
+						    <span class="input-group-text">검색</span>
+						</div>
+					
+						<label class="fs-5 fw-semibold pt-5">대여사유</label>
+						<div class="input-group">
+							<textarea class="form-control" placeholder="대여 사유를 입력해주세요" rows="3" name="rntlRsn" id="rntlRsn"></textarea> <!-- Bootstrap 클래스 추가 -->
+						</div>
+						<div class="card-footer d-flex align-middle justify-content-center">
+							<div class="card-toolbar">
+								<button type="submit" class="btn btn-light-success" id="rstvBtn">
+								예약하기</button>
+							</div>
+						</div>
+						
+						<div class="separator separator-dashed"></div>
+						    
+						<label class="fs-5 fw-semibold pt-5">차량 정보</label>
+					    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+					    <div class="col-12">
+					        <div class="d-flex">
+					            <input type="text" class="form-control form-control-solid mx-1" id="modifyVhclNo" name="vhclNo" readonly="readonly">
+					            <input type="text" class="form-control form-control-solid mx-1" id="modifyVhclMdlNm" name="vhclMdlNm" readonly="readonly">
+					        </div>
+					    </div>
+						<label class="fs-5 fw-semibold form-control-solid pt-5">차종</label>
+						<div class="input-group">
+						    <input type="text" class="form-control form-control-solid mx-1" name="vhclAvgFuel" id="modifyVhclKndNm" readonly="readonly">
+						</div>
+						<label class="fs-5 fw-semibold pt-5">유종</label>
+						<div class="input-group">
+						    <input type="text" class="form-control form-control-solid mx-1" name="vhclAvgFuel" id="modifyVhclTypeFuel" readonly="readonly">
+						</div>
+						<label class="fs-5 fw-semibold pt-5">연비</label>
+						<div class="input-group">
+						    <input type="text" class="form-control form-control-solid mx-1" name="vhclAvgFuel" id="modifyVhclAvgFuel" readonly="readonly">
+						    <span class="input-group-text">㎞/ℓ</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script type="text/javascript">
 
 $(document).ready(function() {

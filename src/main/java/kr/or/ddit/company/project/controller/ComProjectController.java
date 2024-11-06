@@ -1,5 +1,6 @@
 package kr.or.ddit.company.project.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,9 @@ import kr.or.ddit.comm.security.vo.CustomUser;
 import kr.or.ddit.comm.security.vo.EmployeeVO;
 import kr.or.ddit.comm.serviceresult.ServiceResult;
 import kr.or.ddit.comm.tiles.service.ITIlesService;
+import kr.or.ddit.company.personnelInformation.service.IInformationService;
 import kr.or.ddit.company.personnelInformation.vo.DepartmentVO;
+import kr.or.ddit.company.personnelInformation.vo.JobGradeVO;
 import kr.or.ddit.company.personnelInformation.vo.TeamVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,6 +52,9 @@ public class ComProjectController {
 	@Inject
 	private ITIlesService tilesService;
 
+	@Inject
+	private IInformationService infoService;
+	
 	/**
 	 * 프로젝트 메인 홈
 	 * @param model
@@ -69,11 +75,21 @@ public class ComProjectController {
 		
 		// 프로젝트 메인 홈 카드 리스트
 		List<ProjectVO> proCardList = projectService.selectProCardList(empId);
-		model.addAttribute("proCardList", proCardList);
 		
-		// 프로젝트 메인 홈 테이블 리스트
-		List<ProjectVO> proTableList = projectService.selectProTableList(empId);
-		model.addAttribute("proTableList", proTableList);
+		for (ProjectVO project : proCardList) {
+	//					projectService.updateProjectStts(project.getProNo());
+			
+			if (project.getParticipantEmpNames() != null) {
+				String[] name = project.getParticipantEmpNames().split(", ");
+				project.setParticipantEmpNamesList(Arrays.asList(name));
+			}
+			if (project.getParticipantImgFileUrls() != null) {
+				String[] imgFileUrl = project.getParticipantImgFileUrls().split(", ");
+				project.setParticipantImgFileUrlsList(Arrays.asList(imgFileUrl));
+			}
+		}
+		
+		model.addAttribute("proCardList", proCardList);
 		
 		return "company/project/projectMain";
 	}
@@ -93,6 +109,20 @@ public class ComProjectController {
 		
 		model.addAttribute("employeeVO",empVO);
 		model.addAttribute("companyVO",companyVO);
+		
+
+		List<EmployeeVO> empAllList = infoService.orgEmpList(empVO);
+		List<DepartmentVO> deptTeamList = infoService.selectDeptTeamList(empVO);
+		List<JobGradeVO> jbgdList = infoService.selectJBGDList(empVO);
+		List<TeamVO> teamList = infoService.selectTeamListByDept(empVO);
+		
+		model.addAttribute("companyVO", companyVO);
+		model.addAttribute("employeeVO", empVO);
+		model.addAttribute("empAllList", empAllList);
+		model.addAttribute("deptTeamList", deptTeamList);
+		model.addAttribute("jbgdList", jbgdList);
+		model.addAttribute("teamList", teamList);
+
 		
 		return "company/project/projectForm";
 	}
@@ -179,6 +209,10 @@ public class ComProjectController {
 		
 		ProjectVO projectVO = projectService.selectProject(proNo);
 		model.addAttribute("projectVO", projectVO);
+		
+		List<EmployeeVO> participantList = projectService.getParticipantList(proNo);
+		model.addAttribute("participantList", participantList);
+		
 		model.addAttribute("status", "u");
 		return "company/project/projectForm";
 	}
@@ -271,6 +305,18 @@ public class ComProjectController {
 		model.addAttribute("companyVO",companyVO);
 		
 		ProjectVO projectVO = projectService.selectCanbanList(proNo);
+		
+
+		if (projectVO.getParticipantEmpNames() != null) {
+			String[] name = projectVO.getParticipantEmpNames().split(", ");
+			projectVO.setParticipantEmpNamesList(Arrays.asList(name));
+		}
+		if (projectVO.getParticipantImgFileUrls() != null) {
+			String[] imgFileUrl = projectVO.getParticipantImgFileUrls().split(", ");
+			projectVO.setParticipantImgFileUrlsList(Arrays.asList(imgFileUrl));
+		}
+		
+		
 		model.addAttribute("projectVO", projectVO);
 		
 		
@@ -297,6 +343,12 @@ public class ComProjectController {
 		
 		model.addAttribute("employeeVO",empVO);
 		model.addAttribute("companyVO",companyVO);
+		
+		ProjectVO projectVO = projectService.getProjectByNo(proNo);
+		if (projectVO != null) {
+			model.addAttribute("proStartDt", projectVO.getProStartDt());
+			model.addAttribute("proEndDt", projectVO.getProEndDt());
+		}
 		
 		model.addAttribute("proNo", proNo);
 		ProjectTaskVO projectTaskVO = new ProjectTaskVO();

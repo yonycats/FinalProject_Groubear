@@ -1072,10 +1072,10 @@
 				  
 				  let spanClass ="symbol-label bg-light-primary";
 				  let iconClass = "ki-duotone ki-abstract-28 fs-2 text-primary";
-				  if(alarm.alarmCategory == "approval"){
+				  if(alarm.alarmCategory == "elapr"){
 					 spanClass = "symbol-label bg-light-warning";
 					 iconClass ="ki-duotone ki-briefcase fs-2 text-warning";
-				  }else if(alarm.alarmCategory == "schedule"){
+				  }else if(alarm.alarmCategory == "calender"){
 					spanClass = "symbol-label bg-light-primary";
 					 iconClass ="bi bi-calendar-check";
 				  }else if(alarm.alarmCategory == "project"){
@@ -1107,7 +1107,7 @@
 									<i class="\${iconClass}">
 				  `;
 				  
-				  if(alarmCategory != `car` || alarmCategory != `schedule` || alarmCategory != `prove` || alarmCategory != `facilty` || alarmCategory != `vacation` || alarmCategory != `video`){
+				  if(alarmCategory != `car` || alarmCategory != `calender` || alarmCategory != `prove` || alarmCategory != `facilty` || alarmCategory != `vacation` || alarmCategory != `video`){
 					  alarmHTML += ` <span class="path1"></span> 
 									<span class="path2"></span>`;
 				  }

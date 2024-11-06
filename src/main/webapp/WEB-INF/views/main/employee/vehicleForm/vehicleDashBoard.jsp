@@ -102,7 +102,7 @@
 </div>
 <input type="hidden" id="proStartDt" value="${proStartDt }">
 <input type="hidden" id="proEndDt" value="${proEndDt }">
-<div class="d-flex container col-12 mx-2 py-5">
+<div class="d-flex mx-2 py-5">
 	<form action="/empvehicle/vehiclereservationinsert.do" method="post" id="rsvtForm">
 		<div class="py-3 px-3">
 			<div class="card card-flush h-xl-100 d-flex flex-column">
@@ -167,7 +167,7 @@
 			</div>
 		</div>
 	</form>
-	<div class="col-xl-7 py-3">
+	<div class="col-xl-8 py-3">
 		<div class="card card-flush h-xl-100 d-flex flex-column">
 			<div class="card-header border-0 pt-7">
 				<h1>주행 일정</h1>

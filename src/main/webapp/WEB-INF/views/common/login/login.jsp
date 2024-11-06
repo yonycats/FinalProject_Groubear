@@ -45,7 +45,7 @@
 									<div class="d-flex flex-stack mb-2">
 										<label class="form-label fw-bold text-gray-900 fs-6 mb-0">아이디</label>
 									</div>
-									<input class="form-control form-control-lg form-control-solid" type="text" name="username" id="empId" autocomplete="off" value="yh001"/>
+									<input class="form-control form-control-lg form-control-solid" type="text" name="username" id="empId" autocomplete="off" value="ddityh003"/>
 									<div id="id_null" style="color: red;"></div>
 								</div>
 								<div class="fv-row mb-10">

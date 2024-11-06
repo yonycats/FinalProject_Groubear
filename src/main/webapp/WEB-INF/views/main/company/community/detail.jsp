@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+<!-- 넘겨받은 메세지가 있을 때만 자바스크립트를 실행-->
 <c:if test="${not empty message }">
 	<script type="text/javascript">
 		Swal.fire({ 
@@ -11,7 +12,7 @@
 			confirmButtonColor: '#4FC9DA',
 		});
 	</script>
-	<c:remove var="message" scope="request"/>
+	<c:remove var="message" scope="request" />
 </c:if>
 
 <div style="margin-bottom: 50px;">
@@ -25,33 +26,21 @@
 </div>
 
 <div class="mb-10" id="kt_social_feeds_posts">
-	<!--begin::Post 4-->
-	<!--begin::Card-->
-	<div class="card card-flush mb-10">
-		<!--begin::Card header-->
+	<div class="card card-flush mb-5">
 		<div class="card-header pt-9 ms-3">
-			<!--begin::Author-->
 			<div class="d-flex ">
-				<!--begin::Info-->
 				<div
 					class="flex-grow-1 d-flex align-items-center position-relative my-1">
-					<!--begin::Name-->
-					<h2 class="me-3">${communityVO.cmntyTtl }</h2>
-					<!--end::Name-->
-					<!--begin::Date-->
+					<h2 class="me-3">${comCommunityVO.cmntyTtl }</h2>
 					<p class="text-gray-500 fw-semibold d-block"
-						style="margin-top: auto;">${employeeVO.empId }</p>
+						style="margin-top: auto;">${comCommunityVO.empId }</p>
 					<!--end::Date-->
 					<input type="hidden" id="delYn" class="delYn"
-						value="${communityVO.cmntyDelYn }" />
+						value="${comCommunityVO.cmntyDelYn }" />
 				</div>
-				<!--end::Info-->
 			</div>
-			<!--end::Author-->
 			<div class="card-toolbar">
-				<!--begin::Menu wrapper-->
 				<div class="m-0">
-					<!--begin::Menu toggle-->
 					<button
 						class="btn btn-icon btn-color-gray-500 btn-active-color-primary me-n4"
 						data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
@@ -61,117 +50,107 @@
 							class="path4"></span>
 						</i>
 					</button>
-					<!--end::Menu toggle-->
-					<!--begin::Menu 2-->
-					<%-- 					<c:if test="${employee.empId eq communityVO.empId }"> --%>
 					<div
 						class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px"
 						data-kt-menu="true">
-						<!--begin::Menu item-->
-
-						<!-- /company/communityModify.do 수정  URI -->
 						<div class="menu-item px-3">
 							<a href="" id="cmtUdtBtn" class="menu-link px-3">수정</a>
 						</div>
 
-						<!--end::Menu item-->
-						<!--begin::Menu item-->
 						<div class="menu-item px-3">
 							<a href="" id="cmtCelBtn" class="menu-link px-3">삭제</a>
 						</div>
-						<!--end::Menu item-->
 					</div>
-					<%-- 					</c:if> --%>
-					<!--end::Menu 2-->
 				</div>
-				<!--end::Menu wrapper-->
 			</div>
-			<!--end::Card toolbar-->
 		</div>
-		<p class="text-gray-500 fw-semibold d-block ms-13">${communityVO.cmntyRegDt }</p>
-		<!--end::Card header-->
-		<!--begin::Card body-->
+		<p class="text-gray-500 fw-semibold d-block ms-13">${comCommunityVO.cmntyRegDt }</p>
 		<div class="card-body">
 			<div class="mb-8">
-				<!--begin::Separator-->
 				<div class="separator separator-solid"></div>
-				<!--end::Separator-->
 			</div>
-			<!--begin::Post content-->
-			<div class="fs-6 fw-normal text-gray-700 ms-3">${communityVO.cmntyCn }</div>
+			<div class="fs-6 fw-normal text-gray-700 ms-3">${comCommunityVO.cmntyCn }</div>
 			<div style="display: flex; flex-wrap: wrap;">
-				<%-- 				<p>${communityVO.atchFiles }</p> --%>
-				<c:if test="${not empty communityVO.atchFiles}">
-					<c:forEach items="${communityVO.atchFiles[0].atchFileDetailList }"
+				<c:if test="${not empty comCommunityVO.atchFiles}">
+					<c:forEach items="${comCommunityVO.atchFiles[0].atchFileDetailList }"
 						var="fileDt">
-						<div style="margin-top: 10px; margin-right: 10px;">
-							<img src="/upload/${fileDt.atchFileDetailStrgNm}" width="250"
-								height="290">
-						</div>
+						<input type="hidden" value="${fileDt.atchFileDetailExtnNm }" />
+						<c:if
+							test="${fileDt.atchFileDetailExtnNm == 'jpg' ||
+              						  fileDt.atchFileDetailExtnNm == 'jpeg' || 
+              						  fileDt.atchFileDetailExtnNm == 'png' ||
+              						  fileDt.atchFileDetailExtnNm == 'gif' }">
+							<div style="margin-top: 10px; margin-right: 10px;">
+								<img src="/upload/${fileDt.atchFileDetailStrgNm}" width="250"
+									height="290">
+							</div>
+						</c:if>
 					</c:forEach>
 				</c:if>
 			</div>
-
 			<div style="margin-top: 10px;">
-				<c:if test="${not empty communityVO.atchFiles}">
+				<c:if test="${not empty comCommunityVO.atchFiles}">
+					<div class="separator separator-solid mb-4"></div>
+					<table id="kt_file_manager_list" data-kt-filemanager-table="files"
+						class="table align-middle table-row-dashed fs-6 gy-1">
+						<tbody class="fw-semibold text-gray-600">
+							<tr>
+								<td><div
+										class="form-check form-check-sm form-check-custom form-check-solid"
+										style="margin-left: 10px; margin-right: 15px;">
+										<input class="form-check-input" id="allCheck" type="checkbox"
+											value="1">
+									</div></td>
+								<td style="width: 85%;">파일명</td>
+								<td style="width: 15%;">용량</td>
+								<td><a
+									href="/upload/${atchFileDetailVO.atchFileDetailStrgNm}"
+									onclick="fCkDownload()" class="btn btn-light-info"
+									style="width: 180%; margin-bottom: 0; float: right;">다운로드</a></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- 파일 리스트 -->
 					<div class="separator separator-solid mb-8"></div>
-					<c:forEach items="${communityVO.atchFiles[0].atchFileDetailList}"
-						var="fileDt">
+					<c:forEach items="${comCommunityVO.atchFiles[0].atchFileDetailList}"
+						var="fileDtDown">
 						<table id="kt_file_manager_list" data-kt-filemanager-table="files"
 							class="table align-middle table-row-dashed fs-6 gy-1">
 							<tbody class="fw-semibold text-gray-600">
 								<tr>
-									<td><div class="d-flex align-items-center">
-											<i class="ki-duotone ki-files fs-2x text-primary me-4"></i> <a
-												href="#" class="text-gray-800 text-hover-primary">${fileDt.atchFileDetailStrgNm }</a>
-										</div></td>
-									<td>${fileDt.atchFileDetailFancysize }</td>
-									<td>${fileDt.atchFileDetailRegDt }</td>
-									<td class="text-end"
-										data-kt-filemanager-table="action_dropdown"><div
-											class="d-flex justify-content-end">
-											<!--begin::Share link-->
-
-											<!-- 다운로드 -->
-											<div class="ms-2" data-kt-filemanger-table="copy_link">
-												<button type="button" id="downloadBtn"
-													class="btn btn-sm btn-icon btn-light btn-active-light-primary"
-													data-kt-menu-trigger="click"
-													data-kt-menu-placement="bottom-end">
-													<c:url value="/upload/${fileDt.atchFileDetailStrgNm}"
-														var="downloadUrl">
-														<c:param name="fileNo" value="${fileList.fileNo }" />
-													</c:url>
-													<a href="${downloadUrl }"> <i
-														class="ki-duotone ki-folder-down"> <span class="path1"></span>
-															<span class="path2"></span>
-													</i>
-												</button>
-											</div>
-											<!--end::Share link-->
-											<!--begin::More-->
+									<td>
+										<div
+											class="form-check form-check-sm form-check-custom form-check-solid"
+											style="margin-left: 10px;">
+											<input class="form-check-input checkFile"
+												data-dabin-ofn="${fileDtDown.atchFileDetailOrgnlNm }"
+												data-dabin-sfn="${fileDtDown.atchFileDetailStrgNm }"
+												name="checkFile" type="checkbox"
+												value="${fileDtDown.atchFileDetailCd }" />
 										</div>
 									</td>
+									<td style="width: 80%;">
+										<div class="d-flex align-items-center">
+											<i class="ki-duotone ki-files fs-2x text-primary me-4"></i> <a
+												href="#" class="text-gray-800 text-hover-primary">${fileDtDown.atchFileDetailOrgnlNm }</a>
+										</div>
+									</td>
+									<td style="width: 20%;">${fileDtDown.atchFileDetailFancysize }</td>
+									<td class="text-end" style="width: 20%;"
+										data-kt-filemanager-table="action_dropdown"><div
+											class="d-flex justify-content-end"></div></td>
 								</tr>
-
 							</tbody>
 						</table>
 					</c:forEach>
 				</c:if>
 			</div>
-			<!--end::Post content-->
 		</div>
-		<!--end::Card body-->
-		<!--begin::Card footer-->
 		<div class="card-footer pt-0">
-			<!--begin::Info-->
+			<div class="separator separator-solid"></div>
 			<div class="mb-6">
-				<!--begin::Separator-->
-				<div class="separator separator-solid"></div>
-				<!--end::Separator-->
-				<!--begin::Nav-->
 				<ul class="nav py-3">
-					<!--begin::Item-->
 					<li class="nav-item" id="commentShowBtn"><a
 						class="nav-link btn btn-sm btn-color-gray-600 btn-active-color-primary btn-active-light-primary fw-bold px-4 me-1 collapsible"
 						data-bs-toggle="collapse" href="#kt_social_feeds_comments_4">
@@ -180,7 +159,6 @@
 								class="path3"></span>
 						</i>댓글
 					</a></li>
-					<!--end::Item-->
 				</ul>
 				<!-- 여기가 댓글 위치 -->
 
@@ -188,55 +166,40 @@
 
 				<!-- 여기가 댓글 위치 -->
 			</div>
-			<!--end::Info-->
-
 
 			<!-- 원래 띄워져 있는 답글 입력 칸-->
 			<div class="d-flex align-items-center">
-				<!--begin::Author-->
 				<div class="symbol symbol-35px me-3">
 					<img src="/upload/${employeeVO.imgFileUrl }" alt="">
 				</div>
-				<!--end::Author-->
-
 				<div class="position-relative w-100">
-					<!--begin::Input-->
-
 					<input type="hidden" id="commentCmntyNo" name="commentCmntyNo"
-						value="${communityVO.cmntyNo}"> <input type="hidden"
-						id="upCmntNo" name="upCmntNo" value="${commentVO.upCmntNo }">
+						value="${comCommunityVO.cmntyNo}"> <input type="hidden"
+						id="upCmntNo" name="upCmntNo" value="${comCommentVO.upCmntNo }">
+
 					<textarea id="cmntCn"
 						class="form-control form-control-solid border ps-5" rows="1"
 						name="cmntCn" data-kt-autosize="true" placeholder="댓글을 작성해주세요"
 						data-kt-initialized="1"
 						style="overflow: hidden; overflow-wrap: break-word; resize: none; text-align: start; height: 80px;"></textarea>
-					<!--end::Input-->
 
-					<!--begin::Actions-->
 					<div class="position-absolute bottom-0 end-0 me-4 mb-2">
-						<!--begin::Btn -->
 
 						<!-- 댓글 -->
 						<button id="commentAddBtn"
 							class="btn btn-icon btn-sm btn-color-gray-500 btn-active-color-primary w-25px p-0">
 							<i class="bi bi-chat-square-text-fill fs-2"></i>
 						</button>
-
 					</div>
-					<!--end::Actions-->
 				</div>
-
-				<!--end::Input group-->
 			</div>
-
-
-			<!--end::Comment form-->
 		</div>
-		<!--end::Card footer-->
 	</div>
-	<input type="button" id="cancleBtn" class="btn btn-light-info" style="margin-left: 20px" value="목록">
-	<!--end::Card-->
-	<!--end::Post 4-->
+	<div>
+		<input type="hidden" id="listType" value="${comCommunityVO.cmntyType }" />
+		<input type="button" id="listBtn" class="btn btn-light-info"
+			style="margin-left: 20px" value="목록" />
+	</div>
 </div>
 
 
@@ -256,8 +219,8 @@
 				<form id="kt_modal_add_user_form" class="form communityModify"
 					action="" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="cmntyNo" id="cmntyNo"
-						value="${communityVO.cmntyNo }" /> <input type="hidden"
-						name="atchFileCd" value="${communityVO.atchFileCd }" />
+						value="${comCommunityVO.cmntyNo }" /> <input type="hidden"
+						name="atchFileCd" value="${comCommunityVO.atchFileCd }" />
 
 					<!-- 고정된 사용자 아이디 -->
 					<div class="d-flex flex-column scroll-y px-5 px-lg-10"
@@ -269,26 +232,26 @@
 						<div class="fv-row mb-7">
 							<label class="required fw-semibold fs-6 mb-2">제목</label> <input
 								type="text" id="cmntyTtl" name="cmntyTtl"
-								value="${communityVO.cmntyTtl }"
+								value="${comCommunityVO.cmntyTtl }"
 								class="form-control form-control-solid mb-3 mb-lg-0" />
 						</div>
 						<div class="fv-row mb-7">
 							<label class="required fw-semibold fs-6 mb-2">내용</label>
 							<textarea id="cmntyCn" name="cmntyCn" rows="10" cols="10"
-								class="form-control form-control-solid mb-3 mb-lg-0">${communityVO.cmntyCn }</textarea>
+								class="form-control form-control-solid mb-3 mb-lg-0">${comCommunityVO.cmntyCn }</textarea>
 						</div>
 						<div class="fv-row mb-7">
 							<label class="d-block fw-semibold fs-6 mb-0 mt-0"
 								style="padding-top: 8px">첨부파일</label> <input type="file"
 								id="atchFiles" name="atchFiles" multiple="multiple">
 						</div>
-						<c:if test="${not empty communityVO.atchFiles }">
+						<c:if test="${not empty comCommunityVO.atchFiles }">
 							<c:if test="${atchFileVO.atchFileDelYn == N }">
 								<ul class="mailbox-attachments d-flex align-items-stretch"
 									id="atchList">
 									<c:set var="cnt" value="0" />
 									<c:forEach
-										items="${communityVO.atchFiles[0].atchFileDetailList }"
+										items="${comCommunityVO.atchFiles[0].atchFileDetailList }"
 										var="fileList">
 										<li style="list-style-type: none; margin-right: 20px"
 											id="${fileList.atchFileDetailCd }"><i
@@ -298,7 +261,7 @@
 												class="path1"></span> <span class="path2"></span>
 										</i>
 											<div id="fileInfo">
-												<input type="text" id="atchFileDetailCd_${cnt }"
+												<input type="hidden" id="atchFileDetailCd_${cnt }"
 													name="atchFileDetailCd"
 													value="${fileList.atchFileDetailCd }" /> <input
 													type="hidden" id="atchFileCd" name="atchFileCd"
@@ -353,6 +316,28 @@
 
 <script type="text/javascript">
 
+function fCkDownload(){
+	event.preventDefault();  // href 동작 막기
+	let ckedBoxs = document.querySelectorAll("[name=checkFile]:checked");
+	for(let i=0; i < ckedBoxs.length; i++){
+		let ckbox = ckedBoxs[i];
+		let orgFn=  ckbox.dataset.dabinOfn;
+		let savedFn = ckbox.dataset.dabinSfn;
+
+		// 스크립트 다운로드 기능 구현
+		// a 태그 생성
+		let aTag = document.createElement("a");
+		// href에 웹경로 주기
+		aTag.href= `/upload/\${savedFn}`;
+		// 다운로드이름은 원래 파일명
+		aTag.download = orgFn;
+		// 강제 클릭
+		aTag.click();
+	}
+
+}
+
+
 function replyBtn(commentNo) {
 	
 	let data = {
@@ -365,7 +350,6 @@ function replyBtn(commentNo) {
 			contentType : "application/json; charset=utf-8",
 			data: JSON.stringify(data),
 			success: function(result) {
-				console.log("아작스 체킁:",result);
 				
 				let html = "";
 				
@@ -379,7 +363,7 @@ function replyBtn(commentNo) {
 								<input type="hidden" id="upCmntNo" name="replyUpCmntNo" value="\${result[i].upCmntNo}" />
 								<div class="d-flex mb-2">
 									<div class="symbol symbol-35px me-4">
-										<img src="/upload/${employeeVO.imgFileUrl }" alt="" />
+										<img src="/upload/\${result[i].imgFileUrl }" alt="" />
 									</div>
 									<div class="d-flex flex-column flex-row-fluid">
 										<div class="d-flex align-items-center flex-wrap mb-0">
@@ -403,14 +387,10 @@ function replyBtn(commentNo) {
 
 
 function coco(btn){
-// 	alert("상위글 넘버: " + btn.dataset.dabinConum);
-	
-	console.log(`답글 추가 030`);
-	
-	
 	let replyUpCmntNo = btn.dataset.dabinConum;
 	let replyCmntCn = $(btn).closest('.replyInput').find("textarea[name='replyCmntCn']").val();
 	
+
 	console.log("내용", replyCmntCn);
 	console.log("up 댓글 번호", replyUpCmntNo);
 
@@ -422,7 +402,11 @@ function coco(btn){
 	console.log(data);
 	
 	if(replyCmntCn == null || replyCmntCn == ""){
-		alert("답글을 입력해주세요.");
+		Swal.fire({
+			icon: 'warning',
+			title: '답글을 입력해주세요.',
+			confirmButtonColor: '#4FC9DA',
+		});
 		return false;
 	}
 	
@@ -433,17 +417,48 @@ function coco(btn){
 		data: JSON.stringify(data),
 		success: function(res) {
 			console.log(res);
+			Swal.fire({
+			    icon: 'success',
+			    title: '정상적으로 등록 되었습니다.'
+			});
 			
-			alert("작성 완료되었습니다.");
+		      let sendParams = {
+	                  alarmCategory:"community:Re",
+	                  alarmTarget : replyEmpId,
+//	                  alarmCn : empId +'님이 회원님의 게시물에 "'+ cmntCn +'" 댓글이 등록하였습니다.',
+	                  alarmCn : replyCmntCn,
+	                  alarmUrl : "/employee/communityDetail.do?cmntyNo=" + cmntyNo
+	               };
+		      
+		      
+		      	// 두 번째 AJAX 호출
+                     $.ajax({
+                         url : "/insertAlarm",
+                         type : "post", 
+                         contentType : "application/json; charset=utf-8",
+                         data: JSON.stringify(sendParams),
+                         success: function(res){
+                             webSocket.send(JSON.stringify(sendParams)); // 웹소켓 메시지 전송
+                         },
+                         error: function(xhr, status, error) {
+                             console.error("Error inserting alarm:", error);
+                         }
+                  });
 			
-			location.reload();
+			setTimeout(() => {
+				location.reload();
+			}, 1000);
+
+			
 		}
 	});
+	
+
+
+		
 }
 
 function cocomentAdd(button) {
-	//alert(button.dataset.dabinConum)
-    console.log("답글버튼 눌림");
     
     // 클릭된 버튼의 부모 요소에서 댓글을 찾기
     var commentMain = $(button).closest('.commentMain'); 
@@ -456,6 +471,9 @@ function cocomentAdd(button) {
     // 현재 댓글의 replyInput만 보이기
     commentMain.find('.replyInput').toggle();
 }
+
+$(".card-footer").show();
+
 function atchFiledelBtn(asd){
 
 	$(asd).parent().remove();
@@ -464,6 +482,8 @@ function atchFiledelBtn(asd){
 
 
 $(function() {
+	var form = $("#kt_modal_add_user_form");
+	var ktModal = $("#kt_modal_add_user");
 
 	var cmtUdtBtn = $("#cmtUdtBtn");					// 수정 들어가는 버튼
 	var modifyAdd = $("#modifyAdd");					// 수정 안의 수정버튼
@@ -471,27 +491,91 @@ $(function() {
 	
 	var commentShowBtn = $("#commentShowBtn");			// 댓글 보기
 	var commentAddBtn = $("#commentAddBtn");			// 댓글 추가
-	
 	var replyAddBtn = $("#replyAddBtn");				// 대댓글 추가
-		
-	var ktModal = $("#kt_modal_add_user");
-
-	var form = $("#kt_modal_add_user_form");
-	
 	var replyInput = $(".replyInput");			// 대댓글 추가 div
-	
-	var downloadBtn = $("#downloadBtn");	// 다운
-	
+		
 	var atchFileDeleteBtn = $("#atchFileDeleteBtn");	// 파일 지우기 
 	
-	var cancleBtn = $("#cancleBtn");		// 목록 버튼
+	var listBtn = $("#listBtn");		// 목록 버튼
 	
-	cancleBtn.on("click", function(){
-// 			console.log(${communityVO.cmntyType})
+	var downloadBtn = $(".downloadBtn");
+	var downForm = $("#downForm");
+	
+	var allCheck = $("#allCheck");	// 체크박스 전체 선택
+	var checkFile = $(".checkFile");	// 개별 선택
+	
+	downloadBtn.on("click", function(){
+		console.log("downloadBtn 클릭");
+		                           
+		let atchFileDetailCdDown = $(".checkFile").val();
+		let atchFileDetailStrgNm = $("#atchFileDetailStrgNm").val();
+		let atchFileDetailPathNmDown = $("#atchFileDetailPathNmDown").val();
+		let atchFileDetailOrgnlNmDown = $("#atchFileDetailOrgnlNmDown").val();
 		
-		if(${communityVO.cmntyType}){
-			console.log("아아아")
-			location.href="/company/communitySystem.do";
+		let formData = new FormData();
+	    formData.append("atchFileDetailCdDown", atchFileDetailCdDown);
+	    formData.append("atchFileDetailStrgNm", atchFileDetailStrgNm);
+	    formData.append("atchFileDetailPathNmDown", atchFileDetailPathNmDown);
+	    formData.append("atchFileDetailOrgnlNmDown", atchFileDetailOrgnlNmDown);
+	    
+	    console.log(formData);
+	    
+	    let selectedFiles = [];
+	    $(".checkFile:checked").each(function() {
+	        selectedFiles.push($(this).atchFileDetailStrgNm); // 체크된 파일의 경로를 가져옵니다.
+	    });
+
+	    if (selectedFiles.length === 0) {
+	    	Swal.fire({
+				icon: 'warning',
+				title: '다운로드 할 파일을 선택해주세요.',
+				confirmButtonColor: '#4FC9DA',
+			});
+	        return;
+	    }
+		
+		  $.ajax({
+		        url: "/company/downloadAtchFile?path=" + atchFileDetailStrgNm,
+		        type: "post",
+		        processData: false,
+		        contentType: false,
+		        data: formData,
+		        success: function(res) {
+		        	
+		        	if(checkFile.is(":checked")){
+			        	downForm.submit();
+		        	}
+		        	
+		            console.log(res);
+		        },
+		        error: function(xhr, status, error) {
+		        	Swal.fire({
+						icon: 'warning',
+						title: '다운로드하지 못했습니다',
+						confirmButtonColor: '#4FC9DA',
+					});
+		        }
+		    });
+	});
+	
+	allCheck.on("click", function(){
+		
+		$("input[name='checkFile']").prop("checked", allCheck.is(":checked"));
+	
+	});
+	
+	
+	listBtn.on("click", function(){
+		let listType = $("#listType").val();
+		
+		if (listType == 'systemCmnty') {
+			location.href="communitySystem.do";
+		}else if(listType == 'company'){
+			location.href="communityCompany.do";
+		}else if(listType == 'info'){
+			location.href="communityInfo.do";
+		}else if(listType == 'free'){
+			location.href="communityFree.do";
 		}
 	});
 	
@@ -516,12 +600,10 @@ $(function() {
 	    let atchFiles = $("#atchFiles")[0].files;
 	    
 	    // 내용, 제목, 게시물 번호
-	    
 	    let adCnt = $("#adCnt").val();
 	    console.log(adCnt);
 	    let arr = "";
 		for (var i = 0; i < adCnt; i++) {
-			
 			arr += $("#atchFileDetailCd_"+i).val() + ",";
 		}
 	    console.log(atchFileCd);
@@ -542,8 +624,6 @@ $(function() {
 	        console.log("QWE"+i,atchFiles[i]);
 	    }
 	    
-	    console.log(formData);
-	    
 	    
 	    $.ajax({
 	        url: "/company/communityModify/1",
@@ -552,21 +632,30 @@ $(function() {
 	        contentType: false,
 	        data: formData,
 	        success: function(res) {
-	            console.log(res);
-	            alert("게시물 수정이 완료되었습니다.");
-	            location.reload();
+	            
+	            Swal.fire({
+				    icon: 'success',
+				    title: '정상적으로 수정 되었습니다.'
+				});
+				
+				setTimeout(() => {
+					location.reload();
+				}, 1000);
+	            
 	        },
 	        error: function(xhr, status, error) {
-	            console.error("게시물 수정에 실패했습니다:", error);
-	            alert("게시물 수정에 실패했습니다.");
+	        	Swal.fire({
+					icon: 'warning',
+					title: '게시물 수정에 실패하였습니다',
+					confirmButtonColor: '#4FC9DA',
+				});
 	        }
 	    });
 	    
 	});
 	
 	
-	
-	commentShowBtn.on("click", function(){
+	commentShowBtn.ready(function(){
 		let cmntyNo = $("#cmntyNo").val();
 		let commentNo = $("#commentNo").val();
 		
@@ -583,7 +672,6 @@ $(function() {
 			contentType : "application/json; charset=utf-8",
 			data: JSON.stringify(data),
 			success: function(res) {
-				console.log("여긴 오뎅",res);
 				
 				if(res == null || res == ""){
 					$("#commentNull").text("댓글이 없습니다.");
@@ -601,7 +689,7 @@ $(function() {
 									<div class="commentMain" data-comment-no="\${commentNo}">
 										<div class="d-flex 0pt-6 mb-10">
 											<div class="symbol symbol-45px me-3">
-												<img src="/upload/${employeeVO.imgFileUrl }" alt=""/>
+												<img src="/upload/\${res[i].imgFileUrl }" alt=""/>
 											</div>
 											<div class="d-flex flex-column flex-row-fluid">
 												<div class="d-flex align-items-center flex-wrap mb-0">
@@ -647,8 +735,6 @@ $(function() {
 											</div>
 										</div>
 									</div>
-								
-								
 			             `;
 						}
 						
@@ -661,9 +747,7 @@ $(function() {
 						</div>
 				<!-- 종료 -->
 				`;
-				
 				}
-				
 			}
 		});
 		
@@ -673,10 +757,13 @@ $(function() {
 	commentAddBtn.on("click", function(){
 		let cmntCn = $("#cmntCn").val();
 		let cmntyNo = $("#commentCmntyNo").val();
+		let empId = $("#empId").val();
 		
-		console.log(cmntCn);
-		console.log(cmntyNo);
-		console.log(upCmntNo);
+		let alarmCategory = $("#alarmCategory").val();
+		let alarmCn = $("#alarmCn").val();
+		let alarmUrl = $("#alarmUrl").val();
+		let alarmTarget = $("#alarmTarget").val();
+		
 		
 		let data = {
 			cmntCn : cmntCn,
@@ -686,7 +773,11 @@ $(function() {
 		console.log(data);
 		
 		if(cmntCn == null || cmntCn == ""){
-			alert("댓글을 입력해주세요.");
+			Swal.fire({
+				icon: 'warning',
+				title: '댓글을 입력해주세요!',
+				confirmButtonColor: '#4FC9DA',
+			});
 			return false;
 		}
 		
@@ -695,13 +786,41 @@ $(function() {
 			type : "post", 
 			contentType : "application/json; charset=utf-8",
 			data: JSON.stringify(data),
-			success: function(res) {
-				console.log(res);
-				location.reload();
-			}
+			 success: function(res) {
+		            Swal.fire({
+		                icon: 'success',
+		                title: '정상적으로 등록 되었습니다.'
+		            });
+		            
+		            setTimeout(() => {
+		                location.reload(); // 페이지 새로고침
+		            }, 1000);
+		            
+					let sendParams = {
+						alarmCategory:"community",
+						alarmTarget :empId,
+//						alarmCn : empId +'님이 회원님의 게시물에 "'+ cmntCn +'" 댓글이 등록하였습니다.',
+						alarmCn : cmntCn,
+						alarmUrl : "/company/communityDetail.do?cmntyNo=" + cmntyNo
+					};
+					
+		         	   // 두 번째 AJAX 호출
+			            $.ajax({
+			                url : "/insertAlarm",
+			                type : "post", 
+			                contentType : "application/json; charset=utf-8",
+			                data: JSON.stringify(sendParams),
+			                success: function(res){
+			                    webSocket.send(JSON.stringify(sendParams)); // 웹소켓 메시지 전송
+			                },
+			                error: function(xhr, status, error) {
+			                    console.error("Error inserting alarm:", error);
+			                }
+		            });
+		         	   
+				 }
+			});
 		});
-		
-	});
 		
 		
 	cmtUdtBtn.on("click", function(e) {
@@ -717,58 +836,59 @@ $(function() {
 
 	});
 
-// 	modifyAdd.on("click", function() {
-		
-// 		console.log("수정버튼 눌림 :::");
-		
-// 		let title = $("#cmnty_ttl").val();
-// 		let content = $("#cmnty_cn").val();
-// 		let atchFiles = $("#atchFiles").val();
-		
-// 		console.log("title ::: ", title);
-// 		console.log("content ::: ", content);
-// 		console.log("atchFiles ::: ", atchFiles);
-	
-// 			if (title == null || title == "") {
-// 				alert("제목을 입력해주세요!");
-// 				return false;
-// 			}
-// 			if (content == null || content == "") {
-// 				alert("내용을 입력해주세요!");
-// 				return false;
-// 			}
-	
-// 		$(".communityModify").submit();
-		
-// 	});
-
 
 	cmtCelBtn.on("click", function(e) {
-// 	    e.preventDefault(); // 기본 링크 동작 방지
+		e.preventDefault();
+		
 	    var cmntyNo = $("#cmntyNo").val(); // 게시물 번호 가져오기
-
-	    // AJAX 요청
-	    $.ajax({
-	        url: "/company/communityRemove.do?cmntyNo=" + cmntyNo, // 올바른 cmntyNo 사용
-	        type: "GET", // GET 요청
-	        success: function(data) {
-	            
-	            // 리스트 페이지로 이동
-	            location.href = "/company/communityCompany.do";
-	        },
-	        error: function() {
-	            alert("삭제에 실패했습니다."); // 오류 처리
-	        }
-	    });
+       	let listType = $("#listType").val();
+	    
+       	Swal.fire({
+			title: '정말 삭제하시겠습니까?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#F06445',
+			cancelButtonColor: '#4FC9DA',
+			confirmButtonText: '예',
+			cancelButtonText: '아니요',
+			reverseButtons: false, // 버튼 순서 (기본)
+		}).then((result) => {
+			if (result.isConfirmed) {
+			
+				let data = {
+					cmntyNo : cmntyNo 
+				}
+				
+				   $.ajax({
+				        url: "/company/communityRemove.do", // 올바른 cmntyNo 사용
+				        type: "post",
+				        data: JSON.stringify(data),
+						contentType : "application/json; charset=utf-8",
+				        success: function(res) {
+				        	console.log("res ::: " , res);
+				        	e.preventDefault();	// a 태그의 기본 기능 멈추기
+				        	
+			    			if (listType == 'systemCmnty') {
+				    			location.href="communitySystem.do";
+				    		}else if(listType == 'company'){
+				    			location.href="communityCompany.do";
+				    		}else if(listType == 'info'){
+				    			location.href="communityInfo.do";
+				    		}else if(listType == 'free'){
+				    			location.href="communityFree.do";
+				    		}
+			    			Toast.fire({
+							    icon: 'success',
+							    title: '정상적으로 삭제 되었습니다.'
+							});
+				        }
+				    });
+				}
+			})
+		});
 	});
-});
 	
 	$("#modifyCancel").on("click",function(){
 		location.reload();
-		
-		
 	});
 </script>
-
-
-<!-- <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=\${res[i].empId}" alt="사진" /> -->

@@ -806,11 +806,10 @@
 							class="d-flex flex-column flex-center bgi-no-repeat rounded-top px-9 py-10"
 							style="background-image:url('${pageContext.request.contextPath}/resources/design/media/misc/menu-header-bg.jpg')">
 							<!--begin::Title-->
-							<h3 class="text-white fw-semibold mb-3">Quick Links</h3>
+							<h2 class="text-white fw-semibold mb-3">자주 쓰는 기능</h2>
 							<!--end::Title-->
 							<!--begin::Status-->
-							<span class="badge bg-primary text-inverse-primary py-2 px-3">25
-								pending tasks</span>
+							<span class="badge bg-primary text-inverse-primary py-2 px-3">자주 쓰는 기능을 편집해보세요!</span>
 							<!--end::Status-->
 						</div>
 						<!--end::Heading-->
@@ -818,60 +817,52 @@
 						<div class="row g-0">
 							<!--begin:Item-->
 							<div class="col-6">
-								<a href="apps/projects/budget.html"
+								<a href="/employee/organizationchart.do"
 									class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-end border-bottom">
 									<i class="ki-duotone ki-dollar fs-3x text-primary mb-2"> <span
 										class="path1"></span> <span class="path2"></span> <span
 										class="path3"></span>
-								</i> <span class="fs-5 fw-semibold text-gray-800 mb-0">Accounting</span>
-									<span class="fs-7 text-gray-500">eCommerce</span>
+								</i> <span class="fs-5 fw-semibold text-gray-800 mb-0">주소록</span>
+									<span class="fs-7 text-gray-500">Address book</span>
 								</a>
 							</div>
 							<!--end:Item-->
 							<!--begin:Item-->
 							<div class="col-6">
-								<a href="apps/projects/settings.html"
+								<a href="/employee/cloudList.do"
 									class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-bottom">
 									<i class="ki-duotone ki-sms fs-3x text-primary mb-2"> <span
 										class="path1"></span> <span class="path2"></span>
-								</i> <span class="fs-5 fw-semibold text-gray-800 mb-0">Administration</span>
-									<span class="fs-7 text-gray-500">Console</span>
+								</i> <span class="fs-5 fw-semibold text-gray-800 mb-0">클라우드</span>
+									<span class="fs-7 text-gray-500">Cloud</span>
 								</a>
 							</div>
 							<!--end:Item-->
 							<!--begin:Item-->
 							<div class="col-6">
-								<a href="apps/projects/list.html"
+								<a href="/empvehicle/vehicledashboard.do"
 									class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-end">
 									<i class="ki-duotone ki-abstract-41 fs-3x text-primary mb-2">
 										<span class="path1"></span> <span class="path2"></span>
-								</i> <span class="fs-5 fw-semibold text-gray-800 mb-0">Projects</span>
-									<span class="fs-7 text-gray-500">Pending Tasks</span>
+								</i> <span class="fs-5 fw-semibold text-gray-800 mb-0">차량예약</span>
+									<span class="fs-7 text-gray-500">Vehicle</span>
 								</a>
 							</div>
 							<!--end:Item-->
 							<!--begin:Item-->
 							<div class="col-6">
-								<a href="apps/projects/users.html"
+								<a href="/employee/facilities/status.do"
 									class="d-flex flex-column flex-center h-100 p-6 bg-hover-light">
 									<i class="ki-duotone ki-briefcase fs-3x text-primary mb-2">
 										<span class="path1"></span> <span class="path2"></span>
-								</i> <span class="fs-5 fw-semibold text-gray-800 mb-0">Customers</span>
-									<span class="fs-7 text-gray-500">Latest cases</span>
+								</i> <span class="fs-5 fw-semibold text-gray-800 mb-0">시설예약</span>
+									<span class="fs-7 text-gray-500">Facility</span>
 								</a>
 							</div>
 							<!--end:Item-->
 						</div>
 						<!--end:Nav-->
 						<!--begin::View more-->
-						<div class="py-2 text-center border-top">
-							<a href="pages/user-profile/activity.html"
-								class="btn btn-color-gray-600 btn-active-color-primary">View
-								All <i class="ki-duotone ki-arrow-right fs-5"> <span
-									class="path1"></span> <span class="path2"></span>
-							</i>
-							</a>
-						</div>
 						<!--end::View more-->
 					</div>
 					<!--end::Menu-->
@@ -879,17 +870,17 @@
 				</div>
 				<!--end::Notifications-->
 				<!--begin::Chat-->
-				<div class="app-navbar-item ms-2 ms-lg-4">
-					<a href="#" id="kt_drawer_chat_toggle"
-						class="btn btn-custom btn-outline btn-icon btn-icon-gray-700 btn-active-icon-primary"
-						data-kt-menu-trigger="click" data-kt-menu-attach="parent"
-						data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-						<i class="ki-duotone ki-message-text-2 fs-1"> <span
-							class="path1"></span> <span class="path2"></span> <span
-							class="path3"></span>
-					</i>
-					</a>
-				</div>
+<!-- 				<div class="app-navbar-item ms-2 ms-lg-4"> -->
+<!-- 					<a href="#" id="kt_drawer_chat_toggle" -->
+<!-- 						class="btn btn-custom btn-outline btn-icon btn-icon-gray-700 btn-active-icon-primary" -->
+<!-- 						data-kt-menu-trigger="click" data-kt-menu-attach="parent" -->
+<!-- 						data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom"> -->
+<!-- 						<i class="ki-duotone ki-message-text-2 fs-1"> <span -->
+<!-- 							class="path1"></span> <span class="path2"></span> <span -->
+<!-- 							class="path3"></span> -->
+<!-- 					</i> -->
+<!-- 					</a> -->
+<!-- 				</div> -->
 				<!--end::Chat-->
 
 				<!-- 알람 -->
@@ -930,52 +921,47 @@
 									style="display: inline-flex; padding: 0; margin: 2; list-style-type: none;">
 									<li class="itemsss"
 										style="padding-left: 10px; font-weight: 900;"><a
-										class="nav-link text-white opacity-75 opacity-state-100 pb-4"
-										data-bs-toggle="tab" href="#kt_topbar_notifications_1">전체알림</a>
+										class="clickTab nav-link text-white opacity-75 opacity-state-100 pb-4"
+										data-bs-toggle="tab" href="#kttopbarnotifications_1">전체알림</a>
 									</li>
 									<li class="itemsss" style="font-weight: 900;"><a
-										class="nav-link text-white opacity-75 opacity-state-100 pb-4"
-										data-bs-toggle="tab" href="#kt_topbar_notifications_7">전자결재
+										class="clickTab nav-link text-white opacity-75 opacity-state-100 pb-4"
+										data-bs-toggle="tab" href="#kttopbarnotifications_2">전자결재
 											<input type="hidden" id="approval" />
 									</a></li>
 									<li class="itemsss" style="font-weight: 900;"><a
-										class="nav-link text-white opacity-75 opacity-state-100 pb-4"
-										data-bs-toggle="tab" href="#kt_topbar_notifications_7">증명서
+										class="clickTab nav-link text-white opacity-75 opacity-state-100 pb-4"
+										data-bs-toggle="tab" href="#kttopbarnotifications_3">증명서
 											<input type="hidden" id="approval" />
 									</a></li>
 									<li class="itemsss" style="font-weight: 900;"><a
-										class="nav-link text-white opacity-75 opacity-state-100 pb-4"
-										data-bs-toggle="tab" href="#kt_topbar_notifications_4">일정
+										class="clickTab nav-link text-white opacity-75 opacity-state-100 pb-4"
+										data-bs-toggle="tab" href="#kttopbarnotifications_4">일정
 											<input type="hidden" id="schedule" />
 									</a></li>
 									<li class="itemsss" style="font-weight: 900;"><a
-										class="nav-link text-white opacity-75 opacity-state-100 pb-4"
-										data-bs-toggle="tab" href="#kt_topbar_notifications_9">프로젝트
+										class="clickTab nav-link text-white opacity-75 opacity-state-100 pb-4"
+										data-bs-toggle="tab" href="#kttopbarnotifications_5">프로젝트
 											<input type="hidden" id="project" />
 									</a></li>
 									<li class="itemsss" style="font-weight: 900;"><a
-										class="nav-link text-white opacity-75 opacity-state-100 pb-4"
-										data-bs-toggle="tab" href="#kt_topbar_notifications_4">휴가
+										class="clickTab nav-link text-white opacity-75 opacity-state-100 pb-4"
+										data-bs-toggle="tab" href="#kttopbarnotifications_6">휴가
 											<input type="hidden" id="schedule" />
 									</a></li>
 									<li class="itemsss" style="font-weight: 900;"><a
-										class="nav-link text-white opacity-75 opacity-state-100 pb-4"
-										data-bs-toggle="tab" href="#kt_topbar_notifications_8">시설예약
+										class="clickTab nav-link text-white opacity-75 opacity-state-100 pb-4"
+										data-bs-toggle="tab" href="#kttopbarnotifications_7">시설예약
 											<input type="hidden" id="car" />
 									</a></li>
 									<li class="itemsss" style="font-weight: 900;"><a
-										class="nav-link text-white opacity-75 opacity-state-100 pb-4"
-										data-bs-toggle="tab" href="#kt_topbar_notifications_8">차량예약
+										class="clickTab nav-link text-white opacity-75 opacity-state-100 pb-4"
+										data-bs-toggle="tab" href="#kttopbarnotifications_8">차량예약
 											<input type="hidden" id="car" />
 									</a></li>
 									<li class="itemsss" style="font-weight: 900;"><a
-										class="nav-link text-white opacity-75 opacity-state-100 pb-4"
-										data-bs-toggle="tab" href="#kt_topbar_notifications_6">화상채팅
-											<input type="hidden" id="video" />
-									</a></li>
-									<li class="itemsss" style="font-weight: 900;"><a
-										class="nav-link text-white opacity-75 opacity-state-100 pb-4"
-										data-bs-toggle="tab" href="#kt_topbar_notifications_5">커뮤니티
+										class="clickTab nav-link text-white opacity-75 opacity-state-100 pb-4"
+										data-bs-toggle="tab" href="#kttopbarnotifications_9">커뮤니티
 											<input type="hidden" id="community" />
 									</a></li>
 								</ul>
@@ -1064,6 +1050,7 @@
              type : "get", 
              success: function(alarmList){
             	 console.log("alarm Data",alarmList);
+            	 
                  
 				 let alarmHTML ="";
 				 for(let i=0; i<alarmList.length; i++){
@@ -1072,18 +1059,15 @@
 				  
 				  let spanClass ="symbol-label bg-light-primary";
 				  let iconClass = "ki-duotone ki-abstract-28 fs-2 text-primary";
-				  if(alarm.alarmCategory == "approval"){
+				  if(alarm.alarmCategory == "elapr"){
 					 spanClass = "symbol-label bg-light-warning";
 					 iconClass ="ki-duotone ki-briefcase fs-2 text-warning";
-				  }else if(alarm.alarmCategory == "schedule"){
+				  }else if(alarm.alarmCategory == "calender"){
 					spanClass = "symbol-label bg-light-primary";
 					 iconClass ="bi bi-calendar-check";
 				  }else if(alarm.alarmCategory == "project"){
 					spanClass = "symbol-label bg-light-success";
 					 iconClass ="ki-duotone ki-abstract-12 fs-2 text-success";
-				  }else if(alarm.alarmCategory == "video"){
-					spanClass = "symbol-label bg-light-danger";
-					 iconClass ="bi bi-camera-video";
 				  }else if(alarm.alarmCategory == "car"){
 					spanClass = "symbol-label bg-light-info";
 					iconClass ="ki-duotone fs-2 text-info";
@@ -1107,7 +1091,7 @@
 									<i class="\${iconClass}">
 				  `;
 				  
-				  if(alarmCategory != `car` || alarmCategory != `schedule` || alarmCategory != `prove` || alarmCategory != `facilty` || alarmCategory != `vacation` || alarmCategory != `video`){
+				  if(alarmCategory != `car` || alarmCategory != `calender` || alarmCategory != `prove` || alarmCategory != `facilty` || alarmCategory != `vacation`){
 					  alarmHTML += ` <span class="path1"></span> 
 									<span class="path2"></span>`;
 				  }

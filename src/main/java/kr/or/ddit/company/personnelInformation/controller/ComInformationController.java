@@ -335,7 +335,6 @@ public class ComInformationController {
 
 		EmployeeAllVO empAllVO = new EmployeeAllVO();
 		empAllVO.setCoCd(userVO.getCoCd());
-		empAllVO.setDeptCd(userVO.getDeptCd());
 		empAllVO.setEmpId(userVO.getEmpId());
 		empAllVO.setDeptNm(departmentVO.getDeptNm());
 		cloudService.deptCloudStrgCreate(empAllVO);
@@ -350,6 +349,7 @@ public class ComInformationController {
 			for (String menu : menuNum) {
 				departmentMenuVO.setMenuNo(menu);
 				ServiceResult result2 = infoService.insertMenu(req, departmentMenuVO);
+				empAllVO.setDeptCd(userVO.getDeptCd());
 				if (result2.equals(ServiceResult.OK)) {
 					log.info(menu + "등록완료!");
 				}

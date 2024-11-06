@@ -10,7 +10,6 @@ import kr.or.ddit.comm.file.vo.AtchFileDetailVO;
 import kr.or.ddit.comm.file.vo.AtchFileVO;
 import kr.or.ddit.comm.paging.vo.PaginationInfoVO;
 import kr.or.ddit.comm.security.vo.EmployeeVO;
-import kr.or.ddit.employee.comment.vo.CommentVO;
 import kr.or.ddit.employee.community.mapper.ICommunityMapper;
 import kr.or.ddit.employee.community.service.ICommunityService;
 import kr.or.ddit.employee.community.vo.CommunityVO;

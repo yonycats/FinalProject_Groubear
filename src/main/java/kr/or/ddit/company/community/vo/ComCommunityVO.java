@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class ComCommunityVO {
 
+
 	private int cmntyNo;
 	private String empId;
 	private String coCd;
@@ -25,12 +26,7 @@ public class ComCommunityVO {
 	private String cmntyQstnKndNm;
 	private String cmntyQstnSttsYn;
 
-//	private Integer[] cmntyDelNo;
-
 	// VO는 필요에 의해 확장해서 사용하는 것임. 고정된 것이 아님
 	private MultipartFile atchFile;
 	private List<MultipartFile> atchFiles;
-	
-//	private AtchFileVO atchFileVO;
-
 }

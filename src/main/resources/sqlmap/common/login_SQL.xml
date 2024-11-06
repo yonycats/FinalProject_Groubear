@@ -5,15 +5,19 @@
   
   <mapper namespace="kr.or.ddit.comm.login.mapper.ILoginMapper">
   
-        <resultMap type="EmployeeVO" id="employeeMap">
+        <resultMap type="kr.or.ddit.comm.security.vo.EmployeeVO" id="employeeMap">
 	        <id property="empId" column="emp_id"/>
 	        <result property="empId" column="emp_id" />
 	        <result property="coCd" column="co_cd" />
+	        <result property="coNm" column="co_nm" />
 	        <result property="deptCd" column="dept_cd" />
 	        <result property="jbgdCd" column="jbgd_cd" />
 	        <result property="empPw" column="emp_pw" />
 	        <result property="empEmlAddr" column="emp_eml_addr" />
 	        <result property="empNm" column="emp_nm" />
+	        <result property="deptNm" column="dept_nm" />
+	        <result property="teamNm" column="team_nm" />
+	        <result property="jbgdNm" column="jbgd_nm" />
 	        <result property="empNo" column="emp_no" />
 	        <result property="empZip" column="emp_zip" />
 	        <result property="empAddr" column="emp_addr" />
@@ -49,15 +53,46 @@
       	</resultMap>
   
      	<select id="readByUserId" parameterType="String" resultMap="employeeMap">
-         	SELECT 
-            	E.EMP_ID, CO_CD, E.DEPT_CD, JBGD_CD, EMP_PW, EMP_EML_ADDR,
-            	EMP_NM, EMP_NO, EMP_ZIP, EMP_ADDR, EMP_DADDR, EMP_TELNO,
-            	EMP_BRDT, EMP_GNDR, EMP_NTN, EMP_JNCMP_YMD, EMP_RSGNTN_YMD,
-            	EMP_CRT_YMD, EMP_MDFCN_YMD, EMP_DEL_YN, EMP_APRV_YN, ENABLED, TEAM_CD,
-            	EMP_DLN_YN, IMG_FILE_URL, AUTHRITY_NM, (select menu_nm from menu where menu_no = dm.menu_no) as "menuNm"
-         	FROM EMPLOYEE E LEFT OUTER JOIN AUTHRITY AU on(E.EMP_ID = AU.EMP_ID)
-                            LEFT OUTER JOIN DEPARTMENT_MENU DM on(e.dept_cd = dm.dept_cd)
-       		WHERE E.EMP_ID = #{userId}
+			SELECT 
+			    E.EMP_ID AS EMP_ID, 
+			    E.CO_CD AS CO_CD, 
+			    C.CO_NM AS CO_NM, 
+			    E.DEPT_CD AS DEPT_CD, 
+			    E.JBGD_CD AS JBGD_CD, 
+			    E.EMP_PW AS EMP_PW, 
+			    E.EMP_EML_ADDR AS EMP_EML_ADDR, 
+			    D.DEPT_NM AS DEPT_NM, 
+			    T.TEAM_NM AS TEAM_NM, 
+			    J.JBGD_NM AS JBGD_NM,
+			    E.EMP_NM AS EMP_NM, 
+			    E.EMP_NO AS EMP_NO, 
+			    E.EMP_ZIP AS EMP_ZIP, 
+			    E.EMP_ADDR AS EMP_ADDR, 
+			    E.EMP_DADDR AS EMP_DADDR, 
+			    E.EMP_TELNO AS EMP_TELNO,
+			    E.EMP_BRDT AS EMP_BRDT, 
+			    E.EMP_GNDR AS EMP_GNDR, 
+			    E.EMP_NTN AS EMP_NTN, 
+			    E.EMP_JNCMP_YMD AS EMP_JNCMP_YMD, 
+			    E.EMP_RSGNTN_YMD AS EMP_RSGNTN,
+			    E.EMP_CRT_YMD AS EMP_CRT_YMD, 
+			    E.EMP_MDFCN_YMD AS EMP_MDFCN_YMD, 
+			    E.EMP_DEL_YN AS EMP_DEL_YN, 
+			    E.EMP_APRV_YN AS EMP_APRV_YN, 
+			    E.ENABLED AS ENABLED, 
+			    E.TEAM_CD AS TEAM_CD,
+			    E.EMP_DLN_YN AS EMP_DLN_YN, 
+			    E.IMG_FILE_URL AS IMG_FILE_URL, 
+			    AU.AUTHRITY_NM, 
+			    (SELECT menu_nm FROM menu WHERE menu_no = DM.menu_no) AS menuNm
+			FROM EMPLOYEE E 
+				LEFT OUTER JOIN AUTHRITY AU ON E.EMP_ID = AU.EMP_ID
+				LEFT OUTER JOIN COMPANY C ON E.CO_CD = C.CO_CD
+				LEFT OUTER JOIN DEPARTMENT D ON E.DEPT_CD = D.DEPT_CD
+				LEFT OUTER JOIN TEAM T ON E.TEAM_CD = T.TEAM_CD
+				LEFT OUTER JOIN JOBGRADE J ON E.JBGD_CD = J.JBGD_CD
+				LEFT OUTER JOIN DEPARTMENT_MENU DM ON E.DEPT_CD = DM.DEPT_CD
+			WHERE E.EMP_ID = #{userId}
       	</select>
       	<select id="loginCheck" parameterType="EmployeeVO" resultType="EmployeeVO">
          	SELECT 

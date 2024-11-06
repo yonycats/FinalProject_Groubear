@@ -39,6 +39,7 @@
         });
     });
 </script>
+<c:set var="customUser" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}" />
 
 <div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
 	<!--begin::Logo-->
@@ -882,7 +883,7 @@
 			<div class="me-5">
 				<!--begin::Symbol-->
 				<div class="symbol symbol-40px cursor-pointer" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" data-kt-menu-overflow="true">
-					<img src="/upload/${employeeVO.imgFileUrl }" alt="" />
+					<img src="/upload/${customUser.member.imgFileUrl }" alt="" />
 				</div>
 				<!--end::Symbol-->
 				<!--begin::User account menu-->
@@ -892,7 +893,7 @@
 						<div class="menu-content d-flex align-items-center px-3">
 							<!--begin::Avatar-->
 							<div class="symbol symbol-50px me-5">
-								<img src="/upload/${employeeVO.imgFileUrl }" alt="" />
+								<img src="/upload/${customUser.member.imgFileUrl }" alt="" />
 							</div>
 							<!--end::Avatar-->
 							<!--begin::Username-->
@@ -1053,11 +1054,11 @@
 			<!--begin::Info-->
 			<div class="me-2">
 				<!--begin::Username-->
-				<a href="#" class="app-sidebar-username text-gray-800 text-hover-primary fs-6 fw-semibold lh-0">${employeeVO.empNm }</a>
+				<a href="#" class="app-sidebar-username text-gray-800 text-hover-primary fs-6 fw-semibold lh-0">${customUser.member.empNm }</a>
 				<!--end::Username-->
 				<!--begin::Description-->
 				<span class="app-sidebar-deckription text-gray-500 fw-semibold d-block fs-8">
-				${companyVO.coNm }
+				${customUser.member.coNm }
 				</span>
 				<!--end::Description-->
 			</div>

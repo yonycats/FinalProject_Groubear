@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <style>
 .image-input-placeholder {
 	background-image: url('assets/media/svg/files/blank-image.svg');
@@ -10,6 +11,17 @@
 	background-image: url('assets/media/svg/files/blank-image-dark.svg');
 }
 </style>
+
+<c:if test="${not empty message }">
+	<script type="text/javascript">
+		Swal.fire({ 
+			icon: 'success',
+			title: '${message}',
+			confirmButtonColor: '#4FC9DA',
+		});
+	</script>
+	<c:remove var="message" scope="request" />
+</c:if>
 
 <div style="margin-bottom: 50px;">
    <div style="margin-top: -32px;">
@@ -35,7 +47,7 @@
 							class="form-control form-control-solid w-250px ps-5"
 							style="margin-top: 0.5em;" placeholder="게시글 검색"
 							value="${searchWord }" />
-						<button id="searchBtn" type="button"
+						<button id="searchBtn" type="submit"
 							class="btn btn-flex btn-light-success ms-1 py-3 px-3"
 							style="margin-top: 0.5em;">
 							<i class="ki-duotone ki-magnifier fs-2"> <span class="path1"
@@ -75,7 +87,7 @@
 							<div class="modal-body px-5 my-7">
 
 								<form id="kt_modal_add_user_form" class="form"
-									action="company/insert.do" method="post"
+									action="employee/insert.do" method="post"
 									enctype="multipart/form-data">
 									<!-- 									고정된 사용자 아이디 -->
 									<div class="d-flex flex-column scroll-y px-5 px-lg-10"
@@ -103,7 +115,6 @@
 											<select name="cmntyType" id="cmntyType"
 												class="form-select form-select-solid fw-bold">
 												<option value="">-- 게시판 선택 --</option>
-												<option value="systemCmnty">시스템 공지사항</option>
 												<option value="company">회사 공지사항</option>
 												<option value="info">정보공유 게시판</option>
 												<option value="free">자유게시판</option>
@@ -119,68 +130,17 @@
 											<label class="required fw-semibold fs-6 mb-2">내용</label>
 											<textarea id="cmntyCn" name="cmntyCn" rows="10" cols="10"
 												class="form-control form-control-solid mb-3 mb-lg-0"
-												placeholder="내용을 입력해주세요"></textarea>
+												placeholder="내용을 입력해주세요" wrap="hard"></textarea>
 										</div>
 										<div class="fv-row mb-7">
 											<label class="d-block fw-semibold fs-6 mb-0 mt-0"
 												style="padding-top: 8px">첨부파일</label> <input type="file"
 												id="atchFiles" name="atchFiles" multiple="multiple"
-												value="${communityVO.atchFiles }">
-
-											<!-- 											begin::Input group -->
-											<!-- 											<div class="fv-row"> -->
-											<!-- 												begin::Dropzone -->
-											<!-- 												<div class="dropzone" id="kt_dropzonejs_example_1"> -->
-											<!-- 													begin::Message -->
-											<!-- 													<div class="dz-message needsclick"> -->
-											<!-- 														<i class="ki-duotone ki-file-up fs-3x text-primary"><span -->
-											<!-- 															class="path1"></span><span class="path2"></span></i> -->
-
-											<!-- 														begin::Info -->
-											<!-- 														<div class="ms-4"> -->
-											<!-- 															<h3 class="fs-5 fw-bold text-gray-900 mb-1">클릭하여 파일을 -->
-											<!-- 																추가하거나, 마우스로 끌어오세요</h3> -->
-											<!-- 															<span class="fs-7 fw-semibold text-gray-500">파일은 -->
-											<!-- 																10개까지 가능합니다.</span> -->
-											<!-- 														</div> -->
-											<!-- 														end::Info -->
-											<!-- 													</div> -->
-											<!-- 												</div> -->
-											<!-- 												end::Dropzone -->
-											<!-- 											</div> -->
-
+												value="${comCommunityVO.atchFiles }">
 
 											<span class="form-text fs-6 text-muted"
 												style="color: #FA5858 !important">파일당 최대 파일 크기는
 												2MB입니다.</span>
-											<!-- 											<div -->
-											<!-- 												class="image-input image-input-outline image-input-placeholder" -->
-											<!-- 												data-kt-image-input="true"> -->
-											<!-- 												<div class="image-input-wrapper w-550px h-125px" -->
-											<!-- 													style="background-image: url(assets/media/avatar/300-6.jpg); box-shadow: none; background-color: #F8F6F2"></div> -->
-											<!-- 												<label -->
-											<!-- 													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body" -->
-											<!-- 													data-kt-image-input-action="change" -->
-											<!-- 													data-bs-toggle="tooltip" title="파일 추가"> <i -->
-											<!-- 													class="ki-duotone ki-pencil fs-7"> <span class="path1"></span> -->
-											<!-- 														<span class="path2"></span> -->
-											<!-- 												</i> <input type="file" id="atchFileCd" name="atchFileCd" /> <input -->
-											<!-- 													type="hidden" name="atch_file_cd_remove" /> -->
-											<!-- 												</label> <span -->
-											<!-- 													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body" -->
-											<!-- 													data-kt-image-input-action="cancel" -->
-											<!-- 													data-bs-toggle="tooltip" title="파일 변경"> <i -->
-											<!-- 													class="ki-duotone ki-cross fs-2"> <span class="path1"></span> -->
-											<!-- 														<span class="path2"></span> -->
-											<!-- 												</i></span> <span -->
-											<!-- 													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body" -->
-											<!-- 													data-kt-image-input-action="remove" -->
-											<!-- 													data-bs-toggle="tooltip" title="파일 삭제"> <i -->
-											<!-- 													class="ki-duotone ki-cross fs-2"> <span class="path1"></span> -->
-											<!-- 														<span class="path2"></span> -->
-											<!-- 												</i> -->
-											<!-- 												</span> -->
-											<!-- 											</div> -->
 										</div>
 									</div>
 									<div class="text-center pt-10" id="comunityModal">
@@ -211,36 +171,15 @@
 				class="app-container container-fluid">
 				<div class="card mb-5 mb-xxl-8">
 					<div class="card-body pt-0 pb-0">
-						<!--begin::Navs-->
-
-						<!-- 		<ul class="nav nav-tabs nav-line-tabs mb-5 fs-6 "> -->
-						<!-- 			<li class="nav-item"><a class="nav-link active" -->
-						<!-- 				data-bs-toggle="tab" href="communitySystem.do">시스템 공지사항</a></li> -->
-						<!-- 			<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" -->
-						<!-- 				href="communityCompany.do">회사 공지사항</a></li> -->
-						<!-- 			<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" -->
-						<!-- 				href="communityInfo.do">정보공유 게시판</a></li> -->
-						<!-- 			<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" -->
-						<!-- 				href="communityFree.do">자유게시판</a></li> -->
-						<!-- 		</ul> -->
-
-<!-- 		 active -->
 						<ul
 							class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
-							<li class="nav-item mt-2"><a
-								class="wow nav-link text-active-primary ms-0 me-10 py-5"		
-								href="communitySystem.do">시스템 공지사항</a></li>
-							<li class="nav-item mt-2"><a
-								class="wow nav-link text-active-primary ms-0 me-10 py-5"
-								href="communityCompany.do">회사 공지사항</a></li>
-							<li class="nav-item mt-2"><a id="systemBtn"
-								class="wow nav-link text-active-primary ms-0 me-10 py-5"
-								href="communityInfo.do">정보공유 게시판</a></li>
-							<li class="nav-item mt-2"><a
-								class="wow nav-link text-active-primary ms-0 me-10 py-5"
-								href="communityFree.do">자유게시판</a></li>
+							<li class="wow nav-item mt-2"><a href="communityCompany.do"
+								class="nav-link text-active-primary ms-0 me-10 py-5" id="cmntyCom">회사 공지사항</a></li>
+							<li class="wow nav-item mt-2"><a href="communityInfo.do"
+								class="nav-link text-active-primary ms-0 me-10 py-5" id="cmntyInfo">정보공유 게시판</a></li>
+							<li class="wow nav-item mt-2"><a href="communityFree.do"
+								class="nav-link text-active-primary ms-0 me-10 py-5" id="cmntyFree">자유게시판</a></li>
 						</ul>
-						<!--begin::Navs-->
 					</div>
 
 				</div>
@@ -261,13 +200,13 @@
 							<tbody class="text-gray-600 fw-semibold">
 								<c:set value="${pagingVO.dataList }" var="dataList" />
 								<c:choose>
-									<c:when test="${empty freeList }">
+									<c:when test="${empty dataList }">
 										<tr>
 											<td colspan="5">게시물이 없습니다.</td>
 										</tr>
 									</c:when>
 									<c:otherwise>
-										<c:forEach items="${freeList}" var="freeBoardList">
+										<c:forEach items="${dataList}" var="freeBoardList">
 											<c:if test="${freeBoardList.cmntyDelYn eq 'N' }">
 												<c:choose>
 													<c:when test="${freeBoardList.cmntyNoticeYn == 'Y'}">
@@ -279,14 +218,16 @@
 																	<p>${freeBoardList.cmntyTtl}</p>
 															</a></td>
 															<td class="CMlist"><p>${freeBoardList.empId}</p></td>
-															<td class="CMlist"><p>${freeBoardList.cmntyRegDt}</p></td>
+															<td class="CMlist"><p>${freeBoardList.cmntyRegDt}</p>
+															</td>
+															
 															<td class="CMlist"><p>${freeBoardList.cmntyInqCnt}</p></td>
 														</tr>
 													</c:when>
 												</c:choose>
 											</c:if>
 										</c:forEach>
-										<c:forEach items="${freeList}" var="freeBoardList">
+										<c:forEach items="${dataList}" var="freeBoardList">
 											<c:if test="${freeBoardList.cmntyDelYn eq 'N' }">
 												<c:choose>
 													<c:when test="${freeBoardList.cmntyNoticeYn != 'Y'}">
@@ -313,30 +254,50 @@
 				</div>
 			</div>
 		</div>
-			<div class="card-footer clearfix" id="pagingArea">${pagingVO.pagingHTML }</div>
+			<div class="card-footer clearfix" style="margin-top: 20px; margin-bottom: 20px;" id="pagingArea">
+						${pagingVO.pagingHTML }
+					</div>
 	</div>
 </div>
 
 <script type="text/javascript">
 $(function() {
+	var pathname = window.location.pathname;
+	if (pathname == "/company/communityFree.do") {
+		$("#cmntyFree").addClass("active");
+	}
+	if (pathname == "/company/communityInfo.do") {
+		$("#cmntyInfo").addClass("active");
+	}
+	if (pathname == "/company/communityCompany.do") {
+		$("#cmntyCom").addClass("active");
+	}
+	
+	var wow = $(".wow");
+	
 	var addBtn = $("#addBtn");
 	var modal = $("#communityModal");
 	
 	var searchForm = $("#searchForm");
 	var pagingArea = $("#pagingArea");
-	
+
+	wow.on("click", function(){
+		$(this).find('a').removeClass('disabled');
+		wow.not($(this)).find('a').addClass('disabled');
+	});
+
 	pagingArea.on("click", "a", function (event) {
 		event.preventDefault();
 		var pageNo = $(this).data("page");
 		searchForm.find("#page").val(pageNo);
-		$("#myInput").val("");
+// 		$("#myInput").val("");
 		searchForm.submit();
 	});
 
 	addBtn.on("click", function() {
 	    console.log("addBtn 클릭");
 	    
-	    let notice = $("#cmnty_notice_yn").is(":checked") ? "Y" : "N";
+	    let notice = $("#cmntyNoticeYn").is(":checked") ? "Y" : "N";
 	    let type = $("#cmntyType").val();
 	    let title = $("#cmntyTtl").val();
 	    let content = $("#cmntyCn").val();
@@ -344,18 +305,43 @@ $(function() {
 	    let files = $("#atchFiles")[0].files; // 모든 파일을 가져옴
 
 	    if (type == null || type == "") {
-	        alert("등록할 게시판을 선택해주세요!");
+	    	Swal.fire({
+				icon: 'warning',
+				title: '등록할 게시판을 선택해주세요',
+				confirmButtonColor: '#4FC9DA',
+			});
 	        return false;
 	    }
 	    if (title == null || title == "") {
-	        alert("제목을 입력해주세요!");
+	    	Swal.fire({
+				icon: 'warning',
+				title: '제목을 입력해주세요',
+				confirmButtonColor: '#4FC9DA',
+			});
 	        return false;
 	    }
 	    if (content == null || content == "") {
-	        alert("내용을 입력해주세요!");
+	    	Swal.fire({
+				icon: 'warning',
+				title: '내용을 입력해주세요',
+				confirmButtonColor: '#4FC9DA',
+			});
 	        return false;
 	    }
 	        
+	    
+       	Swal.fire({
+			title: '등록하시겠습니까?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#F06445',
+			cancelButtonColor: '#4FC9DA',
+			confirmButtonText: '예',
+			cancelButtonText: '아니요',
+			reverseButtons: false, // 버튼 순서 (기본)
+		}).then((result) => {
+			if (result.isConfirmed) {
+				
 	    let formData = new FormData();
 	    formData.append("cmntyNoticeYn", notice);
 	    formData.append("cmntyType", type);
@@ -370,23 +356,33 @@ $(function() {
 	    
 	    console.log(formData);
 	    
-	    $.ajax({
-	        url: "/company/insert/1",
-	        type: "post",
-	        processData: false,
-	        contentType: false,
-	        data: formData,
-	        success: function(res) {
-	            console.log(res);
-	            alert("게시물 등록이 완료되었습니다.");
-	            modal.hide(); // 모달 닫기
-	            location.reload(); // 페이지 새로고침
-	        },
-	        error: function(xhr, status, error) {
-	            console.error("게시물 등록에 실패했습니다:", error);
-	            alert("게시물 등록에 실패했습니다.");
-	        }
-	    });
+			 $.ajax({
+			        url: "/company/insert/1",
+			        type: "post",
+			        processData: false,
+			        contentType: false,
+			        data: formData,
+			        success: function(res) {
+			            console.log("res ::: ", res);
+			            
+			            modal.hide(); // 모달 닫기
+			        	Swal.fire({
+						    icon: 'success',
+						    title: '정상적으로 등록 되었습니다.'
+						});
+			        	setTimeout(() => {
+				            location.reload(); // 페이지 새로고침
+			        	}, 1000);
+			        }
+			    });
+			}
+		})
+	    
+	    
+	    
+	    
+	    
+	    
 	});
 	
 

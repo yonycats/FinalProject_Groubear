@@ -19,6 +19,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -150,16 +151,24 @@ public class EmpCloudController {
 					cloudStrgFileSizeSumBytes = cloudService.cloudStrgFileSizeSumSelect(parentCloud.getCloudCd());
 				}
 			}
-			// 가져온 클라우드함 용량 GB 단위로 변환
-			double fileSizeInGB = ((double) cloudStrgFileSizeSumBytes / (1024 * 1024 * 1024)); // GB로 변환
-			fileSizeInGB = Math.round(fileSizeInGB * 10.0) / 10.0;
-			cloudStrgFileSizeSumStr = fileSizeInGB + "GB";
+			// 바이트를 읽기 쉬운 형식으로 변환
+			String fancySize = FileUtils.byteCountToDisplaySize(cloudStrgFileSizeSumBytes);
+	        // 읽기 쉬운 형식에서 숫자와 단위를 분리
+	        String[] parts = fancySize.split(" "); 
+	        cloudStrgFileSizeSumStr = parts[0] + parts[1];
+	        
+	        // 10GB를 바이트로 변환
+	        long totalBytes = 10L * 1024 * 1024 * 1024; // 10GB in bytes
+	        double percentUsed = Double.valueOf(cloudStrgFileSizeSumBytes) / totalBytes * 100;		// 퍼센트 계산
+	        // 반올림해서 정수로 변환
+	        int fileSizePercent = (int)Math.round(percentUsed);
 			
 			model.addAttribute("parentCloud", parentCloud);
 			model.addAttribute("selectFldrAndFileCount", selectFldrAndFileCount);
 			model.addAttribute("selectStrgCd", selectStrgCd);
 			model.addAttribute("jbgdCd", employeeAllVO.getJbgdCd());
 			model.addAttribute("cloudStrgFileSizeSumStr", cloudStrgFileSizeSumStr);
+			model.addAttribute("fileSizePercent", fileSizePercent);
 			
 			log.info(">>>>>>>>>>>>>>>>>>> parentCloud : " + parentCloud.toString());
 			log.info(">>>>>>>>>>>>>>>>>>> selectFldrAndFileCount : " + selectFldrAndFileCount);
@@ -241,6 +250,35 @@ public class EmpCloudController {
 
 		// 가져온 데이터 Map에 넣어서 model에 넣기
 		Map<String, List<CloudStrgVO>> cloudStrgListMap = new HashMap<String, List<CloudStrgVO>>();
+		
+		// 검색시, 기본적으로 전사 클라우드함 용량 노출
+		// 선택한 클라우드함의 용량
+		CloudStrgVO parentCloud = cloudService.selectParentCloud(comCloudStrgVO.getCloudStrgCd());
+		long cloudStrgFileSizeSumBytes = cloudService.cloudStrgFileSizeSumSelect(parentCloud.getCloudCd());
+		
+		// 가져온 클라우드함 용량 GB 단위로 변환
+		double fileSizeInGB = ((double) cloudStrgFileSizeSumBytes / (1024 * 1024 * 1024)); // GB로 변환
+		fileSizeInGB = Math.round(fileSizeInGB * 10.0) / 10.0;
+		String cloudStrgFileSizeSumStr = fileSizeInGB + "GB";
+		
+		// 바이트를 읽기 쉬운 형식으로 변환
+		String fancySize = FileUtils.byteCountToDisplaySize(cloudStrgFileSizeSumBytes);
+        // 읽기 쉬운 형식에서 숫자와 단위를 분리
+        String[] parts = fancySize.split(" "); 
+        cloudStrgFileSizeSumStr = parts[0] + parts[1];
+        
+        // 10GB를 바이트로 변환
+        long totalBytes = 10L * 1024 * 1024 * 1024; // 10GB in bytes
+        double percentUsed = Double.valueOf(cloudStrgFileSizeSumBytes) / totalBytes * 100;		// 퍼센트 계산
+        // 반올림해서 정수로 변환
+        int fileSizePercent = (int)Math.round(percentUsed);
+		
+		
+		model.addAttribute("parentCloud", parentCloud);
+		model.addAttribute("cloudStrgFileSizeSumStr", cloudStrgFileSizeSumStr);
+		model.addAttribute("fileSizePercent", fileSizePercent);
+
+		model.addAttribute("jbgdCd", employeeAllVO.getJbgdCd());
 		
 		cloudStrgListMap.put("allCloudStrgList", allCloudStrgList);				// 사이드바 클라우드함 리스트
 		cloudStrgListMap.put("myCloudStrgCustomList", myCloudStrgCustomList);	// 개인 클라우드의 커스텀 클라우드함 목록

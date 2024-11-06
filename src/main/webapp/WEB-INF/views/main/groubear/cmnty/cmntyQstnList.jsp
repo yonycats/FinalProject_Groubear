@@ -76,7 +76,9 @@ a:hover {
                                <i class="ki-duotone ki-abstract-8 text-danger me-3"><span class="path1"></span><span class="path2"></span></i>
                             </span>
                           	<span class="menu-title">전체</span>
-                          	<span class="position-absolute top-10 start-100 translate-middle badge badge-circle badge-danger">${qstnCountAll.cmntyQstnSttsAllN }</span>
+                          	<c:if test="${qstnCountAll.cmntyQstnSttsAllN > 0}">
+	                          	<span class="position-absolute top-10 start-100 translate-middle badge badge-circle badge-danger">${qstnCountAll.cmntyQstnSttsAllN }</span>
+                          	</c:if>
                        </div>
                    </div>  
  
@@ -88,17 +90,21 @@ a:hover {
                                <i class="ki-duotone ki-abstract-8 text-success me-3"><span class="path1"></span><span class="path2"></span></i>
                               </span>
                           	<span class="menu-title">서비스이용</span>
-                          	<span class="position-absolute top-10 start-100 translate-middle badge badge-circle badge-danger">${qstnCountService.cmntyQstnSttsNCount }</span>
+                          	<c:if test="${qstnCountService.cmntyQstnSttsNCount > 0}">
+                          		<span class="position-absolute top-10 start-100 translate-middle badge badge-circle badge-danger">${qstnCountService.cmntyQstnSttsNCount }</span>
+                       		</c:if>
                        </div>
                    </div>
- 
+  
                    <div class="menu-item">
                     <div class="menu-link py-3 divHover clickBackColor position-relative ms-5" onclick="f_cmntyQstnKndBtn('QSTNKND002')">
                            <span class="menu-icon"> 
                                <i class="ki-duotone ki-abstract-8 text-info me-3"><span class="path1"></span><span class="path2"></span></i>
                               </span>
                           	<span class="menu-title">가격</span>
-                          	<span class="position-absolute top-10 start-100 translate-middle badge badge-circle badge-danger">${qstnCountPrice.cmntyQstnSttsNCount }</span>
+                          	<c:if test="${qstnCountPrice.cmntyQstnSttsNCount > 0}">
+                          		<span class="position-absolute top-10 start-100 translate-middle badge badge-circle badge-danger">${qstnCountPrice.cmntyQstnSttsNCount }</span>
+                       		</c:if>
                        </div>
                    </div>
  
@@ -108,7 +114,9 @@ a:hover {
                                <i class="ki-duotone ki-abstract-8 text-primary me-3"><span class="path1"></span><span class="path2"></span></i>
                               </span>
                           	<span class="menu-title">기타</span>
-                          	<span class="position-absolute top-10 start-100 translate-middle badge badge-circle badge-danger">${qstnCountOther.cmntyQstnSttsNCount }</span>
+                          	<c:if test="${qstnCountOther.cmntyQstnSttsNCount > 0}">
+                          		<span class="position-absolute top-10 start-100 translate-middle badge badge-circle badge-danger">${qstnCountOther.cmntyQstnSttsNCount }</span>
+                       		</c:if>
                        </div>
                    </div>
 

@@ -92,6 +92,7 @@
                                           
                                          <form action="/company/comProvedocIsprUpdate.do" method="post">
                                          	<input type="hidden" name="prdocNo" value="${provedocVO.prdocNo}">
+                                         	<input type="hidden" name="prdocAplyEmpId" value="${provedocVO.prdocAplyEmpId}">
                                          	
 	                                         <!--CKEditor 시작-->
 	                                         <c:choose>

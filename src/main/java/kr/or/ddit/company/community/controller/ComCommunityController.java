@@ -21,6 +21,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,6 +37,8 @@ import kr.or.ddit.company.community.service.IComCommunityService;
 import kr.or.ddit.company.community.vo.ComCommunityVO;
 import kr.or.ddit.company.personnelInformation.vo.DepartmentVO;
 import kr.or.ddit.company.personnelInformation.vo.TeamVO;
+import kr.or.ddit.employee.workStatus.service.IEmpWorkStatusService;
+import kr.or.ddit.employee.workStatus.vo.EmpWorkStatusVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -46,6 +49,10 @@ public class ComCommunityController {
 
 	@Resource(name = "localPath")
 	private String localPath;
+	
+	
+	@Inject
+	private IEmpWorkStatusService workStatusService;
 
 	@Inject
 	private ITIlesService tilesService;
@@ -54,28 +61,49 @@ public class ComCommunityController {
 	private IComCommunityService service;
 
 	// 회사 공지
-	@GetMapping("/communitySystem.do")
-	public String communitySystem(@RequestParam(name = "page", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(required = false, defaultValue = "title") String searchType,
-			@RequestParam(required = false) String searchWord, Model model, HttpServletRequest request) {
-
-		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		EmployeeVO employeeVO = user.getMember();
-		List<ComCommunityVO> freeList = service.communitySystem(employeeVO);
-		model.addAttribute("freeList", freeList);
-		return "employee/community/list";
-	}
-
-	// 회사 공지
 	@GetMapping("/communityCompany.do")
 	public String communityCompany(@RequestParam(name = "page", required = false, defaultValue = "1") int currentPage,
 			@RequestParam(required = false, defaultValue = "title") String searchType,
 			@RequestParam(required = false) String searchWord, Model model, HttpServletRequest request) {
 		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		EmployeeVO employeeVO = user.getMember();
-		List<ComCommunityVO> freeList = service.communityCompany(employeeVO);
-		model.addAttribute("freeList", freeList);
-		return "employee/community/list";
+
+		DepartmentVO epmtVO = tilesService.getEpmt(employeeVO);
+
+		TeamVO teamVO = tilesService.getTeam(employeeVO);
+		
+		EmpWorkStatusVO EmpWorkStatusVO = workStatusService.getTodayWorkStatus(employeeVO);
+
+		// 페이징 처리
+		PaginationInfoVO<ComCommunityVO> pagingVO = new PaginationInfoVO<ComCommunityVO>(10, 5);
+		pagingVO.setCoCd(employeeVO.getCoCd());
+		pagingVO.setEmpId(employeeVO.getEmpId());
+		pagingVO.setCmntyType("company");
+
+		// 검색 기능
+		if (StringUtils.isNotBlank(searchWord)) {
+			pagingVO.setSearchWord(searchWord);
+			pagingVO.setSearchType(searchType);
+			model.addAttribute("searchWord", searchWord);
+			model.addAttribute("searchType", searchType);
+		}
+
+		pagingVO.setCurrentPage(currentPage);
+		
+		int totalRecord = service.selectCmntyCount(pagingVO);
+		pagingVO.setTotalRecord(totalRecord);
+
+
+		List<ComCommunityVO> dataList = service.selectCmntyList(pagingVO);
+		pagingVO.setDataList(dataList);
+
+		model.addAttribute("employeeVO", employeeVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		model.addAttribute("EmpWorkStatusVO", EmpWorkStatusVO);
+		model.addAttribute("dataList", dataList);
+		model.addAttribute("pagingVO", pagingVO);
+		return "company/community/list";
 	}
 
 	// 정보공유
@@ -85,9 +113,43 @@ public class ComCommunityController {
 			@RequestParam(required = false) String searchWord, Model model, HttpServletRequest request) {
 		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		EmployeeVO employeeVO = user.getMember();
-		List<ComCommunityVO> freeList = service.communityInfo(employeeVO);
-		model.addAttribute("freeList", freeList);
-		return "employee/community/list";
+
+		DepartmentVO epmtVO = tilesService.getEpmt(employeeVO);
+
+		TeamVO teamVO = tilesService.getTeam(employeeVO);
+		
+		EmpWorkStatusVO EmpWorkStatusVO = workStatusService.getTodayWorkStatus(employeeVO);
+
+		// 페이징 처리
+		PaginationInfoVO<ComCommunityVO> pagingVO = new PaginationInfoVO<ComCommunityVO>(10, 5);
+		pagingVO.setCoCd(employeeVO.getCoCd());
+		pagingVO.setEmpId(employeeVO.getEmpId());
+		pagingVO.setCmntyType("info");
+
+		// 검색 기능
+		if (StringUtils.isNotBlank(searchWord)) {
+			pagingVO.setSearchWord(searchWord);
+			pagingVO.setSearchType(searchType);
+			model.addAttribute("searchWord", searchWord);
+			model.addAttribute("searchType", searchType);
+		}
+
+		pagingVO.setCurrentPage(currentPage);
+		
+		int totalRecord = service.selectCmntyCount(pagingVO);
+		pagingVO.setTotalRecord(totalRecord);
+
+
+		List<ComCommunityVO> dataList = service.selectCmntyList(pagingVO);
+		pagingVO.setDataList(dataList);
+
+		model.addAttribute("employeeVO", employeeVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		model.addAttribute("EmpWorkStatusVO", EmpWorkStatusVO);
+		model.addAttribute("dataList", dataList);
+		model.addAttribute("pagingVO", pagingVO);
+		return "company/community/list";
 	}
 
 	// 자유
@@ -97,79 +159,123 @@ public class ComCommunityController {
 			@RequestParam(required = false) String searchWord, Model model, HttpServletRequest request) {
 		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		EmployeeVO employeeVO = user.getMember();
-		List<ComCommunityVO> freeList = service.communityFree(employeeVO);
-		model.addAttribute("freeList", freeList);
-		return "employee/community/list";
-	}
 
+		DepartmentVO epmtVO = tilesService.getEpmt(employeeVO);
+
+		TeamVO teamVO = tilesService.getTeam(employeeVO);
+		
+		EmpWorkStatusVO EmpWorkStatusVO = workStatusService.getTodayWorkStatus(employeeVO);
+
+		// 페이징 처리
+		PaginationInfoVO<ComCommunityVO> pagingVO = new PaginationInfoVO<ComCommunityVO>(10, 5);
+		pagingVO.setCoCd(employeeVO.getCoCd());
+		pagingVO.setEmpId(employeeVO.getEmpId());
+		pagingVO.setCmntyType("free");
+
+		// 검색 기능
+		if (StringUtils.isNotBlank(searchWord)) {
+			pagingVO.setSearchWord(searchWord);
+			pagingVO.setSearchType(searchType);
+			model.addAttribute("searchWord", searchWord);
+			model.addAttribute("searchType", searchType);
+		}
+
+		pagingVO.setCurrentPage(currentPage);
+		
+		int totalRecord = service.selectCmntyCount(pagingVO);
+		pagingVO.setTotalRecord(totalRecord);
+
+
+		List<ComCommunityVO> dataList = service.selectCmntyList(pagingVO);
+		pagingVO.setDataList(dataList);
+
+		model.addAttribute("employeeVO", employeeVO);
+		model.addAttribute("departmentVO", epmtVO);
+		model.addAttribute("teamVO", teamVO);
+		model.addAttribute("EmpWorkStatusVO", EmpWorkStatusVO);
+		model.addAttribute("dataList", dataList);
+		model.addAttribute("pagingVO", pagingVO);
+		return "company/community/list";
+	}
+	
 	@PostMapping("/insert/{type}")
 	@ResponseBody
-	public ResponseEntity<String> communityInsert(@ModelAttribute ComCommunityVO communityVO, Model model)
-			throws Exception {
+	public ResponseEntity<String> communityInsert(@ModelAttribute ComCommunityVO comCommunityVO, Model model)
+	        throws Exception {
+		
 		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		EmployeeVO employeeVO = user.getMember();
+	    EmployeeVO employeeVO = user.getMember();
 
-		String userId = employeeVO.getEmpId();
-		communityVO.setEmpId(userId);
-		communityVO.setCoCd(employeeVO.getCoCd());
+	    String userId = employeeVO.getEmpId();
+	    comCommunityVO.setEmpId(userId);
+	    comCommunityVO.setCoCd(employeeVO.getCoCd());
 
-		// 첨부파일
-		AtchFileVO afVO = new AtchFileVO();
-		afVO.setEmpId(userId);
+	    // 첨부파일
+	    AtchFileVO afVO = new AtchFileVO();
+	    afVO.setEmpId(userId);
 
-		// 첨부파일 디테일
-		List<MultipartFile> pictures = communityVO.getAtchFiles();
+	    // 첨부파일 디테일
+	    List<MultipartFile> pictures = comCommunityVO.getAtchFiles();
+	    List<AtchFileDetailVO> savedAtchFileDetail = new ArrayList<AtchFileDetailVO>();
 
-		List<AtchFileDetailVO> savedAtchFileDetail = new ArrayList<AtchFileDetailVO>();
+	    // 파일이 존재하는 경우에만 처리
+	    if (pictures != null && !pictures.isEmpty()) {
+	        for (MultipartFile file : pictures) {
+	            if (!file.isEmpty()) { // 파일이 비어있지 않은 경우에만 처리
+	                log.info("# fileName : " + file.getOriginalFilename());
 
-		for (MultipartFile file : pictures) {
-			log.info("# fileName : " + file.getOriginalFilename());
+	                // UUID_원본파일명
+	                String savedName = uploadFile(file.getOriginalFilename(), file.getBytes()); // 파일 업로드
 
-			// UUID_원본파일명
-			String savedName = uploadFile(file.getOriginalFilename(), file.getBytes()); // 파일 업로드
+	                long bytes = file.getSize();
+	                String fancysize;
 
-			long bytes = file.getSize();
-			String fancysize; // fancysize를 String 타입으로 선언합니다.
+	                if (bytes > 1024 * 1024) {
+	                    fancysize = (bytes / (1024 * 1024)) + " MB"; // MB 단위
+	                } else if (bytes > 1024) {
+	                    fancysize = (bytes / 1024) + " KB"; // KB 단위
+	                } else {
+	                    fancysize = bytes + " Byte"; // Byte 단위
+	                }
 
-			if (bytes > 1024 * 1024) { // 1MB 이상
-				fancysize = (bytes / (1024 * 1024)) + " MB"; // MB 단위
-				log.info(bytes + "MB");
-			} else if (bytes > 1024) { // 1KB 이상 1MB 미만
-				fancysize = (bytes / 1024) + " KB"; // KB 단위
-				log.info(bytes + "KB");
-			} else { // 1KB 미만
-				fancysize = bytes + " Byte"; // Byte 단위
-				log.info(bytes + "Byte");
-			}
+	                AtchFileDetailVO afdVO = new AtchFileDetailVO();
+	                afdVO.setAtchFileCd(savedName);
+	                afdVO.setAtchFileDetailPathNm(localPath + savedName);
+	                afdVO.setAtchFileDetailExtnNm(savedName.substring(savedName.lastIndexOf(".") + 1));
+	                afdVO.setAtchFileDetailSize((int) bytes);
+	                afdVO.setAtchFileDetailFancysize(fancysize); // fancysize 설정
+	                afdVO.setAtchFileDetailOrgnlNm(file.getOriginalFilename());
+	                afdVO.setAtchFileDetailStrgNm(savedName);
+	                afdVO.setEmpId(userId);
 
-			AtchFileDetailVO afdVO = new AtchFileDetailVO();
-			afdVO.setAtchFileCd(savedName);
-			afdVO.setAtchFileDetailPathNm(localPath + savedName);
-			afdVO.setAtchFileDetailExtnNm(savedName.substring(savedName.lastIndexOf(".") + 1));
-			afdVO.setAtchFileDetailSize((int) bytes);
-			afdVO.setAtchFileDetailFancysize(fancysize); // fancysize 설정
-			afdVO.setAtchFileDetailOrgnlNm(file.getOriginalFilename());
-			afdVO.setAtchFileDetailStrgNm(savedName);
-			afdVO.setEmpId(userId);
+	                log.info("fileInfo ::: " + file);
+	                log.info("afdVO ::: " + afdVO);
+	                savedAtchFileDetail.add(afdVO);
+	                model.addAttribute("afdVO", afdVO);
+	            }
+	        }
+	    } else {
+	        log.info("첨부파일이 없습니다."); // 파일이 없을 경우 로그 추가
+	    }
 
-			log.info("fileInfo ::: " + file);
-			log.info("afdVO ::: " + afdVO);
-			savedAtchFileDetail.add(afdVO);
-		}
-		afVO.setAtchFileDetailList(savedAtchFileDetail);
-		log.info("list:::" + afVO);
+	    // 첨부파일 정보가 없을 경우 null로 설정
+	    if (!savedAtchFileDetail.isEmpty()) {
+	        afVO.setAtchFileDetailList(savedAtchFileDetail);
+	        String atchFileCd = service.atchFileInsert(afVO);
+	        comCommunityVO.setAtchFileCd(atchFileCd);
+	    } else {
+	    	comCommunityVO.setAtchFileCd(null); // 파일이 없을 경우 null 설정
+	    }
 
-		String atchFileCd = service.atchFileInsert(afVO);
-		communityVO.setAtchFileCd(atchFileCd);
-
-		log.info("aaaa");
-
-		service.insertCommunity(communityVO);
-		return new ResponseEntity<String>("SUCCESS :: ", HttpStatus.OK);
+	    service.insertCommunity(comCommunityVO);
+	    return new ResponseEntity<String>("SUCCESS :: ", HttpStatus.OK);
 	}
 
 	private String uploadFile(String originalFilename, byte[] bytes) throws Exception {
 		log.info("uploadFile in..!");
+		
+//		localPath += File.separator + "community";
+		
 		UUID uuid = UUID.randomUUID(); // UUID로 파일명 생성
 		// UUID 원본 파일명
 		String createdFileName = uuid.toString() + "_" + originalFilename;
@@ -192,38 +298,41 @@ public class ComCommunityController {
 		EmployeeVO employeeVO = user.getMember();
 		AtchFileVO atchFileVO = new AtchFileVO();
 		AtchFileDetailVO atchFileDetailVO = new AtchFileDetailVO();
-		ComCommunityVO communityVO = service.communityDetail(cmntyNo);
+		ComCommunityVO comCommunityVO = service.communityDetail(cmntyNo);
 
 		DepartmentVO epmtVO = tilesService.getEpmt(employeeVO);
 
 		TeamVO teamVO = tilesService.getTeam(employeeVO);
-
+		
+		EmpWorkStatusVO EmpWorkStatusVO = workStatusService.getTodayWorkStatus(employeeVO);
+		
 		model.addAttribute("employeeVO", employeeVO);
 		model.addAttribute("departmentVO", epmtVO);
 		model.addAttribute("teamVO", teamVO);
+		model.addAttribute("EmpWorkStatusVO", EmpWorkStatusVO);
 
 		model.addAttribute("atchFileVO", atchFileVO);
 		model.addAttribute("atchFileDetailVO", atchFileDetailVO);
-		model.addAttribute("communityVO", communityVO);
+		model.addAttribute("comCommunityVO", comCommunityVO);
 		model.addAttribute("employeeVO", employeeVO);
 		return "company/community/detail";
 	}
 
 	@PostMapping("/communityModify/{type}")
 	@ResponseBody
-	public ResponseEntity<String> communityModify(@ModelAttribute ComCommunityVO communityVO, String arr, Model model)
+	public ResponseEntity<String> communityModify(@ModelAttribute ComCommunityVO comCommunityVO, String arr, Model model)
 			throws IOException, Exception {
 		log.info("ModiFy 실행 !~!");
-		log.info("communityVO ::: " + communityVO);
+		log.info("ComCommunityVO ::: " + comCommunityVO);
 
 		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		EmployeeVO employeeVO = user.getMember();
 		String userId = employeeVO.getEmpId();
-		communityVO.setEmpId(userId);
-		communityVO.setCoCd(employeeVO.getCoCd());
+		comCommunityVO.setEmpId(userId);
+		comCommunityVO.setCoCd(employeeVO.getCoCd());
 
 		// 일단 있던 첨부파일 수정
-		int delYResult = service.deleteYAtchFile(communityVO.getAtchFileCd());
+		int delYResult = service.deleteYAtchFile(comCommunityVO.getAtchFileCd());
 
 		arr = arr.substring(0, arr.length() - 1);
 		String[] cdArr = arr.split(",");
@@ -236,8 +345,8 @@ public class ComCommunityController {
 		// 첨부파일 추가 시작
 		AtchFileVO afVO = new AtchFileVO();
 		afVO.setEmpId(userId);
-		afVO.setAtchFileCd(communityVO.getAtchFileCd());
-		List<MultipartFile> pictures = communityVO.getAtchFiles();
+		afVO.setAtchFileCd(comCommunityVO.getAtchFileCd());
+		List<MultipartFile> pictures = comCommunityVO.getAtchFiles();
 
 		List<AtchFileDetailVO> savedAtchFileDetail = new ArrayList<AtchFileDetailVO>();
 		for (MultipartFile file : pictures) {
@@ -261,7 +370,7 @@ public class ComCommunityController {
 			}
 
 			AtchFileDetailVO afdVO = new AtchFileDetailVO();
-			afdVO.setAtchFileCd(communityVO.getAtchFileCd());
+			afdVO.setAtchFileCd(comCommunityVO.getAtchFileCd());
 
 			afdVO.setAtchFileDetailPathNm(localPath + savedName);
 			afdVO.setAtchFileDetailExtnNm(savedName.substring(savedName.lastIndexOf(".") + 1));
@@ -284,31 +393,31 @@ public class ComCommunityController {
 		}
 
 		// 제목 내용 수정
-		service.communityModify(communityVO);
-		model.addAttribute("communityVO", communityVO);
+		service.communityModify(comCommunityVO);
+		model.addAttribute("ComCommunityVO", comCommunityVO);
 
 		return new ResponseEntity<String>("SUCCESS ::: ", HttpStatus.OK);
 	}
 
-	@GetMapping("/communityRemove.do")
-	public ResponseEntity<Void> removeCommunity(@RequestParam int cmntyNo) {
-		int result = service.removeCommunity(cmntyNo);
-		if (result > 0) {
-			return ResponseEntity.ok().build(); // 삭제 성공
-		} else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 삭제 실패
-		}
+	@PostMapping("/communityRemove.do")
+	public ResponseEntity<String> removeCommunity(@RequestBody ComCommunityVO comCommunityVO, Model model) {
+		service.removeCommunity(comCommunityVO.getCmntyNo());
+		return new ResponseEntity<String>("SUCCESS : ", HttpStatus.OK);
 	}
 
 	@PostMapping("/downloadAtchFile")
-	public String downloadAtchFile(AtchFileVO atchFileVO, Model model) {
+	public ResponseEntity<String> downloadAtchFile(@RequestBody ComCommunityVO comCommunityVO, @RequestBody AtchFileVO atchFileVO, Model model) {
 		AtchFileDetailVO atchFileDetailVO = new AtchFileDetailVO();
 		atchFileDetailVO.setAtchFileCd(atchFileVO.getAtchFileCd());
 		List<AtchFileDetailVO> atchFileDetailList = atchFileVO.getAtchFileDetailList();
+		log.info("list ::: " + atchFileDetailList);
 		
-		service.downloadFile(atchFileVO);
+		service.downloadFile(atchFileDetailVO);
+		model.addAttribute("comCommunityVO", comCommunityVO);
+		model.addAttribute("atchFileVO", atchFileVO);
+		model.addAttribute("atchFileDetailVO", atchFileDetailVO);
 		model.addAttribute("atchFileDetailList", atchFileDetailList);
-		return "company/community/detail";
+		return new ResponseEntity<String>("SUCCESS : ", HttpStatus.OK);
 	}
 
 }

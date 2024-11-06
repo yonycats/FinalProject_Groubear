@@ -36,7 +36,7 @@
 			<input type="hidden" name="cmntyType" id="cmntyType"> 
 		</form>
 	
-		<form action="/employee/cmntyQstnDelete.do" id="delForm" style="display: contents;" me> 
+		<form action="/employee/cmntyQstnDelete.do" id="delForm" style="display: contents;" method="post"> 
 			<input type="hidden" name="cmntyNo" id="cmntyNo" value="${cmntyVO.cmntyNo }"> 
 		</form>
 		

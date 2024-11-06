@@ -606,25 +606,27 @@ public class GroCmntyController {
 			model.addAttribute("employeeAllVO", employeeAllVO);
 			
 			CmntyVO cmntyVO = cmntyService.qstnSelectOne(cmntyNo);
-			cmntyVO.setCmntyCn(cmntyVO.getCmntyCn().replace("\n","<br>"));
 			
+			if (cmntyVO.getCmntyCn() != null && cmntyVO.getCmntyCn().contains("\n")) {
+				cmntyVO.setCmntyCn(cmntyVO.getCmntyCn().replace("\n","<br>"));
+			}
+
 			if (cmntyVO.getCmntCn() != null && cmntyVO.getCmntCn().contains("\n")) {
 				cmntyVO.setCmntCn(cmntyVO.getCmntCn().replace("\n","<br>"));
 			}
 			
+//			// 발표를 위한 데이터 세팅
+//			cmntyVO.setCmntCn(
+//			"안녕하세요!\r\n" + 
+//			"\r\n" + 
+//			"'베이직'은 메인 홈페이지에서 소개하는 인사관리, 양식, 증명서, 전자결재, 클라우드 등의\r\n" + 
+//			"기본적인 메뉴들을 사용할 수 있고,\r\n" + 
+//			"'프리미엄'은 그 외에 추가로 차량관리, 시설예약, 보안 등의 메뉴를 추가로 사용하실 수 있습니다.\r\n" + 
+//			"\r\n" + 
+//			"감사합니다."
+//					);
 			
-			// 발표를 위한 데이터 세팅
-			cmntyVO.setCmntCn(
-			"안녕하세요!\r\n" + 
-			"\r\n" + 
-			"'베이직'은 메인 홈페이지에서 소개하는 인사관리, 양식, 증명서, 전자결재, 클라우드 등의\r\n" + 
-			"기본적인 메뉴들을 사용할 수 있고,\r\n" + 
-			"'프리미엄'은 그 외에 추가로 차량관리, 시설예약, 보안 등의 메뉴를 추가로 사용하실 수 있습니다.\r\n" + 
-			"\r\n" + 
-			"감사합니다."
-					);
-			
-			
+			 
 			model.addAttribute("cmntyVO", cmntyVO);
 
 			// Q&A 카테고리별 전체 게시물과 Q&A 미답변 게시물 카운트하기
@@ -670,7 +672,7 @@ public class GroCmntyController {
 					ra.addFlashAttribute("message", "답변이 등록되었습니다.");
 					goPage = "redirect:/groubear/cmntyQstnDetail.do?cmntyNo=" + cmtVO.getCmntyNo();
 					
-					// 실시간 알림
+					// 실시간 알림 코드 추가
 					CmntyVO cmntyVO = groCmntyService.qstnSelectOne(cmtVO.getCmntyNo());
 					EmployeeVO param = new EmployeeVO();
 					param.setEmpId(cmntyVO.getQstnEmpId());
