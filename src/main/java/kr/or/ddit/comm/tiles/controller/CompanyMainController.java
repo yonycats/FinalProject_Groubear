@@ -25,6 +25,8 @@ import kr.or.ddit.company.personnelInformation.service.IInformationService;
 import kr.or.ddit.company.personnelInformation.vo.DepartmentVO;
 import kr.or.ddit.company.personnelInformation.vo.JobGradeVO;
 import kr.or.ddit.company.personnelInformation.vo.TeamVO;
+import kr.or.ddit.company.provedoc.service.IComProvedocService;
+import kr.or.ddit.company.provedoc.vo.ComProvedocVO;
 
 /**
  * Handles requests for the application home page.
@@ -46,6 +48,8 @@ public class CompanyMainController {
 	@Inject
 	private IMyElaprService myElaprService;
 	
+	@Inject
+	private IComProvedocService provedocService;
 	
 	@GetMapping("/main.do")
 	public String home(Locale locale, Model model) {
@@ -99,6 +103,11 @@ public class CompanyMainController {
 		// 전자결재 열람 문서 리스트 출력
 		List<ElaprVO> prslList = myElaprService.selectPrslHomeList(empId);
 		model.addAttribute("prslList", prslList);
+		
+		
+		// 현재 전체 증명서와 미발급 증명서 수 카운트하기
+		ComProvedocVO provedocCount = provedocService.provedocComCount(empVO.getCoCd());
+		model.addAttribute("provedocCount", provedocCount);
 		
 		
 		return "company/mainPage/home";

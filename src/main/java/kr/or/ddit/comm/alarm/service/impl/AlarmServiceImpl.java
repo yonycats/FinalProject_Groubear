@@ -26,22 +26,14 @@ public class AlarmServiceImpl implements IAlarmService{
 		mapper.insertAlarm(alarmVO);
 	}
 
-//	@Override
-//	public List<AlarmVO> countList() {
-//		return mapper.countList();
-//	}
-
 	@Override
 	public List<AlarmVO> countList(AlarmVO alarmVO) {
 		return mapper.countList();
 	}
 
-//	@Override
-//	public int countList(AlarmVO alarmVO) {
-//		return mapper.countList(alarmVO);
-//	}
-
-	
-	
+	@Override
+	public int alarmRemove(int alarmNo) {
+		return mapper.alarmRemove(alarmNo);
+	}
 	
 }

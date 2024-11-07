@@ -121,7 +121,7 @@
 											</select>
 										</div>
 										<div class="fv-row mb-7">
-											<label class="required fw-semibold fs-6 mb-2">제목</label> <input
+											<label class="required fw-semibold fs-6 mb-2">제목</label><input
 												type="text" id="cmntyTtl" name="cmntyTtl"
 												class="form-control form-control-solid mb-3 mb-lg-0"
 												placeholder="제목을 입력해주세요" />
@@ -341,6 +341,8 @@ $(function() {
 			reverseButtons: false, // 버튼 순서 (기본)
 		}).then((result) => {
 			if (result.isConfirmed) {
+				
+			content = content.replace(/\n/g, '<br>');
 				
 	    let formData = new FormData();
 	    formData.append("cmntyNoticeYn", notice);

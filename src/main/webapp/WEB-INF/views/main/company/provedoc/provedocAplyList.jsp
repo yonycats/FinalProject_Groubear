@@ -52,34 +52,29 @@
 <div class="kt_app_content_container mx-5 mb-5" class="app-container container-fluid" style="height: 100%"> 
 	<div class="card card-flush" style="height: 100%;">
                                 
-		<!--begin::Card header-->
 		<div class="card-header align-items-center py-5 gap-2 gap-md-5">
-			<!--begin::Card title-->
-			<div class="card-title">
-				<!--begin::Search-->
-				<div class="d-flex align-items-center position-relative my-1">
+			<div class="card-title" style="width: 100%;">
+				<div class="d-flex align-items-center position-relative my-1" style="width: 30%;">
 													
-	                			<form id="searchForm" style="display: contents;">
-	                          <input type="hidden" name="page" id="page">
-					    <input id="myInput" name="searchWord" type="text" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-250px ps-5" style="margin-top: 0.5em;" placeholder="증명서 검색" value="${searchWord }"/>
-	                     		<button id="searchBtn" type="button" class="btn btn-flex btn-light-success ms-1 py-3 px-3" style="margin-top: 0.5em;">
-	                     			<i class="ki-duotone ki-magnifier fs-2x">
-								 <span class="path1" style="height: 1.1em;"></span> 
-								 <span class="path2"></span>
-							</i>
+					<form id="searchForm" style="display: contents;">
+						<input type="hidden" name="page" id="page">
+						<input id="myInput" name="searchWord" type="text" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-250px ps-5" style="margin-top: 0.5em;" placeholder="증명서 검색" value="${searchWord }"/>
+						<button id="searchBtn" type="button" class="btn btn-flex btn-light-success ms-1 py-3 px-3" style="margin-top: 0.5em;">
+						<i class="ki-duotone ki-magnifier fs-2x">
+							<span class="path1" style="height: 1.1em;"></span> 
+							<span class="path2"></span>
+						</i>
 						</button>
-	                         </form>
+					</form>
 	                         
 				</div>
-				<!--end::Search-->
+				<div class="float-end" style="width: 70%;">
+					<span class="badge badge-light-primary badge-lg float-end me-3 fs-2 px-4 py-2">${provedocCount.prdocAprvN } / ${provedocCount.prdocAprvN + provedocCount.prdocAprvY }</span>
+				</div>
 			</div>
-			<!--end::Card title-->
 		</div>
-		<!--end::Card header-->
 	
-		<!--begin::Card body-->
 		<div class="card-body pt-0 pb-0">
-			<!--begin::Table-->
 			<table class="table align-middle table-row-dashed fs-4" id="kt_ecommerce_products_table">
 				<thead>
 					<tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0 text-center">

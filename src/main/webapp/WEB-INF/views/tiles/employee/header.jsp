@@ -897,19 +897,12 @@
         <span class="fs-5">
             <span class="material-symbols-outlined">notifications</span>
 <%--             <c:if test="${alarmCount > 0}"> --%>
-                <span class="symbol-badge badge badge-circle bg-danger"
+                <span class="symbol-badge badge badge-circle bg-danger" id="alarmCountBadge"
                       style="position: absolute; top: -8px; right: -10px; z-index: 1; width: 20px; height: 20px; font-size: 12px; line-height: 20px;">
-                    ${alarmCount}
                 </span>
 <%--             </c:if> --%>
         </span>
     </a>
-
-					<!-- 					begin::Button -->
-					<!-- 					<button type="button" class="btn btn-primary" -->
-					<!-- 						id="kt_docs_toast_stack_button">Toggle Toast</button> -->
-					<!-- 					end::Button -->
-
 
 					<div
 						class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px"
@@ -970,6 +963,11 @@
 										data-bs-toggle="tab" href="#kttopbarnotifications_9">커뮤니티
 											<input type="hidden" id="community" />
 									</a></li>
+									<li class="itemsss" style="font-weight: 900;"><a
+										class="clickTab nav-link text-white opacity-75 opacity-state-100 pb-4"
+										data-bs-toggle="tab" href="#kttopbarnotifications_9">인사정보관리
+											<input type="hidden" id="info" />
+									</a></li>
 								</ul>
 							</div>
 							<!--end::Tabs-->
@@ -982,6 +980,7 @@
 								role="tabpanel">
 								<!--begin::Items-->
 								<div class="scroll-y mh-325px my-5 px-8" id="alarmAppend">
+<%-- 								<input type="hidden" id="alarmNo" value="${alarmVO.alarmNo }" > --%>
 								</div>
 								<!--end::Items-->
 
@@ -1045,11 +1044,55 @@
 	let webSocket;
 	connect();
 	
+	
+	function deleteAlarm(e, element){
+      	e.preventDefault();
+      	
+		let alarmNo = $(".alarmNo").val();
+		
+		console.log("hi");
+		
+		let data = {alarmNo : alarmNo}
+		
+		console.log("data ::: ",data)
+		
+		$.ajax({
+			url:"/alarmRemove",
+			type:"post",
+			data: JSON.stringify(data),
+			contentType : "application/json; charset=utf-8",
+	        success: function(res) {     
+	        	console.log("res ::: " , res);
+	        	
+// 	        	$("#kt_menu_notifications").load(location.href + "#kt_menu_notifications");
+	        	
+	        },
+            error: function(xhr, status, error) {
+                console.error("Error deleting alarm:", error);
+            }
+	   });
+		
+	}
+	
+	
+	$(function(){
+		// 딱 갯수만 가져오는 아작스, 맨 처음에
+		$.ajax({
+			url:"/alarmCnt",
+			type:"get",
+			success:function(pCnt){
+// 				 alert("체킁:" +   pCnt);
+				$("#alarmCountBadge").text(pCnt);
+			}
+		});
+	});
+
 	$("#alarmBtn").on("click", function(){
 		let alarmCategory = $('#alarmCategory').val(); // 알림 유형
 		let alarmTarget = $('#alarmTarget').val(); // 대상 empId
 		let alarmCn = $('#alarmCn').val(); // 알림 내용
 		let alarmUrl = $('#alarmUrl').val(); // 알림 링크
+// 		let alarmNo = $('#alarmNo').val(); // 알림 링크
 	    
 		 $.ajax({
              url : "/alarmList",
@@ -1086,6 +1129,9 @@
 				  }else if(alarm.alarmCategory == "prove"){
 						spanClass = "symbol-label bg-light-warning";
 						iconClass ="bi bi-file-earmark";
+				  }else if(alarm.alarmCategory == "info"){
+						spanClass = "symbol-label bg-light-warning";
+						iconClass ="bi bi-info-circle";
 				  }
 
 
@@ -1097,7 +1143,7 @@
 									<i class="\${iconClass}">
 				  `;
 				  
-				  if(alarmCategory != `car` || alarmCategory != `calender` || alarmCategory != `prove` || alarmCategory != `facilty` || alarmCategory != `vacation`){
+				  if(alarmCategory != `car` || alarmCategory != `info` || alarmCategory != `calender` || alarmCategory != `prove` || alarmCategory != `facilty` || alarmCategory != `vacation`){
 					  alarmHTML += ` <span class="path1"></span> 
 									<span class="path2"></span>`;
 				  }
@@ -1118,17 +1164,20 @@
 				               </a>
 							   <div class="text-gray-500 fs-7" style="width: 255px;">\${alarm.alarmCn}</div>
 						    </div>
-						    <a href="#" name="xClick">
+						    
+						    <a href="#" onclick="deleteAlarm(event, this)">
+						    <input type="hidden" id="alarmNo" class="alarmNo" value="\${alarm.alarmNo }" />
 							   <i class="ki-duotone ki-cross-circle">
 								 <span class="path1"></span>
 								 <span class="path2"></span>
 								</i>
 							</a>
+							
 						</div>
 				    </div>
 					<div class="mb-3">
 						<span class="badge badge-light fs-8 mb-0" style="float:right;">\${alarm.alarmCrtDt}</span> 
-						</div>
+					</div>
 						`;
 				 }
 				 alarmAppend.innerHTML = alarmHTML;

@@ -104,7 +104,7 @@
 												게시판 종류</label>
 											<div
 												class="d-flex align-items-center justify-content-end ms-auto">
-												<input class="form-check-input w-15px h-15px"
+												<input class="form-check-input w-15px h-15px" checked="checked"
 													type="checkbox" id="cmntyNoticeYn" name="cmntyNoticeYn"
 													style="margin-bottom: 5px" /> <label
 													class="fw-semibold fs-6 mb-2" style="padding-left: 5px">공지
@@ -114,7 +114,6 @@
 										<div class="fv-row mb-7">
 											<select name="cmntyType" id="cmntyType"
 												class="form-select form-select-solid fw-bold">
-												<option value="">-- 게시판 선택 --</option>
 												<option value="company">회사 공지사항</option>
 												<option value="info">정보공유 게시판</option>
 												<option value="free">자유게시판</option>
@@ -124,13 +123,26 @@
 											<label class="required fw-semibold fs-6 mb-2">제목</label> <input
 												type="text" id="cmntyTtl" name="cmntyTtl"
 												class="form-control form-control-solid mb-3 mb-lg-0"
-												placeholder="제목을 입력해주세요" />
+												placeholder="제목을 입력해주세요" value="사이버 보안 안전 진단의 날" />
 										</div>
 										<div class="fv-row mb-7">
 											<label class="required fw-semibold fs-6 mb-2">내용</label>
+											<pre>
 											<textarea id="cmntyCn" name="cmntyCn" rows="10" cols="10"
 												class="form-control form-control-solid mb-3 mb-lg-0"
-												placeholder="내용을 입력해주세요" wrap="hard"></textarea>
+												placeholder="내용을 입력해주세요" wrap="hard">
+													11월 [사이버 보안 안전 진단의 날]을 맞이하여
+													아래와 같이 PC점검을 필히 하여주시길 부탁드립니다.
+													
+													
+													o 명칭 : 『사이버 보안 안전 진단의 날』
+													
+													o 일시 : 2024. 11. 13 [매월 세번째 수요일]
+													
+													o 대상 : 전체부서 전체 구성원 의무설치
+													
+													o 운영 : 컴퓨터 사용자 스스로 보안점검 실시, 지속적인 캠페인 실시 등</textarea>
+											</pre>
 										</div>
 										<div class="fv-row mb-7">
 											<label class="d-block fw-semibold fs-6 mb-0 mt-0"
@@ -342,6 +354,8 @@ $(function() {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				
+			content = content.replace(/\n/g, '<br>');
+				
 	    let formData = new FormData();
 	    formData.append("cmntyNoticeYn", notice);
 	    formData.append("cmntyType", type);
@@ -377,11 +391,6 @@ $(function() {
 			    });
 			}
 		})
-	    
-	    
-	    
-	    
-	    
 	    
 	});
 	

@@ -179,7 +179,9 @@
 	</update>
 	
 	<!-- 전자결재 신청 -->
-	<insert id="elaprInsert" parameterType="kr.or.ddit.comm.elapr.vo.ElaprVO" useGeneratedKeys="true" keyProperty="elaprNo">
+	<!-- <insert id="elaprInsert" parameterType="kr.or.ddit.comm.elapr.vo.ElaprVO" useGeneratedKeys="true" keyProperty="elaprNo">
+		<selectKey keyProperty="elaprNo" resultType="int" order="BEFORE"> -->
+	<insert id="elaprInsert" parameterType="kr.or.ddit.comm.elapr.vo.ElaprVO" useGeneratedKeys="true">
 		<selectKey keyProperty="elaprNo" resultType="int" order="BEFORE">
 			select seq_electronic_approval.nextval from dual
 		</selectKey>

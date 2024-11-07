@@ -6,12 +6,15 @@
   <mapper namespace="kr.or.ddit.comm.alarm.mapper.IAlarmMapper">
   	<select id="selectList"  parameterType="kr.or.ddit.comm.alarm.vo.AlarmVO" resultType="kr.or.ddit.comm.alarm.vo.AlarmVO">
   		select
+  			alarm_no,
 			alarm_cn,
 			alarm_category,
 			alarm_crt_dt,
 			alarm_url
 		from alarm
 		where emp_id = #{alarmTarget}
+		and alarm_yn = 'N'
+		order by alarm_crt_dt desc
   	</select>
   	
   	<insert id="insertAlarm" parameterType="kr.or.ddit.comm.alarm.vo.AlarmVO">
@@ -35,5 +38,12 @@
 		from alarm
 		where emp_id = #{alarmTarget} and alarm_yn = 'N'
   	</select>
+  	
+  	<update id="alarmRemove" parameterType="int">
+  		update alarm
+  		set
+  			alarm_yn = 'Y'
+  		where alarm_no = #{alarmNo}
+  	</update>
   	
   </mapper>

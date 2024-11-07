@@ -780,10 +780,11 @@
 					<a href="#" class="btn btn-icon btn-primary fw-bold" id="alarmBtn"
 						data-kt-menu-trigger="click" data-kt-menu-attach="parent"
 						style="position: relative;"> <!-- 아이콘 --> <span class="fs-5">
-							<span class="material-symbols-outlined">notifications</span> <%--             <c:if test="${alarmCount > 0}"> --%>
-							<span class="symbol-badge badge badge-circle bg-danger"
+							<span class="material-symbols-outlined">notifications</span> <span
+							class="symbol-badge badge badge-circle bg-danger"
+							id="alarmCountBadge"
 							style="position: absolute; top: -8px; right: -10px; z-index: 1; width: 20px; height: 20px; font-size: 12px; line-height: 20px;">
-								${alarmCount} </span> <%--             </c:if> --%>
+						</span>
 					</span>
 					</a>
 
@@ -887,6 +888,49 @@
 	let webSocket;
 	connect();
 	
+	
+	function deleteAlarm(e, element){
+      	e.preventDefault();
+      	
+		let alarmNo = $(".alarmNo").val();
+		
+		console.log("hi");
+		
+		let data = {alarmNo : alarmNo}
+		
+		console.log("data ::: ",data)
+		
+		$.ajax({
+			url:"/alarmRemove",
+			type:"post",
+			data: JSON.stringify(data),
+			contentType : "application/json; charset=utf-8",
+	        success: function(res) {     
+	        	console.log("res ::: " , res);
+	        	
+// 	        	$("#kt_menu_notifications").load(location.href + "#kt_menu_notifications");
+	        	
+	        },
+            error: function(xhr, status, error) {
+                console.error("Error deleting alarm:", error);
+            }
+	   });
+		
+	}
+
+	$(function(){
+		// 딱 갯수만 가져오는 아작스, 맨 처음에
+		$.ajax({
+			url:"/alarmCnt",
+			type:"get",
+			success:function(pCnt){
+// 				 alert("체킁:" +   pCnt);
+				$("#alarmCountBadge").text(pCnt);
+			}
+		});
+	});
+
+	
 	$("#alarmBtn").on("click", function(){
 		let alarmCategory = $('#alarmCategory').val(); // 알림 유형
 		let alarmTarget = $('#alarmTarget').val(); // 대상 empId
@@ -899,7 +943,7 @@
              success: function(alarmList){
             	 console.log("alarm Data",alarmList);
                  
-				 let alarmHTML ="";
+            	 let alarmHTML ="";
 				 for(let i=0; i<alarmList.length; i++){
 				  
 				  let alarm = alarmList[i];
@@ -927,11 +971,18 @@
 				               </a>
 							   <div class="text-gray-500 fs-7" style="width: 240px;">\${alarm.alarmCn}</div>
 						    </div>
+						    <a href="#" onclick="deleteAlarm(event, this)">
+						    <input type="hidden" id="alarmNo" class="alarmNo" value="\${alarm.alarmNo }" />
+							   <i class="ki-duotone ki-cross-circle">
+								 <span class="path1"></span>
+								 <span class="path2"></span>
+								</i>
+							</a>
 						</div>
 				    </div>
 					<div class="mb-3">
 						<span class="badge badge-light fs-8 mb-0" style="float:right;">\${alarm.alarmCrtDt}</span> 
-						</div>
+					</div>
 						`;
 				 }
 				 alarmAppend.innerHTML = alarmHTML;

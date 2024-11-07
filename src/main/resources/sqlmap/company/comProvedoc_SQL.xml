@@ -180,4 +180,12 @@
 		      f.doc_form_no = b.doc_form_no
 	</select>
 	
+	<!-- 현재 전체 증명서와 미발급 증명서 수 카운트하기 -->
+	<select id="provedocComCount" parameterType="String" resultType="kr.or.ddit.company.provedoc.vo.ComProvedocVO">
+		SELECT COUNT(CASE WHEN PRDOC_APRV_YN = 'Y' THEN 1 END) AS PRDOC_APRV_Y,
+		       COUNT(CASE WHEN PRDOC_APRV_YN = 'N' THEN 1 END) AS PRDOC_APRV_N
+		FROM PROVE_DOCUMENT
+		WHERE co_cd = #{coCd}
+	</select>
+	
   </mapper>

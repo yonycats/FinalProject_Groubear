@@ -23,6 +23,16 @@ a:hover {
    text-overflow:ellipsis;
    white-space:nowrap;
 }
+.numShadow {
+	margin-left: -30px;
+    width: 40px;
+    height: 5px;
+    background-color: gray;
+    border-radius: 50%;
+    opacity: 60%;
+    position: absolute;
+    margin-top: 25%;
+}
 </style>
 
 
@@ -532,7 +542,7 @@ a:hover {
 
 				<div class="row g-5 g-xxl-10">
 
-					<div class="col-md-5 col-lg-6 col-xl-6 col-xxl-3 mb-10">
+					<div class="col-md-5 col-lg-5 col-xl-5 col-xxl-3 mb-10">
 						
 						<!-- 증명서 위젯 시작 -->
 						<div class="card card-flush h-lg-100 mb-5 mb-xl-10">
@@ -541,174 +551,45 @@ a:hover {
 								<div class="card-title d-flex flex-column">
 									<div class="d-flex align-items-center ms-2">
 										<span class="fs-4 fw-semibold text-gray-500 me-5 align-self-start">
-											<i class="ki-duotone ki-abstract-25 fs-3x mt-1">
+											<i class="ki-duotone ki-tablet-text-up fs-2tx mt-1">
 											 <span class="path1"></span>  
 											 <span class="path2"></span>
 											</i>
 										</span>
 										<span class="fs-2x fw-bold text-gray-900 me-2 lh-1 ls-n2">
-											<a href="/groubear/cmntyQstnList.do">새로운 증명서 요청</a>
+											<a href="/company/provedocAplyList.do">증명서 요청관리</a>
 										</span>
 									</div> 
 								</div>  
 							</div> 
 
-							<div class="card-body pt-2 pb-4 d-flex align-items-center">
-								<div class="d-flex flex-column content-justify-center w-100 ms-2"> 
+							<div class="card-body pt-2 pb-0">
 								
-									<div class="d-flex fs-3 fw-semibold align-items-center ms-5">
-										<div class="bullet w-15px h-7px rounded-2 bg-danger me-3"></div>
-										<div class="text-gray-700 flex-grow-1 ms-2">
-											<a href="/groubear/cmntyQstnList.do?cmntyType=QSTNKND001">서비스이용</a>
-										</div>
-										<div class="fw-bolder text-gray-700 fs-2 me-4">
-											<span>
-												<a href="/groubear/cmntyQstnList.do?cmntyType=QSTNKND001">
-												</a>	
-											</span>
-										</div>
+								<div class="fs-3 fw-semibold ms-5">
+									<div class="d-flex justify-content-center py-3">
+										<div class="bullet w-15px h-8px rounded-2 bg-danger me-3 mt-3"></div>
+										<div class="text-gray-700 ms-2 me-10 fs-2">미처리 발급요청</div>
 									</div>
-
-									<div class="d-flex fs-3 fw-semibold align-items-center my-3 ms-5">
-										<div class="bullet w-15px h-7px rounded-2 bg-primary me-3"></div>
-										<div class="text-gray-700 flex-grow-1 ms-2">
-											<a href="/groubear/cmntyQstnList.do?cmntyType=QSTNKND002">가격</a>
-										</div>
-										<div class="fw-bolder text-gray-700 fs-2 me-4">
-											<span>
-												<a href="/groubear/cmntyQstnList.do?cmntyType=QSTNKND002">
-												</a>	
-											</span>
-										</div>
-									</div> 
-
-									<div class="d-flex fs-3 fw-semibold align-items-center ms-5">
-										<div class="bullet w-15px h-7px rounded-2 bg-success me-3"></div>  
-										<div class="text-gray-700 flex-grow-1 ms-2">
-											<a href="/groubear/cmntyQstnList.do?cmntyType=QSTNKND003">기타</a>
-										</div>
-										<div class="fw-bolder text-gray-700 fs-2 me-4">
-											<span>
-												<a href="/groubear/cmntyQstnList.do?cmntyType=QSTNKND003">
-												</a>	
-											</span>
-										</div>
+									<div class="fw-bolder text-gray-700 fs-1 me-4 d-flex justify-content-center"> 
+										<span class="fs-5hx">
+											<a href="/company/provedocAplyList.do">
+												${provedocCount.prdocAprvN }
+											</a>	
+										</span>
+										<span class="text-gray-800 ms-3 mt-13">건</span>
+										<span class="numShadow"></span>
 									</div>
-									
 								</div>
+								
 							</div>
 						
 						</div>
 						<!-- 증명서 위젯 끝 -->
 						 
-						
 					</div>
 	
 
-					<div class="col-md-7 col-lg-6 col-xl-6 col-xxl-3 mb-10">
-						<div class="card card-flush h-lg-100">  
-						    <!--begin::Header-->
-						    <div class="card-header pt-5">
-						        <!--begin::Title-->
-						        <h3 class="card-title text-gray-800">Highlights</h3>
-						        <!--end::Title-->
-						
-						        <!--begin::Toolbar-->
-						        <div class="card-toolbar d-none">          
-						            <!--begin::Daterangepicker(defined in src/js/layout/app.js)-->
-						            <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left" class="btn btn-sm btn-light d-flex align-items-center px-4" data-kt-initialized="1">           
-						                <!--begin::Display range-->
-						                <div class="text-gray-600 fw-bold">8 10월 2024 - 6 11월 2024</div>
-						                <!--end::Display range-->
-						
-						                <i class="ki-duotone ki-calendar-8 fs-1 ms-2 me-0"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span></i>          
-						            </div>  
-						            <!--end::Daterangepicker-->                         
-						        </div>
-						        <!--end::Toolbar-->
-						    </div>
-						    <!--end::Header-->
-						
-						    <!--begin::Body-->
-						    <div class="card-body pt-5">                 
-						                    <!--begin::Item-->
-						            <div class="d-flex flex-stack">
-						                <!--begin::Section-->
-						                <div class="text-gray-700 fw-semibold fs-6 me-2">Avg. Client Rating</div>                   
-						                <!--end::Section-->  
-						
-						                <!--begin::Statistics--> 
-						                <div class="d-flex align-items-senter">
-						                                            <i class="ki-duotone ki-arrow-up-right fs-2 text-success me-2"><span class="path1"></span><span class="path2"></span></i>  
-						                                        
-						                    <!--begin::Number-->           
-						                    <span class="text-gray-900 fw-bolder fs-6">7.8</span> 
-						                    <!--end::Number-->  
-						                    
-						                                            <span class="text-gray-500 fw-bold fs-6">/10</span> 
-						                                    </div>  
-						                <!--end::Statistics-->           
-						            </div>
-						            <!--end::Item-->
-						
-						                            <!--begin::Separator-->
-						                <div class="separator separator-dashed my-3"></div>
-						                <!--end::Separator-->
-						             
-						                    <!--begin::Item-->
-						            <div class="d-flex flex-stack">
-						                <!--begin::Section-->
-						                <div class="text-gray-700 fw-semibold fs-6 me-2">Avg. Quotes</div>                   
-						                <!--end::Section-->  
-						
-						                <!--begin::Statistics--> 
-						                <div class="d-flex align-items-senter">
-						                                            <i class="ki-duotone ki-arrow-down-right fs-2 text-danger me-2"><span class="path1"></span><span class="path2"></span></i>                 
-						                                        
-						                    <!--begin::Number-->           
-						                    <span class="text-gray-900 fw-bolder fs-6">730</span> 
-						                    <!--end::Number-->  
-						                    
-						                                                             
-						                                    </div>  
-						                <!--end::Statistics-->           
-						            </div>
-						            <!--end::Item-->
-						
-						                            <!--begin::Separator-->
-						                <div class="separator separator-dashed my-3"></div>
-						                <!--end::Separator-->
-						             
-						                    <!--begin::Item-->
-						            <div class="d-flex flex-stack">
-						                <!--begin::Section-->
-						                <div class="text-gray-700 fw-semibold fs-6 me-2">Avg. Agent Earnings</div>                   
-						                <!--end::Section-->  
-						
-						                <!--begin::Statistics--> 
-						                <div class="d-flex align-items-senter">
-						                                            <i class="ki-duotone ki-arrow-up-right fs-2 text-success me-2"><span class="path1"></span><span class="path2"></span></i>  
-						                                        
-						                    <!--begin::Number-->           
-						                    <span class="text-gray-900 fw-bolder fs-6">$2,309</span> 
-						                    <!--end::Number-->  
-						                    
-						                                                             
-						                                    </div>  
-						                <!--end::Statistics-->           
-						            </div>
-						            <!--end::Item-->
-						
-						             
-						            
-						    </div>
-						    <!--end::Body-->
-						</div>
-						
-					</div>
-	
-
-					<div class="col-xl-6 mb-5 mb-xxl-10">
+					<div class="col-xl-9 mb-5 mb-xxl-10">
 
 						<div class="card card-flush h-xl-80">
 							<div class="card-body pt-3">

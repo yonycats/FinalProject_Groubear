@@ -87,5 +87,11 @@ public class ComProvedocServiceImpl implements IComProvedocService {
 	public ComProvedocVO provedocDetail(ComProvedocVO provedocVO) {
 		return provedocMapper.provedocDetail(provedocVO);
 	}
+
+	// 현재 전체 증명서와 미발급 증명서 수 카운트하기
+	@Override
+	public ComProvedocVO provedocComCount(String coCd) {
+		return provedocMapper.provedocComCount(coCd);
+	}
 	
 }

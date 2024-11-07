@@ -10,8 +10,8 @@ public interface IAlarmService {
 
 	public void insertAlarm(AlarmVO alarmVO);
 
-//	public int countList(AlarmVO alarmVO);
-
 	public List<AlarmVO> countList(AlarmVO alarmVO);
+
+	public int alarmRemove(int alarmNo);
 
 }

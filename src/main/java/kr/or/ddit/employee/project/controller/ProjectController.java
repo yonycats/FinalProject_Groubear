@@ -143,6 +143,13 @@ public class ProjectController {
 		model.addAttribute("deptTeamList", deptTeamList);
 		model.addAttribute("jbgdList", jbgdList);
 		model.addAttribute("teamList", teamList);
+		
+		// 발표 - 하드코딩
+		ProjectVO projectVO = new ProjectVO();
+		projectVO.setProNm("채팅 및 고객 지원 시스템 개선 프로젝트");
+		projectVO.setProCn("고객이 실시간으로 상담을 받을 수 있도록 채팅 및 고객 지원 시스템을 개선하는 프로젝트");
+		
+		model.addAttribute("projectVO", projectVO);
 
 		log.info("companyVO : " + companyVO.getCeoId());
 		
@@ -419,7 +426,15 @@ public class ProjectController {
 		}
 		
 		ProjectTaskVO projectTaskVO = new ProjectTaskVO();
+		
+		// 발표용 하드코딩
+		projectTaskVO.setProTaskNm("분석 대시보드 구축");
+		projectTaskVO.setProTaskCn("응답 시간, 고객 만족도 등");
+		
+		
+		model.addAttribute("projectVO", projectVO);
 		model.addAttribute("projectTaskVO", projectTaskVO);
+		
 		
 		return "employee/project/proTaskForm";
 	}

@@ -269,13 +269,19 @@ public class EmpElaprController {
 		
 		FormVO formVO = new FormVO();
 		formVO.setCoCd(empVO.getCoCd());
-		
+		 
 		// 양식 종류 가져오기
 		List<FormVO> docFormKndNmList = formService.groubearSelectDocFormKndNm(formVO);
 		model.addAttribute("docFormKndNmList", docFormKndNmList);
 		
 		model.addAttribute("formVO", formVO);
 		model.addAttribute("status", "i");
+		
+		// 발표용 하드코딩
+		ElaprVO elaprVO = new ElaprVO();
+		elaprVO.setElaprNm("11월 06일 회의록");
+		
+		model.addAttribute("elaprVO", elaprVO);
 		
 		return "employee/elapr/elaprInsert";
 	}      

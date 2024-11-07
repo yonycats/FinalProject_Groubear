@@ -1,7 +1,5 @@
 package kr.or.ddit.company.provedoc.vo;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data
@@ -25,4 +23,7 @@ public class ComProvedocVO {
 	private String prdocInfoEmpId;
 	
 	private String[] empIdArr;
+
+	private String prdocAprvY;
+	private String prdocAprvN;
 }

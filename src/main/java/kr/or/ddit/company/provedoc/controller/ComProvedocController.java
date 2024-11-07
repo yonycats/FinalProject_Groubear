@@ -115,6 +115,10 @@ public class ComProvedocController {
 		List<ComProvedocVO> formList = provedocService.comSelectProvedocAplyList(pagingVO);
 		pagingVO.setDataList(formList);
 		
+		// 현재 전체 증명서와 미발급 증명서 수 카운트하기
+		ComProvedocVO provedocCount = provedocService.provedocComCount(employeeVO.getCoCd());
+		model.addAttribute("provedocCount", provedocCount);
+		
 		// 다른 메서드 (insert, update, delete 등)에서 전달한 메시지 함께 보내기
 		HttpSession session = request.getSession();
 		model.addAttribute("message", session.getAttribute("message"));

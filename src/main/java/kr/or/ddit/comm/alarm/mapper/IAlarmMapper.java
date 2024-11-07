@@ -10,9 +10,9 @@ public interface IAlarmMapper {
 
 	public void insertAlarm(AlarmVO alarmVO);
 
-//	public int countList(AlarmVO alarmVO);
-
 	public List<AlarmVO> countList();
+
+	public int alarmRemove(int alarmNo);
 
 
 }

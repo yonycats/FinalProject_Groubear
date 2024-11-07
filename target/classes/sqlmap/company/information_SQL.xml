@@ -271,7 +271,9 @@
 	<select id="selectDeptTeamList" parameterType="String" resultMap="deptMap">
   		SELECT D.DEPT_CD, D.DEPT_NM, T.TEAM_CD, T.TEAM_NM
   		FROM DEPARTMENT D, TEAM T
-  		WHERE CO_CD = #{coCd} AND D.DEPT_CD = T.DEPT_CD
+  		WHERE 
+  			CO_CD = #{coCd} AND D.DEPT_CD = T.DEPT_CD
+  			AND D.DEPT_ACTVTN_YN = 'Y'
   		ORDER BY D.DEPT_NM ASC, T.TEAM_NM ASC
   	</select>
   	

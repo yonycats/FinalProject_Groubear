@@ -18,6 +18,7 @@ import kr.or.ddit.comm.alarm.service.IAlarmService;
 import kr.or.ddit.comm.alarm.vo.AlarmVO;
 import kr.or.ddit.comm.security.vo.CustomUser;
 import kr.or.ddit.comm.security.vo.EmployeeVO;
+import kr.or.ddit.company.community.vo.ComCommunityVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -38,22 +39,28 @@ public class AlarmController {
 
 		AlarmVO alarmVO = new AlarmVO();  // 아무것도 없는 빈 걸 만들음!
 		alarmVO.setAlarmTarget(user.getUsername());
-
+		
 		List<AlarmVO> alarmList = alarmService.selectList(alarmVO);
 		log.info("alarmList ::: " + alarmList);
 		return alarmList;
 	}
 	
-	public String empCountList(AlarmVO alarmVO, Model model) {
-//		List<AlarmVO> alarmCount = alarmService.countList();
-		List<AlarmVO> alarmCount = alarmService.countList(alarmVO);
-//		alarmVO.setAlarmCnt(alarmCount);
+	@ResponseBody
+	@GetMapping("/alarmCnt")
+	public int alarmCnt() {
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		log.debug("다빈 체킁 {}",user);
 		
-		log.info("count ::: " + alarmCount);
+		EmployeeVO employeeVO = user.getMember();
+		String empId = employeeVO.getEmpId();
+
+		AlarmVO alarmVO = new AlarmVO();  // 아무것도 없는 빈 걸 만들음!
+		alarmVO.setAlarmTarget(user.getUsername());
 		
-		model.addAttribute("alarmVO", alarmVO);
-		model.addAttribute("alarmCount", alarmCount);
-		return "tiles/employee/header";
+
+		List<AlarmVO> alarmList = alarmService.selectList(alarmVO);
+		log.info("alarmList ::: " + alarmList);
+		return alarmList.size();
 	}
 	
 	@PostMapping("/insertAlarm")
@@ -74,6 +81,14 @@ public class AlarmController {
 			log.info("alarmVO :::" + alarmVO);
 		
 		return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+	}
+	
+	
+	@PostMapping("/alarmRemove")
+	@ResponseBody
+	public ResponseEntity<String> alarmRemove(@RequestBody AlarmVO alarmVO) {
+		alarmService.alarmRemove(alarmVO.getAlarmNo());
+		return new ResponseEntity<String>("SUCCESS : ", HttpStatus.OK);
 	}
 	
 
