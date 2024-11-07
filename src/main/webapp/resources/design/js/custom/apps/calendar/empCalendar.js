@@ -414,12 +414,23 @@ var KTAppCalendar = function () {
 		                    url: '/employee/calInsert.do', // 서버 엔드포인트
 		                    type: 'POST',
 		                    data: JSON.stringify({
+		                    /*
 		                        calendarNm: eventName.value,
 		                        calendarCn: eventDescription.value,
 		                        calendarDaddr: eventLocation.value,
 		                        calendarDt: startDateTime,
 		                        calendarEndDt: endDateTime,
 		                        empId: data.empId // 필요한 경우 추가 데이터 전달
+		                    */
+			                    calendarNm: document.getElementById('calendarNm').value,
+						        calendarCn: document.getElementById('calendarCn').value,
+						        calendarDaddr: document.getElementById('calendarDaddr').value,
+						        calendarDt: moment(startFlatpickr.selectedDates[0]).format('YYYY-MM-DD'),
+						        calendarEndDt: moment(endFlatpickr.selectedDates[0]).format('YYYY-MM-DD'),
+						        calendarStartTime: moment(startTimeFlatpickr.selectedDates[0]).format('HH:mm:ss'),
+						        calendarEndTime: moment(endTimeFlatpickr.selectedDates[0]).format('HH:mm:ss'),
+						        empId: data.empId
+		                    
 		                    }),
 		                    contentType: 'application/json',
 		                    success: function (response) {
@@ -440,6 +451,7 @@ var KTAppCalendar = function () {
 		                                
 		                                // 캘린더에 이벤트 추가
 		                                calendar.addEvent({
+		                                    /*
 		                                    id: uid(),
 		                                    title: eventName.value,
 		                                    description: eventDescription.value,
@@ -447,6 +459,16 @@ var KTAppCalendar = function () {
 		                                    start: startDateTime,
 		                                    end: endDateTime,
 		                                    allDay: allDayEvent
+		                                    */
+		                                    
+		                                    id: uid(),
+						                    title: document.getElementById('calendarNm').value,
+						                    description: document.getElementById('calendarCn').value,
+						                    location: document.getElementById('calendarDaddr').value,
+						                    start: moment(startFlatpickr.selectedDates[0]).format('YYYY-MM-DDTHH:mm:ss'),
+						                    end: moment(endFlatpickr.selectedDates[0]).format('YYYY-MM-DDTHH:mm:ss'),
+						                    allDay: allDayToggle.checked
+		                                    
 		                                });
 		                            });
 		                        } else {

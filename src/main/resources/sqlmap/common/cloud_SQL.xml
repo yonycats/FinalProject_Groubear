@@ -771,7 +771,9 @@
   	<select id="cloudFileNameCheck" parameterType="kr.or.ddit.comm.cloud.vo.CloudFileVO" resultType="int">
 		select count(*)
 		from employee e inner join cloud_file c on (e.emp_id = c.CLOUD_FILE_REG_EMP_ID)
-		where co_cd = #{coCd} and CLOUD_FILE_ORGNL_NM = #{cloudFileOrgnlNm}
+		where co_cd = #{coCd} and 
+			  CLOUD_FILE_ORGNL_NM = #{cloudFileOrgnlNm} and 
+			  CLOUD_FILE_UP_CD = #{cloudFileUpCd}
   	</select>
   	
   </mapper>

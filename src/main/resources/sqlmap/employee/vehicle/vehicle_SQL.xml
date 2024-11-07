@@ -5,8 +5,32 @@
 
 <mapper namespace="kr.or.ddit.employee.vehicleReservation.mapper.IVehicleMapper">
 
+	
+	<resultMap type="kr.or.ddit.company.vehicleManagement.vo.VHCLRSVTVO" id="vhclRsvtMap">
+		<id property="rsvtCd" column="rsvt_cd"/>
+		<result property="rsvtCd" column="rsvt_cd" />
+		<result property="vhclNo" column="vhcl_no" />
+		<result property="empId" column="emp_id" />
+		<result property="vhclRsvtDt" column="vhcl_rsvt_dt" />
+		<result property="vhclRntlDt" column="vhcl_rntl_dt" />
+		<result property="vhclRtnDt" column="vhcl_rtn_dt" />
+		<result property="rntlRsn" column="rntl_rsn" />
+		<result property="vhclBtdst" column="vhcl_btdst" />
+		<association property="vhclVO" resultMap="vhclvo"></association>
+	</resultMap>
 
-
+	<resultMap type="kr.or.ddit.company.vehicleManagement.vo.VHCLVO" id="vhclvo">
+		<id property="vhclNo" column="vhcl_no"/>
+		<result property="vhclNo" column="vhcl_no" />
+		<result property="vhclImgPath" column="vhcl_img_path" />
+		<result property="coCd" column="co_cd" />
+		<result property="vhclMdlNm" column="vhcl_mdl_nm" />
+		<result property="vhclAvgFuel" column="vhcl_avg_fuel" />
+		<result property="vhclKndNm" column="vhcl_knd_nm" />
+		<result property="vhclRsvtPsbltyYn" column="vhcl_rsvt_psblty_yn" />
+		<result property="vhclTypeFuel" column="vhcl_type_fuel" />
+		<result property="vhclIndt" column="vhcl_indt" />
+	</resultMap>
 
 	<sql id="rsvtSort">
   		<if test="searchOrder != null">
@@ -36,6 +60,41 @@
          	)
   		</if>
   	</sql>
+  	
+  	<update id="rsvtModify" parameterType="kr.or.ddit.company.vehicleManagement.vo.VHCLRSVTVO">
+  		UPDATE 
+			VHCL_RSVT
+		SET
+			VHCL_RNTL_DT = #{vhclRntlDt},
+			VHCL_RTN_DT = #{vhclRtnDt},
+			RNTL_RSN = #{rntlRsn},
+			VHCL_BTDST = #{vhclBtdst}
+		WHERE 
+			RSVT_CD = #{rsvtCd}
+  	</update>
+  	
+  	
+  	<select id="getRsvtVO" parameterType="String" resultMap="vhclRsvtMap">
+  		SELECT
+		    VR.RSVT_CD AS RSVT_CD,
+		    VR.VHCL_NO AS VHCL_NO,
+		    E.EMP_ID AS EMP_ID,
+		    VR.VHCL_RSVT_DT AS VHCL_RSVT_DT,
+		    VR.VHCL_RNTL_DT AS VHCL_RNTL_DT,
+		    VR.VHCL_RTN_DT AS VHCL_RTN_DT,
+		    VR.RNTL_RSN AS RNTL_RSN,
+		    VR.VHCL_BTDST AS VHCL_BTDST,
+		    V.*
+		FROM
+		    VHCL_RSVT VR,
+		    VHCL V,
+		    EMPLOYEE E
+		    
+		WHERE 
+			VR.RSVT_CD = #{rsvtCd} AND VR.VHCL_NO = V.VHCL_NO AND E.EMP_ID = VR.EMP_ID
+  	
+  	</select>
+  	
   
   	<select id="selectRSVTPage" parameterType="kr.or.ddit.comm.paging.vo.PaginationInfoVO" resultType="int">
   		SELECT COUNT (*) total_count
@@ -169,7 +228,7 @@
 
 	<insert id="insertReservation" parameterType="kr.or.ddit.company.vehicleManagement.vo.VHCLRSVTVO">
 		<selectKey keyProperty="rsvtCd" resultType="string" order="BEFORE">
-			SELECT CONCAT(SYSDATE, SEQ_RSVT_CD.NEXTVAL) FROM DUAL
+			SELECT 'rsvt' || SEQ_RSVT_CD.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO VHCL_RSVT (
 			RSVT_CD,
