@@ -18,9 +18,9 @@
   
   <insert id = "vcInsert" parameterType="kr.or.ddit.employee.videoChatting.vo.VideoChattingVO">
 	  insert into video_chatting(
-	  chat_no, video_chat_nm, video_chat_date, video_chat_url
+	  chat_no, video_chat_nm, video_chat_date, video_chat_url, video_chat_pw, password_required
 	  )values(
-	  	seq_chat_no.nextval, #{videoChatNm}, #{videoChatDate}, #{videoChatUrl}
+	  	seq_chat_no.nextval, #{videoChatNm}, #{videoChatDate}, #{videoChatUrl}, #{videoChatPw}, #{passwordRequired}
 	  )
   </insert>
   
@@ -39,7 +39,7 @@
                     a.*, row_number() over (order by a.chat_no desc) rnum
                  from(
                    select
-                      chat_no, video_chat_nm, video_chat_date
+                      chat_no, video_chat_nm, video_chat_date, video_chat_pw, password_required
                     from video_chatting
                     where 1=1
                     <include refid="vcSearch"/>
@@ -54,6 +54,11 @@
 	<delete id="vcDelete" parameterType="string">
 		 DELETE FROM video_chatting WHERE chat_no = #{id}
 	</delete>
+	
+	<select id="getAllRooms" parameterType="kr.or.ddit.employee.videoChatting.vo.VideoChattingVO" resultType="kr.or.ddit.employee.videoChatting.vo.VideoChattingVO">
+		select video_chat_nm, video_chat_pw, password_required
+		from video_chatting
+	</select>
 	
 	
   
