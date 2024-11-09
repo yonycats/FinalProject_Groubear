@@ -120,6 +120,8 @@
 }
 </style>
 
+<c:set value="${companyVO }" var="companyVO"/>
+
 <div style="margin-bottom: 30px;">
 	<div style="margin-top: -32px;">
 		<div class="separator border-2 my-10"></div>
@@ -140,7 +142,7 @@
 				 <span class="path2"></span> 
 				</i>
     		</span>
-    		<span class="fontDoHyeun fs-2tx ms-5">대전시 중구 오류동</span>
+    		<span class="fontDoHyeun fs-2tx ms-5">${companyVO.coNm } / ${companyVO.coAddr }</span>
     	</div>
     	
     	<div id="weather" class="row ms-20 me-10 d-flex justify-content-center">
@@ -162,8 +164,8 @@
 					<img src="${pageContext.request.contextPath }/resources/file/image/food/bibimbap.jpg" class="mw-300px"> 
 				</div>
 				 
-				 <div class="col-10">
-				 	ss
+				 <div class="col-1"></div>
+				 <div id="kakaoMap" class="col-8" style="height: 650px; width: 1100px;">
 				 </div>
 			</div>
         </div> 
@@ -177,24 +179,44 @@
 	<div class="modal-dialog modal-dialog-centered modal-lg">
 	    <div class="modal-content" style="min-height: 800px;">
 	        <div class="modal-header">
-	            <h3 id="menuTitle" class="modal-title fs-3qx w-100 text-center fontDoHyeun">오늘의 메뉴추천!</h3>
+	            <h3 id="menuTitle" class="modal-title fs-3qx w-100 text-center fontDoHyeun"></h3>
 				<img src="${pageContext.request.contextPath }/resources/file/image/food/party.gif" class="party"> 
 	            <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
 	                <i class="ki-duotone ki-cross fs-3qx"><span class="path1"></span><span class="path2"></span></i>
 	            </div>
 	        </div>
 	        <div class="modal-body text-center">
-	            <div class="fontDoHyeun fs-5tx foodName">비빔밥</div>
-				<img src="${pageContext.request.contextPath }/resources/file/image/food/bibimbap.jpg" class="mw-750px foodEffect"> 
+	            <div class="fontDoHyeun fs-5tx foodName"></div>
+				<img src="" class="mw-750px foodEffect"> 
 	        </div>
 	    </div>
 	</div>
 </div>
 <!-- 모달 끝 -->
 	        
-<%-- 			<img src="${pageContext.request.contextPath }/resources/file/image/food/menuRoading.gif" class="mw-150px">  --%>
+
+<!-- 카카오 Map API -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4ec7163f5523fef7017bbaeb8274b3a9"></script>
+<!-- 카카오 Map services, clusterer, drawing 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4ec7163f5523fef7017bbaeb8274b3a9&libraries=services,clusterer,drawing"></script>
 
 <script>
+let lonPoint = ${companyVO.lot};  // 경도
+let latPoint = ${companyVO.lat};  // 위도
+let xPoint = "";    // 격자 x 포인트
+let yPoint = "";    // 격자 y 포인트 
+
+/** 위도, 경도를 x,y 격자 포인트로 변경 */
+var RE = 6371.00877; // 지구 반경(km)
+var GRID = 5.0; // 격자 간격(km)
+var SLAT1 = 30.0; // 투영 위도1(degree)
+var SLAT2 = 60.0; // 투영 위도2(degree)
+var OLON = 126.0; // 기준점 경도(degree)
+var OLAT = 38.0; // 기준점 위도(degree)
+var XO = 43; // 기준점 X좌표(GRID)
+var YO = 136; // 기1준점 Y좌표(GRID)
+
+
 let weather = document.querySelector("#weather");	// 날씨 위젯을 넣을 위치
 let todayWeatherState = "";		// 오늘의 날씨 상태 (메뉴추천을 위한 날씨 키워드 세팅)
 
@@ -211,13 +233,12 @@ $(function() {
 
 		if (res.status == 200) {
 			let data = res.data;
-			console.log(res);
 			
 			allFoodList = data;
-			console.log("allFoodList");
-			console.log(allFoodList);
+/* 			console.log("allFoodList");
+			console.log(allFoodList); */
 		}
-	}).catch(function(error) {
+	}).catch(function(error) {  
 		console.log(error);
 		Swal.fire({
 			icon: 'warning',
@@ -302,8 +323,8 @@ $(function() {
 	xhr.onreadystatechange = function () {
 	    if (this.readyState == 4) {
 	        if (this.status == 200) {
-	            console.log("Success");
-	            console.log(this.responseText); 
+/* 	            console.log("Success");
+	            console.log(this.responseText);  */
 	           
 	            // JSON 파싱
 	            let jsonResponse = JSON.parse(this.responseText);
@@ -555,10 +576,10 @@ $(function() {
             		}
             	});
 				
-            	console.log("todayWeatherState"); 
+/*             	console.log("todayWeatherState"); 
             	console.log(todayWeatherState);
 				console.log("weatherRcmdtnFoodList");
-				console.log(weatherRcmdtnFoodList);
+				console.log(weatherRcmdtnFoodList); */
 	
 	        } else {
 	            console.log("Error: " + this.status);
@@ -571,16 +592,30 @@ $(function() {
 	
 	// 모달이 닫힐 때 이벤트 리스너 추가
 	document.querySelector('#menuRcmdtn').addEventListener('hidden.bs.modal', function () {
-		alert("sss");
 		
-		let container = document.querySelector('#kt_app_content_container');
+		let container = document.querySelector('#kakaoMap');
+		let options = { //지도를 생성할 때 필요한 기본 옵션
+				center: new kakao.maps.LatLng(latPoint, lonPoint), //지도의 중심좌표 (위도, 경도)
+				level: 3 //지도의 레벨(확대, 축소 정도)
+			};
+		const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+		
+		const markerPosition = new kakao.maps.LatLng(
+				latPoint,
+				lonPoint
+		);
+		const marker = new window.kakao.maps.Marker({
+				position: markerPosition,
+		});
+		marker.setMap(map);
+		
+		const ps = new window.kakao.maps.services.Places();
+		const infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
 		
 		
-	    // 스크롤을 내릴 위치 (예: 문서의 높이)
-	    window.scrollTo(0, document.body.scrollHeight);
 	});
 
-});
+}); 
 
 // 랜덤 메뉴추천 버튼 눌렀을 때
 function f_randomRcmdtn() { 
@@ -612,23 +647,9 @@ function f_foodModalPut(fdList) {
 	let foodEffect = document.querySelector(".foodEffect");
 	foodEffect.src = "${pageContext.request.contextPath }/resources/file/image/food/" + fdList.foodNmEng + ".jpg";
 	
-	console.log("fdList.foodNmKor : ", fdList.foodNmKor);
+	/* console.log("fdList.foodNmKor : ", fdList.foodNmKor); */
 }
 
-let lonPoint = "127.405922222222";  // 경도
-let latPoint = "36.3226";  // 위도
-let xPoint = "";    // 격자 x 포인트
-let yPoint = "";    // 격자 y 포인트 
-
-/** 위도, 경도를 x,y 격자 포인트로 변경 */
-var RE = 6371.00877; // 지구 반경(km)
-var GRID = 5.0; // 격자 간격(km)
-var SLAT1 = 30.0; // 투영 위도1(degree)
-var SLAT2 = 60.0; // 투영 위도2(degree)
-var OLON = 126.0; // 기준점 경도(degree)
-var OLAT = 38.0; // 기준점 위도(degree)
-var XO = 43; // 기준점 X좌표(GRID)
-var YO = 136; // 기1준점 Y좌표(GRID)
 
 // LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도), "toLL"(좌표->위경도,v1:x, v2:y) )
 function dfs_xy_conv(code, v1, v2) {

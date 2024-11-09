@@ -1,0 +1,49 @@
+package kr.or.ddit.groubear.map.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.comm.security.vo.CompanyVO;
+import kr.or.ddit.groubear.map.service.IMapService;
+import kr.or.ddit.groubear.map.vo.MapVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/groubear")
+@PreAuthorize("hasRole('ROLE_GROUBEAR')")
+public class MapController {
+	
+	@Inject
+	private IMapService mapService;
+	
+	@GetMapping("/map.do")
+	public String mapList(CompanyVO companyVO, MapVO mapVO, Model model) {
+		List<CompanyVO> mapList = mapService.mapList(companyVO);
+		List<MapVO> mapLocation = mapService.mapLocation(mapVO);
+		log.info("mapList ::: " + mapList);
+		log.info("mapLocation ::: " + mapLocation);
+		
+		model.addAttribute("mapList", mapList);
+		model.addAttribute("mapLocation", mapLocation);
+		model.addAttribute("companyVO", companyVO);
+		return "groubear/map/mapList";
+	}
+	
+	public String mapMain(CompanyVO companyVO, MapVO mapVO, Model model) {
+		List<MapVO> mapLocation = mapService.mapLocation(mapVO);
+		log.info("mapLocation ::: " + mapLocation);
+		
+		model.addAttribute("mapLocation", mapLocation);
+		model.addAttribute("companyVO", companyVO);
+		return "groubear/mainPage/home";
+	}
+	
+}

@@ -209,7 +209,33 @@
 			WHERE b.rnum >= #{startRow} and b.rnum <= #{endRow}
 		]]>
   	</select>
-  		
+  	
+  	<select id="getEwsList" resultType="kr.or.ddit.employee.workStatus.vo.EmpWorkStatusVO">
+  		SELECT  e.EMP_ID,e.dept_nm, e.team_nm ,e.emp_nm ,ws.WORK_STTS_CD, ws.WORK_STTS_YMD, 
+			   nvl(ws.WORK_BGNG_TM,'') WORK_BGNG_TM, nvl(ws.WORK_END_TM,'') WORK_END_TM, ws.WORK_TM, nvl(ws.WORK_TYPE,'') WORK_TYPE, 
+			   ws.WORK_REG_DT, ws.WORK_MDFCN_DT, ws.WORK_MDFCN_RSN 
+		FROM
+			(SELECT 
+					e.EMP_ID, e.Emp_nm,e.CO_CD , t.team_nm, DEPT_NM 
+				FROM 
+					EMPLOYEE e, TEAM t, DEPARTMENT dp
+				WHERE 
+					e.TEAM_CD = t.TEAM_CD AND dp.DEPT_CD = e.DEPT_CD 
+				) e LEFT OUTER JOIN (
+				SELECT 
+					ws.WORK_STTS_CD, ws.EMP_ID, ws.WORK_STTS_YMD, ws.WORK_BGNG_TM, ws.WORK_END_TM, ws.WORK_TM, cc.COM_DTL_CD_NM WORK_TYPE, ws.WORK_REG_DT, ws.WORK_MDFCN_DT, ws.WORK_MDFCN_RSN 
+				FROM 
+					WORK_STATUS ws LEFT OUTER JOIN COMMON_DETAIL_CODE cc 
+				ON 
+					ws.WORK_TYPE = cc.COM_DTL_CD
+				WHERE 
+					TO_CHAR(WORK_STTS_YMD, 'yyyy-MM-dd') = #{workSttsYmd}
+				) ws
+		  	ON e.EMP_ID = ws.EMP_ID 
+		  	WHERE e.CO_CD = #{coCd}
+  	</select>
+  	
+  	
   </mapper>
   
   

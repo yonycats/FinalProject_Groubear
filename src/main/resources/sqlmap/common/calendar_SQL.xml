@@ -9,7 +9,9 @@
   	<select id="calendarList" parameterType="string" resultType="kr.or.ddit.comm.calendar.vo.CalendarVO">
   		SELECT
 		    calendar_no ,emp_id ,calendar_nm ,calendar_daddr
-		   ,calendar_cn ,calendar_dt ,calendar_end_dt ,calendar_allday_yn
+		   ,calendar_cn ,calendar_allday_yn
+		   , TO_CHAR(calendar_dt, 'YYYY-MM-DD') AS calendar_dt
+		   , TO_CHAR(calendar_end_dt, 'YYYY-MM-DD') AS calendar_end_dt
 		   , TO_CHAR(calendar_start_time, 'HH24:MI') AS calendar_start_time
 		   , TO_CHAR(calendar_end_time, 'HH24:MI') AS calendar_end_time 
 		FROM
@@ -24,17 +26,17 @@
 	        SELECT seq_calendar.nextval FROM dual
 	    </selectKey>
 		    INSERT INTO calendar (
-		        calendar_no, calendar_se_no, emp_id, calendar_nm, calendar_btgng_dt,
+		        calendar_no, emp_id, calendar_nm, calendar_btgng_dt,
 		        calendar_daddr, calendar_cn, calendar_dt, calendar_mdfcn_dt, calendar_end_dt,
-		        calendar_alarm_setting, calendar_del_yn, calendar_colr_nm, calendar_allday_yn,
+		        calendar_del_yn, 
 		        calendar_start_time, calendar_end_time
 		    ) VALUES (
-		        #{calendarNo}, 1, #{empId}, #{calendarNm}, SYSDATE,
+		        #{calendarNo}, #{empId}, #{calendarNm}, SYSDATE,
 		        #{calendarDaddr}, #{calendarCn}, 
 		        TO_DATE(#{calendarDt}, 'YYYY-MM-DD'),
 		        SYSDATE, 
 		        TO_DATE(#{calendarEndDt}, 'YYYY-MM-DD'),
-		        5, 'N', 'yellow', 'N',
+		        'N', 
 		        TO_DATE(#{calendarStartTime}, 'HH24:MI:SS'),
 		        TO_DATE(#{calendarEndTime}, 'HH24:MI:SS') 
 		    )
@@ -47,6 +49,8 @@
 		   ,calendar_btgng_dt ,calendar_daddr ,calendar_cn
 		   ,calendar_dt ,calendar_mdfcn_dt ,calendar_end_dt ,calendar_alarm_setting
 		   ,calendar_del_yn ,calendar_colr_nm ,calendar_allday_yn
+		   , TO_CHAR(calendar_start_time, 'HH24:MI') AS calendar_start_time
+		   , TO_CHAR(calendar_end_time, 'HH24:MI') AS calendar_end_time 
 		FROM
 		    calendar
 		WHERE calendar_no = #{calendarNo}
@@ -59,8 +63,10 @@
 		        calendar_nm = #{calendarNm},
 		        calendar_daddr = #{calendarDaddr},
 		        calendar_cn = #{calendarCn},
-		        calendar_dt = #{calendarDt},
-		        calendar_end_dt = #{calendarEndDt}
+		        calendar_dt = TO_DATE(#{calendarDt}, 'YYYY-MM-DD'),
+	        	calendar_end_dt = TO_DATE(#{calendarEndDt}, 'YYYY-MM-DD'),
+	        	calendar_start_time = TO_DATE(#{calendarStartTime}, 'HH24:MI:SS'),
+	       		calendar_end_time = TO_DATE(#{calendarEndTime}, 'HH24:MI:SS')
 		WHERE
 		    calendar_no = #{calendarNo}
   	</update>

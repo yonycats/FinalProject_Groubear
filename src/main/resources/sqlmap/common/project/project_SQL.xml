@@ -34,6 +34,7 @@
 		SELECT
 		    p.pro_no, 
 		    p.pro_nm, 
+		    p.pro_cn,
 		    p.emp_id, 
 		    emp.emp_nm, 
 		    emp.img_file_url,
@@ -59,7 +60,7 @@
 		    ))
 		    AND p.pro_del_yn IN ('N', 'n')
 		GROUP BY 
-		    p.pro_no, p.pro_nm, p.emp_id, emp.emp_nm, emp.img_file_url, p.pro_stts_cd, p.pro_start_dt, p.pro_end_dt
+		    p.pro_no, p.pro_nm, p.pro_cn, p.emp_id, emp.emp_nm, emp.img_file_url, p.pro_stts_cd, p.pro_start_dt, p.pro_end_dt
 		ORDER BY pro_no desc
   	</select>
 

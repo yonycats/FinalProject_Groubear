@@ -115,9 +115,36 @@
 	 
 	 </insert>
 	  	
+	  
+	 <select id="getFcltReserveList" parameterType="kr.or.ddit.employee.facilities.vo.FacilityReservationDetailVO" resultType="kr.or.ddit.employee.facilities.vo.FacilityReservationDetailVO">
+	 	SELECT 
+			d.FCLT_RSVT_DSCTN_CD, d.MEM_ID, d.FCLT_CD, TO_CHAR(d.RSVT_YMD,'yyyy-MM-dd') RSVT_YMD, d.RSVT_BGNG_TM, d.RSVT_END_TM, emp.EMP_NM, fclt.FCLT_NM, ctgr.FCLT_CTGR_NM  
+		FROM
+			FACILITY_RESERVATION_DETAIL d , EMPLOYEE emp, FACILITY fclt, FACILITY_CATEGORY ctgr
+		WHERE 
+			d.MEM_ID = emp.EMP_ID
+		AND 
+			d.FCLT_CD = FCLT.FCLT_CD
+		AND fclt.FCLT_CTGR_CD  = ctgr.FCLT_CTGR_CD 
+		and
+			d.FCLT_CD = #{fcltCd}
+		AND 
+			d.RSVT_YMD  = #{rsvtYmd}
+	 
+	 </select>
 	  	
-	  	
-	  	
+	  <select id="getFcltrsvtList" resultType="kr.or.ddit.employee.facilities.vo.FacilityReservationDetailVO">
+	  	SELECT 
+			d.FCLT_RSVT_DSCTN_CD, d.MEM_ID, d.FCLT_CD, TO_CHAR(d.RSVT_YMD,'yyyy-MM-dd') RSVT_YMD, d.RSVT_BGNG_TM, d.RSVT_END_TM, emp.EMP_NM, fclt.FCLT_NM, ctgr.FCLT_CTGR_NM  
+		FROM
+			FACILITY_RESERVATION_DETAIL d , EMPLOYEE emp, FACILITY fclt, FACILITY_CATEGORY ctgr
+		WHERE 
+			d.MEM_ID = emp.EMP_ID
+		AND 
+			d.FCLT_CD = FCLT.FCLT_CD
+		AND fclt.FCLT_CTGR_CD  = ctgr.FCLT_CTGR_CD 
+		AND emp.CO_CD = #{coCd}
+	  </select>
 	  	
 	  	
 	  	
