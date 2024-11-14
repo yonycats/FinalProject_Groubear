@@ -1074,7 +1074,8 @@
 	                    prove: "증명서",
 	                    info: "인사 • 정보 관리",
 	                    community: "커뮤니티",
-	                    cmntyRe: "커뮤니티"
+	                    cmntyRe: "커뮤니티",
+	                    QnA : "Q&A"
 	                };
 					 
 			 if (alarmList.length == 0) {
@@ -1311,9 +1312,9 @@
 	function connect() {
 		// http://localhost/...
 		// http://192.168.36.23/...
-
+		
+		
 		let dabinHost = location.href.split("/")[2];
-		console.log("dabinHost ::: ", dabinHost);
 		//alert("체킁" + dabinHost);
 
 		webSocket = new WebSocket(`ws://\${dabinHost}/alarm`);
@@ -1349,6 +1350,15 @@
 			let newAlarm = '';
 			newAlarm += '<li>' + event.data + "</li>" // scope="col"
 			$('#alarmAppend').append(newAlarm);
+		}
+		
+
+		if (event.data.length > 0) {
+			if(pCnt > 0){
+				$("#alarmCountBadge").text(pCnt).show();
+			}else{
+				$("#alarmCountBadge").hide();
+			}
 		}
 		
 	}

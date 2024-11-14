@@ -64,7 +64,7 @@
 	data-kt-drawer-direction="start"
 	data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
 	<div
-		class="app-sidebar-logo d-none d-lg-flex flex-stack flex-shrink-0 px-13"
+		class="app-sidebar-logo d-none d-lg-flex flex-stack flex-shrink-0 px-7"
 		id="kt_app_sidebar_logo">
 		<a href="/employee/main.do"> <img alt="Logo"
 			src="${pageContext.request.contextPath}/resources/design/media/logos/GrouBear.png"
@@ -89,8 +89,8 @@
 				<c:otherwise>
 					<!--  근무 종료 -->
 					<button id="stopWorkBtn"
-						class="btn btn-outline btn-outline-dashed btn-outline-secondary btn-active-light-secondary"
-						style="width: 100%; display: inline-flex; align-items: center; justify-content: center; text-align: center;">
+						class="btn btn-outline"
+				        style="width: 100%; display: inline-flex; align-items: center; justify-content: center; text-align: center; background-color: black; color: white; border: 1px solid white;">
 						<span class="material-symbols-outlined" style="margin-right: 5px;">stop_circle</span>
 						퇴근
 					</button>
@@ -679,16 +679,16 @@
 			<div class="me-5">
 				<div class="symbol symbol-40px cursor-pointer"
 					data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-					data-kt-menu-placement="bottom-start" data-kt-menu-overflow="true">
-					<img src="/upload/${customUser.member.imgFileUrl }" alt="" />
+					data-kt-menu-placement="bottom-start" data-kt-menu-overflow="true" style="overflow: hidden;">
+					<img src="/upload/${customUser.member.imgFileUrl }" alt="" style="object-fit: cover;"/>
 				</div>
 				<div
 					class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
 					data-kt-menu="true">
 					<div class="menu-item px-3">
 						<div class="menu-content d-flex align-items-center px-3">
-							<div class="symbol symbol-50px me-5">
-								<img src="/upload/${customUser.member.imgFileUrl }" alt="" />
+							<div class="symbol symbol-50px me-5" style="overflow: hidden;">
+								<img src="/upload/${customUser.member.imgFileUrl }" alt="" style="object-fit: cover;"/>
 							</div>
 							<div class="d-flex flex-column">
 								<div class="fw-bold d-flex align-items-center fs-5">${customUser.member.empNm }
@@ -750,10 +750,10 @@
 				<span
 					class="app-sidebar-deckription text-gray-700 fw-semibold d-block fs-7">
 					<c:if test="${not empty customUser.member.deptNm }">
-						<span class="bullet w-15px h-4px rounded-2 bg-danger me-3 mt-3"></span>
+						<span class="bullet w-10px h-4px rounded-2 bg-danger mb-1"></span>
 						<span>${customUser.member.deptNm }</span>
 					</c:if><br /> <c:if test="${not empty customUser.member.teamNm }">
-						<span class="bullet w-15px h-4px rounded-2 bg-primary me-3 mt-3"></span>
+						<span class="bullet w-10px h-4px rounded-2 bg-primary mb-1"></span>
 						<span>${customUser.member.teamNm }</span>
 					</c:if>
 				</span>
