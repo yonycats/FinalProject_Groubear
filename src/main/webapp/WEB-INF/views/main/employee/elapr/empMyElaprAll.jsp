@@ -171,7 +171,6 @@
 										<th class="min-w-200px">제목</th>
 										<th class="min-w-100px">결재양식</th>
 										<th class="min-w-100px">긴급</th>
-										<th class="min-w-100px">첨부</th>
 										<th class="min-w-100px">기안자</th>
 										<th class="min-w-70px">결재상태</th>
 									</tr>
@@ -183,7 +182,7 @@
 									<c:choose>
 										<c:when test="${empty allList }">
 											<tr>
-												<td colspan="9" class="text-center">
+												<td colspan="8" class="text-center">
 							                	    <img src="/resources/file/image/cloudEmpty.png" class="w-50"/>
 							                    	<h3 class=" fw-bolder text-dark">${stts } 문서가 존재하지 않습니다.</h3>
 		              				 			</td>
@@ -216,9 +215,6 @@
 															<div class="badge badge-light-info"></div>
 														</c:if>
 														<!--end::Badges-->
-													</td>
-													<td class="pe-0" data-order="Inactive">
-														<span class="fw-bold ms-3">${elaprVO.atchFileCode }</span>
 													</td>
 													<td>
 														${elaprVO.empNm }

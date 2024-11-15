@@ -91,12 +91,12 @@
 							<input type="hidden" name="coCd" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="기업코드" value="${userVO.coCd }" />
 						<div class="fv-row mb-7">
 							<label class="required fw-semibold fs-6 mb-2">직급명</label>
-							<input type="text" name="jbgdNm" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="직급명을 입력해주세요" id="jbgdNm"/>
+							<input type="text" name="jbgdNm" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="직급명을 입력해주세요" id="jbgdNm" value="팀장"/>
 						</div>
 						<div class="fv-row mb-7">
 						    <label class="required fw-semibold fs-6 mb-2">권한 등급 </label>
 						    <select name="jbgdAuthPrord" id="jbgdAuthPrord" class="form-control form-control-solid mb-3 mb-lg-0">
-							    <option value="null">권한 등급 선택</option>
+							    <option value="5">5등급</option>
 							    <c:forEach var="i" begin="1" end="10">
 							        <option value="${i}">${i}등급</option>
 							    </c:forEach>

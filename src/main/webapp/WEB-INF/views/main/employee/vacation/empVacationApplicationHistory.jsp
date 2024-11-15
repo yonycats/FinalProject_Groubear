@@ -166,7 +166,7 @@
 																	</div>
 																	<div class="fv-row mb-7">
 																		<label class="required fw-semibold fs-6 mb-2">휴가 사유</label>
-																		<textarea name="vct_rsn" id="vct_rsn" rows = "5" class="form-control form-control-solid mb-3 mb-lg-0"  > </textarea>
+																		<textarea name="vct_rsn" id="vct_rsn" rows = "3" class="form-control form-control-solid mb-3 mb-lg-0" ></textarea>
 																	</div>
 							                                    </div>
 							                                </div>

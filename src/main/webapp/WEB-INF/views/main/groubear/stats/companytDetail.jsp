@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+
 
 <c:set value="${comMsg}" var="comMsg"/>
 
@@ -205,6 +208,16 @@ $(function(){
                 title: {
                     display: true,
                     text: ''
+                },
+                datalabels: {
+                    color: '#fff', // 텍스트 색상
+                    formatter: function(value, context) {
+                        const total = context.chart.data.datasets[context.datasetIndex].data.reduce((acc, val) => acc + val, 0);
+                        const percentage = Math.floor((value / total) * 100);
+                        return `${percentage}%`; // 퍼센트 표시
+                    },
+                    anchor: 'center', // 앵커 위치 (중앙에 배치)
+                    align: 'center', // 정렬
                 }
             },
             responsive: true,

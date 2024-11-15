@@ -14,4 +14,5 @@ public class VacationStatusVO {
 	private String deptNm;			// 부서명
 	private String teamNm;			// 팀명
 	private String jbgdNm;			// 직급명
+	private String vctCnt;
 }

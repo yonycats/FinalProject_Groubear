@@ -6,7 +6,7 @@
   <mapper namespace="kr.or.ddit.groubear.log.mapper.ILogDownloadMapper">
   
   <select id="createExcelTemplate" resultType="kr.or.ddit.groubear.log.vo.LogVO">
-		select log_co_cd, emp_nm, jbgd_cd, log_crt_dt, log_ip, log_busu, log_detail, emp_id
+		select log_co_cd, emp_nm, jbgd_cd, log_crt_dt, log_ip, log_detail, emp_id
 			from log
 	</select>
   

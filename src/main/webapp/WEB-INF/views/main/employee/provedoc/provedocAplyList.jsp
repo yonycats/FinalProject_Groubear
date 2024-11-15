@@ -127,7 +127,7 @@
 			</div>
 			<div class="modal fade" tabindex="-1" id="proveCall2">
 			    <div class="modal-dialog modal-dialog-scrollable">
-			        <div class="modal-content" style="width: 790px; min-height: 100%; margin-left: -100px;">
+			        <div class="modal-content" style="width: 790px; min-height: 800px; margin-left: -100px;">
 			            <div class="modal-header"> 
 			                <h5 class="modal-title">미리보기</h5>
 			                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal">
@@ -139,8 +139,8 @@
 				            <input type="hidden" name="docFormNo" value="" id="docFormNo">
 				            
 				            <div class="modal-body" style="min-height: 300px">
-									<div id="formKndList2" style="min-height: 200px;"> 
-										<div class="mb-5">
+									<div class="card card-flush" id="formKndList2" style="min-height: 200px;"> 
+										<div class="mt-5 mb-5">
 										    <div class="container-fluid"> 
   															<div class="row" id="provedocCn">
 				 										<textarea id="provedocEditorCK" name="prdocCn" style="position: absolute;" disabled>
@@ -151,7 +151,7 @@
 										</div>
 								</div>
 					            <div style="width: 100%">
-						            <button type="button" class="btn btn-primary mt-1" id="proveCall3" style="float: right;">
+						            <button type="button" class="btn btn-primary mb-5" id="proveCall3" style="float: right;">
 						                	신청하기
 						            </button>
 						        </div>
@@ -279,8 +279,8 @@ $(function() {
 	});
 	
    /* CKEDITOR 자바스크립트 */
-   CKEDITOR.replace( 'provedocEditorCK', { 
-      	height: 700,
+   CKEDITOR.replace( 'provedocEditorCK', {
+      	height: 500,
       	width: 740,
 		// 사용하려는 툴바의 버튼을 문자열로 지정해서 포함시킴
 		toolbar: [
@@ -396,7 +396,7 @@ function f_createJstree(treeData) {
         },
         "types": {
             "default": {
-                "icon": "ki-outline ki-file text-warning"
+                "icon": "ki-outline ki-file text-warning" 
             },
             "file": {
                 "icon": "ki-outline ki-notification-status text-danger fs-7"

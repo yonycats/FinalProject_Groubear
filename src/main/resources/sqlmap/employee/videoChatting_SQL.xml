@@ -39,7 +39,7 @@ WHERE 1=1
 FROM (
     SELECT 
         a.*, 
-        ROW_NUMBER() OVER (ORDER BY a.chat_no DESC) AS rnum
+        ROW_NUMBER() OVER (ORDER BY a.chat_no ASC) AS rnum
     FROM (
         SELECT 
             chat_no, 
@@ -57,7 +57,7 @@ FROM (
             <include refid="vcSearch"/>
             AND video_chat_delyn = 'N'
         ORDER BY 
-            chat_no DESC
+            chat_no ASC
     ) a
 ) b
 JOIN company c ON b.video_chat_com = c.co_cd

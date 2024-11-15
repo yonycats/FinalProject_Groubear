@@ -693,6 +693,7 @@
 	
 	                            <tbody class="fw-semibold text-gray-600" style="font-size: 1em;">
 	                            
+	                            	<!-- 데이터가 없을 경우 -->
 		                            <c:choose>
 		                            	<c:when test="${empty cloudFolderAndFileList && empty cloudFolderAndFileList }">
 				                            <tr>
@@ -705,6 +706,60 @@
 			              					 </tr> 
 		                            	</c:when>
 		                            	<c:otherwise>
+		                            
+	                            		<!-- 상위폴더 이동 -->
+			                            <c:choose>
+			                            	<c:when test="${cloudPathList.size() > 0 }">
+					                            <c:set value="" var="upCloudCode"/>
+						                        <c:forEach items="${cloudPathList }" var="cloudPath" varStatus="i">
+						                        	<c:if test="${cloudPath.cloudCd == selectStrgCd }">
+						                        		<c:if test="${i.index == 0 }">
+								                        	<c:set value="${cloudPathList[i.index - 2].cloudCd }" var="upCloudCode"/>
+						                        		</c:if>
+						                        		<c:if test="${i.index > 0 }">
+								                        	<c:set value="${cloudPathList[i.index - 1].cloudCd }" var="upCloudCode"/>
+						                        		</c:if>
+							                        </c:if> 
+						                        </c:forEach> 
+						                         
+				                                 <tr>
+				                                    <td width="7%">
+												  		<div class="form-check form-check-sm form-check-custom form-check-solid" style="display: flex; justify-content: center;">
+												  			<input id="checkList" class="form-check-input" type="checkbox" value="${cloudStrgFldr.cloudStrgFldrCd }"/>
+												  		</div>
+				                                    </td>
+				                                    <td width="43%" id="cloudNameTd">
+				                                        <div class="d-flex align-items-center">
+				                                            <span class="icon-wrapper">
+				                                                <i class="ki-duotone ki-folder fs-2x me-4"><span class="path1"></span><span class="path2"></span></i>
+				                                            </span>
+				                                            <a id="thisALink" href="/company/cloudList.do?selectStrgCd=${upCloudCode }" class="text-gray-800 text-hover-primary">(상위폴더 이동)</a> 
+															 
+															<c:if test="${cloudStrgFldr.cloudFldrAuthYn eq 'N' }"> 
+																<span class="ps-3">
+																	<i class="ki-duotone ki-lock-3 fs-1">
+																		 <span class="path1"></span>
+																		 <span class="path2"></span>
+																		 <span class="path3"></span>
+																	</i>
+																</span>	
+															</c:if>
+																				                                        	
+				                                        </div>  
+				                                    </td>
+				                                    <td width="10%" class="text-center">-</td>
+				                                    <td width="10%" class="text-center">-</td> 
+				                                    <td width="20%" class="text-center">-</td>
+				                                    <!-- 더보기 버튼 시작 -->
+					                                <td width="10%" class="pe-5" data-kt-filemanager-table="action_dropdown">
+					                                </td>
+				                                    <!-- 더보기 버튼 끝 -->
+				                                </tr>
+						                                
+			                            	</c:when>
+			                            	<c:otherwise>
+			                            	</c:otherwise>
+			                            </c:choose>
 		                            
 			                            	<!-- 폴더일 때 반복문 시작 -->
 			                            	<c:if test="${not empty cloudFolderAndFileList }">

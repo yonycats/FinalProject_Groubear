@@ -92,6 +92,7 @@ public class ComVacationCreateController {
 		List<DepartmentVO> deptTeamList = infoService.selectDeptTeamList(empVO);
 		List<JobGradeVO> jbgdList = infoService.selectJBGDList(empVO);
 		List<TeamVO> teamList = infoService.selectTeamListByDept(empVO);
+		
 		model.addAttribute("empAllList", empAllList);
 		model.addAttribute("deptTeamList", deptTeamList);
 		model.addAttribute("jbgdList", jbgdList);

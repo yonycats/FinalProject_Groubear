@@ -112,7 +112,7 @@
 										</c:choose>									
 									</td>
 									<td>
-										${list.vctTotalDayCnt }
+										${list.vctCnt }
 									</td>
 									<td>
 										${list.vctUseDayCnt }

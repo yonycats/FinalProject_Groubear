@@ -152,7 +152,7 @@ public class ProjectController {
 		projectVO.setProNm("채팅 및 고객 지원 시스템 개선 프로젝트");
 		projectVO.setProCn("고객이 실시간으로 상담을 받을 수 있도록 채팅 및 고객 지원 시스템을 개선하는 프로젝트");
 		projectVO.setProStartDt("2024-11-18T13:00");
-		projectVO.setProEndDt("2024-11-20T15:00");
+		projectVO.setProEndDt("2024-11-24T15:00");
 		
 		model.addAttribute("projectVO", projectVO);
 
@@ -433,10 +433,10 @@ public class ProjectController {
 		ProjectTaskVO projectTaskVO = new ProjectTaskVO();
 		
 		// 발표용 하드코딩
-		projectTaskVO.setProTaskNm("분석 대시보드 구축");
-		projectTaskVO.setProTaskCn("응답 시간, 고객 만족도 등");
+		projectTaskVO.setProTaskNm("보안/인증 필터링 프로젝트");
+		projectTaskVO.setProTaskCn("AOP를 이용해 애플리케이션의 메소드 실행 시간을 모니터링");
 		projectTaskVO.setProTaskStartDt("2024-11-18T15:00");
-		projectTaskVO.setProTaskEndDt("2024-11-19T18:00");
+		projectTaskVO.setProTaskEndDt("2024-11-20T18:00");
 		
 		
 		

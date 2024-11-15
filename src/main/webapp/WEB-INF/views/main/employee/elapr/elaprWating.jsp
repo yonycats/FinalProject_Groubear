@@ -69,7 +69,6 @@
 										<th style="width: 10%">제목</th>
 										<th style="width: 11%">결재양식</th>
 										<th style="width: 8%">긴급</th>
-										<th style="width: 10%">첨부</th>
 										<th style="width: 10%">기안자</th>
 									</tr>
 								</thead>
@@ -80,7 +79,7 @@
 									<c:choose>
 										<c:when test="${empty watingList }">
 											<tr>
-												<td colspan="7" class="text-center">
+												<td colspan="6" class="text-center">
 							                	    <img src="/resources/file/image/cloudEmpty.png" class="w-50"/>
 							                    	<h3 class=" fw-bolder text-dark">결재 대기 문서가 존재하지 않습니다.</h3>
 		              				 			</td>
@@ -103,7 +102,6 @@
 														</c:if>
 														<c:if test="${elaprVO.elaprEmrgYn eq 'N'}"/>
 													</td>
-													<td>${elaprVO.atchFileCode }</td>
 													<td>
 														${elaprVO.empNm }
 													</td>

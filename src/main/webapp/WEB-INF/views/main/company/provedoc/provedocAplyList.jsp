@@ -203,7 +203,7 @@ $(function() {
    CKEDITOR.replace( 'provedocEditorCK', {
       height: 500,
       width: 740
-   }); 
+   });
    
     // jstree 자바스크립트에서 사용할 계층형 데이터 가져오기
     $('#formCallJstree').on('click', function() {
@@ -225,45 +225,9 @@ $(function() {
 		let prdocNo = $(this).val();
 		console.log(prdocNo);
 		
-		location.href= "/company/provedocDetail.do?prdocNo=" + prdocNo;
+		location.href= "/company/provedocDetailAply.do?prdocNo=" + prdocNo;
 	});
      
-    // 신청하기 버튼 누를 때
-/*     $('#proveCall3').on('click', function() {
-		console.log("www");
-		let content = CKEDITOR.instances.provedocEditorCK.getData();
-		
-		let data = {
-			prdocCn : content
-		};
-		
-        $.ajax({
-           url: "/company/comProvedocAplyAndIsprInsert",
-           type: "post",
-           data: JSON.stringify(data),
-           contentType : "application/json; charset=utf-8",
-           success: function(res) {
-              CKEDITOR.instances.provedocEditorCK.setData(res.docFormCn);
-              
-              
-			// Bootstrap 모달 숨기기
-	        $('#proveCall1').modal('hide');
-	        $('#proveCall2').modal('hide');S
-
-			Swal.fire({ 
-				icon: 'success',
-				title: '${message}',
-				confirmButtonColor: '#4FC9DA',
-			});
-			
-			location.href= "/company/provedocDetail.do?prdocNo=" + res.prdocNo;
-              
-          }
-        }); 
-		
-		$('#comProvedocAplyAndIsprInsert').submit();
-	});  */
-    
 });
 
 // jstree용 데이터 가공해서 추가하기

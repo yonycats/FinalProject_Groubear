@@ -309,9 +309,9 @@
 							목적지 검색</button>
 						</div>
 						
-						<label class="fs-5 fw-semibold pt-5" value="출장">대여사유</label>
+						<label class="fs-5 fw-semibold pt-5">대여사유</label>
 						<div class="input-group">
-							<textarea class="form-control" placeholder="대여 사유를 입력해주세요" rows="3" name="rntlRsn" id="rntlRsn"></textarea> <!-- Bootstrap 클래스 추가 -->
+							<textarea class="form-control" placeholder="대여 사유를 입력해주세요" rows="3" name="rntlRsn" id="rntlRsn" value="출장"></textarea> <!-- Bootstrap 클래스 추가 -->
 						</div>
 						<div class="card-footer d-flex align-middle justify-content-center">
 							<div class="card-toolbar">

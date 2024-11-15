@@ -52,9 +52,8 @@ public class LogDownloadServiceImpl implements ILogDownloadService{
 		header.createCell(2).setCellValue("기업명");
 		header.createCell(3).setCellValue("DATE");
 		header.createCell(4).setCellValue("IP");
-		header.createCell(5).setCellValue("부서");
-		header.createCell(6).setCellValue("LOG");
-		header.createCell(7).setCellValue("ID");
+		header.createCell(5).setCellValue("LOG");
+		header.createCell(6).setCellValue("ID");
 		
 		// 헤더 셀 스타일 적용
 	    for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
@@ -74,9 +73,8 @@ public class LogDownloadServiceImpl implements ILogDownloadService{
 			row.createCell(2).setCellValue(vo.getJbgdCd());
 			row.createCell(3).setCellValue(vo.getLogCrtDt());
 			row.createCell(4).setCellValue(vo.getLogIp());
-			row.createCell(5).setCellValue(vo.getLogBusu());
-			row.createCell(6).setCellValue(vo.getLogDetail());
-			row.createCell(7).setCellValue(vo.getEmpId());
+			row.createCell(5).setCellValue(vo.getLogDetail());
+			row.createCell(6).setCellValue(vo.getEmpId());
 			
 
 			 // 데이터 셀 스타일 적용
@@ -92,7 +90,6 @@ public class LogDownloadServiceImpl implements ILogDownloadService{
 	    sheet.setColumnWidth(4, 256 * 20);
 	    sheet.setColumnWidth(5, 256 * 20);
 	    sheet.setColumnWidth(6, 256 * 20);
-	    sheet.setColumnWidth(7, 256 * 20);
 		
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		workbook.write(out);

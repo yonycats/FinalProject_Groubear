@@ -799,8 +799,12 @@ $(function () {
 			success : function(res) {
 				console.log(res);
 				if(res === "already"){
-					alert("이미 출근처리되었습니다!");
-					return;
+					 Swal.fire({
+					      icon: 'warning',
+					      title: '오늘은 이미 출근했어요!',
+					      confirmButtonColor: '#4FC9DA',
+					    });
+				   return;
 				}
 				location.reload(true);
 			},

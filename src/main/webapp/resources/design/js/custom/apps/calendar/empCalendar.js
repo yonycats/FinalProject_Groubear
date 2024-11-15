@@ -246,12 +246,24 @@ var KTAppCalendar = function () {
         addButton.addEventListener('click', e => {
             // Reset form data
             data = {
+            /*
                 id: '',
-                calendarNm: '',
+                calendarNm: '', 
                 calendarCn: '',
                 startDate: new Date(),
                 endDate: new Date(),
                 allDay: false
+                */
+                id: '',
+	            calendarNm: '휴가', // Setting default values
+	            calendarCn: '하와이 여행',
+	            calendarDaddr: '하와이',
+	            calendarDt: '2024-11-20',
+	            calendarEndDt: '2024-11-27',
+	            calendarStartTime: '11:00',
+	            calendarEndTime: '20:00',
+	            allDay: false
+                
             };
             handleNewEvent();
         });

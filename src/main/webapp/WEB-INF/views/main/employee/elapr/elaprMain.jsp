@@ -138,7 +138,6 @@
 										<th style="width: 15%">제목</th>
 										<th style="width: 11%">결재양식</th>
 										<th style="width: 8%">긴급</th>
-										<!-- <th style="width: 10%">첨부</th> -->
 										<th style="width: 10%">결재상태</th>
 									</tr>
 								</thead>
@@ -176,7 +175,6 @@
 															</c:if>
 															<c:if test="${elaprVO.elaprEmrgYn eq 'N'}"/>
 														</td>
-														<%-- <td>${elaprVO.atchFileCode }</td> --%>
 														<td>
 															<c:if test="${elaprVO.elaprSttsCd eq 'APRZ002'}">
 																<span class="badge badge-light-primary fs-7 fw-bold">완료</span>

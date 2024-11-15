@@ -164,11 +164,13 @@
 					LEFT OUTER JOIN 
 						(
 						SELECT 
-							sum(VCT_USE_DAY_CNT) VCT_USE_DAY_CNT, EMP_ID 
+							sum(va.VCT_USE_DAY_CNT) VCT_USE_DAY_CNT, EMP_ID 
 						FROM
-							VACATION_APPLY 
+							VACATION_APPLY va, VACATION_APPLY_APPROVAL vaa
 						WHERE
-							VCT_APR_STTS = 'APR002'
+							va.VCT_APLY_CD = vaa.VCT_APLY_CD
+						AND
+							vaa.VCT_APLY_APR_STTS = 'VAA002'
 						GROUP BY EMP_ID
 						) c
 					ON

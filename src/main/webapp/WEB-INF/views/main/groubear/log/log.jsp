@@ -78,8 +78,6 @@
 		                                                            <div class="text-center">${item.departmentName} </div>
                                                             	</c:otherwise>
                                                             </c:choose>
-	
-                                                            
                                                             </td>
                                                             <td><div class="text-center">${item.empNm }</div></td>
                                                             <td><div class="text-center">${item.empId }</div></td>
@@ -225,10 +223,11 @@ $(function() {
             tableBody.append('<tr><td class="text-center" colspan="7">로그가 존재하지 않습니다.</td></tr>');
         } else {
             $.each(data, function(index, item) {
+            	let departmentName = item.departmentName ? item.departmentName : '대표'; // null 체크
                 let row = `<tr>
                     <td><div class="text-center">\${item.logCrtDt}</div></td>
                     <td><div class="text-center">\${item.companyName}</div></td>
-                    <td><div class="text-center">\${item.departmentName}</div></td>
+                    <td><div class="text-center">\${departmentName}</div></td>
                     <td><div class="text-center">\${item.empNm}</div></td>
                     <td><div class="text-center">\${item.empId}</div></td>
                     <td><div class="text-center">\${item.logIp}</div></td>

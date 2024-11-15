@@ -244,7 +244,7 @@ a:hover {
 											</c:forEach>
 											<div class="bullet w-15px h-7px rounded-2 bg-danger me-3"></div>
 											<span class="text-gray-900 pt-1 fw-semibold fs-2"
-												style="margin-right: 60px;"> 가입기업 수 </span>
+												style="margin-right: 50px;"> 가입기업 수 </span>
 											<div class="fw-bolder text-gray-900 fs-1 me-4"
 												data-kt-countup="true"
 												data-kt-countup-value="${companyCount}"
@@ -262,7 +262,7 @@ a:hover {
 											</c:forEach>
 											<div class="bullet w-15px h-7px rounded-2 bg-primary me-3"></div>
 											<span class="text-gray-900 pt-1 fw-semibold fs-2"
-												style="margin-right: 60px;"> 가입회원 수 </span>
+												style="margin-right: 50px;"> 가입회원 수 </span>
 											<div class="fw-bolder text-gray-900 fs-1 me-4"
 												data-kt-countup="true" data-kt-countup-value="${empCount}"
 												data-kt-countup-suffix="+">${empCount}</div>
@@ -279,7 +279,7 @@ a:hover {
 											</c:forEach>
 											<div class="bullet w-15px h-7px rounded-2 bg-success me-3"></div>
 											<span class="text-gray-900 pt-1 fw-semibold fs-2"
-												style="margin-right: 60px;"> 커뮤니티 수 </span>
+												style="margin-right: 50px;"> 커뮤니티 수 </span>
 											<div class="fw-bolder text-gray-900 fs-1 me-4"
 												data-kt-countup="true"
 												data-kt-countup-value="${communityCount}"
@@ -297,7 +297,7 @@ a:hover {
 											</c:forEach>
 											<div class="bullet w-15px h-7px rounded-2 bg-warning me-3"></div>
 											<span class="text-gray-900 pt-1 fw-semibold fs-2"
-												style="margin-right: 60px;"> 로그생성 수 </span>
+												style="margin-right: 50px;"> 로그생성 수 </span>
 											<div class="fw-bolder text-gray-900 fs-1 me-4"
 												data-kt-countup="true" data-kt-countup-value="${logCount}"
 												data-kt-countup-suffix="+">${logCount}</div>

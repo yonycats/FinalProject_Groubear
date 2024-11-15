@@ -139,7 +139,7 @@
 		            SELECT 1
 		            FROM approval_line al
 		            WHERE al.elapr_no = ea.elapr_no
-		                AND al.apln_stts_cd = 'APLN001'
+		                AND al.apln_stts_cd != 'APLN002'
 		        )
 		    <include refid="elaprSearch"/>
 		    ORDER BY ea.elapr_no desc
@@ -169,7 +169,7 @@
 		                SELECT 1
 		                FROM approval_line al
 		                WHERE al.elapr_no = ea.elapr_no
-		                    AND al.apln_stts_cd = 'APLN001'
+		                    AND al.apln_stts_cd != 'APLN002'
 		            )
 				<include refid="elaprSearch"/>
 		        ORDER BY ea.elapr_no desc
