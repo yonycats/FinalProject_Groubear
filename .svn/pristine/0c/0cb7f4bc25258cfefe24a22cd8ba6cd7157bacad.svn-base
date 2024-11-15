@@ -833,9 +833,9 @@ function f_createJstree(treeData) {
     });
     
     // 양식을 선택하면 CKEDITOR에 양식 내용 삽입하기
-    $('#formJstree').bind('select_node.jstree', function(event, data){
+    $('#formJstree').bind('select_node.jstree', function(event, data){ 
     	// 선택한 사원들 배열 (myArray)중에서 첫번째 배열만 가져와서 전달하기
-    	let selectInfoFirst = myArray[0];
+    	let myArrayFirst = myArray[0];
     	console.log("myArrayFirst : " + myArrayFirst);
 
        // 노드를 선택했을 때 id = docFormNo 가져오기
@@ -848,7 +848,6 @@ function f_createJstree(treeData) {
        console.log("docFormNoJstree : " + docFormNoJstree);
        console.log("$('#docFormNo').val() : " + $('#docFormNo').val());
        
-       // 선택한 양식을 ajax로 가져온 사원이 정보로 치환하여 CKEDITOR에 내용 삽입하기
        $.ajax({
           url: "/company/proveSelectForm.do?docFormNo=" + docFormNo,
           type: "get",
@@ -858,18 +857,19 @@ function f_createJstree(treeData) {
              
              // 회원의 정보를 증명서에 집어넣기
              $.ajax({
-            	 url: "/company/selectEmpImpl.do?empId=" + selectInfoFirst,
+            	 url: "/company/selectEmpImpl.do?empId=" + myArrayFirst,
             	 type: 'get', 
             	 dataType: "JSON",
                  success: function(data) {
                 	 console.log(data);
                 	 
-                     // CKEditor 내용 가져오기 (파라미터만 들어가 있는 기본 양식)
+                     // CKEditor 내용 가져오기
                      let content = CKEDITOR.instances.provedocEditorCK.getData(); 
                      
-                     // 양식의 파라미터와 ajax로 가져온 사원의 정보를 치환하기
-                     // 정규 표현식 -> /\#\{(\w+)\}/g : #{key} 형식의 패턴 찾기
                      content = content.replace(/\#\{(\w+)\}/g, function(match, key) {
+/*                        	     console.log("Matched:", match); // 일치하는 문자열 출력
+                   	     console.log("Key:", key); // 캡처된 키 출력
+                   	     console.log("Data:", data[key]); // data 객체에서 키에 해당하는 값 출력 */
                          return data[key] !== null ? data[key] : ""; // 데이터가 없으면 빈칸 반환
                      });
 
@@ -879,7 +879,6 @@ function f_createJstree(treeData) {
              });
          }
        });
-       
     });
     
 }

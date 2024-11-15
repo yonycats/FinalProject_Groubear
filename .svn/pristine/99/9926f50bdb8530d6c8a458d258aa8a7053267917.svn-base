@@ -64,7 +64,7 @@
 	data-kt-drawer-direction="start"
 	data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
 	<div
-		class="app-sidebar-logo d-none d-lg-flex flex-stack flex-shrink-0 px-13"
+		class="app-sidebar-logo d-none d-lg-flex flex-stack flex-shrink-0 px-7"
 		id="kt_app_sidebar_logo">
 		<a href="/employee/main.do"> <img alt="Logo"
 			src="${pageContext.request.contextPath}/resources/design/media/logos/GrouBear.png"

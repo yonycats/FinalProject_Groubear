@@ -60,4 +60,15 @@
   	
   	
   	</update>
+  	
+  	<select id="chkworksttsVO" parameterType="kr.or.ddit.comm.security.vo.EmployeeVO" resultType="int">
+  		SELECT
+			COUNT(*) 
+		FROM 
+			WORK_STATUS
+		WHERE 
+			EMP_ID = #{empId}
+		AND 
+			TO_CHAR(WORK_STTS_YMD, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+  	</select>
   </mapper>

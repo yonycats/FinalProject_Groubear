@@ -445,12 +445,13 @@
 	        EMP_JNCMP_YMD,
 	        EMP_CRT_YMD,
 	        EMP_MDFCN_YMD,
+	        EMP_GNDR,
 	        EMP_DEL_YN,
 	        EMP_APRV_YN,
 	        ENABLED
 		) VALUES (
 		    #{imgFileUrl}, #{empId}, #{coCd}, #{deptCd}, #{teamCd}, #{jbgdCd}, #{empPw}, #{empNm}, 
-        	#{empNo}, #{empTelno}, #{empJncmpYmd}, SYSDATE, SYSDATE, 'N', 'Y', 1
+        	#{empNo}, #{empTelno}, #{empJncmpYmd}, SYSDATE, SYSDATE, #{empGndr}, 'N', 'Y', 1
 		)
   	</insert>
   	
