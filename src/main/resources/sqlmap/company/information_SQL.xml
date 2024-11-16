@@ -327,14 +327,15 @@
 	  			EMPLOYEE E, DEPARTMENT D, JOBGRADE J
 	  		WHERE 
 	  			E.CO_CD = #{coCd} AND E.DEPT_CD = D.DEPT_CD AND E.JBGD_CD = J.JBGD_CD AND E.EMP_DEL_YN = 'N'
+	  		ORDER BY J.JBGD_AUTH_PRORD ASC
   	</select>
   	
 	<select id="orgEmpList" parameterType="String" resultType="kr.or.ddit.comm.security.vo.EmployeeVO">
 		SELECT E.EMP_NM AS EMP_NM, E.EMP_NO, E.JBGD_CD AS EJBGD_CD, D.DEPT_NM AS DEPTCD, J.JBGD_NM AS JBGDCD, E.EMP_JNCMP_YMD, 
-  				E.EMP_TELNO, E.IMG_FILE_URL, E.EMP_ID AS EMP_ID, E.EMP_EML_ADDR
+  				E.EMP_TELNO, E.IMG_FILE_URL, E.EMP_ID AS EMP_ID, E.EMP_EML_ADDR, J.JBGD_AUTH_PRORD
   		FROM EMPLOYEE E, DEPARTMENT D, JOBGRADE J
   		WHERE E.CO_CD = #{coCd} AND E.DEPT_CD = D.DEPT_CD AND E.JBGD_CD = J.JBGD_CD AND E.EMP_DEL_YN = 'N'
-  		ORDER BY EJBGD_CD DESC, EMP_NM ASC
+  		ORDER BY J.JBGD_AUTH_PRORD ASC, EMP_NM ASC
   	</select>
   	
 	<select id="selectDeptList" parameterType="kr.or.ddit.comm.security.vo.EmployeeVO" resultType="kr.or.ddit.company.personnelInformation.vo.DepartmentVO">
@@ -345,12 +346,13 @@
   	</select>
   	
 	<select id="selectDeptTeamList" parameterType="String" resultMap="deptMap">
-  		SELECT D.DEPT_CD, D.DEPT_NM, T.TEAM_CD, T.TEAM_NM
-  		FROM DEPARTMENT D, TEAM T
+  		 SELECT D.DEPT_CD, D.DEPT_NM, T.TEAM_CD, T.TEAM_NM, J.JBGD_AUTH_PRORD
+  		FROM DEPARTMENT D, TEAM T, JOBGRADE J
   		WHERE 
-  			CO_CD = #{coCd} AND D.DEPT_CD = T.DEPT_CD
+  			D.CO_CD = #{coCd} AND D.DEPT_CD = T.DEPT_CD
   			AND D.DEPT_ACTVTN_YN = 'Y'
-  		ORDER BY D.DEPT_NM ASC, T.TEAM_NM ASC
+  			AND J.CO_CD = D.CO_CD
+  		ORDER BY J.JBGD_AUTH_PRORD ASC, D.DEPT_NM ASC, T.TEAM_NM ASC
   	</select>
   	
   	<select id="comAllMenuList" resultType="kr.or.ddit.company.personnelInformation.vo.MenuVO">

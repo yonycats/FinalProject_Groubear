@@ -117,7 +117,7 @@ input[type=file]::file-selector-button {
 											<div
 												class="d-flex align-items-center justify-content-end ms-auto">
 												<input class="form-check-input w-15px h-15px"
-													type="checkbox" id="cmntyNoticeYn"
+													checked="checked" type="checkbox" id="cmntyNoticeYn"
 													name="cmntyNoticeYn" style="margin-bottom: 5px" /> <label
 													class="fw-semibold fs-6 mb-2" style="padding-left: 5px">공지
 													여부</label>
@@ -135,14 +135,35 @@ input[type=file]::file-selector-button {
 											<label class="required fw-semibold fs-6 mb-2">제목</label> <input
 												type="text" id="cmntyTtl" name="cmntyTtl"
 												class="form-control form-control-solid mb-3 mb-lg-0"
-												placeholder="제목을 입력해주세요" />
+												placeholder="제목을 입력해주세요"
+												value="2024년 법정의무교육 [성희롱 예방 교육] 수강 안내" />
 										</div>
 										<div class="fv-row mb-7">
 											<label class="required fw-semibold fs-6 mb-2">내용</label>
 											<pre>
 											<textarea id="cmntyCn" name="cmntyCn" rows="10" cols="10"
 													class="form-control form-control-solid mb-3 mb-lg-0"
-													placeholder="내용을 입력해주세요" wrap="hard"></textarea>
+													placeholder="내용을 입력해주세요" wrap="hard">안녕하세요.
+
+													2024년 *법정의무교육 [성희롱 예방 교육] 수강 안내드립니다.
+
+													1년에 한번 실시하며, 직원들은 꼭 이수해야합니다.  본인이 직접 수강하셔야 합니다! (대리수강불가)
+													
+													
+													
+													※ 법정의무교육 일정 안내
+
+													★ 첨부파일 '유의사항' 필독하여 주시기 바랍니다.
+													
+													1. 교육기간 : 2024.11.11 ~ 2024.11.29 (기간엄수)
+													
+													2. 교육 방법 : 올윈에듀 교육사이트 : https://allwinedu.net/ 로그인 후 PC 또는 모바일 수강
+													
+													3. 수료 기준 : 강의 100% 이수
+													
+													4. 주의사항 :  차시 당 학습시간 반 이상을 학습해야 진도율이 정상적으로 체크됩니다.
+
+													</textarea>
 											</pre>
 										</div>
 										<div class="fv-row mb-7">

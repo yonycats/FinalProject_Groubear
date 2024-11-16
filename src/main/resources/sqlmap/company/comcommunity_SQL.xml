@@ -71,7 +71,7 @@
 		where co_cd = #{coCd}
 		and cmnty_type = 'free'
 		and cmnty_del_yn = 'N'
-		order by cmnty_no desc
+		order by cmnty_reg_dt desc
 	</select>
 
 	<select id="communityInfo" resultType="kr.or.ddit.company.community.vo.ComCommunityVO"
@@ -89,7 +89,7 @@
 		where co_cd = #{coCd}
 		and cmnty_type = 'info'
 		and cmnty_del_yn = 'N'
-		order by cmnty_no desc
+		order by cmnty_reg_dt desc
 	</select>
 
 	<select id="communityCompany" resultType="kr.or.ddit.company.community.vo.ComCommunityVO"
@@ -107,7 +107,7 @@
 		where co_cd = #{coCd}
 		and cmnty_type = 'company'
 		and cmnty_del_yn = 'N'
-		order by cmnty_no desc
+		order by cmnty_reg_dt desc
 	</select>
  
  	<insert id="atchFileinsert" parameterType="kr.or.ddit.comm.file.vo.AtchFileVO" useGeneratedKeys="true">
@@ -292,7 +292,7 @@
 				where cmnty_type = #{cmntyType}
 				and cmnty_del_yn = 'N'
 				<include refid="cmntySearch"/>
-				order by cmnty_no desc
+				order by cmnty_reg_dt desc
 			) a
 		) b
 		<![CDATA[
