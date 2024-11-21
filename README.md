@@ -3,6 +3,11 @@
 ▣ 최종프로젝트
 프로젝트명 : 그루베어 (SaaS 그룹웨어 시스템)
 
+![image](https://github.com/user-attachments/assets/6a17283f-47b2-42a6-90db-6a13b11961d1)
+
+![image](https://github.com/user-attachments/assets/052b7531-b669-4a97-9f06-5777934c9b5e)
+
+
 ▣ 프로젝트 요약
 * ‘그루베어’ 프로젝트의 목표 : SaaS형 통합 그룹웨어 플랫폼 개발.
 1. 사용자 정의 기능 
