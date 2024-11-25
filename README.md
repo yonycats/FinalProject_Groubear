@@ -1,17 +1,17 @@
-*** 프로젝트 구현 세부 기능에 대해서는 담당한 파트 부분만 기재하였습니다. ***
-
-
-
+<div align="center">*** 프로젝트 구현 세부 기능에 대해서는 담당한 파트 부분만 기재하였습니다. ***</div>
+<br>
+<br>
+<br>
 
 ------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
+<br>
+<br>
+<br>
 
 <div align="center">
 <h2>[2024] DDIT_21기 4조 최종프로젝트</h2>
-SaaS형 통합 그룹웨어 플랫폼이며 사용자 친화적 인터페이스와 조직 내 협업과 소통 극대화가 되는 SaaS형 통합 그룹웨어 플랫폼, GrouBear입니다!<br>
+SaaS형 통합 그룹웨어 플랫폼이며 사용자 친화적 인터페이스와 조직 내 협업과 소통 극대화가 되는 SaaS형 통합 그룹웨어 플랫폼, <br>
+GrouBear입니다.<br>
  
 
 </div>
@@ -54,8 +54,8 @@ GrouBear
   <tbody>
     <tr>
       <td align="center"><b> 권기혁 </b><br />PL</td>
-      <td align="center"><b> 강성연 </b><br />AA</td>
       <td align="center"><b> 김연희 </b><br />TA</td>
+      <td align="center"><b> 강성연 </b><br />AA</td>
       <td align="center"><b> 윤다빈 </b><br />QA</td>
       <td align="center"><b> 이은재 </b><br />DA</td>
       <td align="center"><b> 이현수 </b><br />BA</td>
@@ -66,16 +66,20 @@ GrouBear
 
 
 ## 프로젝트 설명
-|<img width="525" height="295" alt="로그인화면" src="https://github.com/user-attachments/assets/96b1d5d4-6234-41f0-a604-886395ce30b2">|<img width="525" height="295" alt="로그인화면" src="https://github.com/user-attachments/assets/20b4aa14-5949-4906-a681-88b80cef2ea5">|
-|:---:|:---:|
-|로그인 화면|메인 페이지|
+<br>
 
 ▣ 최종프로젝트
-프로젝트명 : 그루베어 (SaaS 그룹웨어 시스템)
-
+프로젝트명 : 그루베어 (SaaS 그룹웨어 시스템)<br>
+<br>
+<br>
 ![image](https://github.com/user-attachments/assets/6a17283f-47b2-42a6-90db-6a13b11961d1)
+<br>
+<br>
 
+------------------------------------------------------------------------------------------------------------------------------------
 ![image](https://github.com/user-attachments/assets/052b7531-b669-4a97-9f06-5777934c9b5e)
+<br>
+<br>
 
 
 ▣ 프로젝트 요약
@@ -118,26 +122,25 @@ GrouBear
 |---|---|---|---|
 |![전자결재](https://github.com/user-attachments/assets/2736f74d-ce77-4319-ac3c-1a1aed98242a)|![차량등록](https://github.com/user-attachments/assets/05ffcb31-2b07-44b1-b669-95f283041213)|![클라우드](https://github.com/user-attachments/assets/0c9d7302-8fd4-4539-aa51-60ec609c98a4)|![프로젝트](https://github.com/user-attachments/assets/3edc6c4d-20ff-4a4d-b9f5-c683e912dd05)
 
-
-
-
+<br>
+<br>
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
-
-
+<br>
+<br>
 
 ## ERD Cloud
 
 ![image](https://github.com/user-attachments/assets/cd1a63ad-963f-412d-be88-3e2950aade33)
 
-
-
+<br>
+<br>
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
-
-
+<br>
+<br>
 
 ## 프로젝트 내에서의 역할 : TA / 보조업무 : DA
 
@@ -161,17 +164,22 @@ GrouBear
 - 서로 충돌하는 부분의 컬럼이나 테이블마다 불필요하게 중복되는 컬럼에 대하여 팀원들과 피드백을 나눈 후 수정 반영함
 - 클라우드 테이블을 효과적으로 화면 및 다운로드를 구성하기 위하여 클라우드함, 클라우드 폴더, 클라우드 파일 3개의 테이블을 계층형으로 구현함
 
-
+<br>
+<br>
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
-
+<br>
+<br>
 
 ## 프로젝트 구현 기능 상세
  : 1. 양식 관리, 2. 증명서 발급, 3. 클라우드, 4. 공지사항, 5. QnA, 
    6. 오늘의 날씨 및 날씨 메뉴 추천 & 음식점(메뉴) 지도 검색 
+   
+<br>
+<br>
 
-▷ 1. 양식 관리
+<h3>▷ 1. 양식 관리</h3>
 
 ![image](https://github.com/user-attachments/assets/17066966-fd76-4a06-a34e-b2dff62a16d7)
 
@@ -188,8 +196,10 @@ GrouBear
 - 양식을 매번 처음부터 만드는 번거로움을 줄이기 위해 양식 불러오기를 통해 기존에 등록한 양식을 불러와서 변형하여 사용할 수 있도록 함. 
 - 양식 종류는 상위 양식을 선택하여 해당 상위 양식의 하위에 세부 종류를 추가할 수 있도록 함.
 
+<br>
+<br>
 
-▷ 2. 증명서 발급
+<h3>▷ 2. 증명서 발급</h3>
 
 ![image](https://github.com/user-attachments/assets/0b4cb401-d9ae-4de2-aef6-028f8d2852b2)
 
@@ -213,7 +223,10 @@ GrouBear
 - 기존에 선택한 양식 내용을 불러온 후, 양식 내에서 정규 표현식으로 #{key} 형식으로 된 문자열을 찾음.
 - 해당 문자열 내의 key와 json 형식으로 받아온 객체의 key가 같다면 정보를 치환하도록 구현함.
 
-▷ 3. 클라우드
+<br>
+<br>
+
+<h3>▷ 3. 클라우드</h3>
 
 ![image](https://github.com/user-attachments/assets/905779fd-91a1-4a9a-8b35-1b3d6ce91754)
 
@@ -227,8 +240,10 @@ GrouBear
 - 전체 폴더 목록을 JSTree의 계층형 구조로 구현하여, 사용자가 업로드할 파일이나 파일/폴더의 이동 위치를 쉽게 선택할 수 있도록 하였으며, 원하는 위치의 폴더를 클릭하면 해당 폴더 내부로 전환되도록 함.
 - 폴더를 생성 / 수정시 직급에 따른 열람 권한을 부여하여 보안성을 높이고, 전체보기에서 열람 권한이 없는 폴더는 자물쇠 아이콘으로 별도 표시함으로써 사용자의 직관성과 가독성을 높임.
 
+<br>
+<br>
 
-▷ 4. 공지사항
+<h3>▷ 4. 공지사항</h3>
 
 ![image](https://github.com/user-attachments/assets/475564a8-0c97-4165-82d0-39ee39f48627)
 ![image](https://github.com/user-attachments/assets/74bfb586-803a-47ad-8c86-a7a6b718b15c)
@@ -244,8 +259,10 @@ GrouBear
 - 공지 상세 페이지에서 개별 파일 다운로드를 할 수 있도록 하고, 더불어 전체 파일을 한번에 zip으로도 다운받을 수 있도록 구현함
 - CKEditor API를 사용하여 글쓰기에 테이블, 문단, 진하기 등의 특정 효과를 줄 수 있도록 함
 
+<br>
+<br>
 
-▷ 5. QnA
+<h3>▷ 5. QnA</h3>
 
 ![image](https://github.com/user-attachments/assets/5ab9e01b-78d0-424a-bab6-b3c143c7f098)
 ![image](https://github.com/user-attachments/assets/f8f35185-2190-4740-af97-7f3ff552cf31)
@@ -258,7 +275,7 @@ GrouBear
 - QnA 질문자가 비밀글 여부를 선택할 수 있도록 하였고, 비밀글일 경우 시스템 관리자와 작성자 본인만 상세 페이지를 확인할 수 있도록 함. 
 
 
-▷ 6. 오늘의 날씨 및 날씨 메뉴 추천 & 음식점(메뉴) 지도 검색 
+<h3>▷ 6. 오늘의 날씨 및 날씨 메뉴 추천 & 음식점(메뉴) 지도 검색 </h3>
 
 ![image](https://github.com/user-attachments/assets/acfad661-0e4b-4bda-bac0-4a6a929d54eb)
 ![image](https://github.com/user-attachments/assets/afb6719d-445d-478e-a9c3-cc84c4c52ece)
@@ -272,10 +289,10 @@ GrouBear
 - 모달창을 닫으면 자동으로 하단 스크롤이 내려가며, 추천된 메뉴가 왼쪽에 뜨고 카카오맵에 자동으로 검색되어 추천된 메뉴를 판매하는 회사 주변의 식당 목록을 출력함.
 - 마커와 목록을 클릭하면 해당 카카오맵의 상세페이지로 넘어가도록 카카오맵 전용 id를 받아 파라미터로 사용하여 a링크를 구현함.
 
+<br>
+<br>
 
-
-
-▷ + 홈피드용 소형 위젯 구현 및 디자인 배포
+<h3>▷ + 홈피드용 소형 위젯 구현 및 디자인 배포</h3>
 
 ![image](https://github.com/user-attachments/assets/f0655712-aaba-4e00-9fdb-5801b37caab9)
 ![image](https://github.com/user-attachments/assets/ae448fab-dc8f-474b-9677-c35573f19bda)
@@ -283,7 +300,7 @@ GrouBear
 
 - 시스템 관리자의 QnA 미답변 게시물 개수, 기업 관리자의 사원 증명서 요청관리 현황, 전체 Actor의 공지사항 위젯을 만들고, 해당 위젯 디자인 골조를 팀원들이 가져다 쓸 수 있도록 공유함. 
 
-* 기타
+<h3>* 기타</h3>
 
 ![image](https://github.com/user-attachments/assets/879f07c9-231e-4c88-867d-2aa96e9c6e2f)
 
