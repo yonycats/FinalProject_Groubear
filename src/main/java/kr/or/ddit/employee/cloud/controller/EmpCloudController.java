@@ -858,44 +858,41 @@ public class EmpCloudController {
 		return new ResponseEntity<String>("OK", HttpStatus.OK);
 	}
 	
+	// 3 개의 매개변수 : 압축할 디렉토리(fldrToZip), ZIP파일 내에서 디렉토리 이름(fldrName), ZIP출력 스트림(zos)
 	private void zipDirectory(File fldrToZip, String fldrName, ZipOutputStream zos) throws IOException {
-		// 폴더 내의 폴더 및 파일 여부 확인 후 재귀함수 호출
+		// 폴더 내의 폴더 및 파일을 전부 반복하기 위해 listFiles()로 File 객체 배열 호출
 		for (File file : fldrToZip.listFiles()) {
+			// UUID를 제외하고 실제 이름만 저장하기 위한 코드 2줄
         	int index1 = file.getName().lastIndexOf('_'); // 마지막 '_' 위치 찾기
+        	// fldrName과 폴더/파일명을 결합하여 전체 경로 만들기
         	String fldrOrgnName = fldrName + File.separator + file.getName().substring(index1 + 1); // '_' 뒤의 부분
 
-            if (file.isDirectory()) {
-                zos.putNextEntry(new ZipEntry(fldrOrgnName + "/")); // 디렉토리 엔트리 추가
+            if (file.isDirectory()) {	// 폴더일 때
+            	// 디렉토리명을 엔트리에 추가, 디렉토리명 뒤에 /를 붙여서 디렉토리임을 명시
+                zos.putNextEntry(new ZipEntry(fldrOrgnName + "/")); 
                 zos.closeEntry(); // 디렉토리 엔트리 종료
+                // 디렉토리(폴더)라면 다시 재귀함수 호출하기
                 zipDirectory(file, fldrOrgnName, zos); 
-            } else {
+            } else {	// 파일일 때
+            	// UUID를 제외하고 실제 이름만 저장하기 위한 코드 2줄
             	int index2 = file.getName().lastIndexOf('_'); // 마지막 '_' 위치 찾기
             	String fileOrgnName = fldrName + File.separator + file.getName().substring(index2 + 1); // '_' 뒤의 부분
-            	
-            	zipFile(file, zos, fileOrgnName);
+            	// 파일이라면, 파일 객체와 zip스트림, 파일의 이름을 가지고 zipFile() 메소드에게 전달
+            	zipFile(file, fileOrgnName, zos);
             }
 		}
 	}
 
-    private void zipFile(File fileToZip, ZipOutputStream zos, String fileName) throws IOException {
-    	// 동일한 파일 이름이 있는지 여부를 확인하고 다른 이름을 붙이기 위한 리스트 (파일명 검색 후, 동일한 이름의 파일을 다운받을 때 활용)
-		if (nameCheckList.contains(fileName)) {
-			String[] splitFileName = fileName.split("\\.");
-			splitFileName[0] += "(" + ++num + ")";
-			fileName = splitFileName[0] + "." + splitFileName[1];
-		}
-		nameCheckList.add(fileName);
-    	
-    	// try-with-resources 구문으로, 해당 구문이 끝나면 자동으로 InputStream이 종료됨
+	// 3 개의 매개변수 : 압축할 파일(fileToZip), ZIP파일 내에서 파일 이름(fileName), ZIP출력 스트림(zos)
+    private void zipFile(File fileToZip, String fileName, ZipOutputStream zos) throws IOException {
+    	// try-with-resources 구문으로 InputStream 생성, 해당 구문이 끝나면 자동으로 InputStream이 종료됨
         try (InputStream fis = Files.newInputStream(fileToZip.toPath())) {
         	// ZipEntry 객체를 생성하여 ZIP 파일 내에 추가할 항목을 정의 
-        	// 파일의 이름을 가져와서 ZIP 아카이브 내에서 이 이름으로 저장 
+        	// 파일의 이름을 가져와서 ZIP내에 해당 이름으로 저장 
             ZipEntry zipEntry = new ZipEntry(fileName);
-            
-            // ZipOutputStream(zos)에 새로 생성한 zipEntry를 추가, ZIP 아카이브에서 다음 항목을 추가할 준비
+            // ZipOutputStream(zos)에 새로 생성한 zipEntry를 추가, ZIP에서 다음 항목을 추가할 준비
             zos.putNextEntry(zipEntry);
-            
-            // 실제 파일 데이터를 ZIP 아카이브에 저장
+            // fileToZip의 내용을 ZipOutputStream에 복사, 실제 파일 데이터를 ZIP 아카이브에 저장하는 단계
             Files.copy(fileToZip.toPath(), zos);
             zos.closeEntry();
         }
